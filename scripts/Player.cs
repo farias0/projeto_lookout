@@ -5,10 +5,13 @@ public partial class Player : CharacterBody3D
 {
     [Export]
     public int Speed { get; set; } = 14;
+	[Export]
+	public int SpeedCrouched { get; set; } = 6;
     [Export]
     public int FallAcceleration { get; set; } = 75;
 
     private Vector3 _targetVelocity = Vector3.Zero;
+	private bool _isCrouching = false;
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -31,8 +34,8 @@ public partial class Player : CharacterBody3D
 
 		direction = direction.Rotated(Vector3.Up, Rotation.Y);
 
-		_targetVelocity.X = direction.X * Speed;
-		_targetVelocity.Z = direction.Z * Speed;
+		_targetVelocity.X = direction.X * GetCurrentSpeed();
+		_targetVelocity.Z = direction.Z * GetCurrentSpeed();
 
 		if (!IsOnFloor())
 		{
@@ -50,6 +53,31 @@ public partial class Player : CharacterBody3D
 			Vector2 move = eventMouseMotion.ScreenRelative;
 
 			RotateY(Mathf.DegToRad(-move.X * 0.1f));
+		}
+
+		if (@event.IsActionPressed("crouch_toggle"))
+        {
+            ToggleCrouch();
+        }
+	}
+
+
+	private float GetCurrentSpeed()
+	{
+		return _isCrouching ? SpeedCrouched : Speed;
+	}
+
+	private void ToggleCrouch()
+	{
+		_isCrouching = !_isCrouching;
+
+		if (_isCrouching)
+		{
+			Scale = new Vector3(1, 0.5f, 1);
+		}
+		else
+		{
+			Scale = new Vector3(1, 1, 1);
 		}
 	}
 }
