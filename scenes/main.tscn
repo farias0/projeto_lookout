@@ -28,16 +28,17 @@ transform = Transform3D(1, 0, 0, 0, -0.394038, 0.919094, 0, -0.919094, -0.394038
 shadow_enabled = true
 
 [node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("1_ilwrl")
 
 [node name="Pivot" type="Node3D" parent="Player"]
 
 [node name="Character" parent="Player/Pivot" instance=ExtResource("1_t22ht")]
+transform = Transform3D(0.956305, 0, -0.292372, 0, 1, 0, 0.292372, 0, 0.956305, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
 shape = SubResource("CylinderShape3D_sux4q")
 
-[node name="CameraPivot" type="Marker3D" parent="."]
-
-[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 2)
