@@ -17,9 +17,9 @@ public partial class Player : CharacterBody3D
 			direction.X += 1.0f;
 		if (Input.IsActionPressed("move_left"))
 			direction.X -= 1.0f;
-		if (Input.IsActionPressed("move_back"))
+		if (Input.IsActionPressed("move_up"))
 			direction.Z += 1.0f;
-		if (Input.IsActionPressed("move_forward"))
+		if (Input.IsActionPressed("move_down"))
 			direction.Z -= 1.0f;
 
 		if (direction != Vector3.Zero)
