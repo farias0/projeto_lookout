@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://ckkl12kv0h1v2"]
+
+[ext_resource type="Script" path="res://scripts/Player.cs" id="1_ilwrl"]
+[ext_resource type="PackedScene" uid="uid://8jobdef4o7kg" path="res://Imported/ImageToStl.com_чел.glb" id="1_t22ht"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6ylcs"]
+size = Vector3(76.004, 1, 75.6403)
+
+[sub_resource type="BoxMesh" id="BoxMesh_i7wqq"]
+size = Vector3(70, 1, 70)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_sux4q"]
+height = 4.6
+
+[node name="Main" type="Node3D"]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_6ylcs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_i7wqq")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.394038, 0.919094, 0, -0.919094, -0.394038, 0.217947, -0.328739, 0)
+shadow_enabled = true
+
+[node name="Player" type="CharacterBody3D" parent="."]
+script = ExtResource("1_ilwrl")
+
+[node name="Pivot" type="Node3D" parent="Player"]
+
+[node name="Character" parent="Player/Pivot" instance=ExtResource("1_t22ht")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
+shape = SubResource("CylinderShape3D_sux4q")
