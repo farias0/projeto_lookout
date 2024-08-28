@@ -3,6 +3,7 @@ using System;
 
 public partial class Camera : Camera3D
 {
+	public const float Sensitivity = 0.07f;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -24,7 +25,7 @@ public partial class Camera : Camera3D
 			Vector2 move = eventMouseMotion.ScreenRelative;
 
 			// Pitches camera up and down
-			RotateX(Mathf.DegToRad(-move.Y * 0.1f));
+			RotateX(Mathf.DegToRad(-move.Y * Sensitivity));
 
 			Input.WarpMouse(	// Center mouse
 				GetViewport().GetVisibleRect().Size / 2f);

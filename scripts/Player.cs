@@ -4,11 +4,13 @@ using Godot;
 public partial class Player : CharacterBody3D
 {
     [Export]
-    public int Speed { get; set; } = 14;
+    public int Speed { get; set; } = 12;
 	[Export]
 	public int SpeedCrouched { get; set; } = 6;
     [Export]
     public int FallAcceleration { get; set; } = 75;
+	[Export]
+	public int JumpHeight { get; set; } = 20;
 
     private Vector3 _targetVelocity = Vector3.Zero;
 	private bool _isCrouching = false;
@@ -51,14 +53,21 @@ public partial class Player : CharacterBody3D
 		if (@event is InputEventMouseMotion eventMouseMotion)
 		{
 			Vector2 move = eventMouseMotion.ScreenRelative;
-
-			RotateY(Mathf.DegToRad(-move.X * 0.1f));
+			// Rotates the player left and right
+			RotateY(Mathf.DegToRad(-move.X * Camera.Sensitivity));
 		}
 
 		if (@event.IsActionPressed("crouch_toggle"))
         {
             ToggleCrouch();
         }
+		else if (@event.IsActionPressed("jump"))
+		{
+			if (IsOnFloor())
+			{
+				_targetVelocity.Y = JumpHeight;
+			}
+		}
 	}
 
 
