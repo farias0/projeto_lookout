@@ -1,18 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://bv3m1ns1lv7h8"]
+[gd_scene load_steps=5 format=3 uid="uid://bv3m1ns1lv7h8"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_4g1xu"]
 [ext_resource type="PackedScene" uid="uid://8jobdef4o7kg" path="res://Imported/ImageToStl.com_чел.glb" id="2_x5fhl"]
+[ext_resource type="Script" path="res://scripts/Camera.cs" id="3_3g26g"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_kaixf"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_sux4q"]
 height = 4.6
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_4g1xu")
 
-[node name="Pivot2" type="Node3D" parent="."]
+[node name="Pivot" type="Node3D" parent="."]
+visible = false
 
-[node name="Character" parent="Pivot2" instance=ExtResource("2_x5fhl")]
+[node name="Character" parent="Pivot" instance=ExtResource("2_x5fhl")]
+transform = Transform3D(0.956305, 0, -0.292372, 0, 1, 0, 0.292372, 0, 0.956305, 0, 0, 0)
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
-shape = SubResource("CylinderShape3D_kaixf")
+shape = SubResource("CylinderShape3D_sux4q")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+script = ExtResource("3_3g26g")

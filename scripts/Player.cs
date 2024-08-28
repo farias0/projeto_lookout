@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 
 public partial class Player : CharacterBody3D
@@ -28,6 +29,8 @@ public partial class Player : CharacterBody3D
 			GetNode<Node3D>("Pivot").Basis = Basis.LookingAt(direction);
 		}
 
+		direction = direction.Rotated(Vector3.Up, Rotation.Y);
+
 		_targetVelocity.X = direction.X * Speed;
 		_targetVelocity.Z = direction.Z * Speed;
 
@@ -38,5 +41,15 @@ public partial class Player : CharacterBody3D
 
 		Velocity = _targetVelocity;
 		MoveAndSlide();
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		if (@event is InputEventMouseMotion eventMouseMotion)
+		{
+			Vector2 move = eventMouseMotion.ScreenRelative;
+
+			RotateY(Mathf.DegToRad(-move.X * 0.1f));
+		}
 	}
 }
