@@ -6,7 +6,9 @@ ________________________
 
 === ARCO
 
-- atirar flechas
+- flecha colidir c/ parede
+- usar raycast p/ spawnar flecha mais em baixo e ainda acertar centro
+
 - segurar arco
 - animação de atirar?
 

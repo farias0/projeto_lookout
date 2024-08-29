@@ -96,15 +96,15 @@ public partial class Player : CharacterBody3D
 		Node instance = _arrow.Instantiate();
 		AddChild(instance);
 
-		var arrow = instance as Node3D;
+		var node = instance as Node3D;
 
-		Vector3 spawnPosition = GlobalTransform.Origin + GlobalTransform.Basis.Z * -2.0f;
-		arrow.GlobalTransform = new Transform3D(GlobalTransform.Basis, spawnPosition);
+		Vector3 spawnPosition = GlobalTransform.Origin +
+									GlobalTransform.Basis.Y * 1.6f +
+									GlobalTransform.Basis.Z * -0.6f;
+		node.GlobalTransform = new Transform3D(GlobalTransform.Basis, spawnPosition);
 
 		Vector3 arrowDirection = -GlobalTransform.Basis.Z;
-
-		var rb = arrow as RigidBody3D;
-
+		var rb = node as RigidBody3D;
 		rb?.ApplyCentralImpulse(arrowDirection * 10.0f);
 	}
 }
