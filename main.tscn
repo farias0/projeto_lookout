@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://ckkl12kv0h1v2"]
 
-[ext_resource type="PackedScene" uid="uid://bv3m1ns1lv7h8" path="res://scenes/player.tscn" id="1_btxj1"]
-[ext_resource type="PackedScene" uid="uid://8jobdef4o7kg" path="res://Imported/ImageToStl.com_чел.glb" id="1_t22ht"]
+[ext_resource type="PackedScene" uid="uid://bv3m1ns1lv7h8" path="res://player/player.tscn" id="1_5sf8t"]
+[ext_resource type="PackedScene" uid="uid://8jobdef4o7kg" path="res://npc/man.glb" id="2_7pyja"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6ylcs"]
 size = Vector3(76.004, 1, 75.6403)
@@ -24,7 +24,7 @@ mesh = SubResource("BoxMesh_i7wqq")
 transform = Transform3D(1, 0, 0, 0, -0.394038, 0.919094, 0, -0.919094, -0.394038, 0.217947, -0.328739, 0)
 shadow_enabled = true
 
-[node name="Player" parent="." instance=ExtResource("1_btxj1")]
+[node name="Player" parent="." instance=ExtResource("1_5sf8t")]
 
-[node name="NPC" parent="." instance=ExtResource("1_t22ht")]
+[node name="NPC" parent="." instance=ExtResource("2_7pyja")]
 transform = Transform3D(-0.996586, 0, -0.0825646, 0, 1, 0, 0.0825646, 0, -0.996586, -10.1794, -0.500002, -17.5804)

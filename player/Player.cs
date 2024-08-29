@@ -14,6 +14,7 @@ public partial class Player : CharacterBody3D
 
     private Vector3 _targetVelocity = Vector3.Zero;
 	private bool _isCrouching = false;
+	private PackedScene _arrow = GD.Load<PackedScene>("res://bow-n-arrow/arrow/arrow.tscn"); 
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -48,26 +49,18 @@ public partial class Player : CharacterBody3D
 		MoveAndSlide();
 	}
 
-	public override void _Input(InputEvent @event)
+	public override void _Input(InputEvent e)
 	{
-		if (@event is InputEventMouseMotion eventMouseMotion)
+		if (e is InputEventMouseMotion eventMouseMotion)
 		{
 			Vector2 move = eventMouseMotion.ScreenRelative;
 			// Rotates the player left and right
 			RotateY(Mathf.DegToRad(-move.X * Camera.Sensitivity));
 		}
 
-		if (@event.IsActionPressed("crouch_toggle"))
-        {
-            ToggleCrouch();
-        }
-		else if (@event.IsActionPressed("jump"))
-		{
-			if (IsOnFloor())
-			{
-				_targetVelocity.Y = JumpHeight;
-			}
-		}
+		if (e.IsActionPressed("crouch_toggle"))		ToggleCrouch();
+		if (e.IsActionPressed("jump"))				Jump();
+		if (e.IsActionPressed("fire"))				FireArrow();
 	}
 
 
@@ -88,5 +81,30 @@ public partial class Player : CharacterBody3D
 		{
 			Scale = new Vector3(1, 1, 1);
 		}
+	}
+
+	private void Jump()
+	{
+		if (IsOnFloor())
+		{
+			_targetVelocity.Y = JumpHeight;
+		}
+	}
+
+	private void FireArrow()
+	{
+		Node instance = _arrow.Instantiate();
+		AddChild(instance);
+
+		var arrow = instance as Node3D;
+
+		Vector3 spawnPosition = GlobalTransform.Origin + GlobalTransform.Basis.Z * -2.0f;
+		arrow.GlobalTransform = new Transform3D(GlobalTransform.Basis, spawnPosition);
+
+		Vector3 arrowDirection = -GlobalTransform.Basis.Z;
+
+		var rb = arrow as RigidBody3D;
+
+		rb?.ApplyCentralImpulse(arrowDirection * 10.0f);
 	}
 }

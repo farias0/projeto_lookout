@@ -1,0 +1,34 @@
+=== MOVIMENTAÇÃO
+
+- escorregar ao agachar correndo
+
+________________________
+
+=== ARCO
+
+- atirar flechas
+- segurar arco
+- animação de atirar?
+
+- gancho
+
+- flecha explosiva?
+
+________________________
+
+=== INIMIGOS
+
+- navmesh
+- rotas de patrulha
+- estados...
+
+
+________________________
+
+=== ITENS
+
+- equipar diferentes itens
+- inventário
+
+- poção de vida
+- poção de velocidade
