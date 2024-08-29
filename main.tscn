@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ckkl12kv0h1v2"]
+[gd_scene load_steps=6 format=3 uid="uid://ckkl12kv0h1v2"]
 
 [ext_resource type="PackedScene" uid="uid://bv3m1ns1lv7h8" path="res://player/player.tscn" id="1_5sf8t"]
-[ext_resource type="PackedScene" uid="uid://8jobdef4o7kg" path="res://npc/man.glb" id="2_7pyja"]
+[ext_resource type="PackedScene" uid="uid://bx60ed6qifbif" path="res://npc/npc.tscn" id="3_4s0tw"]
+[ext_resource type="PackedScene" uid="uid://bc5wkuw0yd2j" path="res://wall/wall.tscn" id="3_7rrpu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6ylcs"]
 size = Vector3(76.004, 1, 75.6403)
@@ -21,10 +22,13 @@ shape = SubResource("BoxShape3D_6ylcs")
 mesh = SubResource("BoxMesh_i7wqq")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.394038, 0.919094, 0, -0.919094, -0.394038, 0.217947, -0.328739, 0)
+transform = Transform3D(0.0288236, 0.936986, -0.348174, 0.380756, 0.311768, 0.870532, 0.924226, -0.157661, -0.347778, 0.217947, -0.328739, 0)
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_5sf8t")]
 
-[node name="NPC" parent="." instance=ExtResource("2_7pyja")]
-transform = Transform3D(-0.996586, 0, -0.0825646, 0, 1, 0, 0.0825646, 0, -0.996586, -10.1794, -0.500002, -17.5804)
+[node name="Wall" parent="." instance=ExtResource("3_7rrpu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.76, 1, -15.623)
+
+[node name="NPC" parent="." instance=ExtResource("3_4s0tw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.57276, -0.5, -15.4089)
