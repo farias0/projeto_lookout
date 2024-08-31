@@ -1,7 +1,5 @@
 === MOVIMENTAÇÃO
 
-- por que movimentação tá "travando"?
-
 - escorregar ao agachar correndo
 
 ________________________

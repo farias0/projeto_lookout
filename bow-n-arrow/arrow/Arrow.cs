@@ -12,8 +12,6 @@ public partial class Arrow : Node3D
     private float _lifeTime = LifeTime;
 	private RigidBody3D _rigidBody;
 	private bool _hasHitATarget = false;
-    private Vector3? _hitPoint;
-    private Vector3? _rotation;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -35,8 +33,7 @@ public partial class Arrow : Node3D
             return;
         }
 
-        if (_hasHitATarget) StayInPlace();
-        else                MoveArrow((float)delta);
+        if (!_hasHitATarget) MoveArrow((float)delta);
     }
 
 
@@ -45,21 +42,12 @@ public partial class Arrow : Node3D
         Position -= Transform.Basis.X * Speed * delta;
     }
 
-    // Necessary because the arrow in a child node of a moving entity
-    private void StayInPlace()
-    {
-        GlobalPosition = _hitPoint.Value;
-        GlobalRotation = _rotation.Value;
-        _rigidBody.LinearVelocity = Vector3.Zero;
-    }
 
 	private void OnCollision(Node body)
     {
 		if (body is Player) return;
 
         _hasHitATarget = true;
-        _hitPoint = GlobalPosition;
-        _rotation = GlobalRotation;
         _lifeTime = LifeTime;
     }
 
