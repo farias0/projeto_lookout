@@ -94,13 +94,13 @@ public partial class Player : CharacterBody3D
 	private void FireArrow()
 	{
 		Node instance = _arrow.Instantiate();
-		AddChild(instance);
+		GetParent().AddChild(instance);
 
 		var node = instance as Node3D;
 
 		Vector3 spawnPosition = GlobalTransform.Origin +
 									GlobalTransform.Basis.Y * 1.6f +
-									GlobalTransform.Basis.Z * -0.6f;
+									GlobalTransform.Basis.Z * -0.9f;
 		node.GlobalTransform = new Transform3D(GlobalTransform.Basis, spawnPosition);
 
 		Vector3 arrowDirection = -GlobalTransform.Basis.Z;
