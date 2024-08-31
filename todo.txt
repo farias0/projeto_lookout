@@ -1,12 +1,13 @@
 === MOVIMENTAÇÃO
 
+- por que movimentação tá "travando"?
+
 - escorregar ao agachar correndo
 
 ________________________
 
 === ARCO
 
-- flecha colidir c/ parede
 - usar raycast p/ spawnar flecha mais em baixo e ainda acertar centro
 
 - segurar arco
@@ -34,3 +35,13 @@ ________________________
 
 - poção de vida
 - poção de velocidade
+
+________________________
+
+- Importar modelos com materiais
+	- fbx com arquivos de textura do lado?
+
+- Onde mostra output de erro no VisualStudio?
+
+- Fazer debugger com breakpoint funcionar no VSCode
+
