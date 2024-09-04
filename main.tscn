@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://ckkl12kv0h1v2"]
+[gd_scene load_steps=7 format=3 uid="uid://ckkl12kv0h1v2"]
 
+[ext_resource type="Texture2D" uid="uid://dvpfu3c846x0g" path="res://ui/crosshair.png" id="1_4ptm4"]
 [ext_resource type="PackedScene" uid="uid://bv3m1ns1lv7h8" path="res://player/player.tscn" id="1_5sf8t"]
 [ext_resource type="PackedScene" uid="uid://bx60ed6qifbif" path="res://npc/npc.tscn" id="3_4s0tw"]
 [ext_resource type="PackedScene" uid="uid://bc5wkuw0yd2j" path="res://wall/wall.tscn" id="3_7rrpu"]
@@ -11,6 +12,22 @@ size = Vector3(76.004, 1, 75.6403)
 size = Vector3(70, 1, 70)
 
 [node name="Main" type="Node3D"]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Crosshair" type="TextureRect" parent="HUD"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_4ptm4")
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
