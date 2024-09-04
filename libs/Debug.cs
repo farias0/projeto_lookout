@@ -1,0 +1,56 @@
+using Godot;
+using System;
+using System.Diagnostics;
+
+namespace projeto_lookout.libs
+{
+    public class Debug
+    {
+
+        private static void Log (string message)
+        {
+            string msg = $"[Debug] {message}";
+
+            // For Godot's editor
+            GD.Print(msg);
+
+            // For Visual Studio's output
+            Debugger.Log(2, "inf", msg + '\n');
+        }
+
+        /// <summary>
+        /// Draws a line in 3D space.
+        /// </summary>
+        public static void Draw3DLine(Node parent, Vector3 pointA, Vector3 pointB)
+        {
+            MeshInstance3D lineInstance;
+            {
+                Mesh mesh;
+                {
+                    SurfaceTool surfaceTool = new();
+                    surfaceTool.Begin(Mesh.PrimitiveType.Lines);
+                    surfaceTool.SetColor(new Color(0, 1, 0));
+                    surfaceTool.AddVertex(pointA);
+                    surfaceTool.AddVertex(pointB);
+                    mesh = surfaceTool.Commit();
+                }
+
+                lineInstance = new()
+                {
+                    Mesh = mesh
+                };
+            }
+
+            StandardMaterial3D material = new()
+            {
+                VertexColorUseAsAlbedo = true
+            };
+
+            lineInstance.MaterialOverride = material;
+
+            parent.AddChild(lineInstance);
+
+            Log($"Drew 3D line from {pointA} to {pointB}.");
+        }
+    }
+}

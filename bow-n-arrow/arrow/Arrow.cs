@@ -4,8 +4,8 @@ using System.Diagnostics;
 
 public partial class Arrow : Node3D
 {
-	[Export]
-	public float Speed { get; set; } = 25;
+    [Export]
+    public float Speed { get; set; } = 45;
 
 	private const float LifeTime = 5;
 
