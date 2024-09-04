@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Godot;
+using projeto_lookout.libs;
 
 public partial class Player : CharacterBody3D
 {
@@ -14,7 +15,6 @@ public partial class Player : CharacterBody3D
 
     private Vector3 _targetVelocity = Vector3.Zero;
 	private bool _isCrouching = false;
-	private PackedScene _arrow = GD.Load<PackedScene>("res://bow-n-arrow/arrow/arrow.tscn"); 
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -93,18 +93,55 @@ public partial class Player : CharacterBody3D
 
 	private void FireArrow()
 	{
-		Node instance = _arrow.Instantiate();
-		GetParent().AddChild(instance);
+		Node3D arrow;
 
-		var node = instance as Node3D;
+		Node node = Resources.Arrow.Instantiate();
+		GetParent().AddChild(node);
+		arrow = node as Node3D;
 
-		Vector3 spawnPosition = GlobalTransform.Origin +
+		Vector3 spawnPos = GlobalTransform.Origin +
 									GlobalTransform.Basis.Y * 1.6f +
-									GlobalTransform.Basis.Z * -0.9f;
-		node.GlobalTransform = new Transform3D(GlobalTransform.Basis, spawnPosition);
+									GlobalTransform.Basis.Z * -0.9f; // TODO take player rotation into account
+		Vector3 targetPos = AimingAt();
 
-		Vector3 arrowDirection = -GlobalTransform.Basis.Z;
-		var rb = node as RigidBody3D;
-		rb?.ApplyCentralImpulse(arrowDirection * 10.0f);
-	}
+        arrow.GlobalTransform = new Transform3D(GlobalTransform.Basis, spawnPos);
+        arrow.LookAt(targetPos);
+
+
+        //Debug.Draw3DLine(GetParent(), spawnPos, targetPos);
+        //Debug.DrawSphere(GetParent(), targetPos);
+    }
+
+	private Vector3 AimingAt()
+	{
+        Camera3D camera = GetNode<Camera3D>("Camera3D");
+
+        Vector3 rayOrigin = camera.GlobalTransform.Origin;
+        Vector3 rayDirection = camera.GlobalTransform.Basis.Z.Normalized() * -1;
+
+        PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
+        PhysicsRayQueryParameters3D rayParams = new()
+        {
+            From = rayOrigin,
+            To = rayOrigin + rayDirection * 1000.0f,
+            CollideWithBodies = true,
+            CollideWithAreas = true
+        };
+
+        var rayResult = spaceState.IntersectRay(rayParams);
+
+        Vector3 targetPoint;
+
+        if (rayResult.Count > 0)
+        {
+            targetPoint = (Vector3)rayResult["position"];
+        }
+        else
+        {
+            // Ray didn't hit anything, set target point far away along the ray direction
+            targetPoint = rayOrigin + rayDirection * 1000.0f;
+        }
+
+        return targetPoint;
+    }
 }
