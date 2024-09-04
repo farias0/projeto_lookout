@@ -52,5 +52,28 @@ namespace projeto_lookout.libs
 
             Log($"Drew 3D line from {pointA} to {pointB}.");
         }
+
+        public static void DrawSphere(Node parent, Vector3 center)
+        {
+            MeshInstance3D sphereInstance = new()
+            {
+                Mesh = new SphereMesh()
+                {
+                    Radius = 0.3f
+                },
+
+                MaterialOverride = new StandardMaterial3D()
+                {
+                    VertexColorUseAsAlbedo = true,
+                    AlbedoColor = new Color(1, 0, 0)
+                },
+
+                GlobalPosition = center,
+            };
+
+            parent.AddChild(sphereInstance);
+
+            Log($"Drew 3D sphere at {center}.");
+        }
     }
 }
