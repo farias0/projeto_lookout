@@ -74,6 +74,11 @@ public partial class Arrow : Node3D
 
         state = State.Hit;
         _lifeTime = LifeTime;
+
+        if (body.GetParent() is Enemy enemy)
+        {
+            enemy.TakeDamage();
+        }
     }
 
 	private void Destroy()
