@@ -20,8 +20,7 @@ ________________________
 
 === INIMIGOS
 
-- levar hit			<<<<<<
-- desparecer ao levar hit
+- desparecer ao levar hit	<<<<
 - vidas
 
 - perseguir o jogador

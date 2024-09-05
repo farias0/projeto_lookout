@@ -8,26 +8,26 @@ public partial class Enemy : Node3D
 	public int Health { get; set; } = 100;
 
 
-	private float _tookDamageCountdown = -1;
+    private MeshInstance3D _mesh;
+    
+    private float _tookDamageCountdown = -1;
 
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-	}
+        _mesh = GetChild<Node3D>(0).GetChild<MeshInstance3D>(0);
+
+        if (_mesh == null)
+        {
+            Debug.LogError("Couldn't find enemy's mesh.");
+        }
+    }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-        if (_tookDamageCountdown > 0)
-        {
-            _tookDamageCountdown -= (float)delta;
-            BlinkDamage();
-            if (_tookDamageCountdown <= 0)
-            {
-                _tookDamageCountdown = -1;
-            }
-        }
+        ProcessDamageCountdown((float)delta);
     }
 
 	public void TakeDamage(int damage)
@@ -53,8 +53,21 @@ public partial class Enemy : Node3D
         }
     }
 
-    private void BlinkDamage()
+    private void ProcessDamageCountdown(float delta)
     {
+        if (_tookDamageCountdown <= 0) return;
 
+        _tookDamageCountdown -= delta;
+
+        // Blink effect
+        _mesh.Visible = _tookDamageCountdown % 0.2f > 0.1f;
+
+        if (_tookDamageCountdown <= 0)
+        {
+            _tookDamageCountdown = -1;
+
+            // Stop blinking
+            _mesh.Visible = true;
+        }
     }
 }
