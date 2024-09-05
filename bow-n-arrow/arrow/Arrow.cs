@@ -4,6 +4,8 @@ using projeto_lookout.libs;
 
 public partial class Arrow : Node3D
 {
+    private const int Damage = 40;
+
     public enum State
     {
         PulledBack,
@@ -77,7 +79,7 @@ public partial class Arrow : Node3D
 
         if (body.GetParent() is Enemy enemy)
         {
-            enemy.TakeDamage();
+            enemy.TakeDamage(Damage);
         }
     }
 
