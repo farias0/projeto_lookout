@@ -8,6 +8,7 @@
 height = 4.6
 
 [node name="Player" type="CharacterBody3D"]
+collision_layer = 2
 script = ExtResource("1_4g1xu")
 
 [node name="Pivot" type="Node3D" parent="."]
