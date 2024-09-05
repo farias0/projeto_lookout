@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://8jobdef4o7kg"
-path="res://.godot/imported/npc.glb-656aa1075dae2c3e9f338b120271fd13.scn"
+path="res://.godot/imported/enemy.glb-d895c1723b6b5633e6a9ea1829adeaa2.scn"
 
 [deps]
 
-source_file="res://npc/npc.glb"
-dest_files=["res://.godot/imported/npc.glb-656aa1075dae2c3e9f338b120271fd13.scn"]
+source_file="res://enemy/enemy.glb"
+dest_files=["res://.godot/imported/enemy.glb-d895c1723b6b5633e6a9ea1829adeaa2.scn"]
 
 [params]
 

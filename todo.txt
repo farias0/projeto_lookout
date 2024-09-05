@@ -7,19 +7,27 @@ ________________________
 === ARCO
 
 
-- flecha colide com algo ao atirar meio pra baixo
-
-
 - segurar arco
 - animação de atirar?
 
 - gancho
+
+- flechas que são plataformas!!
 
 - flecha explosiva?
 
 ________________________
 
 === INIMIGOS
+
+- levar hit			<<<<<<
+- desparecer ao levar hit
+- vidas
+
+- perseguir o jogador
+- atacar o jogador
+
+
 
 - navmesh
 - rotas de patrulha

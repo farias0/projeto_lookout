@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bx60ed6qifbif"]
 
-[ext_resource type="PackedScene" uid="uid://8jobdef4o7kg" path="res://npc/npc.glb" id="1_0yqj5"]
+[ext_resource type="PackedScene" uid="uid://8jobdef4o7kg" path="res://enemy/enemy.glb" id="1_0yqj5"]
 
 [node name="man" instance=ExtResource("1_0yqj5")]
 
