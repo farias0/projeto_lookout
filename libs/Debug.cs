@@ -7,16 +7,19 @@ namespace projeto_lookout.libs
     public class Debug
     {
 
-        private static void Log (string message)
+        public static void Log (string message)
         {
-            string msg = $"[Debug] {message}";
 
             // For Godot's editor
-            GD.Print(msg);
+            GD.Print(message);
 
             // For Visual Studio's output
-            Debugger.Log(2, "inf", msg + '\n');
+            Debugger.Log(2, "inf", message + '\n');
         }
+
+        public static void LogError(string message) => Log($"[ERROR] {message}");
+
+        private static void DebugLog(string message) => Log($"[Debug] {message}");
 
         /// <summary>
         /// Draws a line in 3D space.
@@ -50,7 +53,7 @@ namespace projeto_lookout.libs
 
             parent.AddChild(lineInstance);
 
-            Log($"Drew 3D line from {pointA} to {pointB}.");
+            DebugLog($"Drew 3D line from {pointA} to {pointB}.");
         }
 
         public static void DrawSphere(Node parent, Vector3 center)
@@ -73,7 +76,7 @@ namespace projeto_lookout.libs
 
             parent.AddChild(sphereInstance);
 
-            Log($"Drew 3D sphere at {center}.");
+            DebugLog($"Drew 3D sphere at {center}.");
         }
     }
 }
