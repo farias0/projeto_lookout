@@ -49,7 +49,7 @@ public partial class Enemy : Node3D
 
         if (Health <= 0)
         {
-            Debug.Log("Enemy died."); // TODO die
+            Die();
         }
     }
 
@@ -69,5 +69,10 @@ public partial class Enemy : Node3D
             // Stop blinking
             _mesh.Visible = true;
         }
+    }
+
+    private void Die()
+    {
+        QueueFree();
     }
 }

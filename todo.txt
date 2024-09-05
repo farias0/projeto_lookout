@@ -20,15 +20,11 @@ ________________________
 
 === INIMIGOS
 
-- desparecer ao levar hit	<<<<
-- vidas
-
 - perseguir o jogador
+- é possível navmesh?
+
+
 - atacar o jogador
-
-
-
-- navmesh
 - rotas de patrulha
 - estados...
 
