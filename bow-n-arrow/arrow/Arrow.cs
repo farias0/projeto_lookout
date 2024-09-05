@@ -1,9 +1,16 @@
 using Godot;
 using System;
-using System.Diagnostics;
+using projeto_lookout.libs;
 
 public partial class Arrow : Node3D
 {
+    public enum State
+    {
+        PulledBack,
+        Flying,
+        Hit
+    }
+
     [Export]
     public float Speed { get; set; } = 45;
 
@@ -11,7 +18,7 @@ public partial class Arrow : Node3D
 
     private float _lifeTime = LifeTime;
 	private RigidBody3D _rigidBody;
-	private bool _hasHitATarget = false;
+	private State state = State.PulledBack;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -26,14 +33,31 @@ public partial class Arrow : Node3D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-        _lifeTime -= (float)delta;
-        if (_lifeTime <= 0)
+        if (state == State.Flying || state == State.Hit)
         {
-            Destroy();
+            _lifeTime -= (float)delta;
+            if (_lifeTime <= 0)
+            {
+                Destroy();
+                return;
+            }
+        }
+
+        if (state == State.Flying)
+        {
+            MoveArrow((float)delta);
+        }
+    }
+
+    public void Fire()
+    {
+        if (state != State.PulledBack)
+        {
+            Debug.LogError("Arrow fired, but it's not pulled back.");
             return;
         }
 
-        if (!_hasHitATarget) MoveArrow((float)delta);
+        state = State.Flying;
     }
 
 
@@ -46,8 +70,9 @@ public partial class Arrow : Node3D
 	private void OnCollision(Node body)
     {
 		if (body is Player) return;
+        if (state == State.PulledBack) return;
 
-        _hasHitATarget = true;
+        state = State.Hit;
         _lifeTime = LifeTime;
     }
 

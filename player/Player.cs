@@ -1,3 +1,5 @@
+#nullable enable
+
 using System.Threading.Tasks;
 using Godot;
 using projeto_lookout.libs;
@@ -15,6 +17,7 @@ public partial class Player : CharacterBody3D
 
     private Vector3 _targetVelocity = Vector3.Zero;
 	private bool _isCrouching = false;
+	private Node3D? _arrow;
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -60,8 +63,9 @@ public partial class Player : CharacterBody3D
 
 		if (e.IsActionPressed("crouch_toggle"))		ToggleCrouch();
 		if (e.IsActionPressed("jump"))				Jump();
-		if (e.IsActionPressed("fire"))				FireArrow();
-	}
+		if (e.IsActionPressed("fire"))				PullArrowBack();
+		else if (e.IsActionReleased("fire"))		FireArrow();
+    }
 
 
 	private float GetCurrentSpeed()
@@ -91,25 +95,49 @@ public partial class Player : CharacterBody3D
 		}
 	}
 
-	private void FireArrow()
+	/// <summary>
+	/// Prepares an arrow to be fired
+	/// </summary>
+	private void PullArrowBack()
 	{
-		Node3D arrow;
+		if (_arrow != null)
+        {
+            Debug.LogError("Tried to pull back arrow, but an arrow already exists.");
+            return;
+        }
 
 		Node node = Resources.Arrow.Instantiate();
-		GetParent().AddChild(node);
-		arrow = node as Node3D;
+        Node3D? arrow = node as Node3D;
 
-		Vector3 spawnPos = GlobalTransform.Origin +
-									GlobalTransform.Basis.Y * 1.6f +
-									GlobalTransform.Basis.Z * -0.9f; // TODO take player rotation into account
-		Vector3 targetPos = AimingAt();
-
-        arrow.GlobalTransform = new Transform3D(GlobalTransform.Basis, spawnPos);
-        arrow.LookAt(targetPos);
+        Vector3 spawnPos = arrow!.GlobalPosition +
+								arrow!.Basis.X.Normalized() * 0.3f +
+                                arrow!.Basis.Z.Normalized() * -0.4f +
+                                arrow!.Basis.Y.Normalized() * 1.4f;
+		arrow!.GlobalPosition = spawnPos;
 
 
-        //Debug.Draw3DLine(GetParent(), spawnPos, targetPos);
-        //Debug.DrawSphere(GetParent(), targetPos);
+        AddChild(arrow);
+        _arrow = arrow;
+    }
+
+	private void FireArrow()
+	{
+		if (_arrow == null) return;
+
+		Vector3 pos = _arrow.GlobalPosition;
+        RemoveChild(_arrow);
+		GetParent().AddChild(_arrow);
+        _arrow.GlobalPosition = pos;
+
+        Vector3 target = AimingAt();
+        _arrow.LookAt(target);
+
+		{
+            Arrow? a = _arrow.GetChild<Node3D>(0) as Arrow;
+            a!.Fire();
+        }
+
+        _arrow = null;
     }
 
 	private Vector3 AimingAt()

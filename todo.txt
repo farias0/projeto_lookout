@@ -1,15 +1,14 @@
 === MOVIMENTAÇÃO
 
-- limitar rotação vertical da câmera
-
 - escorregar ao agachar correndo
 
 ________________________
 
 === ARCO
 
-- segurar spawna, soltar lança
-- consertar Spawn pos + rot da flecha
+
+- flecha colide com algo ao atirar meio pra baixo
+
 
 - segurar arco
 - animação de atirar?
@@ -48,10 +47,7 @@ ________________________
 
 ________________________
 
+- limitar rotação vertical da câmera
+
 - Importar modelos com materiais
 	- fbx com arquivos de textura do lado?
-
-- Onde mostra output de erro no VisualStudio?
-
-- Fazer debugger com breakpoint funcionar no VSCode
-
