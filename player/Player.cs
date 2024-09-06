@@ -19,7 +19,13 @@ public partial class Player : CharacterBody3D
 	private bool _isCrouching = false;
 	private Node3D? _arrow;
 
-	public override void _PhysicsProcess(double delta)
+
+    public override void _Ready()
+    {
+        Resources.PlayerRef = this;
+    }
+
+    public override void _PhysicsProcess(double delta)
 	{
 		var direction = Vector3.Zero;
 

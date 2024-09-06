@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://ckkl12kv0h1v2"]
+[gd_scene load_steps=7 format=3 uid="uid://ckkl12kv0h1v2"]
 
 [ext_resource type="Texture2D" uid="uid://dvpfu3c846x0g" path="res://ui/crosshair.png" id="1_4ptm4"]
 [ext_resource type="PackedScene" uid="uid://bv3m1ns1lv7h8" path="res://player/player.tscn" id="1_5sf8t"]
 [ext_resource type="PackedScene" uid="uid://bjcnck420lprq" path="res://level/ground.tscn" id="2_i6054"]
 [ext_resource type="PackedScene" uid="uid://bx60ed6qifbif" path="res://enemy/enemy.tscn" id="3_4s0tw"]
 [ext_resource type="PackedScene" uid="uid://bc5wkuw0yd2j" path="res://wall/wall.tscn" id="3_7rrpu"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_ltjk3"]
+vertices = PackedVector3Array(-9.5, 0, -16.25, -8.5, 0, -16.25, -8.5, 0, -34.5, -9.75, 0, -15.5, -34.5, 0, -34.5, -34.5, 0, -15.5, -7.5, 0, -16.25, -7.25, 0, -15.5, 1.25, 0, -15.5, 1.5, 0, -16.5, 3.5, 0, -16.5, 3.5, 0, -34.5, 32.25, 0, -16.5, 32.5, 0, -15.5, 34.5, 0, -15.5, 34.5, 0, -34.5, -9.75, 0, -15, -9, 0, -14.75, -34.5, 0, 34.5, -8.75, 0, 34.5, 1.5, 0, -14.75, -7.5, 0, -14.75, 2.75, 0, 34.5, 3, 0, -14.75, 32.25, 0, -14.75, 34.5, 0, 34.5)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 3, 2), PackedInt32Array(2, 3, 5), PackedInt32Array(2, 5, 4), PackedInt32Array(7, 6, 8), PackedInt32Array(8, 6, 9), PackedInt32Array(11, 10, 9), PackedInt32Array(6, 1, 9), PackedInt32Array(9, 1, 2), PackedInt32Array(9, 2, 11), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 15), PackedInt32Array(10, 11, 12), PackedInt32Array(12, 11, 15), PackedInt32Array(5, 3, 16), PackedInt32Array(16, 17, 5), PackedInt32Array(5, 17, 18), PackedInt32Array(18, 17, 19), PackedInt32Array(8, 20, 7), PackedInt32Array(7, 20, 21), PackedInt32Array(21, 20, 22), PackedInt32Array(21, 22, 19), PackedInt32Array(19, 17, 21), PackedInt32Array(20, 23, 22), PackedInt32Array(13, 14, 24), PackedInt32Array(24, 14, 25), PackedInt32Array(23, 24, 22), PackedInt32Array(22, 24, 25)]
 
 [node name="Main" type="Node3D"]
 
@@ -28,12 +32,15 @@ texture = ExtResource("1_4ptm4")
 transform = Transform3D(0.0288236, 0.936986, -0.348175, 0.380756, 0.311768, 0.870532, 0.924226, -0.157661, -0.347777, 0.217947, -0.328739, 0)
 shadow_enabled = true
 
-[node name="Ground" parent="." instance=ExtResource("2_i6054")]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_ltjk3")
 
-[node name="Player" parent="." instance=ExtResource("1_5sf8t")]
+[node name="Ground" parent="NavigationRegion3D" instance=ExtResource("2_i6054")]
 
-[node name="Wall" parent="." instance=ExtResource("3_7rrpu")]
+[node name="Player" parent="NavigationRegion3D" instance=ExtResource("1_5sf8t")]
+
+[node name="Wall" parent="NavigationRegion3D" instance=ExtResource("3_7rrpu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.76, 1, -15.623)
 
-[node name="Enemy" parent="." instance=ExtResource("3_4s0tw")]
+[node name="Enemy" parent="NavigationRegion3D" instance=ExtResource("3_4s0tw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.57276, -0.5, -15.4089)

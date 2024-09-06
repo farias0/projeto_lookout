@@ -1,5 +1,7 @@
 === MOVIMENTAÇÃO
 
+- andar com shift
+
 - escorregar ao agachar correndo
 
 ________________________
@@ -20,14 +22,18 @@ ________________________
 
 === INIMIGOS
 
-- perseguir o jogador
-- é possível navmesh?
+- inimigo enxergar o jogador e atualizar o target de acordo com ele	<<<<<<<
 
+- flecha virar filha de objeto acertado por ela
+
+- gravidade
 
 - atacar o jogador
 - rotas de patrulha
 - estados...
+- som pra comunicar troca de estados
 
+- ouvir passos
 
 ________________________
 
@@ -49,6 +55,7 @@ ________________________
 - hud
 
 ________________________
+
 
 - limitar rotação vertical da câmera
 

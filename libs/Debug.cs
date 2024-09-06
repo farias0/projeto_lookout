@@ -9,6 +9,7 @@ namespace projeto_lookout.libs
 
         public static void Log (string message)
         {
+            message = $" [*] {message}";
 
             // For Godot's editor
             GD.Print(message);

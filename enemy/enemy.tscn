@@ -11,10 +11,12 @@ radius = 0.43
 script = ExtResource("2_33sks")
 
 [node name="Node0" parent="." index="0"]
-transform = Transform3D(-0.478152, 0, 0.146186, 0, 0.5, 0, -0.146186, 0, -0.478152, 0, 0, 0)
+transform = Transform3D(0.478152, 0, -0.146186, 0, 0.5, 0, 0.146186, 0, 0.478152, 0, 0, 0)
 
 [node name="RigidBody3D" type="RigidBody3D" parent="." index="1"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19051, 0)
 shape = SubResource("CylinderShape3D_7f03g")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="2"]
