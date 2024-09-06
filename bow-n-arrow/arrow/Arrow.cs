@@ -44,7 +44,10 @@ public partial class Arrow : Node3D
                 return;
             }
         }
+    }
 
+    public override void _PhysicsProcess(double delta)
+    {
         if (state == State.Flying)
         {
             MoveArrow((float)delta);
@@ -79,6 +82,7 @@ public partial class Arrow : Node3D
 
         if (body.GetParent() is Enemy enemy)
         {
+            GetParent().Reparent(body.GetParent());
             enemy.TakeDamage(Damage);
         }
     }

@@ -24,8 +24,6 @@ ________________________
 
 - inimigo enxergar o jogador e atualizar o target de acordo com ele	<<<<<<<
 
-- flecha virar filha de objeto acertado por ela
-
 - gravidade
 
 - atacar o jogador
