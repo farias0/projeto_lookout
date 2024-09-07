@@ -126,6 +126,9 @@ public partial class Player : CharacterBody3D
         _arrow = arrow;
     }
 
+	/// <summary>
+	/// Fires an arrow that's pulled back
+	/// </summary>
 	private void FireArrow()
 	{
 		if (_arrow == null) return;
@@ -146,6 +149,7 @@ public partial class Player : CharacterBody3D
         _arrow = null;
     }
 
+	/// <returns>The point in the world the player's aiming at</returns>
 	private Vector3 AimingAt()
 	{
         Camera3D camera = GetNode<Camera3D>("Camera3D");

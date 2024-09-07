@@ -25,7 +25,8 @@ namespace projeto_lookout.libs
         /// <summary>
         /// Draws a line in 3D space.
         /// </summary>
-        public static void Draw3DLine(Node parent, Vector3 pointA, Vector3 pointB)
+        /// <returns>The line instance.</returns>
+        public static MeshInstance3D Draw3DLine(Node parent, Vector3 pointA, Vector3 pointB)
         {
             MeshInstance3D lineInstance;
             {
@@ -55,9 +56,15 @@ namespace projeto_lookout.libs
             parent.AddChild(lineInstance);
 
             DebugLog($"Drew 3D line from {pointA} to {pointB}.");
+
+            return lineInstance;
         }
 
-        public static void DrawSphere(Node parent, Vector3 center)
+        /// <summary>
+        /// Draws a sphere in 3D space.
+        /// </summary>
+        /// <returns>The sphere instance.</returns>
+        public static MeshInstance3D DrawSphere(Node parent, Vector3 center)
         {
             MeshInstance3D sphereInstance = new()
             {
@@ -78,6 +85,8 @@ namespace projeto_lookout.libs
             parent.AddChild(sphereInstance);
 
             DebugLog($"Drew 3D sphere at {center}.");
+
+            return sphereInstance;
         }
     }
 }

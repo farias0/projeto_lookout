@@ -8,6 +8,10 @@ public partial class Enemy : Node3D
 	public int Health { get; set; } = 100;
     [Export]
     public float Speed { get; set; } = 1.8f;
+    [Export]
+    public float VisionDistance { get; set; } = 20;
+    [Export]
+    public float VisionAngle { get; set; } = 55;
 
 
     private CharacterBody3D _player;
@@ -47,6 +51,15 @@ public partial class Enemy : Node3D
 	public override void _Process(double delta)
 	{
         ProcessDamageCountdown((float)delta);
+
+        if (SeesPlayer())
+        {
+            FollowPlayer();
+        }
+        else
+        {
+            StopInPlace();
+        }
     }
 
     public override void _PhysicsProcess(double delta)
@@ -126,5 +139,57 @@ public partial class Enemy : Node3D
     {
         direction.Y = GlobalPosition.Y;
         LookAt(direction);
+    }
+
+    private void StopInPlace()
+    {
+        SetTarget(GlobalPosition);
+    }
+
+    private void FollowPlayer()
+    {
+        SetTarget(_player.GlobalPosition);
+    }
+
+    private bool SeesPlayer()
+    {
+        {   // Is within distance
+            float distance = GlobalPosition.DistanceTo(_player.GlobalPosition);
+            if (distance > VisionDistance)
+            {
+                return false;
+            }
+        }
+
+        {   // Is within the vision cone
+            Vector3 direction = (_player.GlobalPosition - GlobalPosition).Normalized();
+            float angle = GlobalTransform.Basis.Z.AngleTo(direction * -1);
+            if (angle > Mathf.DegToRad(VisionAngle))
+            {
+                return false;
+            }
+        }
+
+        { // Has no obstacles between them
+            Vector3 heightOffset = new(0, 1.3f, 0);
+            Vector3 origin = GlobalPosition + heightOffset;
+            Vector3 target = _player.GlobalPosition + heightOffset;
+
+            var rayParams = new PhysicsRayQueryParameters3D
+            {
+                From = origin,
+                To = target,
+                CollideWithBodies = true,
+                CollideWithAreas = true
+            };
+            var rayResult = GetWorld3D().DirectSpaceState.IntersectRay(rayParams);
+
+            if ((Node)rayResult["collider"] != _player)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

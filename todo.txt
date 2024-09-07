@@ -9,6 +9,10 @@ ________________________
 === ARCO
 
 
+- flecha colidindo com o chão em um Y muito alto, ajustar
+	- ajustar Y do jogador -- atualmente está abaixo do solo
+
+
 - segurar arco
 - animação de atirar?
 
@@ -22,14 +26,19 @@ ________________________
 
 === INIMIGOS
 
-- inimigo enxergar o jogador e atualizar o target de acordo com ele	<<<<<<<
+- rotas de patrulha quando nao tiver vendo jogador			<<<<<<
 
-- gravidade
+- virar na direção flecha quando levar flechada
 
-- atacar o jogador
-- rotas de patrulha
-- estados...
-- som pra comunicar troca de estados
+- diferentes velocidades p/ diferentes estados
+
+- estados intermediários (alerta, buscando)
+
+- indicador de troca de estados
+	- som 
+	- ícone de alerta
+
+- dar dano ao colidir com o jogador
 
 - ouvir passos
 
