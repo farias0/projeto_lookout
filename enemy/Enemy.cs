@@ -74,7 +74,7 @@ public partial class Enemy : Node3D
             return;
         }
 
-    if (Health <= 0)
+        if (Health <= 0)
         {
             Debug.LogError("Dead enemy took damage.");
             return;
