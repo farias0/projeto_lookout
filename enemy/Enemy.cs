@@ -18,8 +18,8 @@ public partial class Enemy : Node3D
     private MeshInstance3D _mesh;
     private NavigationAgent3D _navAgent;
     
-    private Vector2 _targetPosition;
     private float _tookDamageCountdown = -1;
+    private Vector3 _lastSeenTargetPos;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -52,9 +52,12 @@ public partial class Enemy : Node3D
 	{
         ProcessDamageCountdown((float)delta);
 
-        if (SeesPlayer())
+        Vector3? seesPlayer = SeesPlayer();
+
+        if (seesPlayer != null)
         {
-            FollowPlayer();
+            _lastSeenTargetPos = seesPlayer.Value;
+            SetTarget(_lastSeenTargetPos);
         }
         else
         {
@@ -146,18 +149,14 @@ public partial class Enemy : Node3D
         SetTarget(GlobalPosition);
     }
 
-    private void FollowPlayer()
-    {
-        SetTarget(_player.GlobalPosition);
-    }
-
-    private bool SeesPlayer()
+    /// <returns>The player's position, if the enemy can see him.</returns>
+    private Vector3? SeesPlayer()
     {
         {   // Is within distance
             float distance = GlobalPosition.DistanceTo(_player.GlobalPosition);
             if (distance > VisionDistance)
             {
-                return false;
+                return null;
             }
         }
 
@@ -166,7 +165,7 @@ public partial class Enemy : Node3D
             float angle = GlobalTransform.Basis.Z.AngleTo(direction * -1);
             if (angle > Mathf.DegToRad(VisionAngle))
             {
-                return false;
+                return null;
             }
         }
 
@@ -186,10 +185,10 @@ public partial class Enemy : Node3D
 
             if ((Node)rayResult["collider"] != _player)
             {
-                return false;
+                return null;
             }
         }
 
-        return true;
+        return _player.GlobalPosition;
     }
 }
