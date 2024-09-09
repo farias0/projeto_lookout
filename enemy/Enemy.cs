@@ -1,6 +1,7 @@
 using Godot;
 using projeto_lookout.libs;
 using System;
+using Godot.Collections;
 
 public partial class Enemy : Node3D
 {
@@ -12,6 +13,8 @@ public partial class Enemy : Node3D
     public float VisionDistance { get; set; } = 20;
     [Export]
     public float VisionAngle { get; set; } = 55;
+    [Export]
+    public Array<PatrolPoint> PatrolPoints { get; set; } = new Array<PatrolPoint>();
 
 
     private CharacterBody3D _player;
@@ -20,6 +23,7 @@ public partial class Enemy : Node3D
     
     private float _tookDamageCountdown = -1;
     private Vector3 _lastSeenTargetPos;
+    private int _patrolIndex = 0;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -43,8 +47,7 @@ public partial class Enemy : Node3D
             Debug.LogError("Couldn't find enemy's navigation agent.");
         }
 
-
-        SetTarget(_player.GlobalPosition);
+        StartPatrolling();
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -52,17 +55,19 @@ public partial class Enemy : Node3D
 	{
         ProcessDamageCountdown((float)delta);
 
-        Vector3? seesPlayer = SeesPlayer();
+        //Vector3? seesPlayer = SeesPlayer();
 
-        if (seesPlayer != null)
-        {
-            _lastSeenTargetPos = seesPlayer.Value;
-            SetTarget(_lastSeenTargetPos);
-        }
-        else
-        {
-            StopInPlace();
-        }
+        //if (seesPlayer != null)
+        //{
+        //    _lastSeenTargetPos = seesPlayer.Value;
+        //    SetTarget(_lastSeenTargetPos);
+        //}
+        //else
+        //{
+        //    StopInPlace();
+        //}
+
+        KeepPatrolling();
     }
 
     public override void _PhysicsProcess(double delta)
@@ -190,5 +195,20 @@ public partial class Enemy : Node3D
         }
 
         return _player.GlobalPosition;
+    }
+
+    private void StartPatrolling()
+    {
+        SetTarget(PatrolPoints[_patrolIndex].Pos);
+    }
+
+    private void KeepPatrolling()
+    {
+        var target = PatrolPoints[_patrolIndex].Pos;
+        if (GlobalPosition.DistanceTo(target) < 1.5f)
+        {
+            _patrolIndex = (_patrolIndex + 1) % PatrolPoints.Count;
+            SetTarget(PatrolPoints[_patrolIndex].Pos);
+        }
     }
 }

@@ -26,8 +26,9 @@ ________________________
 
 === INIMIGOS
 
-- rotas de patrulha quando nao tiver vendo jogador			<<<<<<
-	- criar geometria pra brincar com campo de visão
+- inimigo alternar entre patrulha e seguir o jogador	<<<<<<
+
+- criar geometria pra brincar com campo de visão
 
 - virar na direção flecha quando levar flechada
 
