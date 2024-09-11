@@ -41,10 +41,10 @@ navigation_mesh = SubResource("NavigationMesh_ltjk3")
 [node name="Player" parent="NavigationRegion3D" instance=ExtResource("1_5sf8t")]
 
 [node name="Wall" parent="NavigationRegion3D" instance=ExtResource("3_7rrpu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.76, 1, -15.623)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.76, 2, -15.623)
 
 [node name="Enemy" parent="NavigationRegion3D" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("3_4s0tw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.57276, -0.5, -15.4089)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.573, 0, -15.409)
 PatrolPoints = [NodePath("PatrolPoint"), NodePath("PatrolPoint2"), NodePath("PatrolPoint3"), NodePath("PatrolPoint4")]
 
 [node name="PatrolPoint" parent="NavigationRegion3D/Enemy" instance=ExtResource("6_dr3r0")]

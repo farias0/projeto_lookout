@@ -9,8 +9,9 @@ ________________________
 === ARCO
 
 
-- flecha colidindo com o chão em um Y muito alto, ajustar
-	- ajustar Y do jogador -- atualmente está abaixo do solo
+- flecha colidindo com o chão no ar		<<<<<<<<<<<
+- flecha atravessando o chão quando o ângulo é mto oblíquo
+- ApplyImpulse na flecha não funcionando
 
 
 - segurar arco

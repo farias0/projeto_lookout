@@ -20,7 +20,7 @@ public partial class Arrow : Node3D
 
     private float _lifeTime = LifeTime;
 	private RigidBody3D _rigidBody;
-	private State state = State.PulledBack;
+	private State _state = State.PulledBack;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -29,13 +29,13 @@ public partial class Arrow : Node3D
 		_rigidBody = GetNode<RigidBody3D>("RigidBody3D");
         _rigidBody.ContactMonitor = true; // Necessary for detecting collision from the RigidBody3D
         _rigidBody.MaxContactsReported = 1;
-        _rigidBody.Connect("body_entered", new Callable(this, nameof(OnCollision)));
+        _rigidBody.Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-        if (state == State.Flying || state == State.Hit)
+        if (_state == State.Flying || _state == State.Hit)
         {
             _lifeTime -= (float)delta;
             if (_lifeTime <= 0)
@@ -48,7 +48,7 @@ public partial class Arrow : Node3D
 
     public override void _PhysicsProcess(double delta)
     {
-        if (state == State.Flying)
+        if (_state == State.Flying)
         {
             MoveArrow((float)delta);
         }
@@ -56,13 +56,15 @@ public partial class Arrow : Node3D
 
     public void Fire()
     {
-        if (state != State.PulledBack)
+        if (_state != State.PulledBack)
         {
             Debug.LogError("Arrow fired, but it's not pulled back.");
             return;
         }
 
-        state = State.Flying;
+        //_rigidBody.ApplyCentralImpulse(Transform.Basis.X * Speed);
+
+        _state = State.Flying;
     }
 
 
@@ -72,12 +74,14 @@ public partial class Arrow : Node3D
     }
 
 
-	private void OnCollision(Node body)
+	private void OnBodyEntered(Node body)
     {
-		if (body is Player) return;
-        if (state == State.PulledBack) return;
+        if (_state != State.Flying) return;
+        if (body is Player) return;
 
-        state = State.Hit;
+        Debug.Log("Arrow collided with " + body.Name + " pos: " + GlobalPosition);
+
+        _state = State.Hit;
         _lifeTime = LifeTime;
 
         if (body.GetParent() is Enemy enemy)

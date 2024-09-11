@@ -15,14 +15,26 @@ public partial class Player : CharacterBody3D
 	[Export]
 	public int JumpHeight { get; set; } = 20;
 
+    private const float MinY = -70;
+
     private Vector3 _targetVelocity = Vector3.Zero;
 	private bool _isCrouching = false;
 	private Node3D? _arrow;
+	private static Vector3 _startingPos;
 
 
     public override void _Ready()
     {
         Resources.PlayerRef = this;
+        _startingPos = GlobalPosition;
+    }
+
+    public override void _Process(double delta)
+	{
+        if (GlobalPosition.Y < MinY)
+        {
+			Reset();
+        }
     }
 
     public override void _PhysicsProcess(double delta)
@@ -181,5 +193,10 @@ public partial class Player : CharacterBody3D
         }
 
         return targetPoint;
+    }
+
+	private void Reset()
+    {
+        GlobalPosition = _startingPos;
     }
 }
