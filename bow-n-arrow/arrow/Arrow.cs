@@ -88,15 +88,17 @@ public partial class Arrow : Node3D
 
 	private void OnBodyEntered(Node body)
     {
+        Debug.Log($"Arrow hit {body.Name}");
+
         if (_state != State.Flying) return;
         if (body is Player) return;
 
         _state = State.Hit;
         _lifeTime = LifeTime;
 
-        if (body.GetParent() is Enemy enemy)
+        if (body is Enemy enemy)
         {
-            Reparent(body.GetParent());
+            Reparent(body);
             enemy.TakeDamage(Damage);
         }
     }

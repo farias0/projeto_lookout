@@ -3,7 +3,7 @@ using projeto_lookout.libs;
 using System;
 using Godot.Collections;
 
-public partial class Enemy : Node3D
+public partial class Enemy : RigidBody3D
 {
     private enum State
     {
@@ -31,6 +31,7 @@ public partial class Enemy : Node3D
     public Array<PatrolPoint> PatrolPoints { get; set; } = new Array<PatrolPoint>();
 
     private readonly Color Color = new(0.5f, 0f, 0f);
+    private readonly float TurnSpeed = 0.1f;
 
     private CharacterBody3D _player;
     private MeshInstance3D _mesh;
@@ -44,6 +45,7 @@ public partial class Enemy : Node3D
     private bool _seesPlayer;
     private float _alertCountdown = -1;
     private float _alertGauge = 0;
+    private Vector3 _turnTarget;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -55,7 +57,7 @@ public partial class Enemy : Node3D
             Debug.LogError("Enemy couldn't find player.");
         }
 
-        _mesh = FindChild("Node0").GetChild<MeshInstance3D>(0);
+        _mesh = FindChild("MeshNode").GetChild<MeshInstance3D>(0);
         if (_mesh == null)
         {
             Debug.LogError("Couldn't find enemy's mesh.");
@@ -75,7 +77,7 @@ public partial class Enemy : Node3D
 	public override void _Process(double delta)
 	{
         ProcessDamageCountdown((float)delta);
-        
+
 
         Vector3? seesPlayer = SeesPlayer();
         _seesPlayer = seesPlayer != null;
@@ -101,13 +103,18 @@ public partial class Enemy : Node3D
         MoveTowardsTarget((float)delta);
     }
 
+    public override void _IntegrateForces(PhysicsDirectBodyState3D state)
+    {
+        TurnTowardsTarget(state);
+    }
+
     private void PaintSolidColor()
     {
         var material = new StandardMaterial3D
         {
             AlbedoColor = Color
         };
-        GetNode<MeshInstance3D>("Node0/Node1").MaterialOverride = material;
+        GetNode<MeshInstance3D>("MeshNode/Mesh").MaterialOverride = material;
     }
 
     public void TakeDamage(int damage)
@@ -171,17 +178,25 @@ public partial class Enemy : Node3D
             return;
         }
 
-        TurnTowards(targetPos);
+        _turnTarget = targetPos;
 
         pos.Y = 0;
         targetPos.Y = 0;
         GlobalPosition += (targetPos - pos).Normalized() * _speed * delta;
     }
 
-    private void TurnTowards(Vector3 direction)
+    private void TurnTowardsTarget(PhysicsDirectBodyState3D state)
     {
-        direction.Y = GlobalPosition.Y;
-        LookAt(direction);
+        Vector3 forwardLocalAxis = new(0, 0, -1);
+        Vector3 forwardDir = (GlobalTransform.Basis * forwardLocalAxis).Normalized();
+        Vector3 targetDir = (_turnTarget - GlobalPosition).Normalized();
+
+        if (Math.Abs(forwardDir.Dot(targetDir)) > 1e-4)
+        {
+            var vel = state.AngularVelocity;
+            vel.Y = (forwardDir.Cross(targetDir) * TurnSpeed / state.Step).Y;
+            state.AngularVelocity = vel;
+        }
     }
 
     private void StopInPlace()
@@ -267,7 +282,7 @@ public partial class Enemy : Node3D
     private void KeepAlert(float delta)
     {
         StopInPlace();
-        TurnTowards(_lastSeenPlayerPos);
+        _turnTarget = _lastSeenPlayerPos;
 
         if (_seesPlayer)
         {
