@@ -17,6 +17,7 @@ public partial class Arrow : Node3D
     public float Speed { get; set; } = 45;
 
 	private const float LifeTime = 5;
+    private readonly Color Color = new(0f, 1f, 0f);
 
     private float _lifeTime = LifeTime;
 	private RigidBody3D _rigidBody;
@@ -31,6 +32,8 @@ public partial class Arrow : Node3D
         _rigidBody.MaxContactsReported = 1;
         _rigidBody.Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
         _rigidBody.Freeze = true;
+
+        PaintSolidColor();
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -53,6 +56,15 @@ public partial class Arrow : Node3D
         {
             MoveArrow((float)delta);
         }
+    }
+
+    private void PaintSolidColor()
+    {
+        var material = new StandardMaterial3D
+        {
+            AlbedoColor = Color
+        };
+        _rigidBody.GetNode<MeshInstance3D>("MeshNode/Arrow").MaterialOverride = material;
     }
 
     public void Fire()

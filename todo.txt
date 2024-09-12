@@ -25,9 +25,6 @@ ________________________
 === INIMIGOS
 
 
-- consertar ataque inimigo	<<<<<<<<<<<<<<<<<<<<
-
-
 - ativar chasing imediatamente a uma certa distancia	<<<<
 
 - virar na direção flecha quando levar flechada		<<<<

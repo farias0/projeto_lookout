@@ -30,6 +30,7 @@ public partial class Enemy : Node3D
     [Export]
     public Array<PatrolPoint> PatrolPoints { get; set; } = new Array<PatrolPoint>();
 
+    private readonly Color Color = new(0.5f, 0f, 0f);
 
     private CharacterBody3D _player;
     private MeshInstance3D _mesh;
@@ -66,6 +67,7 @@ public partial class Enemy : Node3D
             Debug.LogError("Couldn't find enemy's navigation agent.");
         }
 
+        PaintSolidColor();
         StartPatrolling();
     }
 
@@ -97,6 +99,15 @@ public partial class Enemy : Node3D
     public override void _PhysicsProcess(double delta)
     {
         MoveTowardsTarget((float)delta);
+    }
+
+    private void PaintSolidColor()
+    {
+        var material = new StandardMaterial3D
+        {
+            AlbedoColor = Color
+        };
+        GetNode<MeshInstance3D>("Node0/Node1").MaterialOverride = material;
     }
 
     public void TakeDamage(int damage)
