@@ -4,6 +4,8 @@
 
 - escorregar ao agachar correndo
 
+- resetar para o ultimo chão pisado ao cair em buraco
+
 ________________________
 
 === ARCO
@@ -21,6 +23,9 @@ ________________________
 ________________________
 
 === INIMIGOS
+
+
+- consertar ataque inimigo	<<<<<<<<<<<<<<<<<<<<
 
 
 - ativar chasing imediatamente a uma certa distancia	<<<<
