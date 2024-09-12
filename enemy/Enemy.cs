@@ -13,28 +13,38 @@ public partial class Enemy : RigidBody3D
         Chasing
     }
 
+
     [Export]
 	public int Health { get; set; } = 100;
+
+    [ExportGroup("Speed")]
     [Export]
     public float SpeedPatrolling { get; set; } = 1.8f;
     [Export]
     public float SpeedSearching { get; set; } = 1.8f;
     [Export]
     public float SpeedChasing { get; set; } = 4.6f;
-    [Export]
-    public float VisionDistance { get; set; } = 30;
+
+    [ExportGroup("Vision")]
     [Export]
     public float VisionAngle { get; set; } = 55;
     [Export]
+    public float VisionDistance { get; set; } = 30;
+    [Export]
     public float VisionConfirmDistance { get; set; } = 15;
+
+    [ExportGroup("Timers")]
     [Export]
     public float AlertCountdown { get; set; } = 2; // How long it takes to go back to patrolling after losing sight of the player
     [Export]
     public float AlertGaugeTime { get; set; } = 2; // For how long it has to see the player while in 'alert' to go investigate
     [Export]
-    public float SearchGiveUpTime { get; set; } = 5; // How long it takes to give up searching for the player after losing sight of him
+    public float SearchGiveUpCountdown { get; set; } = 5; // How long it takes to give up searching for the player after losing sight of him
     [Export]
+
+    [ExportGroup("")]
     public Array<PatrolPoint> PatrolPoints { get; set; } = new Array<PatrolPoint>();
+
 
     private readonly Color Color = new(0.5f, 0f, 0f);
     private readonly float TurnSpeed = 0.1f;
@@ -341,7 +351,7 @@ public partial class Enemy : RigidBody3D
     {
         _state = State.Searching;
         _speed = SpeedSearching;
-        _searchGiveUpCountdown = SearchGiveUpTime;
+        _searchGiveUpCountdown = SearchGiveUpCountdown;
         Debug.Log("Enemy started searching.");
     }
 
@@ -351,7 +361,7 @@ public partial class Enemy : RigidBody3D
 
         if (_seesPlayer)
         {
-            _searchGiveUpCountdown = SearchGiveUpTime;
+            _searchGiveUpCountdown = SearchGiveUpCountdown;
 
             if (GlobalPosition.DistanceTo(_player.GlobalPosition) <= VisionConfirmDistance)
             {
