@@ -2,6 +2,12 @@ using Godot;
 using System;
 using projeto_lookout.libs;
 
+public enum ArrowType
+{
+    Normal,
+    Hook
+}
+
 public partial class Arrow : Node3D
 {
     private const int Damage = 40;
@@ -10,18 +16,22 @@ public partial class Arrow : Node3D
     {
         PulledBack,
         Flying,
-        Hit
+        Hit,
+        Hooked,
     }
 
     [Export]
     public float Speed { get; set; } = 45;
 
 	private const float LifeTime = 5;
-    private readonly Color Color = new(0f, 1f, 0f);
+    private readonly Color ColorNormal = new(0f, 1f, 0f);
+    private readonly Color ColorHook = new(0.54f, 0.26f, 0.07f);
 
     private float _lifeTime = LifeTime;
 	private RigidBody3D _rigidBody;
 	private State _state = State.PulledBack;
+    private ArrowType _type = ArrowType.Normal;
+    private Player _player;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -33,7 +43,7 @@ public partial class Arrow : Node3D
         _rigidBody.Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
         _rigidBody.Freeze = true;
 
-        PaintSolidColor();
+        SetType(_type);
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -58,13 +68,35 @@ public partial class Arrow : Node3D
         }
     }
 
-    private void PaintSolidColor()
+    private void PaintSolidColor(Color color)
     {
         var material = new StandardMaterial3D
         {
-            AlbedoColor = Color
+            AlbedoColor = color
         };
         _rigidBody.GetNode<MeshInstance3D>("MeshNode/Arrow").MaterialOverride = material;
+    }
+
+    public void SetType(ArrowType type)
+    {
+        _type = type;
+
+        if (_rigidBody == null) return;
+
+        switch (_type)
+        {
+            case ArrowType.Normal:
+                PaintSolidColor(ColorNormal);
+                break;
+            case ArrowType.Hook:
+                PaintSolidColor(ColorHook);
+                break;
+        }
+    }
+
+    public void SetPlayer(Player player)
+    {
+        _player = player;
     }
 
     public void Fire()
@@ -93,14 +125,22 @@ public partial class Arrow : Node3D
         if (_state != State.Flying) return;
         if (body is Player) return;
 
-        _state = State.Hit;
         _lifeTime = LifeTime;
+        Reparent(body);
 
-        if (body is Enemy enemy)
+        if (_type == ArrowType.Normal)
         {
-            Reparent(body);
-            var player = GetParent() as Node3D;
-            enemy.TakeDamage(player.GlobalPosition, Damage);
+            _state = State.Hit;
+            if (body is Enemy enemy)
+            {
+                var player = GetParent() as Node3D;
+                enemy.TakeDamage(player.GlobalPosition, Damage);
+            }
+        }
+        else if (_type == ArrowType.Hook)
+        {
+            _state = State.Hooked;
+            _player.ArrowHooked(this);
         }
     }
 

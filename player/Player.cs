@@ -21,6 +21,7 @@ public partial class Player : CharacterBody3D
 	private bool _isCrouching = false;
 	private Node3D? _arrow;
 	private static Vector3 _startingPos;
+	private static Node3D? _hookedArrow;
 
 
     public override void _Ready()
@@ -81,12 +82,18 @@ public partial class Player : CharacterBody3D
 
 		if (e.IsActionPressed("crouch_toggle"))		ToggleCrouch();
 		if (e.IsActionPressed("jump"))				Jump();
-		if (e.IsActionPressed("fire"))				PullArrowBack();
+		if (e.IsActionPressed("fire"))				PullArrowBack(ArrowType.Normal);
 		else if (e.IsActionReleased("fire"))		FireArrow();
+		if (e.IsActionPressed("fire_2"))			PullArrowBack(ArrowType.Hook);
+        else if (e.IsActionReleased("fire_2"))		FireArrow();
     }
 
+	public void ArrowHooked(Node3D arrow)
+    {
+        _hookedArrow = arrow;
+    }
 
-	private float GetCurrentSpeed()
+    private float GetCurrentSpeed()
 	{
 		return _isCrouching ? SpeedCrouched : Speed;
 	}
@@ -116,26 +123,38 @@ public partial class Player : CharacterBody3D
 	/// <summary>
 	/// Prepares an arrow to be fired
 	/// </summary>
-	private void PullArrowBack()
+	private void PullArrowBack(ArrowType type)
 	{
 		if (_arrow != null)
         {
-            Debug.LogError("Tried to pull back arrow, but an arrow already exists.");
+			// TODO play error sound
             return;
         }
 
-		Node node = Resources.Arrow.Instantiate();
-        Node3D? arrow = node as Node3D;
+		if (type == ArrowType.Hook && _hookedArrow != null)
+        {
+			_hookedArrow.QueueFree();
+            _hookedArrow = null;
+            return;
+        }
 
-        Vector3 spawnPos = arrow!.GlobalPosition +
-								arrow!.Basis.X.Normalized() * 0.3f +
-                                arrow!.Basis.Z.Normalized() * -0.4f +
-                                arrow!.Basis.Y.Normalized() * 1.4f;
-		arrow!.GlobalPosition = spawnPos;
+        Node node = Resources.Arrow.Instantiate();
+        Node3D? node3d = node as Node3D;
+
+        Vector3 spawnPos = node3d!.GlobalPosition +
+								node3d!.Basis.X.Normalized() * 0.3f +
+                                node3d!.Basis.Z.Normalized() * -0.4f +
+                                node3d!.Basis.Y.Normalized() * 1.4f;
+		node3d!.GlobalPosition = spawnPos;
 
 
-        AddChild(arrow);
-        _arrow = arrow;
+		Arrow? arrow = node3d as Arrow;
+		arrow!.SetType(type);
+		arrow!.SetPlayer(this);
+
+
+        AddChild(node3d);
+        _arrow = node3d;
     }
 
 	/// <summary>
