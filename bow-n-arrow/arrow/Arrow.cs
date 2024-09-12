@@ -30,6 +30,7 @@ public partial class Arrow : Node3D
         _rigidBody.ContactMonitor = true; // Necessary for detecting collision from the RigidBody3D
         _rigidBody.MaxContactsReported = 1;
         _rigidBody.Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
+        _rigidBody.Freeze = true;
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -62,9 +63,8 @@ public partial class Arrow : Node3D
             return;
         }
 
-        // _rigidBody.ApplyCentralImpulse(-Transform.Basis.Z * Speed);
-
         _state = State.Flying;
+        _rigidBody.Freeze = false;
     }
 
 

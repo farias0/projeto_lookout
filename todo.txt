@@ -9,10 +9,6 @@ ________________________
 === ARCO
 
 
-- Consertar rotação da flecha com o jogador
-- Testar ApplyImpulse ao invés de mover manualmente
-
-
 - segurar arco
 - animação de atirar?
 
@@ -26,7 +22,7 @@ ________________________
 
 === INIMIGOS
 
-- inimigo alternar entre patrulha e seguir o jogador	<<<<<<
+- inimigo alternar entre patrulha e seguir o jogador		<<<<<<
 
 - criar geometria pra brincar com campo de visão
 
