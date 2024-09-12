@@ -15,9 +15,6 @@ ________________________
 - animação de atirar?
 
 - gancho					
-	- balançar dele?
-	- pensar em solução p/ quando rigidbody não deixa chegar perto o suficiente da flecha pra despawnar ela (ex. quando atira no teto)
-	- jogar pra cima ao terminar gancho estando em colisão?
 	- adicionar distancia máxima pra hook
 
 - flechas que são plataformas!!

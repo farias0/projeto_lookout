@@ -14,6 +14,8 @@ public partial class Player : CharacterBody3D
 	[Export]
 	public int JumpHeight { get; set; } = 14;
 	[Export]
+    public int JumpHeightHooked { get; set; } = 19;
+    [Export]
 	public float HookSpeed { get; set; } = 3000;
 
 
@@ -131,6 +133,14 @@ public partial class Player : CharacterBody3D
 
 	private void Jump()
 	{
+		if (_hookedArrow != null)
+		{
+            LeaveHookedArrow();
+            _targetVelocity.Y = JumpHeightHooked;
+			return;
+        }
+
+
 		if (IsOnFloor())
 		{
 			_targetVelocity.Y = JumpHeight;
@@ -150,8 +160,7 @@ public partial class Player : CharacterBody3D
 
 		if (type == ArrowType.Hook && _hookedArrow != null)
         {
-            (_hookedArrow as Arrow)!.Destroy();
-            _hookedArrow = null;
+            LeaveHookedArrow();
             return;
         }
 
@@ -235,16 +244,21 @@ public partial class Player : CharacterBody3D
 	{
         if (_hookedArrow!.GlobalPosition.DistanceTo(GlobalPosition) < 1.5f)
         {
-            (_hookedArrow as Arrow)!.Destroy();
-            _hookedArrow = null;
-			Velocity = Vector3.Zero;
-            _targetVelocity = Vector3.Zero;
+            LeaveHookedArrow();
             return;
         }
 
         var direction = (_hookedArrow.GlobalPosition - GlobalPosition).Normalized();
         Velocity = direction * HookSpeed * (float)delta;
         MoveAndSlide();
+    }
+
+	private void LeaveHookedArrow()
+	{
+        (_hookedArrow as Arrow)!.Destroy();
+        _hookedArrow = null;
+        Velocity = Vector3.Zero;
+        _targetVelocity = Vector3.Zero;
     }
 
 	private void Reset()
