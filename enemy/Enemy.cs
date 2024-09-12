@@ -18,6 +18,8 @@ public partial class Enemy : RigidBody3D
     [Export]
     public float SpeedPatrolling { get; set; } = 1.8f;
     [Export]
+    public float SpeedSearching { get; set; } = 1.8f;
+    [Export]
     public float SpeedChasing { get; set; } = 4.6f;
     [Export]
     public float VisionDistance { get; set; } = 30;
@@ -29,6 +31,8 @@ public partial class Enemy : RigidBody3D
     public float AlertCountdown { get; set; } = 2; // How long it takes to go back to patrolling after losing sight of the player
     [Export]
     public float AlertGaugeTime { get; set; } = 2; // For how long it has to see the player while in 'alert' to go investigate
+    [Export]
+    public float SearchGiveUpTime { get; set; } = 5; // How long it takes to give up searching for the player after losing sight of him
     [Export]
     public Array<PatrolPoint> PatrolPoints { get; set; } = new Array<PatrolPoint>();
 
@@ -48,6 +52,7 @@ public partial class Enemy : RigidBody3D
     private float _alertCountdown = -1;
     private float _alertGauge = 0;
     private Vector3 _turnTarget;
+    private float _searchGiveUpCountdown;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -93,6 +98,9 @@ public partial class Enemy : RigidBody3D
                 break;
             case State.Alert:
                 KeepAlert((float)delta);
+                break;
+            case State.Searching:
+                KeepSearching((float)delta);
                 break;
             case State.Chasing:
                 KeepChasing();
@@ -249,6 +257,11 @@ public partial class Enemy : RigidBody3D
         return _player.GlobalPosition;
     }
 
+
+    /*
+     *      AI STUFF 
+     */
+
     private void StartPatrolling()
     {
         SetTarget(PatrolPoints[_patrolIndex].Pos);
@@ -307,7 +320,7 @@ public partial class Enemy : RigidBody3D
                 _alertGauge += delta;
                 if (_alertGauge >= AlertGaugeTime)
                 {
-                    StartChasing();
+                    StartSearching();
                 }
             }
         }
@@ -318,6 +331,43 @@ public partial class Enemy : RigidBody3D
             if (_alertCountdown <= 0)
             {
                 StartPatrolling();
+            }
+        }
+    }
+
+    private void StartSearching()
+    {
+        _state = State.Searching;
+        _speed = SpeedSearching;
+        _searchGiveUpCountdown = SearchGiveUpTime;
+        Debug.Log("Enemy started searching.");
+    }
+
+    private void KeepSearching(float delta)
+    {
+        SetTarget(_lastSeenPlayerPos);
+
+        if (_seesPlayer)
+        {
+            _searchGiveUpCountdown = SearchGiveUpTime;
+
+            if (GlobalPosition.DistanceTo(_player.GlobalPosition) <= VisionConfirmDistance)
+            {
+                StartChasing();
+                return;
+            }
+        }
+        else
+        {
+            if (GlobalPosition.DistanceTo(_lastSeenPlayerPos) < 1.5f)
+            {
+                _searchGiveUpCountdown -= delta;
+                
+                if (_searchGiveUpCountdown <= 0)
+                {
+                    StartPatrolling();
+                    return;
+                }
             }
         }
     }

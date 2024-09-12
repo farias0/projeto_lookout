@@ -25,17 +25,17 @@ ________________________
 === INIMIGOS
 
 
-- estado de buscando	<<<<
-
 - virar na direção flecha quando levar flechada		<<<<
 
 - criar geometria pra brincar com campo de visão
 
-- em chasing, continuar uns passos depois de perder de vista
+- em chasing, continuar até o last seen player quando perder de vista <<<<<
 
 - dar dano ao colidir com o jogador
 
 - ouvir passos
+
+- navmesh: adicionar bora maior para o jogador não ficar caindo
 
 - indicador de troca de estados
 	- som ?
@@ -62,6 +62,7 @@ ________________________
 
 ________________________
 
+- agrupar parâmetros do inspetor em dropdown	<<<
 
 - limitar rotação vertical da câmera
 
