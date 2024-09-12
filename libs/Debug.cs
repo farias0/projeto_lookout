@@ -26,34 +26,9 @@ namespace projeto_lookout.libs
         /// Draws a line in 3D space.
         /// </summary>
         /// <returns>The line instance.</returns>
-        public static MeshInstance3D Draw3DLine(Node parent, Vector3 pointA, Vector3 pointB)
+        public static MeshInstance3D DrawLine3D(Node parent, Vector3 pointA, Vector3 pointB)
         {
-            MeshInstance3D lineInstance;
-            {
-                Mesh mesh;
-                {
-                    SurfaceTool surfaceTool = new();
-                    surfaceTool.Begin(Mesh.PrimitiveType.Lines);
-                    surfaceTool.SetColor(new Color(0, 1, 0));
-                    surfaceTool.AddVertex(pointA);
-                    surfaceTool.AddVertex(pointB);
-                    mesh = surfaceTool.Commit();
-                }
-
-                lineInstance = new()
-                {
-                    Mesh = mesh
-                };
-            }
-
-            StandardMaterial3D material = new()
-            {
-                VertexColorUseAsAlbedo = true
-            };
-
-            lineInstance.MaterialOverride = material;
-
-            parent.AddChild(lineInstance);
+            var lineInstance =  Draw.Line3D(parent, pointA, pointB, new Color(0, 1, 0));
 
             DebugLog($"Drew 3D line from {pointA} to {pointB}.");
 

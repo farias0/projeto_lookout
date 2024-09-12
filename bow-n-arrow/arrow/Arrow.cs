@@ -32,6 +32,7 @@ public partial class Arrow : Node3D
 	private State _state = State.PulledBack;
     private ArrowType _type = ArrowType.Normal;
     private Player _player;
+    private Node3D _hookLine;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -57,6 +58,10 @@ public partial class Arrow : Node3D
                 Destroy();
                 return;
             }
+        }
+        else if (_state == State.Hooked)
+        {
+            DrawHookLine();
         }
     }
 
@@ -144,8 +149,15 @@ public partial class Arrow : Node3D
         }
     }
 
-	private void Destroy()
+    private void DrawHookLine()
+    {
+        _hookLine?.QueueFree();
+        _hookLine = Draw.Line3D(_player.GetParent(), GlobalPosition, _player.GlobalPosition, ColorHook);
+    }
+
+	public void Destroy()
 	{
-		QueueFree();
+        _hookLine?.QueueFree();
+        QueueFree();
 	}
 }

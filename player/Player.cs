@@ -133,7 +133,7 @@ public partial class Player : CharacterBody3D
 
 		if (type == ArrowType.Hook && _hookedArrow != null)
         {
-			_hookedArrow.QueueFree();
+            (_hookedArrow as Arrow)!.Destroy();
             _hookedArrow = null;
             return;
         }

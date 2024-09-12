@@ -13,6 +13,10 @@ ________________________
 - animação de atirar?
 
 - gancho					<<<<<<
+	- puxar jogador pra perto
+		- desligar colisão?
+	- jogar pra cima ao terminar gancho estando em colisão
+	- adicionar distancia máxima pra hook
 
 - flechas que são plataformas!!
 
