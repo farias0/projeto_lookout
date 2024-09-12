@@ -1,6 +1,5 @@
 #nullable enable
 
-using System.Threading.Tasks;
 using Godot;
 using projeto_lookout.libs;
 
@@ -90,7 +89,14 @@ public partial class Player : CharacterBody3D
 
 	public void ArrowHooked(Node3D arrow)
     {
-        _hookedArrow = arrow;
+        if (_hookedArrow != null)
+        {
+            (arrow as Arrow)!.Destroy();
+        }
+		else
+		{
+            _hookedArrow = arrow;
+        }
     }
 
     private float GetCurrentSpeed()
