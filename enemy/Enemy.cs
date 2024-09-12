@@ -383,7 +383,7 @@ public partial class Enemy : RigidBody3D
     {
         SetTarget(_lastSeenPlayerPos);
 
-        if (!_seesPlayer)
+        if (GlobalPosition.DistanceTo(_lastSeenPlayerPos) < 1.5f && !_seesPlayer)
         {
             StartAlert();
         }

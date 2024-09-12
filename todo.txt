@@ -4,8 +4,6 @@
 
 - escorregar ao agachar correndo
 
-- resetar para o ultimo chão pisado ao cair em buraco
-
 ________________________
 
 === ARCO
@@ -28,8 +26,6 @@ ________________________
 - virar na direção flecha quando levar flechada		<<<<
 
 - criar geometria pra brincar com campo de visão
-
-- em chasing, continuar até o last seen player quando perder de vista <<<<<
 
 - dar dano ao colidir com o jogador
 
@@ -63,6 +59,8 @@ ________________________
 ________________________
 
 - agrupar parâmetros do inspetor em dropdown	<<<
+
+- resetar para o ultimo chão pisado ao cair em buraco
 
 - limitar rotação vertical da câmera
 
