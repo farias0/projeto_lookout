@@ -25,22 +25,21 @@ ________________________
 === INIMIGOS
 
 
-- ativar chasing imediatamente a uma certa distancia	<<<<
+- estado de buscando	<<<<
 
 - virar na direção flecha quando levar flechada		<<<<
 
-- estado de buscando
-
-- indicador de troca de estados
-	- som ?
-	- ícone de alerta ?
-
-
 - criar geometria pra brincar com campo de visão
+
+- em chasing, continuar uns passos depois de perder de vista
 
 - dar dano ao colidir com o jogador
 
 - ouvir passos
+
+- indicador de troca de estados
+	- som ?
+	- ícone de alerta ?
 
 ________________________
 

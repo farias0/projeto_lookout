@@ -24,6 +24,8 @@ public partial class Enemy : RigidBody3D
     [Export]
     public float VisionAngle { get; set; } = 55;
     [Export]
+    public float VisionConfirmDistance { get; set; } = 15;
+    [Export]
     public float AlertCountdown { get; set; } = 2; // How long it takes to go back to patrolling after losing sight of the player
     [Export]
     public float AlertGaugeTime { get; set; } = 2; // For how long it has to see the player while in 'alert' to go investigate
@@ -266,7 +268,15 @@ public partial class Enemy : RigidBody3D
 
         if (_seesPlayer)
         {
-            StartAlert();
+            var dist = GlobalPosition.DistanceTo(_player.GlobalPosition);
+            if (dist <= VisionConfirmDistance)
+            {
+                StartChasing();
+            }
+            else
+            {
+                StartAlert();
+            }
         }
     }
 
@@ -286,11 +296,19 @@ public partial class Enemy : RigidBody3D
 
         if (_seesPlayer)
         {
-            _alertCountdown = AlertCountdown;
-            _alertGauge += delta;
-            if (_alertGauge >= AlertGaugeTime)
+            var dist = GlobalPosition.DistanceTo(_player.GlobalPosition);
+            if (dist <= VisionConfirmDistance)
             {
                 StartChasing();
+            }
+            else
+            {
+                _alertCountdown = AlertCountdown;
+                _alertGauge += delta;
+                if (_alertGauge >= AlertGaugeTime)
+                {
+                    StartChasing();
+                }
             }
         }
         else
