@@ -22,19 +22,18 @@ ________________________
 
 === INIMIGOS
 
-- inimigo alternar entre patrulha e seguir o jogador		<<<<<<
+- estado de alerta		<<<<<<
+
+- estado de buscando
+
+- indicador de troca de estados
+	- som ?
+	- ícone de alerta ?
+
 
 - criar geometria pra brincar com campo de visão
 
 - virar na direção flecha quando levar flechada
-
-- diferentes velocidades p/ diferentes estados
-
-- estados intermediários (alerta, buscando)
-
-- indicador de troca de estados
-	- som 
-	- ícone de alerta
 
 - dar dano ao colidir com o jogador
 

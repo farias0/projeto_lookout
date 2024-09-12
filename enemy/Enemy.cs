@@ -5,12 +5,22 @@ using Godot.Collections;
 
 public partial class Enemy : Node3D
 {
+    private enum State
+    {
+        Patrolling,
+        Alert,
+        Searching,
+        Chasing
+    }
+
     [Export]
 	public int Health { get; set; } = 100;
     [Export]
-    public float Speed { get; set; } = 1.8f;
+    public float SpeedPatrolling { get; set; } = 1.8f;
     [Export]
-    public float VisionDistance { get; set; } = 20;
+    public float SpeedChasing { get; set; } = 4.6f;
+    [Export]
+    public float VisionDistance { get; set; } = 30;
     [Export]
     public float VisionAngle { get; set; } = 55;
     [Export]
@@ -24,6 +34,8 @@ public partial class Enemy : Node3D
     private float _tookDamageCountdown = -1;
     private Vector3 _lastSeenTargetPos;
     private int _patrolIndex = 0;
+    private State _state;
+    private float _speed;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -55,19 +67,33 @@ public partial class Enemy : Node3D
 	{
         ProcessDamageCountdown((float)delta);
 
-        //Vector3? seesPlayer = SeesPlayer();
+        Vector3? seesPlayer = SeesPlayer();
 
-        //if (seesPlayer != null)
-        //{
-        //    _lastSeenTargetPos = seesPlayer.Value;
-        //    SetTarget(_lastSeenTargetPos);
-        //}
-        //else
-        //{
-        //    StopInPlace();
-        //}
+        if (seesPlayer != null)
+        {
+            _lastSeenTargetPos = seesPlayer.Value;
+            if (_state != State.Chasing)
+            {
+                StartChasing();
+            }
+        }
+        else
+        {
+            if (_state != State.Patrolling)
+            {
+                StartPatrolling();
+            }
+        }
 
-        KeepPatrolling();
+        switch (_state)
+        {
+            case State.Patrolling:
+                KeepPatrolling();
+                break;
+            case State.Chasing:
+                KeepChasing();
+                break;
+        }
     }
 
     public override void _PhysicsProcess(double delta)
@@ -140,7 +166,7 @@ public partial class Enemy : Node3D
 
         pos.Y = 0;
         targetPos.Y = 0;
-        GlobalPosition += (targetPos - pos).Normalized() * Speed * delta;
+        GlobalPosition += (targetPos - pos).Normalized() * _speed * delta;
     }
 
     private void TurnTowards(Vector3 direction)
@@ -200,15 +226,42 @@ public partial class Enemy : Node3D
     private void StartPatrolling()
     {
         SetTarget(PatrolPoints[_patrolIndex].Pos);
+        _speed = SpeedPatrolling;
+        _state = State.Patrolling;
+        Debug.Log("Enemy started patrolling.");
     }
 
     private void KeepPatrolling()
     {
+        if (_state != State.Patrolling)
+        {
+            Debug.LogError("Enemy is not patrolling.");
+            return;
+        }
+
         var target = PatrolPoints[_patrolIndex].Pos;
         if (GlobalPosition.DistanceTo(target) < 1.5f)
         {
             _patrolIndex = (_patrolIndex + 1) % PatrolPoints.Count;
             SetTarget(PatrolPoints[_patrolIndex].Pos);
         }
+    }
+
+    private void StartChasing()
+    {
+        _state = State.Chasing;
+        _speed = SpeedChasing;
+        Debug.Log("Enemy started chasing.");
+    }
+
+    private void KeepChasing()
+    {
+        if (_state != State.Chasing)
+        {
+            Debug.LogError("Enemy is not chasing.");
+            return;
+        }
+
+        SetTarget(_lastSeenTargetPos);
     }
 }
