@@ -10,9 +10,9 @@ public partial class Player : CharacterBody3D
 	[Export]
 	public int SpeedCrouched { get; set; } = 6;
     [Export]
-    public int FallAcceleration { get; set; } = 75;
+    public int FallAcceleration { get; set; } = 40;
 	[Export]
-	public int JumpHeight { get; set; } = 20;
+	public int JumpHeight { get; set; } = 14;
 	[Export]
 	public float HookSpeed { get; set; } = 3000;
 
@@ -233,10 +233,12 @@ public partial class Player : CharacterBody3D
 
 	private void PulledByHook(float delta)
 	{
-        if (_hookedArrow!.GlobalPosition.DistanceTo(GlobalPosition) < 2.5f)
+        if (_hookedArrow!.GlobalPosition.DistanceTo(GlobalPosition) < 1.5f)
         {
             (_hookedArrow as Arrow)!.Destroy();
             _hookedArrow = null;
+			Velocity = Vector3.Zero;
+            _targetVelocity = Vector3.Zero;
             return;
         }
 

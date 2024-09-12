@@ -1,10 +1,10 @@
 === MOVIMENTAÇÃO
 
-- colocar aceleração na queda			<<<<<<
-
 - andar com shift
 
 - escorregar ao agachar correndo
+
+- tolerância no pulo
 
 ________________________
 
@@ -15,8 +15,7 @@ ________________________
 - animação de atirar?
 
 - gancho					
-	- balançar dele
-	- pular dele
+	- balançar dele?
 	- pensar em solução p/ quando rigidbody não deixa chegar perto o suficiente da flecha pra despawnar ela (ex. quando atira no teto)
 	- jogar pra cima ao terminar gancho estando em colisão?
 	- adicionar distancia máxima pra hook
@@ -30,7 +29,8 @@ ________________________
 === INIMIGOS
 
 
-- criar geometria pra brincar com campo de visão
+- criar geometria pra brincar com campo de visão	<<<<<<
+	- popular fase com inimigos
 
 - dar dano ao colidir com o jogador			<<<<<<<
 
