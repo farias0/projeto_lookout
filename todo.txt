@@ -55,12 +55,14 @@ ________________________
 
 === JOGADOR
 
-- vida					<<<<<<<
+- vida							<<<<<<<
 - stamina
 - magia
-- hud
+- hud							<<<<<<<
 
 ________________________
+
+- resetar o estado do mundo inteiro quando o jogador morre		<<<<<<<<
 
 - resetar para o ultimo chão pisado ao cair em buraco
 
