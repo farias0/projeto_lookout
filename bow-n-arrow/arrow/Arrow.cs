@@ -26,7 +26,7 @@ public partial class Arrow : Node3D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-		_rigidBody = GetNode<RigidBody3D>("RigidBody3D");
+		_rigidBody = GetChild<RigidBody3D>(0);
         _rigidBody.ContactMonitor = true; // Necessary for detecting collision from the RigidBody3D
         _rigidBody.MaxContactsReported = 1;
         _rigidBody.Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
@@ -62,7 +62,7 @@ public partial class Arrow : Node3D
             return;
         }
 
-        //_rigidBody.ApplyCentralImpulse(Transform.Basis.X * Speed);
+        // _rigidBody.ApplyCentralImpulse(-Transform.Basis.Z * Speed);
 
         _state = State.Flying;
     }
@@ -70,7 +70,7 @@ public partial class Arrow : Node3D
 
     private void MoveArrow(float delta)
     {
-        Position -= Transform.Basis.X * Speed * delta;
+        Position -= Transform.Basis.Z * Speed * delta;
     }
 
 
@@ -86,13 +86,13 @@ public partial class Arrow : Node3D
 
         if (body.GetParent() is Enemy enemy)
         {
-            GetParent().Reparent(body.GetParent());
+            Reparent(body.GetParent());
             enemy.TakeDamage(Damage);
         }
     }
 
 	private void Destroy()
 	{
-		GetParent().QueueFree();
+		QueueFree();
 	}
 }

@@ -9,9 +9,8 @@ ________________________
 === ARCO
 
 
-- flecha colidindo com o chão no ar		<<<<<<<<<<<
-- flecha atravessando o chão quando o ângulo é mto oblíquo
-- ApplyImpulse na flecha não funcionando
+- Consertar rotação da flecha com o jogador
+- Testar ApplyImpulse ao invés de mover manualmente
 
 
 - segurar arco

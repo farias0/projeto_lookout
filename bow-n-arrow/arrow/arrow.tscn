@@ -7,16 +7,17 @@
 size = Vector3(0.0102692, 0.00862885, 0.572021)
 
 [node name="Node3D" type="Node3D"]
-
-[node name="arrow" parent="." instance=ExtResource("1_dxv4u")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 script = ExtResource("2_5gm8k")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="arrow"]
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 collision_layer = 4
 collision_mask = 5
+gravity_scale = 0.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="arrow/RigidBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000343323, -6.48499e-05, -0.0640869)
 shape = SubResource("BoxShape3D_p52ox")
+
+[node name="MeshNode" parent="RigidBody3D" instance=ExtResource("1_dxv4u")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)

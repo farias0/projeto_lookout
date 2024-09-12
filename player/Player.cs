@@ -154,7 +154,7 @@ public partial class Player : CharacterBody3D
         _arrow.LookAt(target);
 
 		{
-            Arrow? a = _arrow.GetChild<Node3D>(0) as Arrow;
+            Arrow? a = _arrow as Arrow;
             a!.Fire();
         }
 
