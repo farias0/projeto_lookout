@@ -11,6 +11,10 @@ ________________________
 === ARCO
 
 
+- consertar flechas não colidindo intermitente c/ inimigo	<<<<<<
+
+
+
 - segurar arco
 - animação de atirar?
 
