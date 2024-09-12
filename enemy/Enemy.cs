@@ -19,11 +19,11 @@ public partial class Enemy : RigidBody3D
 
     [ExportGroup("Speed")]
     [Export]
-    public float SpeedPatrolling { get; set; } = 1.8f;
+    public float SpeedPatrolling { get; set; } = 2.8f;
     [Export]
-    public float SpeedSearching { get; set; } = 1.8f;
+    public float SpeedSearching { get; set; } = 4.6f;
     [Export]
-    public float SpeedChasing { get; set; } = 4.6f;
+    public float SpeedChasing { get; set; } = 7f;
 
     [ExportGroup("Vision")]
     [Export]

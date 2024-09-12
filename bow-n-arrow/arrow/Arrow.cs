@@ -131,6 +131,7 @@ public partial class Arrow : Node3D
         if (body is Player) return;
 
         _lifeTime = LifeTime;
+        _rigidBody.Freeze = true;
         Reparent(body);
 
         if (_type == ArrowType.Normal)

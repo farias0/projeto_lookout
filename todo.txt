@@ -2,7 +2,7 @@
 
 - andar com shift
 
-- escorregar ao agachar correndo
+- escorregar ao agachar correndo			<<<<
 
 - tolerância no pulo
 
@@ -17,7 +17,7 @@ ________________________
 - gancho					
 	- adicionar distancia máxima pra hook
 
-- flechas que são plataformas!!
+- flechas que são plataformas!!				<<<<<
 
 - flecha explosiva?
 
