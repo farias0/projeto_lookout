@@ -22,7 +22,10 @@ ________________________
 
 === INIMIGOS
 
-- estado de alerta		<<<<<<
+
+- ativar chasing imediatamente a uma certa distancia	<<<<
+
+- virar na direção flecha quando levar flechada		<<<<
 
 - estado de buscando
 
@@ -32,8 +35,6 @@ ________________________
 
 
 - criar geometria pra brincar com campo de visão
-
-- virar na direção flecha quando levar flechada
 
 - dar dano ao colidir com o jogador
 

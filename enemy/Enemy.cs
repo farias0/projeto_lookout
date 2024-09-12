@@ -24,6 +24,10 @@ public partial class Enemy : Node3D
     [Export]
     public float VisionAngle { get; set; } = 55;
     [Export]
+    public float AlertCountdown { get; set; } = 2; // How long it takes to go back to patrolling after losing sight of the player
+    [Export]
+    public float AlertGaugeTime { get; set; } = 2; // For how long it has to see the player while in 'alert' to go investigate
+    [Export]
     public Array<PatrolPoint> PatrolPoints { get; set; } = new Array<PatrolPoint>();
 
 
@@ -32,10 +36,13 @@ public partial class Enemy : Node3D
     private NavigationAgent3D _navAgent;
     
     private float _tookDamageCountdown = -1;
-    private Vector3 _lastSeenTargetPos;
+    private Vector3 _lastSeenPlayerPos;
     private int _patrolIndex = 0;
     private State _state;
     private float _speed;
+    private bool _seesPlayer;
+    private float _alertCountdown = -1;
+    private float _alertGauge = 0;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -66,29 +73,20 @@ public partial class Enemy : Node3D
 	public override void _Process(double delta)
 	{
         ProcessDamageCountdown((float)delta);
+        
 
         Vector3? seesPlayer = SeesPlayer();
+        _seesPlayer = seesPlayer != null;
+        if (_seesPlayer) _lastSeenPlayerPos = seesPlayer.Value;
 
-        if (seesPlayer != null)
-        {
-            _lastSeenTargetPos = seesPlayer.Value;
-            if (_state != State.Chasing)
-            {
-                StartChasing();
-            }
-        }
-        else
-        {
-            if (_state != State.Patrolling)
-            {
-                StartPatrolling();
-            }
-        }
 
         switch (_state)
         {
             case State.Patrolling:
                 KeepPatrolling();
+                break;
+            case State.Alert:
+                KeepAlert((float)delta);
                 break;
             case State.Chasing:
                 KeepChasing();
@@ -233,17 +231,50 @@ public partial class Enemy : Node3D
 
     private void KeepPatrolling()
     {
-        if (_state != State.Patrolling)
-        {
-            Debug.LogError("Enemy is not patrolling.");
-            return;
-        }
-
         var target = PatrolPoints[_patrolIndex].Pos;
         if (GlobalPosition.DistanceTo(target) < 1.5f)
         {
             _patrolIndex = (_patrolIndex + 1) % PatrolPoints.Count;
             SetTarget(PatrolPoints[_patrolIndex].Pos);
+        }
+
+        if (_seesPlayer)
+        {
+            StartAlert();
+        }
+    }
+
+    private void StartAlert()
+    {
+        _state = State.Alert;
+        _speed = 0;
+        _alertCountdown = AlertCountdown;
+        _alertGauge = 0;
+        Debug.Log("Enemy started alert.");
+    }
+
+    private void KeepAlert(float delta)
+    {
+        StopInPlace();
+        TurnTowards(_lastSeenPlayerPos);
+
+        if (_seesPlayer)
+        {
+            _alertCountdown = AlertCountdown;
+            _alertGauge += delta;
+            if (_alertGauge >= AlertGaugeTime)
+            {
+                StartChasing();
+            }
+        }
+        else
+        {
+            _alertCountdown -= delta;
+            _alertGauge = 0;
+            if (_alertCountdown <= 0)
+            {
+                StartPatrolling();
+            }
         }
     }
 
@@ -256,12 +287,11 @@ public partial class Enemy : Node3D
 
     private void KeepChasing()
     {
-        if (_state != State.Chasing)
-        {
-            Debug.LogError("Enemy is not chasing.");
-            return;
-        }
+        SetTarget(_lastSeenPlayerPos);
 
-        SetTarget(_lastSeenTargetPos);
+        if (!_seesPlayer)
+        {
+            StartAlert();
+        }
     }
 }

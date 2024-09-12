@@ -79,8 +79,6 @@ public partial class Arrow : Node3D
         if (_state != State.Flying) return;
         if (body is Player) return;
 
-        Debug.Log("Arrow collided with " + body.Name + " pos: " + GlobalPosition);
-
         _state = State.Hit;
         _lifeTime = LifeTime;
 
