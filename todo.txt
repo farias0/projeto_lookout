@@ -1,5 +1,7 @@
 === MOVIMENTAÇÃO
 
+- colocar aceleração na queda			<<<<<<
+
 - andar com shift
 
 - escorregar ao agachar correndo
@@ -12,10 +14,11 @@ ________________________
 - segurar arco
 - animação de atirar?
 
-- gancho					<<<<<<
-	- puxar jogador pra perto
-		- desligar colisão?
-	- jogar pra cima ao terminar gancho estando em colisão
+- gancho					
+	- balançar dele
+	- pular dele
+	- pensar em solução p/ quando rigidbody não deixa chegar perto o suficiente da flecha pra despawnar ela (ex. quando atira no teto)
+	- jogar pra cima ao terminar gancho estando em colisão?
 	- adicionar distancia máxima pra hook
 
 - flechas que são plataformas!!
@@ -29,7 +32,7 @@ ________________________
 
 - criar geometria pra brincar com campo de visão
 
-- dar dano ao colidir com o jogador
+- dar dano ao colidir com o jogador			<<<<<<<
 
 - ouvir passos
 
@@ -61,8 +64,6 @@ ________________________
 - hud
 
 ________________________
-
-- agrupar parâmetros do inspetor em dropdown			<<<<<<<
 
 - resetar para o ultimo chão pisado ao cair em buraco
 

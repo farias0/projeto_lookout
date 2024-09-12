@@ -13,8 +13,12 @@ public partial class Player : CharacterBody3D
     public int FallAcceleration { get; set; } = 75;
 	[Export]
 	public int JumpHeight { get; set; } = 20;
+	[Export]
+	public float HookSpeed { get; set; } = 3000;
+
 
     private const float MinY = -70;
+
 
     private Vector3 _targetVelocity = Vector3.Zero;
 	private bool _isCrouching = false;
@@ -39,6 +43,13 @@ public partial class Player : CharacterBody3D
 
     public override void _PhysicsProcess(double delta)
 	{
+		if (_hookedArrow != null)
+		{
+			PulledByHook((float)delta);
+			return;
+		}
+
+
 		var direction = Vector3.Zero;
 
 		if (Input.IsActionPressed("move_right"))
@@ -218,6 +229,20 @@ public partial class Player : CharacterBody3D
         }
 
         return targetPoint;
+    }
+
+	private void PulledByHook(float delta)
+	{
+        if (_hookedArrow!.GlobalPosition.DistanceTo(GlobalPosition) < 2.5f)
+        {
+            (_hookedArrow as Arrow)!.Destroy();
+            _hookedArrow = null;
+            return;
+        }
+
+        var direction = (_hookedArrow.GlobalPosition - GlobalPosition).Normalized();
+        Velocity = direction * HookSpeed * (float)delta;
+        MoveAndSlide();
     }
 
 	private void Reset()
