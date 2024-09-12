@@ -99,7 +99,8 @@ public partial class Arrow : Node3D
         if (body is Enemy enemy)
         {
             Reparent(body);
-            enemy.TakeDamage(Damage);
+            var player = GetParent() as Node3D;
+            enemy.TakeDamage(player.GlobalPosition, Damage);
         }
     }
 

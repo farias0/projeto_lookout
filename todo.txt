@@ -12,7 +12,7 @@ ________________________
 - segurar arco
 - animação de atirar?
 
-- gancho
+- gancho					<<<<<<
 
 - flechas que são plataformas!!
 
@@ -23,13 +23,13 @@ ________________________
 === INIMIGOS
 
 
-- virar na direção flecha quando levar flechada		<<<<
-
 - criar geometria pra brincar com campo de visão
 
 - dar dano ao colidir com o jogador
 
 - ouvir passos
+
+- gritar p/ outros inimigos ao confirmar vista do jogador
 
 - navmesh: adicionar bora maior para o jogador não ficar caindo
 
@@ -51,14 +51,14 @@ ________________________
 
 === JOGADOR
 
-- vida
+- vida					<<<<<<<
 - stamina
 - magia
 - hud
 
 ________________________
 
-- agrupar parâmetros do inspetor em dropdown	<<<
+- agrupar parâmetros do inspetor em dropdown			<<<<<<<
 
 - resetar para o ultimo chão pisado ao cair em buraco
 

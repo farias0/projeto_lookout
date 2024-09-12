@@ -127,7 +127,7 @@ public partial class Enemy : RigidBody3D
         GetNode<MeshInstance3D>("MeshNode/Mesh").MaterialOverride = material;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(Vector3 origin, int damage)
 	{
         if (_tookDamageCountdown > 0)
         {
@@ -142,7 +142,9 @@ public partial class Enemy : RigidBody3D
 
         Health -= damage;
 		_tookDamageCountdown = 2;
-		Debug.Log($"Enemy took damage. Health: {Health}");
+        _lastSeenPlayerPos = origin;
+        StartAlert();
+        Debug.Log($"Enemy took damage. Health: {Health}");
 
         if (Health <= 0)
         {
