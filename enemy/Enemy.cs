@@ -329,7 +329,7 @@ public partial class Enemy : RigidBody3D
         }
 
         Node node = Resources.Arrow.Instantiate();
-        Node3D? node3d = node as Node3D;
+        Node3D node3d = node as Node3D;
 
         Vector3 spawnPos = node3d!.GlobalPosition +
                                 node3d!.Basis.X.Normalized() * 0.3f +
@@ -338,8 +338,8 @@ public partial class Enemy : RigidBody3D
         node3d!.GlobalPosition = spawnPos;
 
 
-        Arrow? arrow = node3d as Arrow;
-        arrow!.SetType(ArrowType.Normal);
+        Arrow arrow = node3d as Arrow;
+        arrow.SetType(ArrowType.Normal);
         //arrow!.Speed = 90; TODO extra speed?
         arrow!.Damage = Damage;
 

@@ -1,14 +1,19 @@
 using Godot;
 using System;
+using projeto_lookout.libs;
 
 public partial class Camera : Camera3D
 {
 	public const float Sensitivity = 0.07f;
 
+	private Vector3 _startingRotation;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		Input.MouseMode = Input.MouseModeEnum.Captured;
+		Resources.Camera = this;
+		_startingRotation = Rotation;
+        Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -30,5 +35,10 @@ public partial class Camera : Camera3D
 			Input.WarpMouse(	// Center mouse
 				GetViewport().GetVisibleRect().Size / 2f);
 		}
+	}
+
+	public void Reset()
+	{
+		Rotation = _startingRotation;
 	}
 }

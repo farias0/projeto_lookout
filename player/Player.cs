@@ -33,6 +33,7 @@ public partial class Player : CharacterBody3D
 	private Node3D? _hookedArrow;
 	private int _maxHealth;
 	private float _invincibilityCountdown;
+    private Vector3 _startingRot;
 
 
     public override void _Ready()
@@ -40,7 +41,8 @@ public partial class Player : CharacterBody3D
         Resources.Player = this;
 
         _startingPos = GlobalPosition;
-		_maxHealth = Health;
+        _startingRot = GlobalRotation;
+        _maxHealth = Health;
     }
 
     public override void _Process(double delta)
@@ -247,10 +249,8 @@ public partial class Player : CharacterBody3D
 	/// <returns>The point in the world the player's aiming at</returns>
 	private Vector3 AimingAt()
 	{
-        Camera3D camera = GetNode<Camera3D>("Camera3D");
-
-        Vector3 rayOrigin = camera.GlobalTransform.Origin;
-        Vector3 rayDirection = camera.GlobalTransform.Basis.Z.Normalized() * -1;
+        Vector3 rayOrigin = Resources.Camera.GlobalTransform.Origin;
+        Vector3 rayDirection = Resources.Camera.GlobalTransform.Basis.Z.Normalized() * -1;
 
         PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
         PhysicsRayQueryParameters3D rayParams = new()
@@ -303,8 +303,10 @@ public partial class Player : CharacterBody3D
     {
         GlobalPosition = _startingPos;
         Health = _maxHealth;
+        GlobalRotation = _startingRot;
         Resources.HUD.SetHealth(1);
         Resources.HUD.SetHealthBarVisible(true);
+        Resources.Camera.Reset();
         _invincibilityCountdown = -1;
     }
 

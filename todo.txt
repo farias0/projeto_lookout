@@ -47,6 +47,8 @@ ________________________
 
 - gritar p/ outros inimigos ao confirmar vista do jogador
 
+- quando o jogador pula pra cima do inimigo, o inimigo perde campo de visão e fica parado
+
 - indicador de troca de estados
 	- som ?
 	- ícone de alerta ?
@@ -75,7 +77,6 @@ ________________________
 ________________________
 
 - resetar o estado do mundo inteiro quando o jogador morre		<<<<<<<<
-	- resetar câmera p/ origem
 
 - limitar rotação vertical da câmera					
 
