@@ -26,9 +26,12 @@ ________________________
 
 
 - inimigos que atiram flechas			<<<<
-	- não tá colidindo com o jogador
 	- puxar flecha
 	
+
+- criar geometria pra brincar com campo de visão	<<<<<<<<<
+	- popular fase com inimigos
+
 
 
 - consertar navagent ficando preso em estado caso não tenha caminho para target
@@ -36,9 +39,6 @@ ________________________
 - tentar consertar rotação X/Z
 	- checar se ajustando navmesh não já melhora
 	- ajustar com o chão se a rotação passar de tal limite??
-
-- criar geometria pra brincar com campo de visão	<<<<<<
-	- popular fase com inimigos
 
 - ouvir passos
 
@@ -61,7 +61,7 @@ ________________________
 - equipar diferentes itens
 - inventário
 
-- poção de vida
+- poção de vida				<<<<<<
 - poção de velocidade
 
 ________________________
@@ -74,9 +74,9 @@ ________________________
 ________________________
 
 - resetar o estado do mundo inteiro quando o jogador morre		<<<<<<<<
+	- destruir flechas no ar
 
 - limitar rotação vertical da câmera					
-
 
 - Importar modelos com materiais
 	- fbx com arquivos de textura do lado?

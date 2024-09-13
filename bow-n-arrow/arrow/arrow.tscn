@@ -12,7 +12,7 @@ script = ExtResource("2_5gm8k")
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 collision_layer = 4
-collision_mask = 5
+collision_mask = 7
 gravity_scale = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
