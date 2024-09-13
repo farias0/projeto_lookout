@@ -134,8 +134,7 @@ public partial class Arrow : Node3D
             _state = State.Hit;
             if (body is Enemy enemy)
             {
-                var player = GetParent() as Node3D;
-                enemy.TakeDamage(player.GlobalPosition, Damage);
+                enemy.TakeDamage(_player.GlobalPosition, Damage);
             }
         }
         else if (_type == ArrowType.Hook)
