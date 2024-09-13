@@ -63,6 +63,7 @@ public partial class Enemy : RigidBody3D
     public float ShootingLoadTime { get; set; } = 3f; // How long with the player on sight it takes for the enemy to take a shot
 
     [ExportGroup("")]
+    [Export]
     public Array<PatrolPoint> PatrolPoints { get; set; } = new Array<PatrolPoint>();
 
 
