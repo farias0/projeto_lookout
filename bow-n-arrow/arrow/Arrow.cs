@@ -130,7 +130,8 @@ public partial class Arrow : Node3D
 
         _lifeTime = LifeTime;
         _rigidBody.Freeze = true;
-        Reparent(body);
+        CallDeferred("reparent", body);
+
 
         if (_type == ArrowType.Normal)
         {

@@ -11,6 +11,9 @@ ________________________
 === ARCO
 
 
+- atirar no chão causa flecha ir em direção estranha
+
+
 - segurar arco
 - animação de atirar?
 
