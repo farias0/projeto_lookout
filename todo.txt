@@ -28,7 +28,6 @@ ________________________
 
 - inimigos que atiram flechas			<<<<
 	- não tá colidindo com o jogador
-	- agachar tá quebrando algo
 	- puxar flecha
 	- flechas mais rápidas, p/ nao ter que programar overshooting
 		- testar se precisa

@@ -312,7 +312,7 @@ public partial class Enemy : RigidBody3D
             };
             var rayResult = GetWorld3D().DirectSpaceState.IntersectRay(rayParams);
 
-            if ((Node)rayResult["collider"] != _player)
+            if (rayResult.ContainsKey("collider") && (Node)rayResult["collider"] != _player)
             {
                 return null;
             }

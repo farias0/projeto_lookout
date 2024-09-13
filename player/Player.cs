@@ -206,8 +206,7 @@ public partial class Player : CharacterBody3D
         Node node = Resources.Arrow.Instantiate();
         Node3D? node3d = node as Node3D;
 
-        Vector3 spawnPos = node3d!.GlobalPosition +
-								node3d!.Basis.X.Normalized() * 0.3f +
+        Vector3 spawnPos = node3d!.Basis.X.Normalized() * 0.3f +
                                 node3d!.Basis.Z.Normalized() * -0.4f +
                                 node3d!.Basis.Y.Normalized() * 1.4f;
 		node3d!.GlobalPosition = spawnPos;
