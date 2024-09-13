@@ -10,8 +10,6 @@ public enum ArrowType
 
 public partial class Arrow : Node3D
 {
-    private const int Damage = 40;
-
     public enum State
     {
         PulledBack,
@@ -22,8 +20,10 @@ public partial class Arrow : Node3D
 
     [Export]
     public float Speed { get; set; } = 45;
+    [Export]
+    public int Damage { get; set; } = 40;
 
-	private const float LifeTime = 5;
+    private const float LifeTime = 5;
 
     private float _lifeTime = LifeTime;
 	private RigidBody3D _rigidBody;

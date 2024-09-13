@@ -2,7 +2,7 @@
 
 - andar com shift
 
-- escorregar ao agachar correndo			<<<<
+- escorregar ao agachar correndo			
 
 - tolerância no pulo
 
@@ -15,7 +15,7 @@ ________________________
 - animação de atirar?
 
 - gancho					
-	- adicionar distancia máxima pra hook
+	- adicionar distancia máxima pra hook		
 
 - flechas que são plataformas!!				<<<<<
 
@@ -26,16 +26,18 @@ ________________________
 === INIMIGOS
 
 
+- navmesh: adicionar bora maior para o jogador não ficar caindo		<<<<<<
+
+- tentar consertar rotação X/Z
+	- checar se ajustando navmesh não já melhora
+	- ajustar com o chão se a rotação passar de tal limite??
+
 - criar geometria pra brincar com campo de visão	<<<<<<
 	- popular fase com inimigos
-
-- dar dano ao colidir com o jogador			<<<<<<<
 
 - ouvir passos
 
 - gritar p/ outros inimigos ao confirmar vista do jogador
-
-- navmesh: adicionar bora maior para o jogador não ficar caindo
 
 - indicador de troca de estados
 	- som ?
@@ -55,10 +57,6 @@ ________________________
 
 === JOGADOR
 
-- vida							
-	- piscar após levar hit
-	- desligar colisão com inimigo?
-
 - stamina
 - magia
 
@@ -66,9 +64,9 @@ ________________________
 
 - resetar o estado do mundo inteiro quando o jogador morre		<<<<<<<<
 
-- resetar para o ultimo chão pisado ao cair em buraco
 
-- limitar rotação vertical da câmera
+- limitar rotação vertical da câmera					
+
 
 - Importar modelos com materiais
 	- fbx com arquivos de textura do lado?
