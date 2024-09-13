@@ -24,8 +24,6 @@ public partial class Arrow : Node3D
     public float Speed { get; set; } = 45;
 
 	private const float LifeTime = 5;
-    private readonly Color ColorNormal = new(0f, 1f, 0f);
-    private readonly Color ColorHook = new(0.54f, 0.26f, 0.07f);
 
     private float _lifeTime = LifeTime;
 	private RigidBody3D _rigidBody;
@@ -33,6 +31,7 @@ public partial class Arrow : Node3D
     private ArrowType _type = ArrowType.Normal;
     private Player _player;
     private Node3D _hookLine;
+    private Color _hookColor;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -43,6 +42,8 @@ public partial class Arrow : Node3D
         _rigidBody.MaxContactsReported = 1;
         _rigidBody.Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
         _rigidBody.Freeze = true;
+
+        _hookColor = Resources.ArrowHookMaterial.AlbedoColor;
 
         SetType(_type);
     }
@@ -73,12 +74,8 @@ public partial class Arrow : Node3D
         }
     }
 
-    private void PaintSolidColor(Color color)
+    private void ChangeMeshMaterial(StandardMaterial3D material)
     {
-        var material = new StandardMaterial3D
-        {
-            AlbedoColor = color
-        };
         _rigidBody.GetNode<MeshInstance3D>("MeshNode/Arrow").MaterialOverride = material;
     }
 
@@ -91,10 +88,10 @@ public partial class Arrow : Node3D
         switch (_type)
         {
             case ArrowType.Normal:
-                PaintSolidColor(ColorNormal);
+                ChangeMeshMaterial(Resources.ArrowNormalMaterial);
                 break;
             case ArrowType.Hook:
-                PaintSolidColor(ColorHook);
+                ChangeMeshMaterial(Resources.ArrowHookMaterial);
                 break;
         }
     }
@@ -125,8 +122,6 @@ public partial class Arrow : Node3D
 
 	private void OnBodyEntered(Node body)
     {
-        Debug.Log($"Arrow hit {body.Name}");
-
         if (_state != State.Flying) return;
         if (body is Player) return;
 
@@ -153,7 +148,7 @@ public partial class Arrow : Node3D
     private void DrawHookLine()
     {
         _hookLine?.QueueFree();
-        _hookLine = Draw.Line3D(_player.GetParent(), GlobalPosition, _player.GlobalPosition, ColorHook);
+        _hookLine = Draw.Line3D(_player.GetParent(), GlobalPosition, _player.GlobalPosition, _hookColor);
     }
 
 	public void Destroy()

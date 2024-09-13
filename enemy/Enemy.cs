@@ -46,7 +46,6 @@ public partial class Enemy : RigidBody3D
     public Array<PatrolPoint> PatrolPoints { get; set; } = new Array<PatrolPoint>();
 
 
-    private readonly Color Color = new(0.5f, 0f, 0f);
     private readonly float TurnSpeed = 0.1f;
 
     private CharacterBody3D _player;
@@ -86,7 +85,6 @@ public partial class Enemy : RigidBody3D
             Debug.LogError("Couldn't find enemy's navigation agent.");
         }
 
-        PaintSolidColor();
         StartPatrolling();
     }
 
@@ -126,15 +124,6 @@ public partial class Enemy : RigidBody3D
     public override void _IntegrateForces(PhysicsDirectBodyState3D state)
     {
         TurnTowardsTarget(state);
-    }
-
-    private void PaintSolidColor()
-    {
-        var material = new StandardMaterial3D
-        {
-            AlbedoColor = Color
-        };
-        GetNode<MeshInstance3D>("MeshNode/Mesh").MaterialOverride = material;
     }
 
     public void TakeDamage(Vector3 origin, int damage)
