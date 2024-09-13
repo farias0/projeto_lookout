@@ -144,6 +144,13 @@ public partial class Player : CharacterBody3D
         return _invincibilityCountdown > 0;
     }
 
+    public float GetHeight()
+    {
+        CollisionShape3D collisionShape = GetNode<CollisionShape3D>("CollisionShape3D");
+        CylinderShape3D? cylinder = collisionShape.Shape as CylinderShape3D;
+        return cylinder!.Height;
+    }
+
     private float GetCurrentSpeed()
 	{
 		return _isCrouching ? SpeedCrouched : Speed;

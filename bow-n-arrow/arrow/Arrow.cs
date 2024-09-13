@@ -29,7 +29,7 @@ public partial class Arrow : Node3D
 	private RigidBody3D _rigidBody;
 	private State _state = State.PulledBack;
     private ArrowType _type = ArrowType.Normal;
-    private Player _player;
+    private Player _player = null;
     private Node3D _hookLine;
     private Color _hookColor;
 
@@ -122,7 +122,11 @@ public partial class Arrow : Node3D
 	private void OnBodyEntered(Node body)
     {
         if (_state != State.Flying) return;
-        if (body is Player) return;
+
+        // Collision with selves
+        if (body is Player && _player != null) return;
+        else if (body is Enemy && _player == null) return;
+
 
         _lifeTime = LifeTime;
         _rigidBody.Freeze = true;
@@ -134,6 +138,10 @@ public partial class Arrow : Node3D
             if (body is Enemy enemy)
             {
                 enemy.TakeDamage(_player.GlobalPosition, Damage);
+            }
+            else if (body is Player player)
+            {
+                player.TakeDamage(Damage);
             }
         }
         else if (_type == ArrowType.Hook)

@@ -17,17 +17,18 @@ public partial class Enemy : RigidBody3D
     {
         Melee,
         Ranged
-    
+
     }
 
 
     [Export]
-    public EnemyType Type { 
+    public EnemyType Type
+    {
         get => _type;
         set => ChangeType(value);
     }
     [Export]
-	public int Health { get; set; } = 100;
+    public int Health { get; set; } = 100;
     [Export]
     public int Damage { get; set; } = 30;
 
@@ -54,7 +55,12 @@ public partial class Enemy : RigidBody3D
     public float AlertGaugeTime { get; set; } = 2; // For how long it has to see the player while in 'alert' to go investigate
     [Export]
     public float SearchGiveUpCountdown { get; set; } = 5; // How long it takes to give up searching for the player after losing sight of him
+
+    [ExportGroup("Shooting")]
     [Export]
+    public float ShootingDistance { get; set; } = 13; // Distance from which the enemy shoots
+    [Export]
+    public float ShootingLoadTime { get; set; } = 3f; // How long with the player on sight it takes for the enemy to take a shot
 
     [ExportGroup("")]
     public Array<PatrolPoint> PatrolPoints { get; set; } = new Array<PatrolPoint>();
@@ -65,7 +71,7 @@ public partial class Enemy : RigidBody3D
     private CharacterBody3D _player;
     private MeshInstance3D _mesh;
     private NavigationAgent3D _navAgent;
-    
+
     private float _tookDamageCountdown = -1;
     private Vector3 _lastSeenPlayerPos;
     private int _patrolIndex = 0;
@@ -77,11 +83,13 @@ public partial class Enemy : RigidBody3D
     private Vector3 _turnTarget;
     private float _searchGiveUpCountdown;
     private EnemyType _type;
+    private float _shootingLoadGauge = -1;
+    private Node3D _arrow;
 
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
-	{
+    {
         _player = Resources.Player;
         if (_player == null)
         {
@@ -102,15 +110,15 @@ public partial class Enemy : RigidBody3D
 
         ContactMonitor = true;
         MaxContactsReported = 1;
-        Connect("body_entered",  new Callable(this, nameof(OnBodyEntered)));
+        Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
 
         UpdateMaterial();
         StartPatrolling();
     }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
+    {
         ProcessDamageCountdown((float)delta);
 
 
@@ -131,7 +139,7 @@ public partial class Enemy : RigidBody3D
                 KeepSearching((float)delta);
                 break;
             case State.Chasing:
-                KeepChasing();
+                KeepChasing((float)delta);
                 break;
         }
     }
@@ -147,7 +155,7 @@ public partial class Enemy : RigidBody3D
     }
 
     public void TakeDamage(Vector3 origin, int damage)
-	{
+    {
         if (_tookDamageCountdown > 0)
         {
             return;
@@ -159,7 +167,7 @@ public partial class Enemy : RigidBody3D
         }
 
         Health -= damage;
-		_tookDamageCountdown = 2;
+        _tookDamageCountdown = 2;
         _lastSeenPlayerPos = origin;
         StartAlert();
         Debug.Log($"{Name} took damage. Health: {Health}");
@@ -312,6 +320,60 @@ public partial class Enemy : RigidBody3D
         return _player.GlobalPosition;
     }
 
+    private void PullArrowBack()
+    {
+        if (_arrow != null)
+        {
+            throw new InvalidOperationException("Enemy can't pull arrow back; already has one.");
+        }
+
+        Node node = Resources.Arrow.Instantiate();
+        Node3D? node3d = node as Node3D;
+
+        Vector3 spawnPos = node3d!.GlobalPosition +
+                                node3d!.Basis.X.Normalized() * 0.3f +
+                                node3d!.Basis.Z.Normalized() * -0.4f +
+                                node3d!.Basis.Y.Normalized() * 1.4f;
+        node3d!.GlobalPosition = spawnPos;
+
+
+        Arrow? arrow = node3d as Arrow;
+        arrow!.SetType(ArrowType.Normal);
+        //arrow!.Speed = 90; TODO extra speed?
+        arrow!.Damage = Damage;
+
+
+        AddChild(node3d);
+        _arrow = node3d;
+    }
+
+    private void FireArrowAt(Vector3 target)
+    {
+        if (_arrow == null) return;
+
+        Vector3 pos = _arrow.GlobalPosition;
+        RemoveChild(_arrow);
+        GetParent().AddChild(_arrow);
+        _arrow.GlobalPosition = pos;
+
+        _arrow.LookAt(CompensateForPlayersHeight(target));
+
+        {
+            Arrow? a = _arrow as Arrow;
+            a!.Fire();
+        }
+
+        _arrow = null;
+    }
+
+    private Vector3 CompensateForPlayersHeight(Vector3 playerPos)
+    {
+        playerPos += _player.GlobalTransform.Basis.Y *
+                        (_player as Player).GetHeight() *
+                            0.5f;
+        return playerPos;
+    }
+
 
     /*
      *      AI STUFF 
@@ -417,7 +479,7 @@ public partial class Enemy : RigidBody3D
             if (GlobalPosition.DistanceTo(_lastSeenPlayerPos) < 1.5f)
             {
                 _searchGiveUpCountdown -= delta;
-                
+
                 if (_searchGiveUpCountdown <= 0)
                 {
                     StartPatrolling();
@@ -431,18 +493,48 @@ public partial class Enemy : RigidBody3D
     {
         _state = State.Chasing;
         _speed = SpeedChasing;
+        _shootingLoadGauge = -1;
         Debug.Log($"{Name} started chasing.");
     }
 
-    private void KeepChasing()
+    private void KeepChasing(float delta)
     {
+        if (_shootingLoadGauge >= 0)
+        {
+            _shootingLoadGauge += delta;
+            if (!_seesPlayer) _shootingLoadGauge = -1;
+        }
+
+
         if ((_player as Player).IsInvincible())
         {
             _turnTarget = _lastSeenPlayerPos;
         }
         else
         {
-            SetTarget(_lastSeenPlayerPos);
+            // Attack player
+            if (_type == EnemyType.Melee)
+            {
+                SetTarget(_lastSeenPlayerPos);
+            }
+            else if (_type == EnemyType.Ranged)
+            {
+                var dist = GlobalPosition.DistanceTo(_lastSeenPlayerPos);
+                if (dist <= ShootingDistance)
+                {
+                    StopInPlace();
+                    _turnTarget = _lastSeenPlayerPos;
+
+                    if (_shootingLoadGauge == -1) _shootingLoadGauge = 0;
+                    if (_shootingLoadGauge >= ShootingLoadTime)
+                    {
+                        PullArrowBack(); // TODO pull arrow back at player sight
+                        FireArrowAt(_lastSeenPlayerPos);
+                        _shootingLoadGauge = -1;
+                    }
+                }
+                else SetTarget(_lastSeenPlayerPos);
+            }
         }
 
         if (GlobalPosition.DistanceTo(_lastSeenPlayerPos) < 1.5f && !_seesPlayer)
