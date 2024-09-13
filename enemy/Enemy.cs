@@ -39,7 +39,7 @@ public partial class Enemy : RigidBody3D
     [Export]
     public float AlertCountdown { get; set; } = 2; // How long it takes to go back to patrolling after losing sight of the player
     [Export]
-    public float AlertGaugeTime { get; set; } = 2; // For how long it has to see the player while in 'alert' to go investigate
+    public float AlertGaugeTime { get; set; } = 5; // For how long it has to see the player while in 'alert' to go investigate
     [Export]
     public float SearchGiveUpCountdown { get; set; } = 5; // How long it takes to give up searching for the player after losing sight of him
     [Export]
@@ -396,7 +396,14 @@ public partial class Enemy : RigidBody3D
 
     private void KeepChasing()
     {
-        SetTarget(_lastSeenPlayerPos);
+        if ((_player as Player).IsInvincible())
+        {
+            _turnTarget = _lastSeenPlayerPos;
+        }
+        else
+        {
+            SetTarget(_lastSeenPlayerPos);
+        }
 
         if (GlobalPosition.DistanceTo(_lastSeenPlayerPos) < 1.5f && !_seesPlayer)
         {

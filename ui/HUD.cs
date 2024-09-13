@@ -24,4 +24,9 @@ public partial class HUD : CanvasLayer
 
         _healthBar.SetSize(new Vector2(_healthBarSize.X * pct, _healthBarSize.Y));
     }
+
+    public void SetHealthBarVisible(bool visible)
+    {
+        _healthBar.Visible = visible;
+    }
 }

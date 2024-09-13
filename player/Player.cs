@@ -19,6 +19,8 @@ public partial class Player : CharacterBody3D
 	public float HookSpeed { get; set; } = 3000;
 	[Export]
 	public int Health { get; set; } = 100;
+	[Export]
+    public float InvincibilityTime { get; set; } = 2.0f;
 
 
     private const float MinY = -70;
@@ -30,6 +32,7 @@ public partial class Player : CharacterBody3D
 	private Vector3 _startingPos;
 	private Node3D? _hookedArrow;
 	private int _maxHealth;
+	private float _invincibilityCountdown;
 
 
     public override void _Ready()
@@ -42,6 +45,8 @@ public partial class Player : CharacterBody3D
 
     public override void _Process(double delta)
 	{
+		ProcessInvencibilityCounter((float)delta);
+
         if (GlobalPosition.Y < MinY)
         {
 			Reset();
@@ -107,14 +112,19 @@ public partial class Player : CharacterBody3D
 
 	public void TakeDamage(int damage)
     {
+        if (_invincibilityCountdown > 0) return;
+
         Health -= damage;
 
         if (Health <= 0)
         {
             Reset();
         }
-
-        Resources.HUD.SetHealth((float)Health / _maxHealth);
+        else
+        {
+            Resources.HUD.SetHealth((float)Health / _maxHealth);
+            _invincibilityCountdown = InvincibilityTime;
+        }
     }
 
     public void ArrowHooked(Node3D arrow)
@@ -127,6 +137,11 @@ public partial class Player : CharacterBody3D
 		{
             _hookedArrow = arrow;
         }
+    }
+
+    public bool IsInvincible()
+    {
+        return _invincibilityCountdown > 0;
     }
 
     private float GetCurrentSpeed()
@@ -283,5 +298,25 @@ public partial class Player : CharacterBody3D
         GlobalPosition = _startingPos;
         Health = _maxHealth;
         Resources.HUD.SetHealth(1);
+        Resources.HUD.SetHealthBarVisible(true);
+        _invincibilityCountdown = -1;
+    }
+
+	private void ProcessInvencibilityCounter(float delta)
+    {
+        if (_invincibilityCountdown <= 0) return;
+
+        _invincibilityCountdown -= delta;
+
+        // Blink effect
+        Resources.HUD.SetHealthBarVisible(_invincibilityCountdown % 0.2f > 0.1f);
+
+        if (_invincibilityCountdown <= 0)
+        {
+            _invincibilityCountdown = -1;
+
+            // Stop blinking
+            Resources.HUD.SetHealthBarVisible(true);
+        }
     }
 }
