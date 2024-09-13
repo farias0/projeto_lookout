@@ -55,10 +55,12 @@ ________________________
 
 === JOGADOR
 
-- vida							<<<<<<<
+- vida							
+	- piscar após levar hit
+	- desligar colisão com inimigo?
+
 - stamina
 - magia
-- hud							<<<<<<<
 
 ________________________
 

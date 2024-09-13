@@ -16,6 +16,8 @@ public partial class Enemy : RigidBody3D
 
     [Export]
 	public int Health { get; set; } = 100;
+    [Export]
+    public int Damage { get; set; } = 30;
 
     [ExportGroup("Speed")]
     [Export]
@@ -67,7 +69,7 @@ public partial class Enemy : RigidBody3D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-        _player = Resources.PlayerRef;
+        _player = Resources.Player;
         if (_player == null)
         {
             Debug.LogError("Enemy couldn't find player.");
@@ -84,6 +86,10 @@ public partial class Enemy : RigidBody3D
         {
             Debug.LogError("Couldn't find enemy's navigation agent.");
         }
+
+        ContactMonitor = true;
+        MaxContactsReported = 1;
+        Connect("body_entered",  new Callable(this, nameof(OnBodyEntered)));
 
         StartPatrolling();
     }
@@ -148,6 +154,14 @@ public partial class Enemy : RigidBody3D
         if (Health <= 0)
         {
             Die();
+        }
+    }
+
+    private void OnBodyEntered(Node body)
+    {
+        if (body is Player player)
+        {
+            player.TakeDamage(Damage);
         }
     }
 

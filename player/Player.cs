@@ -17,6 +17,8 @@ public partial class Player : CharacterBody3D
     public int JumpHeightHooked { get; set; } = 19;
     [Export]
 	public float HookSpeed { get; set; } = 3000;
+	[Export]
+	public int Health { get; set; } = 100;
 
 
     private const float MinY = -70;
@@ -25,14 +27,17 @@ public partial class Player : CharacterBody3D
     private Vector3 _targetVelocity = Vector3.Zero;
 	private bool _isCrouching = false;
 	private Node3D? _arrow;
-	private static Vector3 _startingPos;
-	private static Node3D? _hookedArrow;
+	private Vector3 _startingPos;
+	private Node3D? _hookedArrow;
+	private int _maxHealth;
 
 
     public override void _Ready()
     {
-        Resources.PlayerRef = this;
+        Resources.Player = this;
+
         _startingPos = GlobalPosition;
+		_maxHealth = Health;
     }
 
     public override void _Process(double delta)
@@ -100,7 +105,19 @@ public partial class Player : CharacterBody3D
         else if (e.IsActionReleased("fire_2"))		FireArrow();
     }
 
-	public void ArrowHooked(Node3D arrow)
+	public void TakeDamage(int damage)
+    {
+        Health -= damage;
+
+        if (Health <= 0)
+        {
+            Reset();
+        }
+
+        Resources.HUD.SetHealth((float)Health / _maxHealth);
+    }
+
+    public void ArrowHooked(Node3D arrow)
     {
         if (_hookedArrow != null)
         {
@@ -264,5 +281,7 @@ public partial class Player : CharacterBody3D
 	private void Reset()
     {
         GlobalPosition = _startingPos;
+        Health = _maxHealth;
+        Resources.HUD.SetHealth(1);
     }
 }
