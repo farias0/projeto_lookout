@@ -13,7 +13,19 @@ public partial class Enemy : RigidBody3D
         Chasing
     }
 
+    public enum EnemyType
+    {
+        Melee,
+        Ranged
+    
+    }
 
+
+    [Export]
+    public EnemyType Type { 
+        get => _type;
+        set => ChangeType(value);
+    }
     [Export]
 	public int Health { get; set; } = 100;
     [Export]
@@ -64,6 +76,7 @@ public partial class Enemy : RigidBody3D
     private float _alertGauge = 0;
     private Vector3 _turnTarget;
     private float _searchGiveUpCountdown;
+    private EnemyType _type;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -72,25 +85,26 @@ public partial class Enemy : RigidBody3D
         _player = Resources.Player;
         if (_player == null)
         {
-            Debug.LogError("Enemy couldn't find player.");
+            throw new InvalidOperationException("Couldn't find player.");
         }
 
         _mesh = FindChild("MeshNode").GetChild<MeshInstance3D>(0);
         if (_mesh == null)
         {
-            Debug.LogError("Couldn't find enemy's mesh.");
+            throw new InvalidOperationException("Couldn't find enemy's mesh.");
         }
 
         _navAgent = FindChild("NavigationAgent3D") as NavigationAgent3D;
         if (_navAgent == null)
         {
-            Debug.LogError("Couldn't find enemy's navigation agent.");
+            throw new InvalidOperationException("Couldn't find enemy's navigation agent.");
         }
 
         ContactMonitor = true;
         MaxContactsReported = 1;
         Connect("body_entered",  new Callable(this, nameof(OnBodyEntered)));
 
+        UpdateMaterial();
         StartPatrolling();
     }
 
@@ -141,19 +155,45 @@ public partial class Enemy : RigidBody3D
 
         if (Health <= 0)
         {
-            Debug.LogError("Dead enemy took damage.");
-            return;
+            throw new InvalidOperationException($"Dead enemy {Name} took damage.");
         }
 
         Health -= damage;
 		_tookDamageCountdown = 2;
         _lastSeenPlayerPos = origin;
         StartAlert();
-        Debug.Log($"Enemy took damage. Health: {Health}");
+        Debug.Log($"{Name} took damage. Health: {Health}");
 
         if (Health <= 0)
         {
             Die();
+        }
+    }
+    public void ChangeType(EnemyType type)
+    {
+        _type = type;
+        UpdateMaterial();
+    }
+
+    private void ChangeMeshMaterial(StandardMaterial3D material)
+    {
+        if (_mesh == null) return;
+        _mesh.MaterialOverride = material;
+    }
+
+    /// <summary>
+    /// Updates the Mesh's material according to the Enemy type
+    /// </summary>
+    private void UpdateMaterial()
+    {
+        switch (_type)
+        {
+            case EnemyType.Melee:
+                ChangeMeshMaterial(Resources.EnemyMeleeMaterial);
+                break;
+            case EnemyType.Ranged:
+                ChangeMeshMaterial(Resources.EnemyRangedMaterial);
+                break;
         }
     }
 
@@ -282,7 +322,7 @@ public partial class Enemy : RigidBody3D
         SetTarget(PatrolPoints[_patrolIndex].Pos);
         _speed = SpeedPatrolling;
         _state = State.Patrolling;
-        Debug.Log("Enemy started patrolling.");
+        Debug.Log($"{Name} started patrolling.");
     }
 
     private void KeepPatrolling()
@@ -314,7 +354,7 @@ public partial class Enemy : RigidBody3D
         _speed = 0;
         _alertCountdown = AlertCountdown;
         _alertGauge = 0;
-        Debug.Log("Enemy started alert.");
+        Debug.Log($"{Name} started alert.");
     }
 
     private void KeepAlert(float delta)
@@ -355,7 +395,7 @@ public partial class Enemy : RigidBody3D
         _state = State.Searching;
         _speed = SpeedSearching;
         _searchGiveUpCountdown = SearchGiveUpCountdown;
-        Debug.Log("Enemy started searching.");
+        Debug.Log($"{Name} started searching.");
     }
 
     private void KeepSearching(float delta)
@@ -391,7 +431,7 @@ public partial class Enemy : RigidBody3D
     {
         _state = State.Chasing;
         _speed = SpeedChasing;
-        Debug.Log("Enemy started chasing.");
+        Debug.Log($"{Name} started chasing.");
     }
 
     private void KeepChasing()

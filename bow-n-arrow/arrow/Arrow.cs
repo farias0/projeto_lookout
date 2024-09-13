@@ -105,8 +105,7 @@ public partial class Arrow : Node3D
     {
         if (_state != State.PulledBack)
         {
-            Debug.LogError("Arrow fired, but it's not pulled back.");
-            return;
+            throw new InvalidOperationException("Arrow must be in PulledBack state to fire.");
         }
 
         _state = State.Flying;

@@ -26,7 +26,13 @@ ________________________
 === INIMIGOS
 
 
-- navmesh: adicionar bora maior para o jogador não ficar caindo		<<<<<<
+- inimigos que atiram flechas			<<<<
+	- flechas mais rápidas, p/ nao ter que programar overshooting
+		- compensar com tempo de 'lock on'
+	
+
+
+- consertar navagent ficando preso em estado caso não tenha caminho para target
 
 - tentar consertar rotação X/Z
 	- checar se ajustando navmesh não já melhora
@@ -42,6 +48,10 @@ ________________________
 - indicador de troca de estados
 	- som ?
 	- ícone de alerta ?
+
+- navegar pela lista de nós filhos que são Patrol Points ao invés de receber propriedade pelo inspector
+
+- mater inimigo enquanto ainda tem um gancho nele buga o jogo
 
 ________________________
 

@@ -8,6 +8,8 @@ namespace projeto_lookout.libs
         public static HUD HUD { get; set; }
 
 
+        //      Arrow
+
         public static readonly PackedScene Arrow =
             GD.Load<PackedScene>("res://bow-n-arrow/arrow/arrow.tscn");
 
@@ -16,5 +18,15 @@ namespace projeto_lookout.libs
 
         public static readonly StandardMaterial3D ArrowHookMaterial =
             GD.Load<StandardMaterial3D>("res://bow-n-arrow/arrow/arrow_hook_material.tres");
+
+
+
+        //      Enemy
+
+        public static readonly StandardMaterial3D EnemyMeleeMaterial =
+            GD.Load<StandardMaterial3D>("res://enemy/enemy_melee_material.tres");
+
+        public static readonly StandardMaterial3D EnemyRangedMaterial =
+            GD.Load<StandardMaterial3D>("res://enemy/enemy_ranged_material.tres");
     }
 }
