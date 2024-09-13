@@ -30,7 +30,7 @@ public partial class Enemy : RigidBody3D
     [Export]
     public int Health { get; set; } = 100;
     [Export]
-    public int Damage { get; set; } = 30;
+    public int MeleeDamage { get; set; } = 30;
 
     [ExportGroup("Speed")]
     [Export]
@@ -61,6 +61,11 @@ public partial class Enemy : RigidBody3D
     public float ShootingDistance { get; set; } = 13; // Distance from which the enemy shoots
     [Export]
     public float ShootingLoadTime { get; set; } = 2f; // How long with the player on sight it takes for the enemy to take a shot
+    [Export]
+    public float ArrowSpeed { get; set; } = 90;
+    [Export]
+    public int ArrowDamage { get; set; } = 30;
+
 
     [ExportGroup("")]
     [Export]
@@ -210,7 +215,7 @@ public partial class Enemy : RigidBody3D
     {
         if (body is Player player)
         {
-            player.TakeDamage(Damage);
+            player.TakeDamage(MeleeDamage);
         }
     }
 
@@ -340,8 +345,8 @@ public partial class Enemy : RigidBody3D
 
         Arrow arrow = node3d as Arrow;
         arrow.SetType(ArrowType.Normal);
-        //arrow!.Speed = 90; TODO extra speed?
-        arrow!.Damage = Damage;
+        arrow!.Speed = ArrowSpeed;
+        arrow!.Damage = ArrowDamage;
 
 
         AddChild(node3d);
@@ -360,7 +365,7 @@ public partial class Enemy : RigidBody3D
         _arrow.LookAt(CompensateForPlayersHeight(target));
 
         {
-            Arrow? a = _arrow as Arrow;
+            Arrow a = _arrow as Arrow;
             a!.Fire();
         }
 
