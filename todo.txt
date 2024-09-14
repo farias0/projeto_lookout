@@ -1,4 +1,4 @@
-=== MOVIMENTAÇÃO
+=== JOGADOR
 
 - andar com shift
 
@@ -6,9 +6,15 @@
 
 - tolerância no pulo
 
+- limitar rotação vertical da câmera	
+
+- stamina					<<<<<<
+
+- magia
+
 ________________________
 
-=== ARCO
+=== ARCO E FLECHA
 
 
 - animação de atirar?
@@ -23,6 +29,7 @@ ________________________
 - rotacionar verticalmente c/ a câmera
 
 - arrumar exception de quando seta a GlobalPosition ao spawnar flecha		<<<<
+
 ________________________
 
 === INIMIGOS
@@ -46,8 +53,6 @@ ________________________
 
 - navegar pela lista de nós filhos que são Patrol Points ao invés de receber propriedade pelo inspector		<<<<
 
-- mater inimigo enquanto ainda tem um gancho nele buga o jogo					<<<<<<<
-
 
 - em chasing, seguir o jogador por alguns segundos mesmo depois de perder de vista		<<<<<<<<<<<
 
@@ -70,17 +75,8 @@ ________________________
 
 ________________________
 
-=== JOGADOR
-
-- stamina
-- magia
-
-________________________
-
 - resetar o estado do mundo inteiro quando o jogador morre		<<<<<<<<
-	- destruir flechas no ar
-
-- limitar rotação vertical da câmera					
+	- destruir flechas no ar				
 
 - Importar modelos com materiais
 	- fbx com arquivos de textura do lado?

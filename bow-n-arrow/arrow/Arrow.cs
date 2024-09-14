@@ -57,7 +57,7 @@ public partial class Arrow : Node3D
 			_lifeTime -= (float)delta;
 			if (_lifeTime <= 0)
 			{
-				Destroy();
+				QueueFree();
 				return;
 			}
 		}
@@ -65,7 +65,7 @@ public partial class Arrow : Node3D
 		{
 			if (_shooter == null)
 			{
-				Destroy();
+				QueueFree();
 				return;
 			}
 
@@ -78,6 +78,14 @@ public partial class Arrow : Node3D
 		if (_state == State.Flying)
 		{
 			MoveArrow((float)delta);
+		}
+	}
+
+	public override void _Notification(int notification)
+	{
+		if (notification == NotificationPredelete)
+		{
+			ClearForDestruction();
 		}
 	}
 
@@ -128,7 +136,7 @@ public partial class Arrow : Node3D
 			throw new InvalidOperationException("Can't detach shooter if there isn't one.");
 
 		_shooter = null;
-		Destroy();
+		QueueFree();
 	}
 
 	/// <summary>
@@ -137,7 +145,7 @@ public partial class Arrow : Node3D
 	public void DetachPickup()
 	{
 		_hookedPickup = null;
-		Destroy();
+		QueueFree();
 	}
 
 	/// <summary>
@@ -231,7 +239,7 @@ public partial class Arrow : Node3D
 		_hookLine = Draw.Line3D(_shooter.GetParent(), GlobalPosition, _shooterPos, _hookColor);
 	}
 
-	public void Destroy()
+	public void ClearForDestruction()
 	{
 		if (_type == ArrowType.Hook && _state == State.Hooked)
 		{
@@ -240,6 +248,5 @@ public partial class Arrow : Node3D
 		}
 
 		_hookLine?.QueueFree();
-		QueueFree();
 	}
 }

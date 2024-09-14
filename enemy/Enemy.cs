@@ -399,7 +399,7 @@ public partial class Enemy : RigidBody3D
 	{
 		if (_arrow != null)
 		{
-			(_arrow as Arrow).Destroy();
+			(_arrow as Arrow).QueueFree();
 		}
 		_arrow = null;
 	}
