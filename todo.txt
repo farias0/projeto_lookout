@@ -10,7 +10,8 @@ ________________________
 
 === ARCO
 
-- segurar arco
+- segurar arco					<<<<<
+
 - animação de atirar?
 
 - gancho					
@@ -23,11 +24,6 @@ ________________________
 ________________________
 
 === INIMIGOS
-
-
-- criar geometria pra brincar com campo de visão	<<<<<<<<<
-	- popular fase com inimigos
-
 
 
 - consertar navagent ficando preso em estado caso não tenha caminho para target
@@ -46,7 +42,7 @@ ________________________
 	- som ?
 	- ícone de alerta ?
 
-- navegar pela lista de nós filhos que são Patrol Points ao invés de receber propriedade pelo inspector
+- navegar pela lista de nós filhos que são Patrol Points ao invés de receber propriedade pelo inspector		<<<<<<<<<<<<
 
 - mater inimigo enquanto ainda tem um gancho nele buga o jogo
 

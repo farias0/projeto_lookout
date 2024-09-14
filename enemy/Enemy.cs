@@ -46,7 +46,7 @@ public partial class Enemy : RigidBody3D
     [Export]
     public float VisionDistance { get; set; } = 30;
     [Export]
-    public float VisionConfirmDistance { get; set; } = 15;
+    public float VisionConfirmDistance { get; set; } = 18;
 
     [ExportGroup("Timers")]
     [Export]
@@ -58,7 +58,7 @@ public partial class Enemy : RigidBody3D
 
     [ExportGroup("Shooting")]
     [Export]
-    public float ShootingDistance { get; set; } = 13; // Distance from which the enemy shoots
+    public float ShootingDistance { get; set; } = 18; // Distance from which the enemy shoots
     [Export]
     public float ShootingLoadTime { get; set; } = 2f; // How long with the player on sight it takes for the enemy to take a shot
     [Export]

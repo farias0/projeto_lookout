@@ -71,35 +71,68 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 [node name="Wall" parent="NavigationRegion3D" instance=ExtResource("3_7rrpu")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15.2086, 2, 74.5709)
 
-[node name="Enemy" parent="NavigationRegion3D" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("3_4s0tw")]
+[node name="Archer1" parent="NavigationRegion3D" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("3_4s0tw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.427, 0, 71.591)
-PatrolPoints = [NodePath("PatrolPoint"), NodePath("PatrolPoint2"), NodePath("PatrolPoint3"), NodePath("PatrolPoint4")]
-
-[node name="PatrolPoint" parent="NavigationRegion3D/Enemy" instance=ExtResource("6_dr3r0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -17)
-
-[node name="PatrolPoint2" parent="NavigationRegion3D/Enemy" instance=ExtResource("6_dr3r0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, -17)
-
-[node name="PatrolPoint3" parent="NavigationRegion3D/Enemy" instance=ExtResource("6_dr3r0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 22)
-
-[node name="PatrolPoint4" parent="NavigationRegion3D/Enemy" instance=ExtResource("6_dr3r0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 22)
-
-[node name="Enemy2" parent="NavigationRegion3D" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("3_4s0tw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.9668, 12.355, 71.591)
 Type = 1
 PatrolPoints = [NodePath("PatrolPoint"), NodePath("PatrolPoint2"), NodePath("PatrolPoint3"), NodePath("PatrolPoint4")]
 
-[node name="PatrolPoint" parent="NavigationRegion3D/Enemy2" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint" parent="NavigationRegion3D/Archer1" instance=ExtResource("6_dr3r0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -17)
+
+[node name="PatrolPoint2" parent="NavigationRegion3D/Archer1" instance=ExtResource("6_dr3r0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, -17)
+
+[node name="PatrolPoint3" parent="NavigationRegion3D/Archer1" instance=ExtResource("6_dr3r0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 22)
+
+[node name="PatrolPoint4" parent="NavigationRegion3D/Archer1" instance=ExtResource("6_dr3r0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 22)
+
+[node name="Archer2" parent="NavigationRegion3D" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("3_4s0tw")]
+transform = Transform3D(-0.999978, 0, -0.0066497, 0, 1, 0, 0.0066497, 0, -0.999978, 18.937, 0, 74.7131)
+Type = 1
+PatrolPoints = [NodePath("PatrolPoint"), NodePath("PatrolPoint2"), NodePath("PatrolPoint3"), NodePath("PatrolPoint4")]
+
+[node name="PatrolPoint" parent="NavigationRegion3D/Archer2" instance=ExtResource("6_dr3r0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -17)
+
+[node name="PatrolPoint2" parent="NavigationRegion3D/Archer2" instance=ExtResource("6_dr3r0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, -17)
+
+[node name="PatrolPoint3" parent="NavigationRegion3D/Archer2" instance=ExtResource("6_dr3r0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 22)
+
+[node name="PatrolPoint4" parent="NavigationRegion3D/Archer2" instance=ExtResource("6_dr3r0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 22)
+
+[node name="Melee2" parent="NavigationRegion3D" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("3_4s0tw")]
+transform = Transform3D(-0.999978, 0, -0.0066497, 0, 1, 0, 0.0066497, 0, -0.999978, 38.2566, 0, 83.1505)
+PatrolPoints = [NodePath("PatrolPoint"), NodePath("PatrolPoint2"), NodePath("PatrolPoint3"), NodePath("PatrolPoint4")]
+
+[node name="PatrolPoint" parent="NavigationRegion3D/Melee2" instance=ExtResource("6_dr3r0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.02293, 0, -13.5525)
+
+[node name="PatrolPoint2" parent="NavigationRegion3D/Melee2" instance=ExtResource("6_dr3r0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9694, 0, -12.3946)
+
+[node name="PatrolPoint3" parent="NavigationRegion3D/Melee2" instance=ExtResource("6_dr3r0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 22)
+
+[node name="PatrolPoint4" parent="NavigationRegion3D/Melee2" instance=ExtResource("6_dr3r0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 22)
+
+[node name="Melee1" parent="NavigationRegion3D" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("3_4s0tw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.9668, 12.355, 71.591)
+PatrolPoints = [NodePath("PatrolPoint"), NodePath("PatrolPoint2"), NodePath("PatrolPoint3"), NodePath("PatrolPoint4")]
+
+[node name="PatrolPoint" parent="NavigationRegion3D/Melee1" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.535057, 0, -9.62863)
 
-[node name="PatrolPoint2" parent="NavigationRegion3D/Enemy2" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint2" parent="NavigationRegion3D/Melee1" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.78827, 0, -8.79828)
 
-[node name="PatrolPoint3" parent="NavigationRegion3D/Enemy2" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint3" parent="NavigationRegion3D/Melee1" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.223, 0, 10.759)
 
-[node name="PatrolPoint4" parent="NavigationRegion3D/Enemy2" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint4" parent="NavigationRegion3D/Melee1" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31616, 0, 11.7383)
