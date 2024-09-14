@@ -233,7 +233,7 @@ public partial class Arrow : Node3D
 
 	public void Destroy()
 	{
-		if (_type == ArrowType.Hook)
+		if (_type == ArrowType.Hook && _state == State.Hooked)
 		{
 			_shooter?.ArrowHooked(null);
 			_hookedPickup?.ArrowHooked(null);
