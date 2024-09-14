@@ -34,11 +34,14 @@ public partial class Player : CharacterBody3D
 	private int _maxHealth;
 	private float _invincibilityCountdown;
     private Vector3 _startingRot;
+    private Node3D _bow = new();
 
 
     public override void _Ready()
     {
         Resources.Player = this;
+
+        _bow = GetNode<Node3D>("Bow");
 
         _startingPos = GlobalPosition;
         _startingRot = GlobalRotation;
@@ -305,8 +308,8 @@ public partial class Player : CharacterBody3D
         Health = _maxHealth;
         GlobalRotation = _startingRot;
         Resources.HUD.SetHealth(1);
-        Resources.HUD.SetHealthBarVisible(true);
         Resources.Camera.Reset();
+        _bow.Visible = true;
         _invincibilityCountdown = -1;
     }
 
@@ -317,14 +320,14 @@ public partial class Player : CharacterBody3D
         _invincibilityCountdown -= delta;
 
         // Blink effect
-        Resources.HUD.SetHealthBarVisible(_invincibilityCountdown % 0.2f > 0.1f);
+        _bow.Visible = _invincibilityCountdown % 0.2f > 0.1f;
 
         if (_invincibilityCountdown <= 0)
         {
             _invincibilityCountdown = -1;
 
             // Stop blinking
-            Resources.HUD.SetHealthBarVisible(true);
+            _bow.Visible = true;
         }
     }
 }

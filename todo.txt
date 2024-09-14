@@ -20,6 +20,8 @@ ________________________
 
 - flecha explosiva?
 
+- rotacionar verticalmente c/ a câmera
+
 ________________________
 
 === INIMIGOS
