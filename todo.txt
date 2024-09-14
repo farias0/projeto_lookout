@@ -22,6 +22,7 @@ ________________________
 
 - rotacionar verticalmente c/ a câmera
 
+- arrumar exception de quando seta a GlobalPosition ao spawnar flecha		<<<<
 ________________________
 
 === INIMIGOS
@@ -43,9 +44,13 @@ ________________________
 	- som ?
 	- ícone de alerta ?
 
-- navegar pela lista de nós filhos que são Patrol Points ao invés de receber propriedade pelo inspector		<<<<<<<<<<<<
+- navegar pela lista de nós filhos que são Patrol Points ao invés de receber propriedade pelo inspector		<<<<
 
 - mater inimigo enquanto ainda tem um gancho nele buga o jogo
+
+
+- em chasing, seguir o jogador por alguns segundos mesmo depois de perder de vista		<<<<<<<<<<<
+
 
 ________________________
 
@@ -56,6 +61,8 @@ ________________________
 
 - poção de vida				<<<<<<
 - poção de velocidade
+
+- pick-ups				<<<<<<
 
 ________________________
 

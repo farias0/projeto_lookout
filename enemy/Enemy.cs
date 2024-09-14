@@ -352,8 +352,7 @@ public partial class Enemy : RigidBody3D
         Node node = Resources.Arrow.Instantiate();
         Node3D node3d = node as Node3D;
 
-        Vector3 spawnPos = node3d!.GlobalPosition +
-                                node3d!.Basis.X.Normalized() * 0.1f +
+        Vector3 spawnPos = node3d!.Basis.X.Normalized() * 0.1f +
                                 node3d!.Basis.Z.Normalized() * -1.0f +
                                 node3d!.Basis.Y.Normalized() * 1.8f;
         node3d!.GlobalPosition = spawnPos;
@@ -560,16 +559,16 @@ public partial class Enemy : RigidBody3D
                     StopInPlace();
                     _turnTarget = _lastSeenPlayerPos;
 
-                    if (_shootingLoadGauge == -1)
+                    if (_shootingLoadGauge == -1 && _seesPlayer)
                     {
-                        PullArrowBack();
                         _shootingLoadGauge = 0;
+                        PullArrowBack();
                     }
                     else if (_shootingLoadGauge >= ShootingLoadTime)
                     {
+                        _shootingLoadGauge = -1;
                         FireArrowAt(_lastSeenPlayerPos);
                         _arrow = null;
-                        _shootingLoadGauge = -1;
                     }
                 }
                 else SetTarget(_lastSeenPlayerPos);
