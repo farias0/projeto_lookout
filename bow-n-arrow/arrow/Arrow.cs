@@ -233,8 +233,11 @@ public partial class Arrow : Node3D
 
 	public void Destroy()
 	{
-		_shooter?.ArrowHooked(null);
-		_hookedPickup?.ArrowHooked(null);
+		if (_type == ArrowType.Hook)
+		{
+			_shooter?.ArrowHooked(null);
+			_hookedPickup?.ArrowHooked(null);
+		}
 
 		_hookLine?.QueueFree();
 		QueueFree();
