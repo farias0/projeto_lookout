@@ -1,0 +1,56 @@
+using Godot;
+using System;
+
+public abstract partial class PickUp : RigidBody3D
+{
+	private readonly float HookSpeed = 3000;
+
+	private Node3D _hookedArrow;
+
+
+	public abstract void OnPlayerPickup(Player player);
+
+
+	public override void _Ready()
+	{
+		ContactMonitor = true;
+		MaxContactsReported = 1;
+		Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
+	}
+
+	public override void _IntegrateForces(PhysicsDirectBodyState3D state)
+	{
+		if (_hookedArrow != null)
+		{
+			PulledByHook(state);
+		}
+	}
+
+	public void ArrowHooked(Node3D arrow)
+	{
+		_hookedArrow = arrow;
+	}
+
+	private void PulledByHook(PhysicsDirectBodyState3D state) {
+
+		var direction = (_hookedArrow.GlobalPosition - GlobalPosition).Normalized();
+
+		if (state.LinearVelocity.Length() < HookSpeed)
+		{
+			state.LinearVelocity += direction * state.Step * 100;
+		}
+		else
+		{
+			state.LinearVelocity = direction * HookSpeed;
+		}
+	}
+
+	private void OnBodyEntered(Node body)
+	{
+		if (body is Player player)
+		{
+			OnPlayerPickup(player);
+			CallDeferred("queue_free");
+		}
+	}
+}

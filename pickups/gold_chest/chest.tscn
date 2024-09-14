@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dk1yqkeui32ew"]
+
+[ext_resource type="Script" path="res://pickups/gold_chest/GoldChest.cs" id="1_imu85"]
+[ext_resource type="PackedScene" uid="uid://cf1j5r0wklhwa" path="res://pickups/gold_chest/chest.glb" id="2_sh0sw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0k2oh"]
+size = Vector3(2.30522, 1.27829, 1.34284)
+
+[node name="Chest" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.365484, 0)
+collision_mask = 3
+script = ExtResource("1_imu85")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0234356, 0.269897, -0.168702)
+shape = SubResource("BoxShape3D_0k2oh")
+
+[node name="Mesh" parent="." instance=ExtResource("2_sh0sw")]
+transform = Transform3D(-0.6, 0, -9.05975e-08, 0, 0.6, 0, 9.05975e-08, 0, -0.6, -0.00961926, -1.95745, 0.238247)

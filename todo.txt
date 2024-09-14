@@ -52,6 +52,11 @@ ________________________
 - em chasing, seguir o jogador por alguns segundos mesmo depois de perder de vista		<<<<<<<<<<<
 
 
+- parar de mover ele diretamente, e ao invés disso usar forças				<<<<<<<<<<<<<
+	- colocar no _IntegrateForces
+	https://docs.godotengine.org/en/stable/classes/class_rigidbody3d.html
+
+
 ________________________
 
 === ITENS
@@ -62,7 +67,14 @@ ________________________
 - poção de vida				<<<<<<
 - poção de velocidade
 
-- pick-ups				<<<<<<
+
+- pick-ups de baú								<<<<<<<
+	- consertar colisão normal com o jogador
+	- consertar direção p/ qual o gancho puxa
+		- talvez consertar o ponto de contato com o jogador
+
+- hud de dinheiro	
+
 
 ________________________
 

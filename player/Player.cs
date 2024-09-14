@@ -28,13 +28,14 @@ public partial class Player : CharacterBody3D
 
 	private Vector3 _targetVelocity = Vector3.Zero;
 	private bool _isCrouching = false;
-	private Node3D? _arrow;
+	private Node3D? _pulledBackArrow;
 	private Vector3 _startingPos;
 	private Node3D? _hookedArrow;
 	private int _maxHealth;
 	private float _invincibilityCountdown;
 	private Vector3 _startingRot;
 	private Node3D _bow = new();
+	private int _gold = 0;
 
 
 	public override void _Ready()
@@ -60,7 +61,7 @@ public partial class Player : CharacterBody3D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (_hookedArrow != null)
+		if (_hookedArrow != null && (_hookedArrow as Arrow)!.HookIsPlayerPulled())
 		{
 			PulledByHook((float)delta);
 			return;
@@ -132,16 +133,16 @@ public partial class Player : CharacterBody3D
 		}
 	}
 
+	public void PickUpGold(int amount)
+	{
+		_gold += amount;
+		//Resources.HUD.SetGold(_gold);
+		Debug.Log("Picked up gold. Current: " + _gold);
+	}
+
 	public void ArrowHooked(Node3D arrow)
 	{
-		if (_hookedArrow != null)
-		{
-			(arrow as Arrow)!.Destroy();
-		}
-		else
-		{
-			_hookedArrow = arrow;
-		}
+		_hookedArrow = arrow;
 	}
 
 	public bool IsInvincible()
@@ -196,7 +197,7 @@ public partial class Player : CharacterBody3D
 	/// </summary>
 	private void PullArrowBack(ArrowType type)
 	{
-		if (_arrow != null)
+		if (_pulledBackArrow != null)
 		{
 			// TODO play error sound
 			return;
@@ -223,7 +224,7 @@ public partial class Player : CharacterBody3D
 
 
 		AddChild(node3d);
-		_arrow = node3d;
+		_pulledBackArrow = node3d;
 	}
 
 	/// <summary>
@@ -231,22 +232,22 @@ public partial class Player : CharacterBody3D
 	/// </summary>
 	private void FireArrow()
 	{
-		if (_arrow == null) return;
+		if (_pulledBackArrow == null) return;
 
-		Vector3 pos = _arrow.GlobalPosition;
-		RemoveChild(_arrow);
-		GetParent().AddChild(_arrow);
-		_arrow.GlobalPosition = pos;
+		Vector3 pos = _pulledBackArrow.GlobalPosition;
+		RemoveChild(_pulledBackArrow);
+		GetParent().AddChild(_pulledBackArrow);
+		_pulledBackArrow.GlobalPosition = pos;
 
 		Vector3 target = AimingAt();
-		_arrow.LookAt(target);
+		_pulledBackArrow.LookAt(target);
 
 		{
-			Arrow? a = _arrow as Arrow;
+			Arrow? a = _pulledBackArrow as Arrow;
 			a!.Fire();
 		}
 
-		_arrow = null;
+		_pulledBackArrow = null;
 	}
 
 	/// <returns>The point in the world the player's aiming at</returns>

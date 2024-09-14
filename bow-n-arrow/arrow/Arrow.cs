@@ -32,6 +32,7 @@ public partial class Arrow : Node3D
 	private Player _player = null;
 	private Node3D _hookLine;
 	private Color _hookColor;
+	private PickUp _hookedPickup = null;
 
 
 	// Called when the node enters the scene tree for the first time.
@@ -112,12 +113,19 @@ public partial class Arrow : Node3D
 		_rigidBody.Freeze = false;
 	}
 
+	/// <summary>
+	/// Only applies to Hook arrows that are hooked to something
+	/// </summary>
+	/// <returns>If the player is being pulled towards something, instead of pulling something towards them</returns>
+	public bool HookIsPlayerPulled()
+	{
+		return _hookedPickup == null;
+	}
 
 	private void MoveArrow(float delta)
 	{
 		Position -= Transform.Basis.Z * Speed * delta;
 	}
-
 
 	private void OnBodyEntered(Node body)
 	{
@@ -147,8 +155,25 @@ public partial class Arrow : Node3D
 		}
 		else if (_type == ArrowType.Hook)
 		{
-			_state = State.Hooked;
-			_player.ArrowHooked(this);
+			HookTo((Node3D)body);
+		}
+	}
+
+	private void HookTo(Node3D body)
+	{
+		if (_type == ArrowType.Normal)
+				throw new InvalidOperationException("Only hook arrows can hook to something.");
+
+
+		_state = State.Hooked;
+
+		// For now, only the player uses hook arrows
+		_player.ArrowHooked(this);
+
+		if (body is PickUp pickup)
+		{
+			_hookedPickup = pickup;
+			_hookedPickup.ArrowHooked(this);
 		}
 	}
 
@@ -160,6 +185,9 @@ public partial class Arrow : Node3D
 
 	public void Destroy()
 	{
+		_player?.ArrowHooked(null);
+		_hookedPickup?.ArrowHooked(null);
+
 		_hookLine?.QueueFree();
 		QueueFree();
 	}
