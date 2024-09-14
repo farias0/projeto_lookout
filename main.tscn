@@ -1230,4 +1230,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.223, 0, 10.759)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31616, 0, 11.7383)
 
 [node name="Chest" parent="NavigationRegion3D" instance=ExtResource("10_d7yvc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21, 15)
+transform = Transform3D(-0.780856, 0, 0.624711, 0, 1, 0, -0.624711, 0, -0.780856, 39.956, 0.21, 5.66626)
+
+[node name="Chest2" parent="NavigationRegion3D" instance=ExtResource("10_d7yvc")]
+transform = Transform3D(0.623238, 0, -0.782032, 0, 1, 0, 0.782032, 0, 0.623238, -5.37855, 5.14519, 17.0337)
+
+[node name="Chest3" parent="NavigationRegion3D" instance=ExtResource("10_d7yvc")]
+transform = Transform3D(0.753942, 0, 0.656941, 0, 1, 0, -0.656941, 0, 0.753942, 41.4797, 8.39116, 91.7144)
+
+[node name="Chest4" parent="NavigationRegion3D" instance=ExtResource("10_d7yvc")]
+transform = Transform3D(-0.663861, 0, -0.747856, 0, 1, 0, 0.747856, 0, -0.663861, -67.9159, 15.1249, 77.8301)

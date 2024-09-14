@@ -67,8 +67,6 @@ ________________________
 - poção de vida				<<<<<<
 - poção de velocidade
 
-- espalhar uns baús pela fase 			<<<<<<<<
-
 
 ________________________
 
