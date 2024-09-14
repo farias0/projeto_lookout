@@ -10,7 +10,6 @@ ________________________
 
 === ARCO
 
-- segurar arco					<<<<<
 
 - animação de atirar?
 
