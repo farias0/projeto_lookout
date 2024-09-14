@@ -29,7 +29,7 @@ public partial class Arrow : Node3D
 	private RigidBody3D _rigidBody;
 	private State _state = State.PulledBack;
 	private ArrowType _type = ArrowType.Normal;
-	private Player _player = null;
+	private Player _shooter = null;
 	private Node3D _hookLine;
 	private Color _hookColor;
 	private PickUp _hookedPickup = null;
@@ -63,7 +63,7 @@ public partial class Arrow : Node3D
 		}
 		else if (_state == State.Hooked)
 		{
-			if (_player == null)
+			if (_shooter == null)
 			{
 				Destroy();
 				return;
@@ -103,9 +103,9 @@ public partial class Arrow : Node3D
 		}
 	}
 
-	public void SetPlayer(Player player)
+	public void SetShooter(Player shooter)
 	{
-		_player = player;
+		_shooter = shooter;
 	}
 
 	public void Fire()
@@ -122,9 +122,21 @@ public partial class Arrow : Node3D
 	/// <summary>
 	/// It was hooked, but who fired it doesn't want it anymore.
 	/// </summary>
-	public void Deatach()
+	public void DetachShooter()
 	{
-		_player = null;
+		if (_shooter == null)
+			throw new InvalidOperationException("Can't detach shooter if there isn't one.");
+
+		_shooter = null;
+		Destroy();
+	}
+
+	/// <summary>
+	/// It was hooked to a pickup, but the pickup deatached from it.
+	/// </summary>
+	public void DetachPickup()
+	{
+		_hookedPickup = null;
 		Destroy();
 	}
 
@@ -132,9 +144,28 @@ public partial class Arrow : Node3D
 	/// Only applies to Hook arrows that are hooked to something
 	/// </summary>
 	/// <returns>If the player is being pulled towards something, instead of pulling something towards them</returns>
-	public bool HookIsPlayerPulled()
+	public bool HookIsShooterPulled()
 	{
 		return _hookedPickup == null;
+	}
+
+	/// <summary>
+	/// Only applies to Hook arrows that are hooked to something
+	/// </summary>
+	/// <returns>The direction in which the hook is pulling</returns>
+	public Vector3 HookGetPullDirection()
+	{
+		if (_shooter == null)
+			throw new InvalidOperationException("Can't calculate pull direction without a shooter hooked.");
+
+		if (HookIsShooterPulled())
+		{
+			return (GlobalPosition - _shooter.GlobalPosition).Normalized();
+		}
+		else
+		{
+			return (_shooter.GlobalPosition - GlobalPosition).Normalized();
+		}
 	}
 
 	private void MoveArrow(float delta)
@@ -147,8 +178,8 @@ public partial class Arrow : Node3D
 		if (_state != State.Flying) return;
 
 		// Collision with selves
-		if (body is Player && _player != null) return;
-		else if (body is Enemy && _player == null) return;
+		if (body is Player && _shooter != null) return;
+		else if (body is Enemy && _shooter == null) return;
 
 
 		_lifeTime = LifeTime;
@@ -161,7 +192,7 @@ public partial class Arrow : Node3D
 			_state = State.Hit;
 			if (body is Enemy enemy)
 			{
-				enemy.TakeDamage(_player.GlobalPosition, Damage);
+				enemy.TakeDamage(_shooter.GlobalPosition, Damage);
 			}
 			else if (body is Player player)
 			{
@@ -183,7 +214,7 @@ public partial class Arrow : Node3D
 		_state = State.Hooked;
 
 		// For now, only the player uses hook arrows
-		_player.ArrowHooked(this);
+		_shooter.ArrowHooked(this);
 
 		if (body is PickUp pickup)
 		{
@@ -195,12 +226,14 @@ public partial class Arrow : Node3D
 	private void DrawHookLine()
 	{
 		_hookLine?.QueueFree();
-			_hookLine = Draw.Line3D(_player.GetParent(), GlobalPosition, _player.GlobalPosition, _hookColor);
-		}
+
+		var _shooterPos = _shooter.GlobalPosition + (_shooter.Basis.Y * _shooter.GetHeight() * 0.5f);
+		_hookLine = Draw.Line3D(_shooter.GetParent(), GlobalPosition, _shooterPos, _hookColor);
+	}
 
 	public void Destroy()
 	{
-		_player?.ArrowHooked(null);
+		_shooter?.ArrowHooked(null);
 		_hookedPickup?.ArrowHooked(null);
 
 		_hookLine?.QueueFree();

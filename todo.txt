@@ -67,12 +67,6 @@ ________________________
 - poção de vida				<<<<<<
 - poção de velocidade
 
-
-- pick-ups de baú								<<<<<<<
-	- consertar direção p/ qual o gancho puxa
-		- talvez consertar o ponto de contato com o jogador
-	- linhas da flecha sobrando depois que o pick-up é pego
-
 - hud de dinheiro	
 
 

@@ -37,7 +37,7 @@ public abstract partial class PickUp : RigidBody3D
 
 	private void PulledByHook(PhysicsDirectBodyState3D state) {
 
-		var direction = (_hookedArrow.GlobalPosition - GlobalPosition).Normalized();
+		var direction = (_hookedArrow as Arrow).HookGetPullDirection();
 
 		if (state.LinearVelocity.Length() < HookSpeed)
 		{
@@ -54,6 +54,10 @@ public abstract partial class PickUp : RigidBody3D
 		if (body is Player player)
 		{
 			OnPlayerPickup(player);
+
+			if (_hookedArrow != null)
+					(_hookedArrow as Arrow).DetachPickup();
+
 			CallDeferred("queue_free");
 		}
 	}

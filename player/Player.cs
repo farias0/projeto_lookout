@@ -61,7 +61,7 @@ public partial class Player : CharacterBody3D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (_hookedArrow != null && (_hookedArrow as Arrow)!.HookIsPlayerPulled())
+		if (_hookedArrow != null && (_hookedArrow as Arrow)!.HookIsShooterPulled())
 		{
 			PulledByHook((float)delta);
 			return;
@@ -144,7 +144,7 @@ public partial class Player : CharacterBody3D
 	{
 		if (_hookedArrow != null)
 		{
-			(_hookedArrow as Arrow)!.Deatach();
+			(_hookedArrow as Arrow)!.DetachShooter();
 		}
 
 		_hookedArrow = arrow;
@@ -225,7 +225,7 @@ public partial class Player : CharacterBody3D
 
 		Arrow? arrow = node3d as Arrow;
 		arrow!.SetType(type);
-		arrow!.SetPlayer(this);
+		arrow!.SetShooter(this);
 
 
 		AddChild(node3d);
@@ -295,14 +295,14 @@ public partial class Player : CharacterBody3D
 			return;
 		}
 
-		var direction = (_hookedArrow.GlobalPosition - GlobalPosition).Normalized();
+		var direction = (_hookedArrow as Arrow)!.HookGetPullDirection();
 		Velocity = direction * HookSpeed * (float)delta;
 		MoveAndSlide();
 	}
 
 	private void LeaveHookedArrow()
 	{
-		(_hookedArrow as Arrow)!.Deatach();
+		(_hookedArrow as Arrow)!.DetachShooter();
 		_hookedArrow = null;
 		Velocity = Vector3.Zero;
 		_targetVelocity = Vector3.Zero;
