@@ -63,6 +63,12 @@ public partial class Arrow : Node3D
 		}
 		else if (_state == State.Hooked)
 		{
+			if (_player == null)
+			{
+				Destroy();
+				return;
+			}
+
 			DrawHookLine();
 		}
 	}
@@ -111,6 +117,15 @@ public partial class Arrow : Node3D
 
 		_state = State.Flying;
 		_rigidBody.Freeze = false;
+	}
+
+	/// <summary>
+	/// It was hooked, but who fired it doesn't want it anymore.
+	/// </summary>
+	public void Deatach()
+	{
+		_player = null;
+		Destroy();
 	}
 
 	/// <summary>
@@ -180,8 +195,8 @@ public partial class Arrow : Node3D
 	private void DrawHookLine()
 	{
 		_hookLine?.QueueFree();
-		_hookLine = Draw.Line3D(_player.GetParent(), GlobalPosition, _player.GlobalPosition, _hookColor);
-	}
+			_hookLine = Draw.Line3D(_player.GetParent(), GlobalPosition, _player.GlobalPosition, _hookColor);
+		}
 
 	public void Destroy()
 	{

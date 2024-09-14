@@ -142,6 +142,11 @@ public partial class Player : CharacterBody3D
 
 	public void ArrowHooked(Node3D arrow)
 	{
+		if (_hookedArrow != null)
+		{
+			(_hookedArrow as Arrow)!.Deatach();
+		}
+
 		_hookedArrow = arrow;
 	}
 
@@ -297,7 +302,7 @@ public partial class Player : CharacterBody3D
 
 	private void LeaveHookedArrow()
 	{
-		(_hookedArrow as Arrow)!.Destroy();
+		(_hookedArrow as Arrow)!.Deatach();
 		_hookedArrow = null;
 		Velocity = Vector3.Zero;
 		_targetVelocity = Vector3.Zero;
