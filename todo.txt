@@ -46,7 +46,7 @@ ________________________
 
 - navegar pela lista de nós filhos que são Patrol Points ao invés de receber propriedade pelo inspector		<<<<
 
-- mater inimigo enquanto ainda tem um gancho nele buga o jogo
+- mater inimigo enquanto ainda tem um gancho nele buga o jogo					<<<<<<<
 
 
 - em chasing, seguir o jogador por alguns segundos mesmo depois de perder de vista		<<<<<<<<<<<
@@ -69,9 +69,9 @@ ________________________
 
 
 - pick-ups de baú								<<<<<<<
-	- consertar colisão normal com o jogador
 	- consertar direção p/ qual o gancho puxa
 		- talvez consertar o ponto de contato com o jogador
+	- linhas da flecha sobrando depois que o pick-up é pego
 
 - hud de dinheiro	
 

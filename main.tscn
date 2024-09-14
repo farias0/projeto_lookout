@@ -139,4 +139,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.223, 0, 10.759)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31616, 0, 11.7383)
 
 [node name="Chest" parent="NavigationRegion3D" instance=ExtResource("10_d7yvc")]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0.21, 15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21, 15)

@@ -5,6 +5,7 @@ public abstract partial class PickUp : RigidBody3D
 {
 	private readonly float HookSpeed = 3000;
 
+	private Area3D _pickupArea;
 	private Node3D _hookedArrow;
 
 
@@ -15,7 +16,10 @@ public abstract partial class PickUp : RigidBody3D
 	{
 		ContactMonitor = true;
 		MaxContactsReported = 1;
-		Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
+
+		_pickupArea = GetNode<Area3D>("Area3D");
+		_pickupArea.Monitoring = true;
+		_pickupArea.Connect("body_entered", new Callable(this, nameof(OnAreaEntered)));
 	}
 
 	public override void _IntegrateForces(PhysicsDirectBodyState3D state)
@@ -45,7 +49,7 @@ public abstract partial class PickUp : RigidBody3D
 		}
 	}
 
-	private void OnBodyEntered(Node body)
+	private void OnAreaEntered(Node body)
 	{
 		if (body is Player player)
 		{
