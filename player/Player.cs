@@ -145,7 +145,7 @@ public partial class Player : CharacterBody3D
 	{
 		if (_hookedArrow != null)
 		{
-			(_hookedArrow as Arrow)!.DetachShooter();
+			LeaveHookedArrow();
 		}
 
 		_hookedArrow = arrow;
