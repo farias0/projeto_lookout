@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=4 uid="uid://6wvc47yciarc"]
+[gd_scene load_steps=7 format=4 uid="uid://6wvc47yciarc"]
 
 [ext_resource type="Script" path="res://enemy/Enemy.cs" id="1_wc3wn"]
 [ext_resource type="Material" uid="uid://c7r0h3hi354lr" path="res://enemy/enemy_ranged_material.tres" id="2_pfw1u"]
+[ext_resource type="PackedScene" uid="uid://bvs7d3jx0qvqr" path="res://bow-n-arrow/bow/bow.tscn" id="3_l7hhj"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ylq8t"]
 _surfaces = [{
@@ -49,6 +50,9 @@ transform = Transform3D(0.478152, 0, -0.146186, 0, 0.5, 0, 0.146186, 0, 0.478152
 [node name="Mesh" type="MeshInstance3D" parent="MeshNode"]
 mesh = SubResource("ArrayMesh_kxsao")
 skeleton = NodePath("")
+
+[node name="Bow" parent="MeshNode" instance=ExtResource("3_l7hhj")]
+transform = Transform3D(8.36028e-08, 1.91261, -0.584743, 2, -8.74228e-08, 0, -2.55599e-08, -0.584743, -1.91261, 0.087, 2.95, -0.879)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 

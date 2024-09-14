@@ -77,6 +77,7 @@ public partial class Enemy : RigidBody3D
     private CharacterBody3D _player;
     private MeshInstance3D _mesh;
     private NavigationAgent3D _navAgent;
+    private Node3D _bow;
 
     private float _tookDamageCountdown = -1;
     private Vector3 _lastSeenPlayerPos;
@@ -114,11 +115,18 @@ public partial class Enemy : RigidBody3D
             throw new InvalidOperationException("Couldn't find enemy's navigation agent.");
         }
 
+        _bow = FindChild("Bow") as Node3D;
+        if (_bow == null)
+        {
+            throw new InvalidOperationException("Couldn't find enemy's bow.");
+        }
+
+
         ContactMonitor = true;
         MaxContactsReported = 1;
         Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
 
-        UpdateMaterial();
+        SyncEnemyType();
         StartPatrolling();
     }
 
@@ -191,7 +199,7 @@ public partial class Enemy : RigidBody3D
     public void ChangeType(EnemyType type)
     {
         _type = type;
-        UpdateMaterial();
+        SyncEnemyType();
     }
 
     private void ChangeMeshMaterial(StandardMaterial3D material)
@@ -201,10 +209,13 @@ public partial class Enemy : RigidBody3D
     }
 
     /// <summary>
-    /// Updates the Mesh's material according to the Enemy type
+    /// Modify the enemy's properties based on its type.
     /// </summary>
-    private void UpdateMaterial()
+    private void SyncEnemyType()
     {
+        if (_bow != null)
+            _bow.Visible = _type == EnemyType.Ranged;
+
         switch (_type)
         {
             case EnemyType.Melee:
