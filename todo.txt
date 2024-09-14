@@ -67,7 +67,7 @@ ________________________
 - poção de vida				<<<<<<
 - poção de velocidade
 
-- hud de dinheiro			<<<<<<<<
+- espalhar uns baús pela fase 			<<<<<<<<
 
 
 ________________________

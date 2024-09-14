@@ -47,6 +47,8 @@ public partial class Player : CharacterBody3D
 		_startingPos = GlobalPosition;
 		_startingRot = GlobalRotation;
 		_maxHealth = Health;
+
+		Resources.HUD.SetGoldAmount(_gold);
 	}
 
 	public override void _Process(double delta)
@@ -136,8 +138,7 @@ public partial class Player : CharacterBody3D
 	public void PickUpGold(int amount)
 	{
 		_gold += amount;
-		//Resources.HUD.SetGold(_gold);
-		Debug.Log("Picked up gold. Current: " + _gold);
+		Resources.HUD.SetGoldAmount(_gold);
 	}
 
 	public void ArrowHooked(Node3D arrow)

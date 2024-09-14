@@ -7,6 +7,9 @@ public partial class HUD : CanvasLayer
 	private TextureRect _healthBar;
 	private Vector2 _healthBarSize;
 
+	private Label _goldLabel;
+	private String _goldLabelPrefix; // The yene symbol is unicode and Godot doesn't like it
+
 
 	public override void _Ready()
 	{
@@ -14,6 +17,9 @@ public partial class HUD : CanvasLayer
 
 		_healthBar = GetNode<TextureRect>("Gauges/Health/Bar");
 		_healthBarSize = _healthBar.Size;
+
+		_goldLabel = GetNode<Label>("GoldLabel");
+		_goldLabelPrefix = _goldLabel.Text;
 	}
 
 	/// <param name="pct">Between 0 and 1</param>
@@ -28,5 +34,10 @@ public partial class HUD : CanvasLayer
 	public void SetHealthBarVisible(bool visible)
 	{
 		_healthBar.Visible = visible;
+	}
+
+	public void SetGoldAmount(int amount)
+	{
+		_goldLabel.Text = _goldLabelPrefix + amount;
 	}
 }
