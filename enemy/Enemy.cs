@@ -127,6 +127,11 @@ public partial class Enemy : RigidBody3D
     {
         ProcessDamageCountdown((float)delta);
 
+        if (_state != State.Chasing && _arrow != null)
+        {
+            DestroyArrow();
+        }
+
 
         Vector3? seesPlayer = SeesPlayer();
         _seesPlayer = seesPlayer != null;
@@ -337,9 +342,9 @@ public partial class Enemy : RigidBody3D
         Node3D node3d = node as Node3D;
 
         Vector3 spawnPos = node3d!.GlobalPosition +
-                                node3d!.Basis.X.Normalized() * 0.3f +
-                                node3d!.Basis.Z.Normalized() * -0.4f +
-                                node3d!.Basis.Y.Normalized() * 1.4f;
+                                node3d!.Basis.X.Normalized() * 0.1f +
+                                node3d!.Basis.Z.Normalized() * -1.0f +
+                                node3d!.Basis.Y.Normalized() * 1.8f;
         node3d!.GlobalPosition = spawnPos;
 
 
@@ -378,6 +383,15 @@ public partial class Enemy : RigidBody3D
                         (_player as Player).GetHeight() *
                             0.5f;
         return playerPos;
+    }
+
+    private void DestroyArrow()
+    {
+        if (_arrow != null)
+        {
+            (_arrow as Arrow).Destroy();
+        }
+        _arrow = null;
     }
 
 
@@ -508,7 +522,11 @@ public partial class Enemy : RigidBody3D
         if (_shootingLoadGauge >= 0)
         {
             _shootingLoadGauge += delta;
-            if (!_seesPlayer) _shootingLoadGauge = -1;
+            if (!_seesPlayer)
+            {
+                _shootingLoadGauge = -1;
+                DestroyArrow();
+            }
         }
 
 
@@ -531,11 +549,15 @@ public partial class Enemy : RigidBody3D
                     StopInPlace();
                     _turnTarget = _lastSeenPlayerPos;
 
-                    if (_shootingLoadGauge == -1) _shootingLoadGauge = 0;
-                    if (_shootingLoadGauge >= ShootingLoadTime)
+                    if (_shootingLoadGauge == -1)
                     {
-                        PullArrowBack(); // TODO pull arrow back at player sight
+                        PullArrowBack();
+                        _shootingLoadGauge = 0;
+                    }
+                    else if (_shootingLoadGauge >= ShootingLoadTime)
+                    {
                         FireArrowAt(_lastSeenPlayerPos);
+                        _arrow = null;
                         _shootingLoadGauge = -1;
                     }
                 }

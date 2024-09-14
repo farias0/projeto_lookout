@@ -25,10 +25,6 @@ ________________________
 === INIMIGOS
 
 
-- inimigos que atiram flechas			<<<<
-	- puxar flecha
-	
-
 - criar geometria pra brincar com campo de visão	<<<<<<<<<
 	- popular fase com inimigos
 
