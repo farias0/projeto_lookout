@@ -3,10 +3,10 @@ using System;
 
 public partial class PatrolPoint : Node3D
 {
-    public Vector3 Pos { get; set; } = Vector3.Zero;
+	public Vector3 Pos { get; set; } = Vector3.Zero;
 
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
 	{
 		Pos = GlobalPosition;
 	}

@@ -5,60 +5,60 @@ using projeto_lookout.libs;
 
 public partial class Player : CharacterBody3D
 {
-    [Export]
-    public int Speed { get; set; } = 12;
+	[Export]
+	public int Speed { get; set; } = 12;
 	[Export]
 	public int SpeedCrouched { get; set; } = 6;
-    [Export]
-    public int FallAcceleration { get; set; } = 40;
+	[Export]
+	public int FallAcceleration { get; set; } = 40;
 	[Export]
 	public int JumpHeight { get; set; } = 14;
 	[Export]
-    public int JumpHeightHooked { get; set; } = 19;
-    [Export]
+	public int JumpHeightHooked { get; set; } = 19;
+	[Export]
 	public float HookSpeed { get; set; } = 3000;
 	[Export]
 	public int Health { get; set; } = 100;
 	[Export]
-    public float InvincibilityTime { get; set; } = 2.0f;
+	public float InvincibilityTime { get; set; } = 2.0f;
 
 
-    private const float MinY = -70;
+	private const float MinY = -70;
 
 
-    private Vector3 _targetVelocity = Vector3.Zero;
+	private Vector3 _targetVelocity = Vector3.Zero;
 	private bool _isCrouching = false;
 	private Node3D? _arrow;
 	private Vector3 _startingPos;
 	private Node3D? _hookedArrow;
 	private int _maxHealth;
 	private float _invincibilityCountdown;
-    private Vector3 _startingRot;
-    private Node3D _bow = new();
+	private Vector3 _startingRot;
+	private Node3D _bow = new();
 
 
-    public override void _Ready()
-    {
-        Resources.Player = this;
+	public override void _Ready()
+	{
+		Resources.Player = this;
 
-        _bow = GetNode<Node3D>("Bow");
+		_bow = GetNode<Node3D>("Bow");
 
-        _startingPos = GlobalPosition;
-        _startingRot = GlobalRotation;
-        _maxHealth = Health;
-    }
+		_startingPos = GlobalPosition;
+		_startingRot = GlobalRotation;
+		_maxHealth = Health;
+	}
 
-    public override void _Process(double delta)
+	public override void _Process(double delta)
 	{
 		ProcessInvencibilityCounter((float)delta);
 
-        if (GlobalPosition.Y < MinY)
-        {
+		if (GlobalPosition.Y < MinY)
+		{
 			Reset();
-        }
-    }
+		}
+	}
 
-    public override void _PhysicsProcess(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		if (_hookedArrow != null)
 		{
@@ -112,51 +112,51 @@ public partial class Player : CharacterBody3D
 		if (e.IsActionPressed("fire"))				PullArrowBack(ArrowType.Normal);
 		else if (e.IsActionReleased("fire"))		FireArrow();
 		if (e.IsActionPressed("fire_2"))			PullArrowBack(ArrowType.Hook);
-        else if (e.IsActionReleased("fire_2"))		FireArrow();
-    }
+		else if (e.IsActionReleased("fire_2"))		FireArrow();
+	}
 
 	public void TakeDamage(int damage)
-    {
-        if (_invincibilityCountdown > 0) return;
+	{
+		if (_invincibilityCountdown > 0) return;
 
-        Health -= damage;
+		Health -= damage;
 
-        if (Health <= 0)
-        {
-            Reset();
-        }
-        else
-        {
-            Resources.HUD.SetHealth((float)Health / _maxHealth);
-            _invincibilityCountdown = InvincibilityTime;
-        }
-    }
-
-    public void ArrowHooked(Node3D arrow)
-    {
-        if (_hookedArrow != null)
-        {
-            (arrow as Arrow)!.Destroy();
-        }
+		if (Health <= 0)
+		{
+			Reset();
+		}
 		else
 		{
-            _hookedArrow = arrow;
-        }
-    }
+			Resources.HUD.SetHealth((float)Health / _maxHealth);
+			_invincibilityCountdown = InvincibilityTime;
+		}
+	}
 
-    public bool IsInvincible()
-    {
-        return _invincibilityCountdown > 0;
-    }
+	public void ArrowHooked(Node3D arrow)
+	{
+		if (_hookedArrow != null)
+		{
+			(arrow as Arrow)!.Destroy();
+		}
+		else
+		{
+			_hookedArrow = arrow;
+		}
+	}
 
-    public float GetHeight()
-    {
-        CollisionShape3D collisionShape = GetNode<CollisionShape3D>("CollisionShape3D");
-        CylinderShape3D? cylinder = collisionShape.Shape as CylinderShape3D;
-        return cylinder!.Height;
-    }
+	public bool IsInvincible()
+	{
+		return _invincibilityCountdown > 0;
+	}
 
-    private float GetCurrentSpeed()
+	public float GetHeight()
+	{
+		CollisionShape3D collisionShape = GetNode<CollisionShape3D>("CollisionShape3D");
+		CylinderShape3D? cylinder = collisionShape.Shape as CylinderShape3D;
+		return cylinder!.Height;
+	}
+
+	private float GetCurrentSpeed()
 	{
 		return _isCrouching ? SpeedCrouched : Speed;
 	}
@@ -179,10 +179,10 @@ public partial class Player : CharacterBody3D
 	{
 		if (_hookedArrow != null)
 		{
-            LeaveHookedArrow();
-            _targetVelocity.Y = JumpHeightHooked;
+			LeaveHookedArrow();
+			_targetVelocity.Y = JumpHeightHooked;
 			return;
-        }
+		}
 
 
 		if (IsOnFloor())
@@ -197,23 +197,23 @@ public partial class Player : CharacterBody3D
 	private void PullArrowBack(ArrowType type)
 	{
 		if (_arrow != null)
-        {
+		{
 			// TODO play error sound
-            return;
-        }
+			return;
+		}
 
 		if (type == ArrowType.Hook && _hookedArrow != null)
-        {
-            LeaveHookedArrow();
-            return;
-        }
+		{
+			LeaveHookedArrow();
+			return;
+		}
 
-        Node node = Resources.Arrow.Instantiate();
-        Node3D? node3d = node as Node3D;
+		Node node = Resources.Arrow.Instantiate();
+		Node3D? node3d = node as Node3D;
 
-        Vector3 spawnPos = node3d!.Basis.X.Normalized() * 0.3f +
-                                node3d!.Basis.Z.Normalized() * -0.4f +
-                                node3d!.Basis.Y.Normalized() * 1.4f;
+		Vector3 spawnPos = node3d!.Basis.X.Normalized() * 0.3f +
+								node3d!.Basis.Z.Normalized() * -0.4f +
+								node3d!.Basis.Y.Normalized() * 1.4f;
 		node3d!.GlobalPosition = spawnPos;
 
 
@@ -222,9 +222,9 @@ public partial class Player : CharacterBody3D
 		arrow!.SetPlayer(this);
 
 
-        AddChild(node3d);
-        _arrow = node3d;
-    }
+		AddChild(node3d);
+		_arrow = node3d;
+	}
 
 	/// <summary>
 	/// Fires an arrow that's pulled back
@@ -234,100 +234,100 @@ public partial class Player : CharacterBody3D
 		if (_arrow == null) return;
 
 		Vector3 pos = _arrow.GlobalPosition;
-        RemoveChild(_arrow);
+		RemoveChild(_arrow);
 		GetParent().AddChild(_arrow);
-        _arrow.GlobalPosition = pos;
+		_arrow.GlobalPosition = pos;
 
-        Vector3 target = AimingAt();
-        _arrow.LookAt(target);
+		Vector3 target = AimingAt();
+		_arrow.LookAt(target);
 
 		{
-            Arrow? a = _arrow as Arrow;
-            a!.Fire();
-        }
+			Arrow? a = _arrow as Arrow;
+			a!.Fire();
+		}
 
-        _arrow = null;
-    }
+		_arrow = null;
+	}
 
 	/// <returns>The point in the world the player's aiming at</returns>
 	private Vector3 AimingAt()
 	{
-        Vector3 rayOrigin = Resources.Camera.GlobalTransform.Origin;
-        Vector3 rayDirection = Resources.Camera.GlobalTransform.Basis.Z.Normalized() * -1;
+		Vector3 rayOrigin = Resources.Camera.GlobalTransform.Origin;
+		Vector3 rayDirection = Resources.Camera.GlobalTransform.Basis.Z.Normalized() * -1;
 
-        PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
-        PhysicsRayQueryParameters3D rayParams = new()
-        {
-            From = rayOrigin,
-            To = rayOrigin + rayDirection * 1000.0f,
-            CollideWithBodies = true,
-            CollideWithAreas = true
-        };
+		PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
+		PhysicsRayQueryParameters3D rayParams = new()
+		{
+			From = rayOrigin,
+			To = rayOrigin + rayDirection * 1000.0f,
+			CollideWithBodies = true,
+			CollideWithAreas = true
+		};
 
-        var rayResult = spaceState.IntersectRay(rayParams);
+		var rayResult = spaceState.IntersectRay(rayParams);
 
-        Vector3 targetPoint;
+		Vector3 targetPoint;
 
-        if (rayResult.Count > 0)
-        {
-            targetPoint = (Vector3)rayResult["position"];
-        }
-        else
-        {
-            // Ray didn't hit anything, set target point far away along the ray direction
-            targetPoint = rayOrigin + rayDirection * 1000.0f;
-        }
+		if (rayResult.Count > 0)
+		{
+			targetPoint = (Vector3)rayResult["position"];
+		}
+		else
+		{
+			// Ray didn't hit anything, set target point far away along the ray direction
+			targetPoint = rayOrigin + rayDirection * 1000.0f;
+		}
 
-        return targetPoint;
-    }
+		return targetPoint;
+	}
 
 	private void PulledByHook(float delta)
 	{
-        if (_hookedArrow!.GlobalPosition.DistanceTo(GlobalPosition) < 1.5f)
-        {
-            LeaveHookedArrow();
-            return;
-        }
+		if (_hookedArrow!.GlobalPosition.DistanceTo(GlobalPosition) < 1.5f)
+		{
+			LeaveHookedArrow();
+			return;
+		}
 
-        var direction = (_hookedArrow.GlobalPosition - GlobalPosition).Normalized();
-        Velocity = direction * HookSpeed * (float)delta;
-        MoveAndSlide();
-    }
+		var direction = (_hookedArrow.GlobalPosition - GlobalPosition).Normalized();
+		Velocity = direction * HookSpeed * (float)delta;
+		MoveAndSlide();
+	}
 
 	private void LeaveHookedArrow()
 	{
-        (_hookedArrow as Arrow)!.Destroy();
-        _hookedArrow = null;
-        Velocity = Vector3.Zero;
-        _targetVelocity = Vector3.Zero;
-    }
+		(_hookedArrow as Arrow)!.Destroy();
+		_hookedArrow = null;
+		Velocity = Vector3.Zero;
+		_targetVelocity = Vector3.Zero;
+	}
 
 	private void Reset()
-    {
-        GlobalPosition = _startingPos;
-        Health = _maxHealth;
-        GlobalRotation = _startingRot;
-        Resources.HUD.SetHealth(1);
-        Resources.Camera.Reset();
-        _bow.Visible = true;
-        _invincibilityCountdown = -1;
-    }
+	{
+		GlobalPosition = _startingPos;
+		Health = _maxHealth;
+		GlobalRotation = _startingRot;
+		Resources.HUD.SetHealth(1);
+		Resources.Camera.Reset();
+		_bow.Visible = true;
+		_invincibilityCountdown = -1;
+	}
 
 	private void ProcessInvencibilityCounter(float delta)
-    {
-        if (_invincibilityCountdown <= 0) return;
+	{
+		if (_invincibilityCountdown <= 0) return;
 
-        _invincibilityCountdown -= delta;
+		_invincibilityCountdown -= delta;
 
-        // Blink effect
-        _bow.Visible = _invincibilityCountdown % 0.2f > 0.1f;
+		// Blink effect
+		_bow.Visible = _invincibilityCountdown % 0.2f > 0.1f;
 
-        if (_invincibilityCountdown <= 0)
-        {
-            _invincibilityCountdown = -1;
+		if (_invincibilityCountdown <= 0)
+		{
+			_invincibilityCountdown = -1;
 
-            // Stop blinking
-            _bow.Visible = true;
-        }
-    }
+			// Stop blinking
+			_bow.Visible = true;
+		}
+	}
 }
