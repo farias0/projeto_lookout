@@ -373,11 +373,14 @@ public partial class Player : CharacterBody3D
 	{
 		GlobalPosition = _startingPos;
 		Health = _maxHealth;
+		Stamina = _maxStamina;
 		GlobalRotation = _startingRot;
 		Resources.HUD.SetHealth(1);
+		Resources.HUD.SetStamina(1);
 		Resources.Camera.Reset();
 		_bow.Visible = true;
 		_invincibilityCountdown = -1;
+		_staminaRegenCountdown = -1;
 	}
 
 	private void ProcessInvencibilityCounter(float delta)
