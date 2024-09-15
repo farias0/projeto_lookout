@@ -3,7 +3,7 @@ using projeto_lookout.libs;
 using System;
 using Godot.Collections;
 
-public partial class Enemy : RigidBody3D
+public partial class Enemy : Area3D
 {
 	private enum State
 	{
@@ -72,7 +72,7 @@ public partial class Enemy : RigidBody3D
 	public Array<PatrolPoint> PatrolPoints { get; set; } = new Array<PatrolPoint>();
 
 
-	private readonly float TurnSpeed = 0.1f;
+	private readonly float TurnSpeed = 20f;
 
 	private CharacterBody3D _player;
 	private MeshInstance3D _mesh;
@@ -122,8 +122,7 @@ public partial class Enemy : RigidBody3D
 		}
 
 
-		ContactMonitor = true;
-		MaxContactsReported = 1;
+		Monitoring = true;
 		Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
 
 		SyncEnemyType();
@@ -165,12 +164,8 @@ public partial class Enemy : RigidBody3D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		TurnTowardsTarget((float)delta);
 		MoveTowardsTarget((float)delta);
-	}
-
-	public override void _IntegrateForces(PhysicsDirectBodyState3D state)
-	{
-		TurnTowardsTarget(state);
 	}
 
 	public void TakeDamage(Vector3 origin, int damage)
@@ -280,7 +275,7 @@ public partial class Enemy : RigidBody3D
 		GlobalPosition += (targetPos - pos).Normalized() * _speed * delta;
 	}
 
-	private void TurnTowardsTarget(PhysicsDirectBodyState3D state)
+	private void TurnTowardsTarget(float delta)
 	{
 		Vector3 forwardLocalAxis = new(0, 0, -1);
 		Vector3 forwardDir = (GlobalTransform.Basis * forwardLocalAxis).Normalized();
@@ -288,9 +283,9 @@ public partial class Enemy : RigidBody3D
 
 		if (Math.Abs(forwardDir.Dot(targetDir)) > 1e-4)
 		{
-			var vel = state.AngularVelocity;
-			vel.Y = (forwardDir.Cross(targetDir) * TurnSpeed / state.Step).Y;
-			state.AngularVelocity = vel;
+			var rot = Rotation;
+			rot.Y += (forwardDir.Cross(targetDir) * TurnSpeed * delta).Y;
+			Rotation = rot;
 		}
 	}
 

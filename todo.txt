@@ -8,20 +8,21 @@
 
 - magia
 
-- precisar carregar flecha p/ poder atirar				<<<<<<<<<
-	- talvez flecha ir sem força se nao for completamente carregada
-
 ________________________
 
 === ARCO E FLECHA
 
+- precisar carregar flecha p/ poder atirar				<<<<<<<<<
+	- talvez flecha ir sem força se nao for completamente carregada
+	- animação de carregar flecha?
 
-- animação de atirar?
-
-- gancho					
-	- adicionar distancia máxima pra hook		
+- adicionar distancia máxima p/ flecha		
 
 - flechas que são plataformas!!				<<<<<
+
+- gancho puxar com aceleração?
+
+- gancho adicionar impulso ao jogador			<<<<
 
 - flecha explosiva?
 
@@ -34,15 +35,9 @@ ________________________
 
 - consertar navagent ficando preso em estado caso não tenha caminho para target
 
-- tentar consertar rotação X/Z
-	- checar se ajustando navmesh não já melhora
-	- ajustar com o chão se a rotação passar de tal limite??
-
 - ouvir passos
 
 - gritar p/ outros inimigos ao confirmar vista do jogador
-
-- quando o jogador pula pra cima do inimigo, o inimigo perde campo de visão e fica parado
 
 - indicador de troca de estados
 	- som ?
@@ -50,14 +45,10 @@ ________________________
 
 - navegar pela lista de nós filhos que são Patrol Points ao invés de receber propriedade pelo inspector		<<<<
 
-
 - em chasing, seguir o jogador por alguns segundos mesmo depois de perder de vista		<<<<<<<<<<<
+	- quando o jogador pula pra cima do inimigo, o inimigo perde campo de visão e fica parado. ver se conserta
 
-
-- parar de mover ele diretamente, e ao invés disso usar forças				<<<<<<<<<<<<<
-	- colocar no _IntegrateForces
-	https://docs.godotengine.org/en/stable/classes/class_rigidbody3d.html
-
+- inimigo mudar Y de acordo com chão (subir rampas) 			<<<<<<<<<<<
 
 ________________________
 
