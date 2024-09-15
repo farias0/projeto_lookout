@@ -192,6 +192,7 @@ public partial class Enemy : Area3D
 			Die();
 		}
 	}
+
 	public void ChangeType(EnemyType type)
 	{
 		_type = type;
@@ -233,7 +234,7 @@ public partial class Enemy : Area3D
 		{
 			arrow.OnBodyEntered(this);
 		}
-		}
+	}
 
 	private void ProcessDamageCountdown(float delta)
 	{

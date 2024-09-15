@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dk1yqkeui32ew"]
 
 [ext_resource type="Script" path="res://pickups/gold_chest/GoldChest.cs" id="1_imu85"]
-[ext_resource type="PackedScene" uid="uid://cf1j5r0wklhwa" path="res://pickups/gold_chest/chest.glb" id="2_sh0sw"]
+[ext_resource type="PackedScene" uid="uid://o5au0gsqjd4q" path="res://pickups/gold_chest/mesh.tscn" id="2_g2ul5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0k2oh"]
 size = Vector3(1.469, 1.227, 1)
@@ -18,7 +18,7 @@ script = ExtResource("1_imu85")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.296, 0)
 shape = SubResource("BoxShape3D_0k2oh")
 
-[node name="Mesh" parent="." instance=ExtResource("2_sh0sw")]
+[node name="Mesh" parent="." instance=ExtResource("2_g2ul5")]
 transform = Transform3D(-0.4, 0, -6.03983e-08, 0, 0.4, 0, 6.03983e-08, 0, -0.4, -0.00961926, -1.42298, 0.238247)
 
 [node name="Area3D" type="Area3D" parent="."]
