@@ -166,6 +166,7 @@ public partial class Enemy : Area3D
 	{
 		TurnTowardsTarget((float)delta);
 		MoveTowardsTarget((float)delta);
+		SnapToFloor();
 	}
 
 	public void TakeDamage(Vector3 origin, int damage)
@@ -232,7 +233,7 @@ public partial class Enemy : Area3D
 		{
 			arrow.OnBodyEntered(this);
 		}
-	}
+		}
 
 	private void ProcessDamageCountdown(float delta)
 	{
@@ -255,6 +256,13 @@ public partial class Enemy : Area3D
 	private void Die()
 	{
 		QueueFree();
+	}
+
+	private float GetHeight()
+	{
+		CollisionShape3D collisionShape = GetNode<CollisionShape3D>("CollisionShape3D");
+		CylinderShape3D cylinder = collisionShape.Shape as CylinderShape3D;
+		return cylinder.Height;
 	}
 
 	private void SetTarget(Vector3 pos)
@@ -296,6 +304,36 @@ public partial class Enemy : Area3D
 	private void StopInPlace()
 	{
 		SetTarget(GlobalPosition);
+	}
+
+	/// <summary>
+	/// Snaps the enemy to the floor, allowing them to use slopes and generally sticking to the ground.
+	/// </summary>
+	private void SnapToFloor()
+	{
+		float snapY = GlobalPosition.Y;
+
+		var ray1Offset = GetHeight() * 0.5f;
+		var ray1Origin = GlobalPosition + new Vector3(0, ray1Offset, 0);
+		var ray1Result = Raycast.CastRayInDirection(GetWorld3D(), ray1Origin, new(0, -1, 0), ray1Offset);
+		if (ray1Result.ContainsKey("collider") && (Node)ray1Result["collider"] != this)
+		{
+			// Snap up
+			snapY = ((Vector3)ray1Result["position"]).Y;
+		}
+		else
+		{
+			var ray2result = Raycast.CastRayInDirection(GetWorld3D(), GlobalPosition, new(0, -1, 0), 3);
+			if (ray2result.ContainsKey("collider"))
+			{
+				// Snap down
+				snapY = ((Vector3)ray2result["position"]).Y;
+			}
+		}
+
+		var pos = GlobalPosition;
+		pos.Y = snapY;
+		GlobalPosition = pos;
 	}
 
 	/// <returns>The player's position, if the enemy can see him.</returns>

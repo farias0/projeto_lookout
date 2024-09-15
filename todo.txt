@@ -48,8 +48,6 @@ ________________________
 - em chasing, seguir o jogador por alguns segundos mesmo depois de perder de vista		<<<<<<<<<<<
 	- quando o jogador pula pra cima do inimigo, o inimigo perde campo de visão e fica parado. ver se conserta
 
-- inimigo mudar Y de acordo com chão (subir rampas) 			<<<<<<<<<<<
-
 ________________________
 
 === ITENS

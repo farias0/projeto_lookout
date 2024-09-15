@@ -1217,7 +1217,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 22)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 22)
 
 [node name="Melee2" parent="NavigationRegion3D" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("3_4s0tw")]
-transform = Transform3D(-0.999978, 0, -0.0066497, 0, 1, 0, 0.0066497, 0, -0.999978, 38.2566, 0, 83.1505)
+transform = Transform3D(-0.999978, 0, -0.0066497, 0, 1, 0, 0.0066497, 0, -0.999978, 38.2566, 7.8025, 83.1505)
 PatrolPoints = [NodePath("PatrolPoint"), NodePath("PatrolPoint2"), NodePath("PatrolPoint3"), NodePath("PatrolPoint4")]
 
 [node name="PatrolPoint" parent="NavigationRegion3D/Melee2" instance=ExtResource("6_dr3r0")]
