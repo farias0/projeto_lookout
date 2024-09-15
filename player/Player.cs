@@ -19,6 +19,16 @@ public partial class Player : CharacterBody3D
 	public float HookSpeed { get; set; } = 3000;
 	[Export]
 	public int Health { get; set; } = 100;
+	[ExportGroup("Stamina")]
+	[Export]
+	public float Stamina { get; set; } = 100;
+	[Export]
+	public float StaminaRegenRate { get; set; } = 3.0f;
+	[Export]
+	public float StaminaRegenDelay { get; set; } = 1.0f;
+	[Export]
+	public float StaminaCostHook { get; set; } = 40;
+	[ExportGroup("")]
 	[Export]
 	public float InvincibilityTime { get; set; } = 2.0f;
 
@@ -36,6 +46,8 @@ public partial class Player : CharacterBody3D
 	private Vector3 _startingRot;
 	private Node3D _bow = new();
 	private int _gold = 0;
+	private float _maxStamina;
+	private float _staminaRegenCountdown;
 
 
 	public override void _Ready()
@@ -47,6 +59,7 @@ public partial class Player : CharacterBody3D
 		_startingPos = GlobalPosition;
 		_startingRot = GlobalRotation;
 		_maxHealth = Health;
+		_maxStamina = Stamina;
 
 		Resources.HUD.SetGoldAmount(_gold);
 	}
@@ -54,6 +67,8 @@ public partial class Player : CharacterBody3D
 	public override void _Process(double delta)
 	{
 		ProcessInvencibilityCounter((float)delta);
+
+		RegenerateStamina((float)delta);
 
 		if (GlobalPosition.Y < MinY)
 		{
@@ -135,6 +150,37 @@ public partial class Player : CharacterBody3D
 		}
 	}
 
+	/// <param name="value">The value to be consumed</param>
+	/// <returns>If the operation is allowed</returns>
+	public bool ConsumeStamina(float value)
+	{
+		if (Stamina - value < 0)
+		{
+			return false;
+		}
+
+		Stamina -= value;
+		_staminaRegenCountdown = StaminaRegenDelay;
+		Resources.HUD.SetStamina(Stamina / _maxStamina);
+
+		return true;
+	}
+
+	public void RegenerateStamina(float delta)
+	{
+		if (_staminaRegenCountdown > 0)
+		{
+			_staminaRegenCountdown -= delta;
+			return;
+		}
+		else if (Stamina < _maxStamina)
+		{
+			Stamina += StaminaRegenRate * delta;
+			if (Stamina > _maxStamina) Stamina = _maxStamina;
+			Resources.HUD.SetStamina(Stamina / _maxStamina);
+		}
+	}
+
 	public void PickUpGold(int amount)
 	{
 		_gold += amount;
@@ -212,6 +258,12 @@ public partial class Player : CharacterBody3D
 		if (type == ArrowType.Hook && _hookedArrow != null)
 		{
 			LeaveHookedArrow();
+			return;
+		}
+
+		if (type == ArrowType.Hook && !ConsumeStamina(StaminaCostHook))
+		{
+			// TODO play error sound
 			return;
 		}
 

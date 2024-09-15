@@ -8,7 +8,7 @@
 
 - limitar rotação vertical da câmera	
 
-- stamina					<<<<<<
+- gancho só consumir stamina ao aterrisar
 
 - magia
 

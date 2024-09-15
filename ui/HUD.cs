@@ -7,6 +7,9 @@ public partial class HUD : CanvasLayer
 	private TextureRect _healthBar;
 	private Vector2 _healthBarSize;
 
+	private TextureRect _staminaBar;
+	private Vector2 _staminaBarSize;
+
 	private Label _goldLabel;
 	private String _goldLabelPrefix; // The yene symbol is unicode and Godot doesn't like it
 
@@ -17,6 +20,9 @@ public partial class HUD : CanvasLayer
 
 		_healthBar = GetNode<TextureRect>("Gauges/Health/Bar");
 		_healthBarSize = _healthBar.Size;
+
+		_staminaBar = GetNode<TextureRect>("Gauges/Stamina/Bar");
+		_staminaBarSize = _staminaBar.Size;
 
 		_goldLabel = GetNode<Label>("GoldLabel");
 		_goldLabelPrefix = _goldLabel.Text;
@@ -34,6 +40,19 @@ public partial class HUD : CanvasLayer
 	public void SetHealthBarVisible(bool visible)
 	{
 		_healthBar.Visible = visible;
+	}
+
+	/// <param name="pct">Between 0 and 1</param>
+	public void SetStamina(float pct)
+	{
+		if (pct < 0 || pct > 1)
+			throw new ArgumentOutOfRangeException(nameof(pct), "Value must be between 0 and 1.");
+
+		_staminaBar.SetSize(new Vector2(_staminaBarSize.X * pct, _staminaBarSize.Y));
+	}
+	public void SetStaminaBarVisible(bool visible)
+	{
+		_staminaBar.Visible = visible;
 	}
 
 	public void SetGoldAmount(int amount)

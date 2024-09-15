@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://ckkl12kv0h1v2"]
+[gd_scene load_steps=24 format=4 uid="uid://ckkl12kv0h1v2"]
 
 [ext_resource type="Texture2D" uid="uid://dvpfu3c846x0g" path="res://ui/crosshair.png" id="1_4ptm4"]
 [ext_resource type="PackedScene" uid="uid://bv3m1ns1lv7h8" path="res://player/player.tscn" id="1_5sf8t"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b5ri4oiebyi5e" path="res://ui/gauge_bg.png" id="3_1q12o"]
 [ext_resource type="PackedScene" uid="uid://6wvc47yciarc" path="res://enemy/enemy.tscn" id="3_4s0tw"]
 [ext_resource type="PackedScene" uid="uid://bc5wkuw0yd2j" path="res://wall/wall.tscn" id="3_7rrpu"]
+[ext_resource type="Texture2D" uid="uid://20fsv78bqhxr" path="res://ui/stamina_bar.png" id="5_kju81"]
 [ext_resource type="PackedScene" uid="uid://b1nyddu8383px" path="res://greybox/greybox.tscn" id="6_03q6w"]
 [ext_resource type="PackedScene" uid="uid://cgvq1xkwkjs5s" path="res://enemy/patrol_point/PatrolPoint.tscn" id="6_dr3r0"]
 [ext_resource type="PackedScene" uid="uid://dk1yqkeui32ew" path="res://pickups/gold_chest/chest.tscn" id="10_d7yvc"]
@@ -1137,6 +1138,24 @@ offset_top = 41.0
 offset_right = 280.0
 offset_bottom = 64.0
 texture = SubResource("CanvasTexture_ifqyw")
+
+[node name="Stamina" type="CanvasLayer" parent="HUD/Gauges"]
+
+[node name="BG" type="TextureRect" parent="HUD/Gauges/Stamina"]
+offset_left = 62.0
+offset_top = 72.0
+offset_right = 280.0
+offset_bottom = 95.0
+texture = ExtResource("3_1q12o")
+metadata/_edit_use_anchors_ = true
+
+[node name="Bar" type="TextureRect" parent="HUD/Gauges/Stamina"]
+offset_left = 62.0
+offset_top = 72.0
+offset_right = 280.0
+offset_bottom = 95.0
+texture = ExtResource("5_kju81")
+metadata/_edit_use_anchors_ = true
 
 [node name="GoldLabel" type="Label" parent="HUD"]
 offset_left = 1440.0
