@@ -579,40 +579,41 @@ public partial class Enemy : Area3D
 			}
 		}
 
+		_turnTarget = _player.GlobalPosition; // Always looks at the player, as if it was more attentive
 
-		if ((_player as Player).IsInvincible())
+
+		bool isPlayerInvincible = (_player as Player).IsInvincible();
+
+
+		if (_type == EnemyType.Melee)
 		{
-			_turnTarget = _lastSeenPlayerPos;
-		}
-		else
-		{
-			// Attack player
-			if (_type == EnemyType.Melee)
+			if (!isPlayerInvincible)
 			{
+				// Chase and attack
 				SetTarget(_lastSeenPlayerPos);
 			}
-			else if (_type == EnemyType.Ranged)
+		}
+		else if (_type == EnemyType.Ranged)
+		{
+			var dist = GlobalPosition.DistanceTo(_lastSeenPlayerPos);
+			if (_seesPlayer && dist <= ShootingDistance)
 			{
-				var dist = GlobalPosition.DistanceTo(_lastSeenPlayerPos);
-				if (dist <= ShootingDistance)
-				{
-					StopInPlace();
-					_turnTarget = _lastSeenPlayerPos;
+				StopInPlace();
+				_turnTarget = _lastSeenPlayerPos;
 
-					if (_shootingLoadGauge == -1 && _seesPlayer)
-					{
-						_shootingLoadGauge = 0;
-						PullArrowBack();
-					}
-					else if (_shootingLoadGauge >= ShootingLoadTime)
-					{
-						_shootingLoadGauge = -1;
-						FireArrowAt(_lastSeenPlayerPos);
-						_arrow = null;
-					}
+				if (_shootingLoadGauge == -1 && _seesPlayer)
+				{
+					_shootingLoadGauge = 0;
+					PullArrowBack();
 				}
-				else SetTarget(_lastSeenPlayerPos);
+				else if (_shootingLoadGauge >= ShootingLoadTime && !isPlayerInvincible)
+				{
+					_shootingLoadGauge = -1;
+					FireArrowAt(_lastSeenPlayerPos);
+					_arrow = null;
+				}
 			}
+			else SetTarget(_lastSeenPlayerPos);
 		}
 
 		if (GlobalPosition.DistanceTo(_lastSeenPlayerPos) < 1.5f && !_seesPlayer)

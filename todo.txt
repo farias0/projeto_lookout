@@ -43,8 +43,7 @@ ________________________
 
 - navegar pela lista de nós filhos que são Patrol Points ao invés de receber propriedade pelo inspector		<<<<
 
-- em chasing, seguir o jogador por alguns segundos mesmo depois de perder de vista		<<<<<<<<<<<
-	- quando o jogador pula pra cima do inimigo, o inimigo perde campo de visão e fica parado. ver se conserta
+- em chasing, seguir o jogador reto uma certa distancia depois de perder ele de vista		<<<<<<<<<<<
 
 ________________________
 
