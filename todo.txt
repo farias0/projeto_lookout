@@ -6,8 +6,6 @@
 
 - tolerância no pulo
 
-- limitar rotação vertical da câmera	
-
 - magia
 
 - precisar carregar flecha p/ poder atirar				<<<<<<<<<

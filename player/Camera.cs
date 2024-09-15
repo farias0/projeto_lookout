@@ -5,6 +5,7 @@ using projeto_lookout.libs;
 public partial class Camera : Camera3D
 {
 	public const float Sensitivity = 0.07f;
+	private const float MaxPitch = Mathf.Pi / 2f;
 
 	private Vector3 _startingRotation;
 
@@ -29,8 +30,12 @@ public partial class Camera : Camera3D
 
 			Vector2 move = eventMouseMotion.ScreenRelative;
 
+			float rot = Mathf.DegToRad(-move.Y * Sensitivity);
+
+			if (Mathf.Abs(Rotation.X + rot) > MaxPitch) return;
+
 			// Pitches camera up and down
-			RotateX(Mathf.DegToRad(-move.Y * Sensitivity));
+			RotateX(rot);
 
 			Input.WarpMouse(	// Center mouse
 				GetViewport().GetVisibleRect().Size / 2f);
