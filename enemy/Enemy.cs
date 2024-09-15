@@ -228,6 +228,10 @@ public partial class Enemy : Area3D
 		{
 			player.TakeDamage(MeleeDamage);
 		}
+		else if (body.GetParent() is Arrow arrow)
+		{
+			arrow.OnBodyEntered(this);
+		}
 	}
 
 	private void ProcessDamageCountdown(float delta)

@@ -181,7 +181,7 @@ public partial class Arrow : Node3D
 		Position -= Transform.Basis.Z * Speed * delta;
 	}
 
-	private void OnBodyEntered(Node body)
+	public void OnBodyEntered(Node body)
 	{
 		if (_state != State.Flying) return;
 
