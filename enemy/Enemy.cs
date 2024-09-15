@@ -361,14 +361,7 @@ public partial class Enemy : Area3D
 			Vector3 origin = GlobalPosition + heightOffset;
 			Vector3 target = _player.GlobalPosition + heightOffset;
 
-			var rayParams = new PhysicsRayQueryParameters3D
-			{
-				From = origin,
-				To = target,
-				CollideWithBodies = true,
-				CollideWithAreas = true
-			};
-			var rayResult = GetWorld3D().DirectSpaceState.IntersectRay(rayParams);
+			var rayResult = Raycast.CastRay(GetWorld3D(), origin, target);
 
 			if (rayResult.ContainsKey("collider") && (Node)rayResult["collider"] != _player)
 			{

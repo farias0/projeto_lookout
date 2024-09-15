@@ -312,21 +312,11 @@ public partial class Player : CharacterBody3D
 	/// <returns>The point in the world the player's aiming at</returns>
 	private Vector3 AimingAt()
 	{
+		Vector3 targetPoint;
+
 		Vector3 rayOrigin = Resources.Camera.GlobalTransform.Origin;
 		Vector3 rayDirection = Resources.Camera.GlobalTransform.Basis.Z.Normalized() * -1;
-
-		PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
-		PhysicsRayQueryParameters3D rayParams = new()
-		{
-			From = rayOrigin,
-			To = rayOrigin + rayDirection * 1000.0f,
-			CollideWithBodies = true,
-			CollideWithAreas = true
-		};
-
-		var rayResult = spaceState.IntersectRay(rayParams);
-
-		Vector3 targetPoint;
+		var rayResult = Raycast.CastRayInDirection(GetWorld3D(), rayOrigin, rayDirection, 1000);
 
 		if (rayResult.Count > 0)
 		{
