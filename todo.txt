@@ -8,9 +8,10 @@
 
 - limitar rotação vertical da câmera	
 
-- gancho só consumir stamina ao aterrisar
-
 - magia
+
+- precisar carregar flecha p/ poder atirar				<<<<<<<<<
+	- talvez flecha ir sem força se nao for completamente carregada
 
 ________________________
 
@@ -25,8 +26,6 @@ ________________________
 - flechas que são plataformas!!				<<<<<
 
 - flecha explosiva?
-
-- rotacionar verticalmente c/ a câmera
 
 - arrumar exception de quando seta a GlobalPosition ao spawnar flecha		<<<<
 

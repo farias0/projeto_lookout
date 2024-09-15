@@ -57,7 +57,7 @@ public partial class Player : CharacterBody3D
 	{
 		Resources.Player = this;
 
-		_bow = GetNode<Node3D>("Bow");
+		_bow = Resources.Camera.GetNode<Node3D>("Bow");
 
 		_startingPos = GlobalPosition;
 		_startingRot = GlobalRotation;
@@ -280,7 +280,7 @@ public partial class Player : CharacterBody3D
 
 		Vector3 spawnPos = node3d!.Basis.X.Normalized() * 0.3f +
 								node3d!.Basis.Z.Normalized() * -0.4f +
-								node3d!.Basis.Y.Normalized() * 1.4f;
+								node3d!.Basis.Y.Normalized() * -0.3f;
 		node3d!.GlobalPosition = spawnPos;
 
 
@@ -289,7 +289,7 @@ public partial class Player : CharacterBody3D
 		arrow!.SetShooter(this);
 
 
-		AddChild(node3d);
+		Resources.Camera.AddChild(node3d);
 		_pulledBackArrow = node3d;
 	}
 
