@@ -301,8 +301,7 @@ public partial class Player : CharacterBody3D
 		if (_pulledBackArrow == null) return;
 
 		Vector3 pos = _pulledBackArrow.GlobalPosition;
-		RemoveChild(_pulledBackArrow);
-		GetParent().AddChild(_pulledBackArrow);
+		_pulledBackArrow.Reparent(GetParent());
 		_pulledBackArrow.GlobalPosition = pos;
 
 		Vector3 target = AimingAt();
