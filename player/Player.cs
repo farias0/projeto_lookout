@@ -49,6 +49,9 @@ public partial class Player : CharacterBody3D
 	private float _maxStamina;
 	private float _staminaRegenCountdown;
 
+	// Debug
+	private bool _staminaEnabled = true;
+
 
 	public override void _Ready()
 	{
@@ -131,6 +134,9 @@ public partial class Player : CharacterBody3D
 		else if (e.IsActionReleased("fire"))		FireArrow();
 		if (e.IsActionPressed("fire_2"))			PullArrowBack(ArrowType.Hook);
 		else if (e.IsActionReleased("fire_2"))		FireArrow();
+
+		// Debug
+		if (e.IsActionPressed("toggle_stamina"))	ToggleStamina();
 	}
 
 	public void TakeDamage(int damage)
@@ -154,6 +160,8 @@ public partial class Player : CharacterBody3D
 	/// <returns>If the operation is allowed</returns>
 	public bool ConsumeStamina(float value)
 	{
+		if (!_staminaEnabled) return true;
+
 		if (Stamina - value < 0)
 		{
 			return false;
@@ -388,5 +396,11 @@ public partial class Player : CharacterBody3D
 			// Stop blinking
 			_bow.Visible = true;
 		}
+	}
+
+	private void ToggleStamina()
+	{
+		_staminaEnabled = !_staminaEnabled;
+		Resources.HUD.SetStaminaBarVisible(_staminaEnabled);
 	}
 }
