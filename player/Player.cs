@@ -23,9 +23,9 @@ public partial class Player : CharacterBody3D
 	[Export]
 	public float Stamina { get; set; } = 100;
 	[Export]
-	public float StaminaRegenRate { get; set; } = 3.0f;
+	public float StaminaRegenRate { get; set; } = 3.5f;
 	[Export]
-	public float StaminaRegenDelay { get; set; } = 1.0f;
+	public float StaminaRegenDelay { get; set; } = 2.0f;
 	[Export]
 	public float StaminaCostHook { get; set; } = 40;
 	[ExportGroup("")]
@@ -260,12 +260,6 @@ public partial class Player : CharacterBody3D
 		if (_pulledBackArrow != null)
 		{
 			// TODO play error sound
-			return;
-		}
-
-		if (type == ArrowType.Hook && _hookedArrow != null)
-		{
-			LeaveHookedArrow();
 			return;
 		}
 
