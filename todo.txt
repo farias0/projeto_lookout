@@ -33,8 +33,6 @@ ________________________
 === INIMIGOS
 
 
-- consertar navagent ficando preso em estado caso não tenha caminho para target
-
 - ouvir passos
 
 - gritar p/ outros inimigos ao confirmar vista do jogador

@@ -1224,10 +1224,10 @@ PatrolPoints = [NodePath("PatrolPoint"), NodePath("PatrolPoint2"), NodePath("Pat
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.02293, 0, -13.5525)
 
 [node name="PatrolPoint2" parent="NavigationRegion3D/Melee2" instance=ExtResource("6_dr3r0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9694, 0, -12.3946)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.088, 0, -12.41)
 
 [node name="PatrolPoint3" parent="NavigationRegion3D/Melee2" instance=ExtResource("6_dr3r0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 22)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.0885, 0, 21.9806)
 
 [node name="PatrolPoint4" parent="NavigationRegion3D/Melee2" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 22)

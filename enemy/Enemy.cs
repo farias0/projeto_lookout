@@ -55,6 +55,8 @@ public partial class Enemy : Area3D
 	public float AlertGaugeTime { get; set; } = 2; // For how long it has to see the player while in 'alert' to go investigate
 	[Export]
 	public float SearchGiveUpCountdown { get; set; } = 5; // How long it takes to give up searching for the player after losing sight of him
+	[Export]
+	public float NavMeshStuckCountdown { get; set; } = 5; // If the enemy is stuck because it doesnt have a path 
 
 	[ExportGroup("Shooting")]
 	[Export]
@@ -92,6 +94,8 @@ public partial class Enemy : Area3D
 	private EnemyType _type;
 	private float _shootingLoadGauge = -1;
 	private Node3D _arrow;
+	private Vector3 _posLastFrame;
+	private float _navMeshStuckCountdown = -1;
 
 
 	// Called when the node enters the scene tree for the first time.
@@ -133,6 +137,8 @@ public partial class Enemy : Area3D
 	public override void _Process(double delta)
 	{
 		ProcessDamageCountdown((float)delta);
+		ProcessNavMeshStuck((float)delta);
+
 
 		if (_state != State.Chasing && _arrow != null)
 		{
@@ -160,6 +166,9 @@ public partial class Enemy : Area3D
 				KeepChasing((float)delta);
 				break;
 		}
+
+
+		_posLastFrame = GlobalPosition;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -609,6 +618,36 @@ public partial class Enemy : Area3D
 		if (GlobalPosition.DistanceTo(_lastSeenPlayerPos) < 1.5f && !_seesPlayer)
 		{
 			StartAlert();
+		}
+	}
+
+	/// <summary>
+	/// Sometimes the AI will be stuck trying to reach a point in the navmesh it doesn't have a path to.
+	/// This method uses a timer to unstuck it when this happens.
+	/// </summary>
+	private void ProcessNavMeshStuck(float delta)
+	{
+		var targetDist = GlobalPosition.DistanceTo(_navAgent.TargetPosition);
+
+		if (targetDist > 1.0f && GlobalPosition == _posLastFrame)
+		{
+			if (_navMeshStuckCountdown > 0)
+			{
+				_navMeshStuckCountdown -= delta;
+				if (_navMeshStuckCountdown <= 0)
+				{
+					Debug.Log($"{Name} got navmesh stuck. Going into alert...");
+					StartAlert();
+				}
+			}
+			else
+			{
+				_navMeshStuckCountdown = NavMeshStuckCountdown;
+			}
+		}
+		else
+		{
+			_navMeshStuckCountdown = -1;
 		}
 	}
 }
