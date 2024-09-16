@@ -2,11 +2,13 @@
 
 - andar com shift
 
-- escorregar ao agachar correndo			
+- escorregar ao agachar correndo			<<<<<<<<<<
 
 - tolerância no pulo
 
 - magia
+
+- buga descendo rampa. teleporta para o começo (baixo) dela
 
 ________________________
 
@@ -18,7 +20,7 @@ ________________________
 
 - adicionar distancia máxima p/ flecha		
 
-- flechas que são plataformas!!				<<<<<
+- flechas que são plataformas!!				
 
 - gancho puxar com aceleração?
 
@@ -33,17 +35,13 @@ ________________________
 === INIMIGOS
 
 
-- ouvir passos
+- ouvir passos					<<<<<<<<
 
 - gritar p/ outros inimigos ao confirmar vista do jogador
 
-- indicador de troca de estados
-	- som ?
-	- ícone de alerta ?
-
 - navegar pela lista de nós filhos que são Patrol Points ao invés de receber propriedade pelo inspector		<<<<
 
-- em chasing, seguir o jogador reto uma certa distancia depois de perder ele de vista		<<<<<<<<<<<
+- em chasing, seguir o jogador reto uma certa distancia depois de perder ele de vista		
 
 ________________________
 
@@ -54,7 +52,25 @@ ________________________
 
 - poção de vida				<<<<<<
 - poção de velocidade
+- poção de stamina			<<<<<<
 
+
+________________________
+
+=== SONS				<<<<<<<
+
+- pular
+- puxar flecha
+- atirar flecha
+- acertar flecha
+- acertar inimigo
+- inimigo alerta
+- inimigo seguindo
+- pegar ouro
+- ser puxado pelo gancho
+- terminar de ser puxado pelo gancho
+- levar dano
+- caindo
 
 ________________________
 
@@ -63,3 +79,4 @@ ________________________
 
 - Importar modelos com materiais
 	- fbx com arquivos de textura do lado?
+v

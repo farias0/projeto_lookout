@@ -48,6 +48,7 @@ public partial class Player : CharacterBody3D
 	private int _gold = 0;
 	private float _maxStamina;
 	private float _staminaRegenCountdown;
+	private PlayerAudio? _audio;
 
 	// Debug
 	private bool _staminaEnabled = true;
@@ -58,6 +59,8 @@ public partial class Player : CharacterBody3D
 		Resources.Player = this;
 
 		_bow = Resources.Camera.GetNode<Node3D>("Bow");
+
+		_audio = GetNode<PlayerAudio>("AudioStreamPlayer");
 
 		_startingPos = GlobalPosition;
 		_startingRot = GlobalRotation;
@@ -104,6 +107,12 @@ public partial class Player : CharacterBody3D
 			direction = direction.Normalized();
 			GetNode<Node3D>("Pivot").Basis = Basis.LookingAt(direction);
 		}
+
+		if (direction != Vector3.Zero && GetCurrentSpeed() == SpeedCrouched && IsOnFloor())
+			_audio!.PlayCrouchedWalk();
+		else if (direction != Vector3.Zero && GetCurrentSpeed() == Speed && IsOnFloor())
+			_audio!.PlayWalk();
+		else _audio!.StopMoving();
 
 		direction = direction.Rotated(Vector3.Up, Rotation.Y);
 
@@ -342,6 +351,8 @@ public partial class Player : CharacterBody3D
 		var direction = (_hookedArrow as Arrow)!.HookGetPullDirection();
 		Velocity = direction * HookSpeed * (float)delta;
 		MoveAndSlide();
+
+		_audio!.StopMoving();
 	}
 
 	private void LeaveHookedArrow()
