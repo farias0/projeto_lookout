@@ -60,7 +60,6 @@ ________________________
 === SONS				<<<<<<<
 
 Sons de:
-- flecha disparada			<<<
 - flecha voando
 - flecha acertou
 - inimigo alerta

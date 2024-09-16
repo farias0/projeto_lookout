@@ -333,7 +333,7 @@ public partial class Player : CharacterBody3D
 
 		_pulledBackArrow = null;
 
-		_bowAudio!.CancelTensing();
+		_bowAudio!.PlayFired();
 	}
 
 	/// <returns>The point in the world the player's aiming at</returns>

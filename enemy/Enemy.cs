@@ -434,7 +434,7 @@ public partial class Enemy : Area3D
 
 		_arrow = null;
 
-		_bowAudio.CancelTensing();
+		_bowAudio.PlayFired();
 	}
 
 	private Vector3 CompensateForPlayersHeight(Vector3 playerPos)
@@ -453,7 +453,7 @@ public partial class Enemy : Area3D
 		}
 		_arrow = null;
 
-		_bowAudio.CancelTensing();
+		_bowAudio.StopSound();
 	}
 
 
