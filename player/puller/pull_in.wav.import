@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://d37wbgtb4gsuo"
-path="res://.godot/imported/hook_pulled_in.wav-2fbbabcb13f45e1954b1d116f971a6e0.sample"
+path="res://.godot/imported/pull_in.wav-3bff32727c26c8d571282050e9795a67.sample"
 
 [deps]
 
-source_file="res://bow-n-arrow/bow/audio/hook_pulled_in.wav"
-dest_files=["res://.godot/imported/hook_pulled_in.wav-2fbbabcb13f45e1954b1d116f971a6e0.sample"]
+source_file="res://player/puller/pull_in.wav"
+dest_files=["res://.godot/imported/pull_in.wav-3bff32727c26c8d571282050e9795a67.sample"]
 
 [params]
 

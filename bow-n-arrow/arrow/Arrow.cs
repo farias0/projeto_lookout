@@ -50,8 +50,6 @@ public partial class Arrow : Node3D
 		_audio = GetNode<ArrowAudio>("AudioStreamPlayer3D");
 
 		SetType(_type);
-
-		_audio.PlayPulledBack();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

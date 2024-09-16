@@ -37,6 +37,8 @@ ________________________
 
 - ouvir passos					<<<<<<<<
 
+- emitirem som de puxar flecha via arco
+
 - gritar p/ outros inimigos ao confirmar vista do jogador
 
 - navegar pela lista de nós filhos que são Patrol Points ao invés de receber propriedade pelo inspector		<<<<

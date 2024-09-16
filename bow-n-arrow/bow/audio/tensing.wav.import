@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://brnyocudfcc73"
-path="res://.godot/imported/bow_tensing.wav-3358c8d7724795c8f27a1a69ac81cf77.sample"
+path="res://.godot/imported/tensing.wav-775fc1c4477981261ba073f15c073d7d.sample"
 
 [deps]
 
-source_file="res://bow-n-arrow/arrow/audio/bow_tensing.wav"
-dest_files=["res://.godot/imported/bow_tensing.wav-3358c8d7724795c8f27a1a69ac81cf77.sample"]
+source_file="res://bow-n-arrow/bow/audio/tensing.wav"
+dest_files=["res://.godot/imported/tensing.wav-775fc1c4477981261ba073f15c073d7d.sample"]
 
 [params]
 

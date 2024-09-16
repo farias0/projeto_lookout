@@ -5,22 +5,26 @@ public partial class BowAudio : SoundPlayer3D
 {
 	[ExportGroup("Mixer")]
 	[Export(PropertyHint.Range, "-80, 24")]
-	private float HookPullIn
+	private float Tensing
 	{
-		get => _hookPullIn.Volume;
-		set => SetSoundVolume(_hookPullIn, value);
+		get => _tensing.Volume;
+		set => SetSoundVolume(_tensing, value);
 	}
 
-	private readonly Sound _hookPullIn = new();
+	private readonly Sound _tensing = new();
 
 	public override void _Ready()
 	{
-		_hookPullIn.LoadStream("res://bow-n-arrow/bow/audio/hook_pulled_in.wav");
-		_hookPullIn.IsContinuous = true;
+		_tensing.LoadStream("res://bow-n-arrow/bow/audio/tensing.wav");
 	}
 
-	public void PlayHookPullIn()
+	public void PlayTensing()
 	{
-		PlaySound(_hookPullIn);
+		PlaySound(_tensing);
+	}
+
+	public void CancelTensing()
+	{
+		StopSound();
 	}
 }

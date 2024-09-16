@@ -50,6 +50,7 @@ public partial class Player : CharacterBody3D
 	private float _staminaRegenCountdown;
 	private PlayerAudio? _audio;
 	private BowAudio? _bowAudio;
+	private PullerAudio? _pullerAudio;
 
 	// Debug
 	private bool _staminaEnabled = true;
@@ -59,10 +60,13 @@ public partial class Player : CharacterBody3D
 	{
 		Resources.Player = this;
 
+		_audio = GetNode<PlayerAudio>("AudioStreamPlayer");
+
 		_bow = Resources.Camera.GetNode<Node3D>("Bow");
 		_bowAudio = _bow.GetNode<AudioStreamPlayer3D>("AudioStreamPlayer3D")! as BowAudio;
 
-		_audio = GetNode<PlayerAudio>("AudioStreamPlayer");
+		var puller = Resources.Camera.GetNode<Node3D>("Puller");
+		_pullerAudio = puller.GetNode<AudioStreamPlayer3D>("AudioStreamPlayer3D")! as PullerAudio;
 
 		_startingPos = GlobalPosition;
 		_startingRot = GlobalRotation;
@@ -88,13 +92,14 @@ public partial class Player : CharacterBody3D
 	{
 		if (_hookedArrow != null)
 		{
-			_bowAudio!.PlayHookPullIn();
+			_pullerAudio!.PlayPullIn();
 			if ((_hookedArrow as Arrow)!.HookIsShooterPulled())
 			{
 				PulledByHook((float)delta);
 				return;
 			}
-		} else _bowAudio!.StopSound();
+		}
+		else _pullerAudio!.StopSound();
 
 
 		var direction = Vector3.Zero;
@@ -302,6 +307,8 @@ public partial class Player : CharacterBody3D
 
 		Resources.Camera.AddChild(node3d);
 		_pulledBackArrow = node3d;
+
+		_bowAudio!.PlayTensing();
 	}
 
 	/// <summary>
@@ -324,6 +331,8 @@ public partial class Player : CharacterBody3D
 		}
 
 		_pulledBackArrow = null;
+
+		_bowAudio!.CancelTensing();
 	}
 
 	/// <returns>The point in the world the player's aiming at</returns>
