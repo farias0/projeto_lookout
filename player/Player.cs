@@ -213,6 +213,7 @@ public partial class Player : CharacterBody3D
 	{
 		_gold += amount;
 		Resources.HUD.SetGoldAmount(_gold);
+		_audio!.PlayCollectGold();
 	}
 
 	public void ArrowHooked(Node3D arrow)
