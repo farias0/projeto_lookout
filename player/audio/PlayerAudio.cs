@@ -28,12 +28,19 @@ public partial class PlayerAudio : SoundPlayer
 		get => _collectGold.Volume;
 		set => SetSoundVolume(_collectGold, value);
 	}
+	[Export(PropertyHint.Range, "-80, 24")]
+	private float GotHit
+	{
+		get => _gotHit.Volume;
+		set => SetSoundVolume(_gotHit, value);
+	}
 
 
 	private readonly Sound _footstepsSlow = new();
 	private readonly Sound _footstepsFast = new();
 	private readonly Sound _jump = new();
 	private readonly Sound _collectGold = new();
+	private readonly Sound _gotHit = new();
 
 
 	public override void _Ready()
@@ -47,6 +54,8 @@ public partial class PlayerAudio : SoundPlayer
 		_jump.LoadStream("res://player/audio/jump.wav");
 
 		_collectGold.LoadStream("res://player/audio/collect_gold.wav");
+
+		_gotHit.LoadStream("res://player/audio/got_hit.wav");
 	}
 
 
@@ -73,6 +82,11 @@ public partial class PlayerAudio : SoundPlayer
 	public void PlayCollectGold()
 	{
 		PlaySound(_collectGold);
+	}
+	
+	public void PlayGotHit()
+	{
+		PlaySound(_gotHit);
 	}
 }
 

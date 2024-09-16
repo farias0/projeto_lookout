@@ -61,11 +61,11 @@ ________________________
 
 Sons de:
 - flecha voando
-- flecha acertou
-- inimigo alerta
-- inimigo seguindo
-- desceu do puxador		<<<
-- levar dano
+- flecha acertou		<<<<
+- inimigo alerta		<<<<
+- inimigo seguindo		<<<<
+- inimigo morte (spawnar item com timer)
+- desceu do puxador		
 - caindo
 
 

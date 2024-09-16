@@ -174,6 +174,8 @@ public partial class Player : CharacterBody3D
 			Resources.HUD.SetHealth((float)Health / _maxHealth);
 			_invincibilityCountdown = InvincibilityTime;
 		}
+
+		_audio!.PlayGotHit();
 	}
 
 	/// <param name="value">The value to be consumed</param>
