@@ -59,7 +59,6 @@ ________________________
 
 === SONS				<<<<<<<
 
-- pular
 - puxar flecha
 - atirar flecha
 - acertar flecha

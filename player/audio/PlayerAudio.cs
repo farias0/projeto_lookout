@@ -5,46 +5,70 @@ public partial class PlayerAudio : AudioStreamPlayer
 {
 	private AudioStream _footstepsSlow;
 	private AudioStream _footstepsFast;
+	private AudioStream _jump;
+
+	private AudioStream _movementSound; // They are played looped and can be interrupted
 
 	public override void _Ready()
 	{
 		_footstepsSlow = GD.Load<AudioStream>("res://player/audio/footsteps_slow.wav");
 		_footstepsFast = GD.Load<AudioStream>("res://player/audio/footsteps_fast.wav");
+		_jump = GD.Load<AudioStream>("res://player/audio/jump.wav");
 	}
 
 	public override void _Process(double delta)
 	{
-		if (Stream != null && !IsPlaying())
+		// Loop
+		if (!IsPlaying() && _movementSound != null)
 		{
+			Stream = _movementSound;
 			Play();
 		}
 	}
 
 	public void PlayCrouchedWalk()
 	{
-		if (Stream != _footstepsSlow) {
-			Stream = _footstepsSlow;
-			Play();
-		}
+		PlayMovementSound(_footstepsSlow);
 	}
 
 	public void PlayWalk()
 	{
-		if (Stream != _footstepsFast)
-		{
-			Stream = _footstepsFast;
-			Play();
-		}
+		PlayMovementSound(_footstepsFast);
 	}
 
 	public void StopMoving()
 	{
-		if (Stream == _footstepsSlow ||
-			Stream == _footstepsFast)
+		if (IsMovementSound(Stream))
 		{
-			Stream = null;
 			Stop();
 		}
+		_movementSound = null;
+	}
+
+	public void PlayJump()
+	{
+		PlayOneOffSound(_jump);
+	}
+
+	private bool IsMovementSound(AudioStream stream)
+	{
+		return (stream == _footstepsSlow ||
+				stream == _footstepsFast);
+	}
+
+	private void PlayMovementSound(AudioStream stream)
+	{
+		if (!IsPlaying() || (Stream != stream && IsMovementSound(Stream))) {
+			Stream = stream;
+			Play();
+		}
+		_movementSound = stream;
+	}
+
+	private void PlayOneOffSound(AudioStream stream)
+	{
+		Stream = _jump;
+		Play();
 	}
 }
 

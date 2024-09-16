@@ -247,6 +247,8 @@ public partial class Player : CharacterBody3D
 
 	private void Jump()
 	{
+		_audio!.PlayJump();
+
 		if (_hookedArrow != null)
 		{
 			LeaveHookedArrow();
