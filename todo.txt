@@ -63,7 +63,6 @@ Sons de:
 - flecha disparada			<<<
 - flecha voando
 - flecha acertou
-- inimigo levar hit (grunhido)		<<<
 - inimigo alerta
 - inimigo seguindo
 - desceu do puxador		<<<

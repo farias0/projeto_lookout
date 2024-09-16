@@ -97,6 +97,7 @@ public partial class Enemy : Area3D
 	private Vector3 _posLastFrame;
 	private float _navMeshStuckCountdown = -1;
 	private BowAudio _bowAudio;
+	private EnemyAudio _audio;
 
 
 	// Called when the node enters the scene tree for the first time.
@@ -126,6 +127,8 @@ public partial class Enemy : Area3D
 			throw new InvalidOperationException("Couldn't find enemy's bow.");
 		}
 		_bowAudio = _bow.GetNode<BowAudio>("AudioStreamPlayer3D");
+
+		_audio = GetNode<EnemyAudio>("AudioStreamPlayer3D");
 
 		Monitoring = true;
 		Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
@@ -201,6 +204,8 @@ public partial class Enemy : Area3D
 		{
 			Die();
 		}
+
+		_audio.PlayGotHit();
 	}
 
 	public void ChangeType(EnemyType type)

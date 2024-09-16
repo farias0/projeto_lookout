@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=4 uid="uid://6wvc47yciarc"]
+[gd_scene load_steps=8 format=4 uid="uid://6wvc47yciarc"]
 
 [ext_resource type="Script" path="res://enemy/Enemy.cs" id="1_wc3wn"]
 [ext_resource type="Material" uid="uid://c7r0h3hi354lr" path="res://enemy/enemy_ranged_material.tres" id="2_pfw1u"]
 [ext_resource type="PackedScene" uid="uid://bvs7d3jx0qvqr" path="res://bow-n-arrow/bow/bow.tscn" id="3_l7hhj"]
+[ext_resource type="Script" path="res://enemy/audio/EnemyAudio.cs" id="4_8j1nl"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ylq8t"]
 _surfaces = [{
@@ -60,3 +61,8 @@ transform = Transform3D(8.36028e-08, 1.91261, -0.584743, 2, -8.74228e-08, 0, -2.
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19051, 0)
 shape = SubResource("CylinderShape3D_y73ln")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+max_db = -0.229
+script = ExtResource("4_8j1nl")
+GotHit = -0.479
