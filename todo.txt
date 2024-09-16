@@ -8,7 +8,7 @@
 
 - magia
 
-- buga descendo rampa. teleporta para o começo (baixo) dela
+- buga descendo rampa pelo lado. teleporta para o começo (baixo) dela
 
 ________________________
 
@@ -59,8 +59,15 @@ ________________________
 
 === SONS				<<<<<<<
 
-- puxar flecha
+- cada audiostream ter seu próprio volume
+- poder editar esses volumes em tempo de execução via inspetor
+- esses volumes serem salvos em disco
+
+- implementar conceito de busses
+
+Sons de:
 - atirar flecha
+- flecha voando
 - acertar flecha
 - acertar inimigo
 - inimigo alerta
@@ -78,4 +85,3 @@ ________________________
 
 - Importar modelos com materiais
 	- fbx com arquivos de textura do lado?
-v

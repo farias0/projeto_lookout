@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cmpuot84q17ho"]
+[gd_scene load_steps=5 format=3 uid="uid://cmpuot84q17ho"]
 
 [ext_resource type="PackedScene" uid="uid://diwjdgtj60khe" path="res://bow-n-arrow/arrow/arrow.glb" id="1_dxv4u"]
 [ext_resource type="Script" path="res://bow-n-arrow/arrow/Arrow.cs" id="2_5gm8k"]
+[ext_resource type="Script" path="res://bow-n-arrow/arrow/audio/ArrowAudio.cs" id="3_nhuh8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p52ox"]
 size = Vector3(0.025, 0.025, 0.572)
@@ -21,3 +22,6 @@ shape = SubResource("BoxShape3D_p52ox")
 
 [node name="MeshNode" parent="RigidBody3D" instance=ExtResource("1_dxv4u")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+script = ExtResource("3_nhuh8")

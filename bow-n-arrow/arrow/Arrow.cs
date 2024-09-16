@@ -33,6 +33,7 @@ public partial class Arrow : Node3D
 	private Node3D _hookLine;
 	private Color _hookColor;
 	private PickUp _hookedPickup = null;
+	private ArrowAudio _audio;
 
 
 	// Called when the node enters the scene tree for the first time.
@@ -46,7 +47,11 @@ public partial class Arrow : Node3D
 
 		_hookColor = Resources.ArrowHookMaterial.AlbedoColor;
 
+		_audio = GetNode<ArrowAudio>("AudioStreamPlayer3D");
+
 		SetType(_type);
+
+		_audio.PlayPulledBack();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -125,6 +130,8 @@ public partial class Arrow : Node3D
 
 		_state = State.Flying;
 		_rigidBody.Freeze = false;
+
+		_audio.PlayFired();
 	}
 
 	/// <summary>
