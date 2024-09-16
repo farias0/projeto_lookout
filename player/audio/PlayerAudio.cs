@@ -1,74 +1,63 @@
 using Godot;
 using System;
 
-public partial class PlayerAudio : AudioStreamPlayer
+public partial class PlayerAudio : SoundPlayer
 {
-	private AudioStream _footstepsSlow;
-	private AudioStream _footstepsFast;
-	private AudioStream _jump;
+	[ExportGroup("Mixer")]	
+	[Export(PropertyHint.Range, "-80, 24")]
+	private float FootstepsSlow {
+		get => _footstepsSlow.Volume;
+		set => SetSoundVolume(_footstepsSlow, value);
+	}
+	[Export(PropertyHint.Range, "-80, 24")]
+	private float FootstepsFast
+	{
+		get => _footstepsFast.Volume;
+		set => SetSoundVolume(_footstepsFast, value);
+	}
+	[Export(PropertyHint.Range, "-80, 24")]
+	private float Jump
+	{
+		get => _jump.Volume;
+		set => SetSoundVolume(_jump, value);
+	}
 
-	private AudioStream _movementSound; // They are played looped and can be interrupted
+
+	private readonly Sound _footstepsSlow = new();
+	private readonly Sound _footstepsFast = new();
+	private readonly Sound _jump = new();
+
 
 	public override void _Ready()
 	{
-		_footstepsSlow = GD.Load<AudioStream>("res://player/audio/footsteps_slow.wav");
-		_footstepsFast = GD.Load<AudioStream>("res://player/audio/footsteps_fast.wav");
-		_jump = GD.Load<AudioStream>("res://player/audio/jump.wav");
+		_footstepsSlow.LoadStream("res://player/audio/footsteps_slow.wav");
+		_footstepsSlow.IsContinuous = true;
+
+		_footstepsFast.LoadStream("res://player/audio/footsteps_fast.wav");
+		_footstepsFast.IsContinuous = true;
+
+		_jump.LoadStream("res://player/audio/jump.wav");
 	}
 
-	public override void _Process(double delta)
-	{
-		// Loop
-		if (!IsPlaying() && _movementSound != null)
-		{
-			Stream = _movementSound;
-			Play();
-		}
-	}
 
 	public void PlayCrouchedWalk()
 	{
-		PlayMovementSound(_footstepsSlow);
+		PlaySound(_footstepsSlow);
 	}
 
 	public void PlayWalk()
 	{
-		PlayMovementSound(_footstepsFast);
+		PlaySound(_footstepsFast);
 	}
 
 	public void StopMoving()
 	{
-		if (IsMovementSound(Stream))
-		{
-			Stop();
-		}
-		_movementSound = null;
+		StopContinuousSound();
 	}
 
 	public void PlayJump()
 	{
-		PlayOneOffSound(_jump);
-	}
-
-	private bool IsMovementSound(AudioStream stream)
-	{
-		return (stream == _footstepsSlow ||
-				stream == _footstepsFast);
-	}
-
-	private void PlayMovementSound(AudioStream stream)
-	{
-		if (!IsPlaying() || (Stream != stream && IsMovementSound(Stream))) {
-			Stream = stream;
-			Play();
-		}
-		_movementSound = stream;
-	}
-
-	private void PlayOneOffSound(AudioStream stream)
-	{
-		Stream = _jump;
-		Play();
+		PlaySound(_jump);
 	}
 }
 

@@ -30,3 +30,5 @@ transform = Transform3D(4.37114e-08, 1, -8.74228e-08, 1, -4.37114e-08, 0, -3.821
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamWAV_qnb5q")
 script = ExtResource("4_cslml")
+FootstepsSlow = -10.114
+FootstepsFast = -4.314

@@ -59,12 +59,6 @@ ________________________
 
 === SONS				<<<<<<<
 
-- cada audiostream ter seu próprio volume
-- poder editar esses volumes em tempo de execução via inspetor
-- esses volumes serem salvos em disco
-
-- implementar conceito de busses
-
 Sons de:
 - atirar flecha
 - flecha voando
@@ -77,6 +71,10 @@ Sons de:
 - terminar de ser puxado pelo gancho
 - levar dano
 - caindo
+
+
+- user buses 
+	https://docs.godotengine.org/en/stable/tutorials/audio/audio_buses.html
 
 ________________________
 
