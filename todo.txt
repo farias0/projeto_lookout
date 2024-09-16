@@ -37,8 +37,6 @@ ________________________
 
 - ouvir passos					<<<<<<<<
 
-- emitirem som de puxar flecha via arco
-
 - gritar p/ outros inimigos ao confirmar vista do jogador
 
 - navegar pela lista de nós filhos que são Patrol Points ao invés de receber propriedade pelo inspector		<<<<
@@ -62,14 +60,14 @@ ________________________
 === SONS				<<<<<<<
 
 Sons de:
-- atirar flecha			<<<
+- flecha disparada			<<<
 - flecha voando
-- acertar flecha
-- acertar inimigo		<<<
+- flecha acertou
+- inimigo levar hit (grunhido)		<<<
 - inimigo alerta
 - inimigo seguindo
 - pegar ouro			<<<<
-- terminar de ser puxado pelo gancho	<<<
+- desceu do puxador		<<<
 - levar dano
 - caindo
 

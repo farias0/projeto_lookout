@@ -96,6 +96,7 @@ public partial class Enemy : Area3D
 	private Node3D _arrow;
 	private Vector3 _posLastFrame;
 	private float _navMeshStuckCountdown = -1;
+	private BowAudio _bowAudio;
 
 
 	// Called when the node enters the scene tree for the first time.
@@ -124,7 +125,7 @@ public partial class Enemy : Area3D
 		{
 			throw new InvalidOperationException("Couldn't find enemy's bow.");
 		}
-
+		_bowAudio = _bow.GetNode<BowAudio>("AudioStreamPlayer3D");
 
 		Monitoring = true;
 		Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
@@ -406,6 +407,8 @@ public partial class Enemy : Area3D
 
 		AddChild(node3d);
 		_arrow = node3d;
+
+		_bowAudio.PlayTensing();
 	}
 
 	private void FireArrowAt(Vector3 target)
@@ -425,6 +428,8 @@ public partial class Enemy : Area3D
 		}
 
 		_arrow = null;
+
+		_bowAudio.CancelTensing();
 	}
 
 	private Vector3 CompensateForPlayersHeight(Vector3 playerPos)
@@ -442,6 +447,8 @@ public partial class Enemy : Area3D
 			(_arrow as Arrow).QueueFree();
 		}
 		_arrow = null;
+
+		_bowAudio.CancelTensing();
 	}
 
 
@@ -610,7 +617,6 @@ public partial class Enemy : Area3D
 				{
 					_shootingLoadGauge = -1;
 					FireArrowAt(_lastSeenPlayerPos);
-					_arrow = null;
 				}
 			}
 			else SetTarget(_lastSeenPlayerPos);
