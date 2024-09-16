@@ -47,6 +47,14 @@ public partial class SoundPlayer : AudioStreamPlayer
 		Play();
 	}
 
+	public void StopSound()
+	{
+		_currentSound = null;
+		ContinuousSound = null;
+		Stream = null;
+		Stop();
+	}
+
 	public void StopContinuousSound()
 	{
 		ContinuousSound = null;

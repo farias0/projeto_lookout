@@ -64,6 +64,8 @@ public partial class Enemy : Area3D
 	[Export]
 	public float ShootingLoadTime { get; set; } = 2f; // How long with the player on sight it takes for the enemy to take a shot
 	[Export]
+	public float ShootingCooldown { get; set; } = 1f; // How long it takes for the enemy to shoot again
+	[Export]
 	public float ArrowSpeed { get; set; } = 90;
 	[Export]
 	public int ArrowDamage { get; set; } = 30;
@@ -98,6 +100,7 @@ public partial class Enemy : Area3D
 	private float _navMeshStuckCountdown = -1;
 	private BowAudio _bowAudio;
 	private EnemyAudio _audio;
+	private float _shootingCooldown = -1;
 
 
 	// Called when the node enters the scene tree for the first time.
@@ -576,6 +579,7 @@ public partial class Enemy : Area3D
 		_state = State.Chasing;
 		_speed = SpeedChasing;
 		_shootingLoadGauge = -1;
+		_shootingCooldown = -1;
 		Debug.Log($"{Name} started chasing.");
 	}
 
@@ -589,6 +593,11 @@ public partial class Enemy : Area3D
 				_shootingLoadGauge = -1;
 				DestroyArrow();
 			}
+		}
+
+		if (_shootingCooldown >= 0)
+		{
+			_shootingCooldown -= delta;
 		}
 
 		_turnTarget = _player.GlobalPosition; // Always looks at the player, as if it was more attentive
@@ -613,7 +622,7 @@ public partial class Enemy : Area3D
 				StopInPlace();
 				_turnTarget = _lastSeenPlayerPos;
 
-				if (_shootingLoadGauge == -1 && _seesPlayer)
+				if (_shootingLoadGauge == -1 && _seesPlayer && _shootingCooldown <= 0)
 				{
 					_shootingLoadGauge = 0;
 					PullArrowBack();
@@ -622,6 +631,7 @@ public partial class Enemy : Area3D
 				{
 					_shootingLoadGauge = -1;
 					FireArrowAt(_lastSeenPlayerPos);
+					_shootingCooldown = ShootingCooldown;
 				}
 			}
 			else SetTarget(_lastSeenPlayerPos);
