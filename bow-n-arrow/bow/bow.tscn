@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=4 uid="uid://bvs7d3jx0qvqr"]
+[gd_scene load_steps=9 format=4 uid="uid://bvs7d3jx0qvqr"]
 
 [ext_resource type="Material" uid="uid://bh1jd62emund7" path="res://bow-n-arrow/arrow/arrow_normal_material.tres" id="1_te2xb"]
 [ext_resource type="Texture2D" uid="uid://b066in2n6a1nb" path="res://bow-n-arrow/bow/bow_Image.png" id="2_dcyos"]
+[ext_resource type="Script" path="res://bow-n-arrow/bow/audio/BowAudio.cs" id="3_noylk"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0gnsw"]
 resource_name = "WoodBow"
@@ -109,3 +110,7 @@ shadow_mesh = SubResource("ArrayMesh_lmvue")
 material_override = ExtResource("1_te2xb")
 mesh = SubResource("ArrayMesh_4ey8d")
 skeleton = NodePath("")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+script = ExtResource("3_noylk")
+HookPullIn = -12.234

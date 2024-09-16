@@ -49,6 +49,7 @@ public partial class Player : CharacterBody3D
 	private float _maxStamina;
 	private float _staminaRegenCountdown;
 	private PlayerAudio? _audio;
+	private BowAudio? _bowAudio;
 
 	// Debug
 	private bool _staminaEnabled = true;
@@ -59,6 +60,7 @@ public partial class Player : CharacterBody3D
 		Resources.Player = this;
 
 		_bow = Resources.Camera.GetNode<Node3D>("Bow");
+		_bowAudio = _bow.GetNode<AudioStreamPlayer3D>("AudioStreamPlayer3D")! as BowAudio;
 
 		_audio = GetNode<PlayerAudio>("AudioStreamPlayer");
 
@@ -84,11 +86,15 @@ public partial class Player : CharacterBody3D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (_hookedArrow != null && (_hookedArrow as Arrow)!.HookIsShooterPulled())
+		if (_hookedArrow != null)
 		{
-			PulledByHook((float)delta);
-			return;
-		}
+			_bowAudio!.PlayHookPullIn();
+			if ((_hookedArrow as Arrow)!.HookIsShooterPulled())
+			{
+				PulledByHook((float)delta);
+				return;
+			}
+		} else _bowAudio!.StopSound();
 
 
 		var direction = Vector3.Zero;

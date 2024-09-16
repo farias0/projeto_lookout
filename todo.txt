@@ -60,15 +60,14 @@ ________________________
 === SONS				<<<<<<<
 
 Sons de:
-- atirar flecha
+- atirar flecha			<<<
 - flecha voando
 - acertar flecha
-- acertar inimigo
+- acertar inimigo		<<<
 - inimigo alerta
 - inimigo seguindo
-- pegar ouro
-- ser puxado pelo gancho
-- terminar de ser puxado pelo gancho
+- pegar ouro			<<<<
+- terminar de ser puxado pelo gancho	<<<
 - levar dano
 - caindo
 
