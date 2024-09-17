@@ -30,6 +30,8 @@ ________________________
 
 - arrumar exception de quando seta a GlobalPosition ao spawnar flecha		<<<<
 
+- flecha saindo de lado quando segura A ou D		<<<<<<<
+
 ________________________
 
 === INIMIGOS
@@ -51,7 +53,6 @@ ________________________
 - inventário
 
 - poção de vida				<<<<<<
-	- hud
 	- uso
 
 - poção de velocidade
@@ -70,8 +71,8 @@ Sons de:
 - inimigo morte (spawnar item com timer)
 - desceu do puxador		
 - caindo
-- coletar poção de vida
-- usar poção de vida
+- coletar poção de vida		<<<<
+- usar poção de vida		<<<<
 
 
 - user buses 

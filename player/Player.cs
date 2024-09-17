@@ -51,6 +51,7 @@ public partial class Player : CharacterBody3D
 	private PlayerAudio? _audio;
 	private BowAudio? _bowAudio;
 	private PullerAudio? _pullerAudio;
+	private int _healthPotionCount = 0;
 
 	// Debug
 	private bool _staminaEnabled = true;
@@ -216,6 +217,13 @@ public partial class Player : CharacterBody3D
 		_gold += amount;
 		Resources.HUD.SetGoldAmount(_gold);
 		_audio!.PlayCollectGold();
+	}
+
+	public void PickUpHealthPotion()
+	{
+		_healthPotionCount++;
+		Resources.HUD.SetHealthPotionAmount(_healthPotionCount);
+		// _audio.PlayCollectHealthPotion();
 	}
 
 	public void ArrowHooked(Node3D arrow)

@@ -6,6 +6,6 @@ public partial class HealthPotion : PickUp
 {
 	public override void OnPlayerPickup(Player player)
 	{
-		Debug.Log("Picked up health potion");
+		player.PickUpHealthPotion();
 	}
 }
