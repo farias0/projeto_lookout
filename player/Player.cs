@@ -34,6 +34,7 @@ public partial class Player : CharacterBody3D
 
 
 	private const float MinY = -70;
+	private const int HealthPotionHealAmount = 60;
 
 
 	private Vector3 _targetVelocity = Vector3.Zero;
@@ -155,6 +156,7 @@ public partial class Player : CharacterBody3D
 		else if (e.IsActionReleased("fire"))		FireArrow();
 		if (e.IsActionPressed("fire_2"))			PullArrowBack(ArrowType.Hook);
 		else if (e.IsActionReleased("fire_2"))		FireArrow();
+		if (e.IsActionPressed("item_1"))			UseHealthPotion();
 
 		// Debug
 		if (e.IsActionPressed("toggle_stamina"))	ToggleStamina();
@@ -172,7 +174,7 @@ public partial class Player : CharacterBody3D
 		}
 		else
 		{
-			Resources.HUD.SetHealth((float)Health / _maxHealth);
+			SyncHealthHUD();
 			_invincibilityCountdown = InvincibilityTime;
 		}
 
@@ -282,6 +284,23 @@ public partial class Player : CharacterBody3D
 		if (IsOnFloor())
 		{
 			_targetVelocity.Y = JumpHeight;
+		}
+	}
+
+	private void UseHealthPotion()
+	{
+		if (_healthPotionCount >= 1)
+		{
+			_healthPotionCount--;
+			SyncHealthPotionHUD();
+
+			Health += HealthPotionHealAmount;
+			if (Health > _maxHealth) Health = _maxHealth;
+			SyncHealthHUD();
+		}
+		else
+		{
+			// TODO play error sound
 		}
 	}
 
@@ -421,6 +440,16 @@ public partial class Player : CharacterBody3D
 			// Stop blinking
 			_bow.Visible = true;
 		}
+	}
+
+	private void SyncHealthHUD()
+	{
+		Resources.HUD.SetHealth((float)Health / _maxHealth);
+	}
+
+	private void SyncHealthPotionHUD()
+	{
+		Resources.HUD.SetHealthPotionAmount(_healthPotionCount);
 	}
 
 	private void ToggleStamina()
