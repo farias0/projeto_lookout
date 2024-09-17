@@ -53,6 +53,7 @@ public partial class Player : CharacterBody3D
 	private BowAudio? _bowAudio;
 	private PullerAudio? _pullerAudio;
 	private int _healthPotionCount = 0;
+	private int _staminaPotionCount = 0;
 
 	// Debug
 	private bool _staminaEnabled = true;
@@ -158,6 +159,7 @@ public partial class Player : CharacterBody3D
 		if (e.IsActionPressed("fire_2"))			PullArrowBack(ArrowType.Hook);
 		else if (e.IsActionReleased("fire_2"))		FireArrow();
 		if (e.IsActionPressed("item_1"))			UseHealthPotion();
+		if (e.IsActionPressed("item_2"))			UseStaminaPotion();
 
 		// Debug
 		if (e.IsActionPressed("toggle_stamina"))	ToggleStamina();
@@ -226,6 +228,12 @@ public partial class Player : CharacterBody3D
 	{
 		_healthPotionCount++;
 		Resources.HUD.SetHealthPotionAmount(_healthPotionCount);
+		_effectsAudio!.PlayCollectPotion();
+	}
+	public void PickUpStaminaPotion()
+	{
+		_staminaPotionCount++;
+		Resources.HUD.SetStaminaPotionAmount(_staminaPotionCount);
 		_effectsAudio!.PlayCollectPotion();
 	}
 
@@ -307,6 +315,27 @@ public partial class Player : CharacterBody3D
 		SyncHealthHUD();
 
 		_effectsAudio!.PlayHeal();
+	}
+
+	private void UseStaminaPotion()
+	{
+		if (_staminaPotionCount < 1)
+		{
+			return;
+		}
+		if (Stamina == _maxStamina)
+		{
+			return;
+		}
+
+		_staminaPotionCount--;
+		SyncStaminaPotionHUD();
+
+		Stamina += StaminaPotion.FillAmount;
+		if (Stamina > _maxStamina) Stamina = _maxStamina;
+		SyncStaminaHUD();
+
+		_effectsAudio!.PlayFillStamina();
 	}
 
 	/// <summary>
@@ -452,9 +481,19 @@ public partial class Player : CharacterBody3D
 		Resources.HUD.SetHealth((float)Health / _maxHealth);
 	}
 
+	private void SyncStaminaHUD()
+	{
+		Resources.HUD.SetStamina((float)Stamina / _maxStamina);
+	}
+
 	private void SyncHealthPotionHUD()
 	{
 		Resources.HUD.SetHealthPotionAmount(_healthPotionCount);
+	}
+
+	private void SyncStaminaPotionHUD()
+	{
+		Resources.HUD.SetStaminaPotionAmount(_staminaPotionCount);
 	}
 
 	private void ToggleStamina()

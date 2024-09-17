@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ckkl12kv0h1v2"]
+[gd_scene load_steps=21 format=3 uid="uid://ckkl12kv0h1v2"]
 
 [ext_resource type="Texture2D" uid="uid://dvpfu3c846x0g" path="res://ui/crosshair.png" id="1_4ptm4"]
 [ext_resource type="PackedScene" uid="uid://bv3m1ns1lv7h8" path="res://player/player.tscn" id="1_5sf8t"]
@@ -15,6 +15,8 @@
 [ext_resource type="Theme" uid="uid://c8n5hhdbdljlw" path="res://ui/font_items_amount.tres" id="8_espg2"]
 [ext_resource type="Theme" uid="uid://uanrkn6g6c4s" path="res://ui/font_items_hint.tres" id="9_tiyw8"]
 [ext_resource type="PackedScene" uid="uid://dk1yqkeui32ew" path="res://pickups/gold_chest/chest.tscn" id="10_d7yvc"]
+[ext_resource type="Texture2D" uid="uid://d0s371s11t5yh" path="res://ui/stamina_potion.png" id="10_g82on"]
+[ext_resource type="PackedScene" uid="uid://w6h5apqbwpgy" path="res://pickups/stamina_potion/stamina_potion.tscn" id="11_0h31j"]
 [ext_resource type="PackedScene" uid="uid://dtgaspc6h1abb" path="res://pickups/health_potion/health_potion.tscn" id="12_iop02"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_ifqyw"]
@@ -112,6 +114,38 @@ offset_right = 236.0
 offset_bottom = 863.0
 theme = ExtResource("9_tiyw8")
 text = "[1]"
+
+[node name="StaminaPotions" type="CanvasLayer" parent="HUD"]
+
+[node name="Icon" type="Sprite2D" parent="HUD/StaminaPotions"]
+position = Vector2(304, 794)
+scale = Vector2(0.11, 0.11)
+texture = ExtResource("10_g82on")
+
+[node name="Amount" type="Label" parent="HUD/StaminaPotions"]
+offset_left = 318.0
+offset_top = 804.0
+offset_right = 358.0
+offset_bottom = 843.0
+theme = ExtResource("8_espg2")
+text = "0
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="Hint" type="Label" parent="HUD/StaminaPotions"]
+offset_left = 285.0
+offset_top = 824.0
+offset_right = 325.0
+offset_bottom = 863.0
+theme = ExtResource("9_tiyw8")
+text = "[2]"
+metadata/_edit_use_anchors_ = true
+
+[node name="Stamina" parent="HUD/StaminaPotions" instance=ExtResource("11_0h31j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.9425, -7.59959e-07, 17.5025)
+
+[node name="Stamina2" parent="HUD/StaminaPotions" instance=ExtResource("11_0h31j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5896, 7.25, 45.421)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.0288236, 0.936986, -0.348175, 0.380756, 0.311768, 0.870532, 0.924226, -0.157661, -0.347777, -22.3621, 162.821, 134.636)

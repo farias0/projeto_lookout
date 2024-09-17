@@ -12,6 +12,8 @@ public partial class HUD : CanvasLayer
 
 	private Label _healthPotionAmoutLabel;
 
+	private Label _staminaPotionAmonutLabel;
+
 	private Label _goldLabel;
 	private String _goldLabelPrefix; // The yene symbol is unicode and Godot doesn't like it
 
@@ -30,6 +32,8 @@ public partial class HUD : CanvasLayer
 		_goldLabelPrefix = _goldLabel.Text;
 
 		_healthPotionAmoutLabel = GetNode<Label>("HealthPotions/Amount");
+
+		_staminaPotionAmonutLabel = GetNode<Label>("StaminaPotions/Amount");
 	}
 
 	/// <param name="pct">Between 0 and 1</param>
@@ -67,5 +71,10 @@ public partial class HUD : CanvasLayer
 	public void SetHealthPotionAmount(int amount)
 	{
 		_healthPotionAmoutLabel.Text = amount.ToString();
+	}
+
+	public void SetStaminaPotionAmount(int amount)
+	{
+		_staminaPotionAmonutLabel.Text = amount.ToString();
 	}
 }

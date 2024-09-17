@@ -53,7 +53,6 @@ ________________________
 - inventário
 
 - poção de velocidade
-- poção de stamina			<<<<<<
 
 
 ________________________
