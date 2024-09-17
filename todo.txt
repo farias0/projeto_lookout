@@ -75,11 +75,9 @@ Sons de:
 - caindo
 
 Substituir sons:
-- grunhido levar dando (especialmente pro inimigo)
 - flecha disparada
 - beber poção de vida
 - beber poção de energia
-- inimigo chasing ('huh')
 
 
 - user buses 
