@@ -51,6 +51,9 @@ ________________________
 - inventário
 
 - poção de vida				<<<<<<
+	- hud
+	- uso
+
 - poção de velocidade
 - poção de stamina			<<<<<<
 
@@ -67,6 +70,8 @@ Sons de:
 - inimigo morte (spawnar item com timer)
 - desceu do puxador		
 - caindo
+- coletar poção de vida
+- usar poção de vida
 
 
 - user buses 

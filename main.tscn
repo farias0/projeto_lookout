@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://ckkl12kv0h1v2"]
+[gd_scene load_steps=25 format=4 uid="uid://ckkl12kv0h1v2"]
 
 [ext_resource type="Texture2D" uid="uid://dvpfu3c846x0g" path="res://ui/crosshair.png" id="1_4ptm4"]
 [ext_resource type="PackedScene" uid="uid://bv3m1ns1lv7h8" path="res://player/player.tscn" id="1_5sf8t"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://b1nyddu8383px" path="res://greybox/greybox.tscn" id="6_03q6w"]
 [ext_resource type="PackedScene" uid="uid://cgvq1xkwkjs5s" path="res://enemy/patrol_point/PatrolPoint.tscn" id="6_dr3r0"]
 [ext_resource type="PackedScene" uid="uid://dk1yqkeui32ew" path="res://pickups/gold_chest/chest.tscn" id="10_d7yvc"]
+[ext_resource type="PackedScene" uid="uid://dtgaspc6h1abb" path="res://pickups/health_potion/health_potion.tscn" id="12_iop02"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_ifqyw"]
 diffuse_texture = ExtResource("2_gvvvj")
@@ -1259,3 +1260,6 @@ transform = Transform3D(0.753942, 0, 0.656941, 0, 1, 0, -0.656941, 0, 0.753942, 
 
 [node name="Chest4" parent="NavigationRegion3D" instance=ExtResource("10_d7yvc")]
 transform = Transform3D(-0.663861, 0, -0.747856, 0, 1, 0, 0.747856, 0, -0.663861, -67.9159, 15.1249, 77.8301)
+
+[node name="HealthPotion" parent="." instance=ExtResource("12_iop02")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2927, -5.66244e-07, 12.8175)
