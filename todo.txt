@@ -61,9 +61,6 @@ ________________________
 === SONS				<<<<<<<
 
 
-- Criar audioplayer p/ efeitos (coletar coisas, curar)
-
-
 Sons de:
 - flecha voando
 - flecha acertou		<<<<
@@ -73,6 +70,10 @@ Sons de:
 - inimigo morte (spawnar item com timer)
 - desceu do puxador		
 - caindo
+
+Substituir sons:
+- grunhido levar dando (especialmente pro inimigo)
+- flecha disparada
 
 
 - user buses 

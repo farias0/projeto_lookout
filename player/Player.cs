@@ -50,6 +50,7 @@ public partial class Player : CharacterBody3D
 	private float _maxStamina;
 	private float _staminaRegenCountdown;
 	private PlayerAudio? _audio;
+	private EffectsAudio? _effectsAudio;
 	private BowAudio? _bowAudio;
 	private PullerAudio? _pullerAudio;
 	private int _healthPotionCount = 0;
@@ -63,6 +64,7 @@ public partial class Player : CharacterBody3D
 		Resources.Player = this;
 
 		_audio = GetNode<PlayerAudio>("AudioStreamPlayer");
+		_effectsAudio = GetNode<EffectsAudio>("EffectsAudioStreamPlayer");
 
 		_bow = Resources.Camera.GetNode<Node3D>("Bow");
 		_bowAudio = _bow.GetNode<AudioStreamPlayer3D>("AudioStreamPlayer3D")! as BowAudio;
@@ -218,14 +220,14 @@ public partial class Player : CharacterBody3D
 	{
 		_gold += amount;
 		Resources.HUD.SetGoldAmount(_gold);
-		_audio!.PlayCollectGold();
+		_effectsAudio!.PlayCollectGold();
 	}
 
 	public void PickUpHealthPotion()
 	{
 		_healthPotionCount++;
 		Resources.HUD.SetHealthPotionAmount(_healthPotionCount);
-		_audio!.PlayCollectPotion();
+		_effectsAudio!.PlayCollectPotion();
 	}
 
 	public void ArrowHooked(Node3D arrow)
@@ -305,7 +307,7 @@ public partial class Player : CharacterBody3D
 		if (Health > _maxHealth) Health = _maxHealth;
 		SyncHealthHUD();
 
-		_audio!.PlayHeal();
+		_effectsAudio!.PlayHeal();
 	}
 
 	/// <summary>

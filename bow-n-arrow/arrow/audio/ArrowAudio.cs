@@ -3,6 +3,7 @@ using System;
 
 public partial class ArrowAudio : SoundPlayer3D
 {
+	[ExportGroup("Mixer")]
 	[Export(PropertyHint.Range, "-80, 24")]
 	private float Flying
 	{

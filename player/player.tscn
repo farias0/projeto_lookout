@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bv3m1ns1lv7h8"]
+[gd_scene load_steps=9 format=3 uid="uid://bv3m1ns1lv7h8"]
 
 [ext_resource type="Script" path="res://player/Player.cs" id="1_4g1xu"]
 [ext_resource type="PackedScene" uid="uid://bvs7d3jx0qvqr" path="res://bow-n-arrow/bow/bow.tscn" id="2_7cg4k"]
 [ext_resource type="Script" path="res://player/Camera.cs" id="3_3g26g"]
 [ext_resource type="Script" path="res://player/puller/PullerAudio.cs" id="4_abpc3"]
 [ext_resource type="Script" path="res://player/audio/PlayerAudio.cs" id="4_cslml"]
+[ext_resource type="Script" path="res://player/effects_audio/EffectsAudio.cs" id="6_8ghwb"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_sux4q"]
 
@@ -40,5 +41,8 @@ script = ExtResource("4_cslml")
 FootstepsSlow = -10.114
 FootstepsFast = -4.314
 GotHit = -7.668
+
+[node name="EffectsAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+script = ExtResource("6_8ghwb")
 Heal = -2.876
 CollectPotion = -8.627
