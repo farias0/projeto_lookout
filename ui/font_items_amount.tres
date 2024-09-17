@@ -1900,6 +1900,6 @@ Label/constants/outline_size = 0
 Label/constants/shadow_offset_x = 1
 Label/constants/shadow_offset_y = 1
 Label/constants/shadow_outline_size = 1
-Label/font_sizes/font_size = 23
+Label/font_sizes/font_size = 21
 Label/fonts/font = SubResource("FontFile_ycetb")
 Label/styles/normal = SubResource("StyleBoxEmpty_8rcgw")

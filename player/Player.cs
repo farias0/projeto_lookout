@@ -289,19 +289,21 @@ public partial class Player : CharacterBody3D
 
 	private void UseHealthPotion()
 	{
-		if (_healthPotionCount >= 1)
+		if (_healthPotionCount < 1)
 		{
-			_healthPotionCount--;
-			SyncHealthPotionHUD();
+			return;
+		}
+		if (Health == _maxHealth)
+		{
+			return;
+		}
 
-			Health += HealthPotionHealAmount;
-			if (Health > _maxHealth) Health = _maxHealth;
-			SyncHealthHUD();
-		}
-		else
-		{
-			// TODO play error sound
-		}
+		_healthPotionCount--;
+		SyncHealthPotionHUD();
+
+		Health += HealthPotionHealAmount;
+		if (Health > _maxHealth) Health = _maxHealth;
+		SyncHealthHUD();
 	}
 
 	/// <summary>

@@ -92,24 +92,24 @@ text = "¥ "
 [node name="HealthPotions" type="CanvasLayer" parent="HUD"]
 
 [node name="Icon" type="Sprite2D" parent="HUD/HealthPotions"]
-position = Vector2(194, 766)
-scale = Vector2(0.13, 0.13)
+position = Vector2(215, 794)
+scale = Vector2(0.11, 0.11)
 texture = ExtResource("6_rdjc8")
 
 [node name="Amount" type="Label" parent="HUD/HealthPotions"]
-offset_left = 210.0
-offset_top = 779.0
-offset_right = 250.0
-offset_bottom = 818.0
+offset_left = 229.0
+offset_top = 804.0
+offset_right = 269.0
+offset_bottom = 843.0
 theme = ExtResource("8_espg2")
 text = "0
 "
 
 [node name="Hint" type="Label" parent="HUD/HealthPotions"]
-offset_left = 173.0
-offset_top = 801.0
-offset_right = 213.0
-offset_bottom = 840.0
+offset_left = 196.0
+offset_top = 824.0
+offset_right = 236.0
+offset_bottom = 863.0
 theme = ExtResource("9_tiyw8")
 text = "[1]"
 
