@@ -63,6 +63,7 @@ ________________________
 Sons de:
 - flecha voando
 - flecha acertou		<<<<
+- passos dos inimigos
 - inimigo alerta		<<<<
 - inimigo seguindo		<<<<
 - inimigo morte (spawnar item com timer)

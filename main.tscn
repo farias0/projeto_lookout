@@ -207,5 +207,8 @@ transform = Transform3D(0.753942, 0, 0.656941, 0, 1, 0, -0.656941, 0, 0.753942, 
 [node name="Chest4" parent="NavigationRegion3D" instance=ExtResource("10_d7yvc")]
 transform = Transform3D(-0.663861, 0, -0.747856, 0, 1, 0, 0.747856, 0, -0.663861, -67.9159, 15.1249, 77.8301)
 
-[node name="HealthPotion" parent="." instance=ExtResource("12_iop02")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2927, -5.66244e-07, 12.8175)
+[node name="HealthPotion" parent="NavigationRegion3D" instance=ExtResource("12_iop02")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.3499, -5.66244e-07, 5.20894)
+
+[node name="HealthPotion2" parent="NavigationRegion3D" instance=ExtResource("12_iop02")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.06706, 14.7615, 91.9473)
