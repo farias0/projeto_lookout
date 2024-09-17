@@ -501,6 +501,7 @@ public partial class Enemy : Area3D
 		_speed = 0;
 		_alertCountdown = AlertCountdown;
 		_alertGauge = 0;
+		_audio.PlayAlert();
 		Debug.Log($"{Name} started alert.");
 	}
 
@@ -580,6 +581,7 @@ public partial class Enemy : Area3D
 		_speed = SpeedChasing;
 		_shootingLoadGauge = -1;
 		_shootingCooldown = -1;
+		_audio.PlayChasing();
 		Debug.Log($"{Name} started chasing.");
 	}
 

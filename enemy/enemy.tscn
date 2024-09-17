@@ -66,3 +66,5 @@ shape = SubResource("CylinderShape3D_y73ln")
 max_db = -0.229
 script = ExtResource("4_8j1nl")
 GotHit = -2.396
+Alert = -1.917
+Chasing = -7.189

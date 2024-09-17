@@ -6,18 +6,19 @@
 
 - magia
 
-- buga descendo rampa pelo lado. teleporta para o começo (baixo) dela
+- buga descendo rampa pelo lado. teleporta para o começo (baixo) dela		<<<<
 
 
 - escorregar
-	- usar contador pro movimento pra só escorregar com impulso	<<<<
+	- aceleração na escorregada
+	- usar contador pro movimento pra só escorregar com impulso		<<<<<<
 	- poder se mover levemente enquanto escorrega				<<<<<<
 
 ________________________
 
 === ARCO E FLECHA
 
-- precisar carregar flecha p/ poder atirar				<<<<<<<<<
+- precisar carregar flecha p/ poder atirar					<<<<<<
 	- talvez flecha ir sem força se nao for completamente carregada
 	- animação de carregar flecha?
 
@@ -25,26 +26,28 @@ ________________________
 
 - flechas que são plataformas!!				
 
+- flecha c/ aceleração
+
 - gancho puxar com aceleração?
 
-- gancho adicionar impulso ao jogador			<<<<
+- gancho adicionar impulso ao jogador						<<<<<
 
 - flecha explosiva?
 
-- arrumar exception de quando seta a GlobalPosition ao spawnar flecha		<<<<
+- arrumar exception de quando seta a GlobalPosition ao spawnar flecha		
 
-- flecha saindo de lado quando segura A ou D		<<<<<<<
+- flecha saindo de lado quando segura A ou D					<<<<<<<
 
 ________________________
 
 === INIMIGOS
 
 
-- ouvir passos					<<<<<<<<
+- ouvir passos									<<<<<<<<
 
-- gritar p/ outros inimigos ao confirmar vista do jogador
+- gritar p/ outros inimigos ao confirmar vista do jogador			<<<<<<<
 
-- navegar pela lista de nós filhos que são Patrol Points ao invés de receber propriedade pelo inspector		<<<<
+- navegar pela lista de nós filhos que são Patrol Points ao invés de receber propriedade pelo inspector		<<<<<<<
 
 - em chasing, seguir o jogador reto uma certa distancia depois de perder ele de vista		
 
@@ -65,10 +68,8 @@ ________________________
 
 Sons de:
 - flecha voando
-- flecha acertou		<<<<
+- flecha acertou				<<<<
 - passos dos inimigos
-- inimigo alerta		<<<<
-- inimigo seguindo		<<<<
 - inimigo morte (spawnar item com timer)
 - desceu do puxador		
 - caindo
@@ -76,6 +77,8 @@ Sons de:
 Substituir sons:
 - grunhido levar dando (especialmente pro inimigo)
 - flecha disparada
+- beber poção de vida
+- beber poção de energia
 
 
 - user buses 
@@ -83,7 +86,7 @@ Substituir sons:
 
 ________________________
 
-- resetar o estado do mundo inteiro quando o jogador morre		<<<<<<<<
+- resetar o estado do mundo inteiro quando o jogador morre		
 	- destruir flechas no ar				
 
 - Importar modelos com materiais
