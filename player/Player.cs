@@ -34,7 +34,6 @@ public partial class Player : CharacterBody3D
 
 
 	private const float MinY = -70;
-	private const int HealthPotionHealAmount = 60;
 
 
 	private Vector3 _targetVelocity = Vector3.Zero;
@@ -303,7 +302,7 @@ public partial class Player : CharacterBody3D
 		_healthPotionCount--;
 		SyncHealthPotionHUD();
 
-		Health += HealthPotionHealAmount;
+		Health += HealthPotion.HealAmount;
 		if (Health > _maxHealth) Health = _maxHealth;
 		SyncHealthHUD();
 
