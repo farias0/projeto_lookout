@@ -113,4 +113,5 @@ skeleton = NodePath("")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 script = ExtResource("3_noylk")
+Tensing = -1.438
 Fired = -17.733

@@ -129,7 +129,7 @@ public partial class Arrow : Node3D
 		_state = State.Flying;
 		_rigidBody.Freeze = false;
 
-		_audio.PlayFired();
+		_audio.PlayFlying();
 	}
 
 	/// <summary>
@@ -216,6 +216,8 @@ public partial class Arrow : Node3D
 		{
 			HookTo((Node3D)body);
 		}
+
+		_audio.PlayHit();
 	}
 
 	private void HookTo(Node3D body)
