@@ -200,7 +200,10 @@ public partial class Enemy : Area3D
 		Health -= damage;
 		_tookDamageCountdown = 2;
 		_lastSeenPlayerPos = origin;
-		StartAlert();
+
+		if (_state == State.Patrolling)
+			StartAlert();
+
 		Debug.Log($"{Name} took damage. Health: {Health}");
 
 		if (Health <= 0)
