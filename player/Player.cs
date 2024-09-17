@@ -304,6 +304,8 @@ public partial class Player : CharacterBody3D
 		Health += HealthPotionHealAmount;
 		if (Health > _maxHealth) Health = _maxHealth;
 		SyncHealthHUD();
+
+		_audio!.PlayHeal();
 	}
 
 	/// <summary>

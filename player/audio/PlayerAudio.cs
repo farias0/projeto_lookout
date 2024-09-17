@@ -27,6 +27,12 @@ public partial class PlayerAudio : SoundPlayer
 		get => _gotHit.Volume;
 		set => SetSoundVolume(_gotHit, value);
 	}
+	[Export(PropertyHint.Range, "-80, 24")]
+	private float Heal
+	{
+		get => _heal.Volume;
+		set => SetSoundVolume(_heal, value);
+	}
 	[ExportGroup("Mixer")]
 	[Export(PropertyHint.Range, "-80, 24, or_less")]
 	private float CollectGold
@@ -47,6 +53,7 @@ public partial class PlayerAudio : SoundPlayer
 	private readonly Sound _footstepsFast = new();
 	private readonly Sound _jump = new();
 	private readonly Sound _gotHit = new();
+	private readonly Sound _heal = new();
 	private readonly Sound _collectGold = new();
 	private readonly Sound _collectPotion = new();
 
@@ -62,6 +69,8 @@ public partial class PlayerAudio : SoundPlayer
 		_jump.LoadStream("res://player/audio/jump.wav");
 
 		_gotHit.LoadStream("res://player/audio/got_hit.wav");
+
+		_heal.LoadStream("res://player/audio/heal.wav");
 
 		_collectGold.LoadStream("res://player/audio/collect_gold.wav");
 
@@ -93,6 +102,12 @@ public partial class PlayerAudio : SoundPlayer
 	{
 		PlaySound(_gotHit);
 	}
+
+	public void PlayHeal()
+	{
+		PlaySound(_heal);
+	}
+
 	public void PlayCollectGold()
 	{
 		PlaySound(_collectGold);

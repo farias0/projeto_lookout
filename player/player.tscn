@@ -40,4 +40,5 @@ script = ExtResource("4_cslml")
 FootstepsSlow = -10.114
 FootstepsFast = -4.314
 GotHit = -7.668
-CollectPotion = -6.71
+Heal = -2.876
+CollectPotion = -8.627
