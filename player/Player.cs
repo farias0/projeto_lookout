@@ -5,10 +5,14 @@ using projeto_lookout.libs;
 
 public partial class Player : CharacterBody3D
 {
+	[ExportGroup("Speed")]
 	[Export]
-	public int Speed { get; set; } = 12;
+	public int SpeedWalking { get; set; } = 12;
 	[Export]
 	public int SpeedCrouched { get; set; } = 6;
+	[Export]
+	public int SpeedSliding { get; set; } = 17;
+	[ExportGroup("")]
 	[Export]
 	public int FallAcceleration { get; set; } = 40;
 	[Export]
@@ -19,6 +23,8 @@ public partial class Player : CharacterBody3D
 	public float HookSpeed { get; set; } = 3000;
 	[Export]
 	public int Health { get; set; } = 100;
+	[Export]
+	public float SlideDuration { get; set; } = 0.7f;
 	[ExportGroup("Stamina")]
 	[Export]
 	public float Stamina { get; set; } = 100;
@@ -34,6 +40,8 @@ public partial class Player : CharacterBody3D
 
 
 	private const float MinY = -70;
+	private const float HeightCrouched = 0.7f; // In scale
+	private const float HeightSliding = 0.3f;
 
 
 	private Vector3 _targetVelocity = Vector3.Zero;
@@ -54,6 +62,7 @@ public partial class Player : CharacterBody3D
 	private PullerAudio? _pullerAudio;
 	private int _healthPotionCount = 0;
 	private int _staminaPotionCount = 0;
+	private float _slideCountdown = 0;
 
 	// Debug
 	private bool _staminaEnabled = true;
@@ -99,6 +108,8 @@ public partial class Player : CharacterBody3D
 			_pullerAudio!.PlayPullIn();
 			if ((_hookedArrow as Arrow)!.HookIsShooterPulled())
 			{
+				// Pulled by hook
+
 				PulledByHook((float)delta);
 				return;
 			}
@@ -106,41 +117,67 @@ public partial class Player : CharacterBody3D
 		else _pullerAudio!.StopSound();
 
 
-		var direction = Vector3.Zero;
-
-		if (Input.IsActionPressed("move_right"))
-			direction.X += 1.0f;
-		if (Input.IsActionPressed("move_left"))
-			direction.X -= 1.0f;
-		if (Input.IsActionPressed("move_up"))
-			direction.Z -= 1.0f;
-		if (Input.IsActionPressed("move_down"))
-			direction.Z += 1.0f;
-
-		if (direction != Vector3.Zero)
+		if (_slideCountdown > 0)
 		{
-			direction = direction.Normalized();
-			GetNode<Node3D>("Pivot").Basis = Basis.LookingAt(direction);
+			// Sliding
+
+			if (_slideCountdown == SlideDuration)
+			{
+				_audio!.StopContinuousSound();
+				_effectsAudio!.PlaySlide();
+
+				_targetVelocity = _targetVelocity.Normalized() * GetCurrentSpeed();
+				GetNode<Node3D>("Pivot").Basis = Basis.LookingAt(_targetVelocity);
+
+			}
+			_slideCountdown -= (float)delta;
+		}
+		else
+		{
+			// Moving normally
+
+			var direction = Vector3.Zero;
+
+			if (Input.IsActionPressed("move_right"))
+				direction.X += 1.0f;
+			if (Input.IsActionPressed("move_left"))
+				direction.X -= 1.0f;
+			if (Input.IsActionPressed("move_up"))
+				direction.Z -= 1.0f;
+			if (Input.IsActionPressed("move_down"))
+				direction.Z += 1.0f;
+
+			if (direction != Vector3.Zero)
+			{
+				direction = direction.Normalized();
+				GetNode<Node3D>("Pivot").Basis = Basis.LookingAt(direction);
+			}
+
+			if (direction != Vector3.Zero && GetCurrentSpeed() == SpeedCrouched && IsOnFloor())
+				_audio!.PlayCrouchedWalk();
+			else if (direction != Vector3.Zero && GetCurrentSpeed() == SpeedWalking && IsOnFloor())
+				_audio!.PlayWalk();
+			else _audio!.StopMoving();
+
+			direction = direction.Rotated(Vector3.Up, Rotation.Y);
+
+			_targetVelocity.X = direction.X * GetCurrentSpeed();
+			_targetVelocity.Z = direction.Z * GetCurrentSpeed();
 		}
 
-		if (direction != Vector3.Zero && GetCurrentSpeed() == SpeedCrouched && IsOnFloor())
-			_audio!.PlayCrouchedWalk();
-		else if (direction != Vector3.Zero && GetCurrentSpeed() == Speed && IsOnFloor())
-			_audio!.PlayWalk();
-		else _audio!.StopMoving();
-
-		direction = direction.Rotated(Vector3.Up, Rotation.Y);
-
-		_targetVelocity.X = direction.X * GetCurrentSpeed();
-		_targetVelocity.Z = direction.Z * GetCurrentSpeed();
 
 		if (!IsOnFloor())
 		{
+			// Gravity
+
 			_targetVelocity.Y -= FallAcceleration * (float)delta;
 		}
 
+
 		Velocity = _targetVelocity;
 		MoveAndSlide();
+
+		SyncHeightWithState();
 	}
 
 	public override void _Input(InputEvent e)
@@ -261,25 +298,29 @@ public partial class Player : CharacterBody3D
 
 	private float GetCurrentSpeed()
 	{
-		return _isCrouching ? SpeedCrouched : Speed;
+		return _slideCountdown > 0 ? SpeedSliding :
+				(_isCrouching ? SpeedCrouched : SpeedWalking);
 	}
 
 	private void ToggleCrouch()
 	{
+		CancelSlide();
+
 		_isCrouching = !_isCrouching;
 
-		if (_isCrouching)
+		var playerVel = new Vector2(_targetVelocity.X, _targetVelocity.Z);
+		if (_isCrouching && IsOnFloor() && playerVel.Length() > 0.8f)
 		{
-			Scale = new Vector3(1, 0.5f, 1);
-		}
-		else
-		{
-			Scale = new Vector3(1, 1, 1);
+			// Slide
+			_slideCountdown = SlideDuration;
 		}
 	}
 
 	private void Jump()
 	{
+		CancelSlide();
+		if (_isCrouching) ToggleCrouch();
+
 		_audio!.PlayJump();
 
 		if (_hookedArrow != null)
@@ -442,6 +483,28 @@ public partial class Player : CharacterBody3D
 		_hookedArrow = null;
 		Velocity = Vector3.Zero;
 		_targetVelocity = Vector3.Zero;
+	}
+
+	private void CancelSlide()
+	{
+		if (_slideCountdown > 0)
+		{
+			_slideCountdown = -1;
+			_effectsAudio!.CancelSlide();
+		}
+	}
+
+	// TODO get rid of this workaround
+	private void SyncHeightWithState()
+	{
+		float height = 1;
+		if (_slideCountdown > 0) height = HeightSliding;
+		else if (_isCrouching) height = HeightCrouched;
+
+		if (height != Scale.Y)
+		{
+			Scale = new Vector3(1, height, 1);
+		}
 	}
 
 	private void Reset()

@@ -2,13 +2,16 @@
 
 - andar com shift
 
-- escorregar ao agachar correndo			<<<<<<<<<<
-
 - tolerância no pulo
 
 - magia
 
 - buga descendo rampa pelo lado. teleporta para o começo (baixo) dela
+
+
+- escorregar
+	- usar contador pro movimento pra só escorregar com impulso	<<<<
+	- poder se mover levemente enquanto escorrega				<<<<<<
 
 ________________________
 
@@ -57,7 +60,7 @@ ________________________
 
 ________________________
 
-=== SONS				<<<<<<<
+=== SONS				
 
 
 Sons de:

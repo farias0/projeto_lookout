@@ -17,7 +17,7 @@ public partial class Sound
 
 public partial class SoundPlayer : AudioStreamPlayer
 {
-	private Sound _currentSound;
+	public Sound CurrentSound;
 
 	public Sound ContinuousSound;
 
@@ -35,13 +35,13 @@ public partial class SoundPlayer : AudioStreamPlayer
 		if (sound.IsContinuous)
 		{
 			ContinuousSound = sound;
-			if (IsPlaying() && (Stream == sound.Stream || !_currentSound.IsContinuous))
+			if (IsPlaying() && (Stream == sound.Stream || !CurrentSound.IsContinuous))
 			{
 				return;
 			}
 		}
 
-		_currentSound = sound;
+		CurrentSound = sound;
 		Stream = sound.Stream;
 		SetVolume(sound.Volume);
 		Play();
@@ -49,7 +49,7 @@ public partial class SoundPlayer : AudioStreamPlayer
 
 	public void StopSound()
 	{
-		_currentSound = null;
+		CurrentSound = null;
 		ContinuousSound = null;
 		Stream = null;
 		Stop();
@@ -58,14 +58,14 @@ public partial class SoundPlayer : AudioStreamPlayer
 	public void StopContinuousSound()
 	{
 		ContinuousSound = null;
-		if (_currentSound != null && _currentSound.IsContinuous)
+		if (CurrentSound != null && CurrentSound.IsContinuous)
 			Stop();
 	}
 
 	public void SetSoundVolume(Sound sound, float value)
 	{
 		sound.Volume = value;
-		if (_currentSound == sound) SetVolume(value);
+		if (CurrentSound == sound) SetVolume(value);
 	}
 
 	private void SetVolume(float volume)
@@ -76,7 +76,7 @@ public partial class SoundPlayer : AudioStreamPlayer
 
 public partial class SoundPlayer3D : AudioStreamPlayer3D
 {
-	private Sound _currentSound;
+	public Sound CurrentSound;
 
 	public Sound ContinuousSound;
 
@@ -94,13 +94,13 @@ public partial class SoundPlayer3D : AudioStreamPlayer3D
 		if (sound.IsContinuous)
 		{
 			ContinuousSound = sound;
-			if (IsPlaying() && (Stream == sound.Stream || !_currentSound.IsContinuous))
+			if (IsPlaying() && (Stream == sound.Stream || !CurrentSound.IsContinuous))
 			{
 				return;
 			}
 		}
 
-		_currentSound = sound;
+		CurrentSound = sound;
 		Stream = sound.Stream;
 		SetVolume(sound.Volume);
 		Play();
@@ -108,7 +108,7 @@ public partial class SoundPlayer3D : AudioStreamPlayer3D
 
 	public void StopSound()
 	{
-		_currentSound = null;
+		CurrentSound = null;
 		ContinuousSound = null;
 		Stream = null;
 		Stop();
@@ -117,14 +117,14 @@ public partial class SoundPlayer3D : AudioStreamPlayer3D
 	public void StopContinuousSound()
 	{
 		ContinuousSound = null;
-		if (_currentSound != null && _currentSound.IsContinuous)
+		if (CurrentSound != null && CurrentSound.IsContinuous)
 			Stop();
 	}
 
 	public void SetSoundVolume(Sound sound, float value)
 	{
 		sound.Volume = value;
-		if (_currentSound == sound) SetVolume(value);
+		if (CurrentSound == sound) SetVolume(value);
 	}
 
 	private void SetVolume(float volume)

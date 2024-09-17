@@ -45,4 +45,5 @@ GotHit = -7.668
 [node name="EffectsAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 script = ExtResource("6_8ghwb")
 Heal = -2.876
+Slide = -8.148
 CollectPotion = -8.627
