@@ -225,7 +225,7 @@ public partial class Player : CharacterBody3D
 	{
 		_healthPotionCount++;
 		Resources.HUD.SetHealthPotionAmount(_healthPotionCount);
-		// _audio.PlayCollectHealthPotion();
+		_audio!.PlayCollectPotion();
 	}
 
 	public void ArrowHooked(Node3D arrow)
