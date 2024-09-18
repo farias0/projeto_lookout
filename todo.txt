@@ -19,10 +19,6 @@ ________________________
 
 === ARCO E FLECHA
 
-- precisar carregar flecha p/ poder atirar					<<<<<<
-	- talvez flecha ir sem força se nao for completamente carregada
-	- animação de carregar flecha?
-
 - adicionar distancia máxima p/ flecha		
 
 - flechas que são plataformas!!				

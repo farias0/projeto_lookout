@@ -42,6 +42,9 @@ public partial class Player : CharacterBody3D
 	public float DistanceHearWalking { get; set; } = 12.0f;
 	[Export]
 	public float DistanceHearCrouched { get; set; } = 1.5f;
+	[ExportGroup("")]
+	[Export]
+	public float ArrowLoadTime { get; set; } = 0.6f; // How long for the arrow to load so it can be shot
 
 
 	private const float MinY = -70;
@@ -68,6 +71,7 @@ public partial class Player : CharacterBody3D
 	private int _healthPotionCount = 0;
 	private int _staminaPotionCount = 0;
 	private float _slideCountdown = 0;
+	private float _arrowLoadCountdown = -1;
 
 	// Debug
 	private bool _staminaEnabled = true;
@@ -97,6 +101,7 @@ public partial class Player : CharacterBody3D
 	public override void _Process(double delta)
 	{
 		ProcessInvencibilityCounter((float)delta);
+		if (_arrowLoadCountdown > 0) _arrowLoadCountdown -= (float)delta;
 
 		RegenerateStamina((float)delta);
 
@@ -433,6 +438,8 @@ public partial class Player : CharacterBody3D
 		Resources.Camera.AddChild(node3d);
 		_pulledBackArrow = node3d;
 
+		_arrowLoadCountdown = ArrowLoadTime;
+
 		_bowAudio!.PlayTensing();
 	}
 
@@ -442,6 +449,17 @@ public partial class Player : CharacterBody3D
 	private void FireArrow()
 	{
 		if (_pulledBackArrow == null) return;
+
+		if (_arrowLoadCountdown > 0)
+		{
+			// Didn't pull it back enough
+			_pulledBackArrow.QueueFree();
+			_pulledBackArrow = null;
+			_bowAudio!.CancelTensing();
+			_arrowLoadCountdown = -1;
+			return;
+		}
+		_arrowLoadCountdown = -1;
 
 		Vector3 pos = _pulledBackArrow.GlobalPosition;
 		_pulledBackArrow.Reparent(GetParent());

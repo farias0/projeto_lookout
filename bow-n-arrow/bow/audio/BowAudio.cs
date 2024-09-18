@@ -31,6 +31,12 @@ public partial class BowAudio : SoundPlayer3D
 		PlaySound(_tensing);
 	}
 
+	public void CancelTensing()
+	{
+		if (CurrentSound == _tensing)
+			StopSound();
+	}
+
 	public void PlayFired()
 	{
 		PlaySound(_fired);
