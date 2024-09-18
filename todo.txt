@@ -8,6 +8,7 @@
 
 - buga descendo rampa pelo lado. teleporta para o começo (baixo) dela		<<<<
 
+- enum PlayerState
 
 - escorregar
 	- aceleração na escorregada
@@ -42,8 +43,6 @@ ________________________
 
 === INIMIGOS
 
-
-- ouvir passos									<<<<<<<<
 
 - gritar p/ outros inimigos ao confirmar vista do jogador			<<<<<<<
 

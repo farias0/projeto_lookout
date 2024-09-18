@@ -45,8 +45,9 @@ public partial class Enemy : Area3D
 	public float VisionAngle { get; set; } = 55;
 	[Export]
 	public float VisionDistance { get; set; } = 30;
+	[ExportGroup("")]
 	[Export]
-	public float VisionConfirmDistance { get; set; } = 18;
+	public float PlayerConfirmDistance { get; set; } = 18;
 
 	[ExportGroup("Timers")]
 	[Export]
@@ -84,11 +85,12 @@ public partial class Enemy : Area3D
 	private Node3D _bow;
 
 	private float _tookDamageCountdown = -1;
-	private Vector3 _lastSeenPlayerPos;
+	private Vector3 _lastKnownPlayerPos;
 	private int _patrolIndex = 0;
 	private State _state;
 	private float _speed;
 	private bool _seesPlayer;
+	private bool _hearsPlayer;
 	private float _alertCountdown = -1;
 	private float _alertGauge = 0;
 	private Vector3 _turnTarget;
@@ -155,8 +157,10 @@ public partial class Enemy : Area3D
 
 		Vector3? seesPlayer = SeesPlayer();
 		_seesPlayer = seesPlayer != null;
-		if (_seesPlayer) _lastSeenPlayerPos = seesPlayer.Value;
+		if (_seesPlayer) _lastKnownPlayerPos = seesPlayer.Value;
 
+		_hearsPlayer = (_player as Player).HearsPlayerThisFrame(GlobalPosition);
+		if (_hearsPlayer) _lastKnownPlayerPos = _player.GlobalPosition;
 
 		switch (_state)
 		{
@@ -199,7 +203,7 @@ public partial class Enemy : Area3D
 
 		Health -= damage;
 		_tookDamageCountdown = 2;
-		_lastSeenPlayerPos = origin;
+		_lastKnownPlayerPos = origin;
 
 		if (_state == State.Patrolling)
 			StartAlert();
@@ -484,10 +488,10 @@ public partial class Enemy : Area3D
 			SetTarget(PatrolPoints[_patrolIndex].Pos);
 		}
 
-		if (_seesPlayer)
+		if (_seesPlayer || _hearsPlayer)
 		{
 			var dist = GlobalPosition.DistanceTo(_player.GlobalPosition);
-			if (dist <= VisionConfirmDistance)
+			if (dist <= PlayerConfirmDistance)
 			{
 				StartChasing();
 			}
@@ -511,12 +515,12 @@ public partial class Enemy : Area3D
 	private void KeepAlert(float delta)
 	{
 		StopInPlace();
-		_turnTarget = _lastSeenPlayerPos;
+		_turnTarget = _lastKnownPlayerPos;
 
-		if (_seesPlayer)
+		if (_seesPlayer || _hearsPlayer)
 		{
 			var dist = GlobalPosition.DistanceTo(_player.GlobalPosition);
-			if (dist <= VisionConfirmDistance)
+			if (dist <= PlayerConfirmDistance)
 			{
 				StartChasing();
 			}
@@ -551,13 +555,13 @@ public partial class Enemy : Area3D
 
 	private void KeepSearching(float delta)
 	{
-		SetTarget(_lastSeenPlayerPos);
+		SetTarget(_lastKnownPlayerPos);
 
-		if (_seesPlayer)
+		if (_seesPlayer || _hearsPlayer)
 		{
 			_searchGiveUpCountdown = SearchGiveUpCountdown;
 
-			if (GlobalPosition.DistanceTo(_player.GlobalPosition) <= VisionConfirmDistance)
+			if (GlobalPosition.DistanceTo(_player.GlobalPosition) <= PlayerConfirmDistance)
 			{
 				StartChasing();
 				return;
@@ -565,7 +569,7 @@ public partial class Enemy : Area3D
 		}
 		else
 		{
-			if (GlobalPosition.DistanceTo(_lastSeenPlayerPos) < 1.5f)
+			if (GlobalPosition.DistanceTo(_lastKnownPlayerPos) < 1.5f)
 			{
 				_searchGiveUpCountdown -= delta;
 
@@ -616,16 +620,16 @@ public partial class Enemy : Area3D
 			if (!isPlayerInvincible)
 			{
 				// Chase and attack
-				SetTarget(_lastSeenPlayerPos);
+				SetTarget(_lastKnownPlayerPos);
 			}
 		}
 		else if (_type == EnemyType.Ranged)
 		{
-			var dist = GlobalPosition.DistanceTo(_lastSeenPlayerPos);
+			var dist = GlobalPosition.DistanceTo(_lastKnownPlayerPos);
 			if (_seesPlayer && dist <= ShootingDistance)
 			{
 				StopInPlace();
-				_turnTarget = _lastSeenPlayerPos;
+				_turnTarget = _lastKnownPlayerPos;
 
 				if (_shootingLoadGauge == -1 && _seesPlayer && _shootingCooldown <= 0)
 				{
@@ -635,14 +639,14 @@ public partial class Enemy : Area3D
 				else if (_shootingLoadGauge >= ShootingLoadTime && !isPlayerInvincible)
 				{
 					_shootingLoadGauge = -1;
-					FireArrowAt(_lastSeenPlayerPos);
+					FireArrowAt(_lastKnownPlayerPos);
 					_shootingCooldown = ShootingCooldown;
 				}
 			}
-			else SetTarget(_lastSeenPlayerPos);
+			else SetTarget(_lastKnownPlayerPos);
 		}
 
-		if (GlobalPosition.DistanceTo(_lastSeenPlayerPos) < 1.5f && !_seesPlayer)
+		if (GlobalPosition.DistanceTo(_lastKnownPlayerPos) < 1.5f && !_seesPlayer && !_hearsPlayer)
 		{
 			StartAlert();
 		}

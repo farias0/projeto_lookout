@@ -37,6 +37,11 @@ public partial class Player : CharacterBody3D
 	[ExportGroup("")]
 	[Export]
 	public float InvincibilityTime { get; set; } = 2.0f;
+	[ExportGroup("Sound")]
+	[Export]
+	public float DistanceHearWalking { get; set; } = 12.0f;
+	[Export]
+	public float DistanceHearCrouched { get; set; } = 1.5f;
 
 
 	private const float MinY = -70;
@@ -294,6 +299,21 @@ public partial class Player : CharacterBody3D
 		CollisionShape3D collisionShape = GetNode<CollisionShape3D>("CollisionShape3D");
 		CylinderShape3D? cylinder = collisionShape.Shape as CylinderShape3D;
 		return cylinder!.Height;
+	}
+
+	/// <summary>
+	/// If someone at that point can hear the player this frame
+	/// </summary>
+	public bool HearsPlayerThisFrame(Vector3 point)
+	{
+		// Not moving
+		if (_targetVelocity.X == 0 && _targetVelocity.Z == 0) return false;
+
+		var dist = GlobalPosition.DistanceTo(point);
+		if (_isCrouching && dist <= DistanceHearCrouched) return true;
+		if (dist <= DistanceHearWalking) return true;
+
+		return false;
 	}
 
 	private float GetCurrentSpeed()
