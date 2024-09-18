@@ -45,6 +45,8 @@ public partial class Player : CharacterBody3D
 	[ExportGroup("")]
 	[Export]
 	public float ArrowLoadTime { get; set; } = 0.6f; // How long for the arrow to load so it can be shot
+	[Export]
+	public float InteractDistance { get; set; } = 3.0f; // The distance to initiate an interaction by pressing the Interact button
 
 
 	private const float MinY = -70;
@@ -207,6 +209,7 @@ public partial class Player : CharacterBody3D
 		else if (e.IsActionReleased("fire_2"))		FireArrow();
 		if (e.IsActionPressed("item_1"))			UseHealthPotion();
 		if (e.IsActionPressed("item_2"))			UseStaminaPotion();
+		if (e.IsActionPressed("interact"))			Interact();
 
 		// Debug
 		if (e.IsActionPressed("toggle_stamina"))	ToggleStamina();
@@ -404,6 +407,23 @@ public partial class Player : CharacterBody3D
 		SyncStaminaHUD();
 
 		_effectsAudio!.PlayFillStamina();
+	}
+
+	private void Interact()
+	{
+		var rayOrigin = GlobalPosition;
+		rayOrigin.Y += GetHeight() * 0.5f;
+		var rayResult = Raycast.CastRayInDirection(GetWorld3D(), rayOrigin, Basis.Z.Normalized() * -1, InteractDistance);
+		
+		if (rayResult.ContainsKey("collider"))
+		{
+			var collider = (Node)rayResult["collider"] as Node3D;
+			// TODO pick up pickups
+			if (collider is Npc npc)
+			{
+				npc.InteractWith(this);
+			}
+		}
 	}
 
 	/// <summary>

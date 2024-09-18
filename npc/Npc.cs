@@ -28,12 +28,17 @@ public partial class Npc : Area3D
 
 	private readonly float TurnSpeed = 20f;
 
+
+	public NpcAudio NpcAudio;
+
 	public bool SeesPlayer;
 	public Vector3 LastKnownPlayerPos;
+
 
 	private MeshInstance3D _mesh;
 	private NavigationAgent3D _navAgent;
 	private Node3D _bow;
+	private Node3D _meshNode;
 
 	private float _tookDamageCountdown = -1;
 	private int _patrolIndex = 0;
@@ -43,19 +48,28 @@ public partial class Npc : Area3D
 	private Node3D _arrow;
 	private float _navMeshStuckCountdown = -1;
 	private BowAudio _bowAudio;
-	private NpcAudio _audio;
 	private State _state;
 	private Vector3 _shootBackPos;
 
 
+	/// <summary>
+	/// Initiates an interaction with another entity
+	/// </summary>
+	/// <param name="entity">The entity that initiated the interaction</param>
+	public virtual void InteractWith(Node3D entity)
+	{
+		NpcAudio.PlayHey();
+		Debug.Log($"{entity.Name} interacted with NPC {Name}.");
+	}
+
 	public override void _Ready()
 	{
-		var meshNode = GetNode("MeshNode");
-		_mesh = meshNode.GetNode<MeshInstance3D>("Mesh");
+		_meshNode = GetNode<Node3D>("MeshNode");
+		_mesh = _meshNode.GetNode<MeshInstance3D>("Mesh");
 		_navAgent = GetNode<NavigationAgent3D>("NavigationAgent3D");
-		_bow = meshNode.GetNode<Node3D>("Bow");
+		_bow = _meshNode.GetNode<Node3D>("Bow");
 		_bowAudio = _bow.GetNode<BowAudio>("AudioStreamPlayer3D");
-		_audio = GetNode<NpcAudio>("AudioStreamPlayer3D");
+		NpcAudio = GetNode<NpcAudio>("AudioStreamPlayer3D");
 
 		Monitoring = true;
 		Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
@@ -113,7 +127,7 @@ public partial class Npc : Area3D
 			Die();
 		}
 
-		_audio.PlayGotHit();
+		NpcAudio.PlayGotHit();
 	}
 
 	public void SetBowVisibility(bool visible)
@@ -141,14 +155,14 @@ public partial class Npc : Area3D
 		_tookDamageCountdown -= delta;
 
 		// Blink effect
-		_mesh.Visible = _tookDamageCountdown % 0.2f > 0.1f;
+		_meshNode.Visible = _tookDamageCountdown % 0.2f > 0.1f;
 
 		if (_tookDamageCountdown <= 0)
 		{
 			_tookDamageCountdown = -1;
 
 			// Stop blinking
-			_mesh.Visible = true;
+			_meshNode.Visible = true;
 		}
 	}
 

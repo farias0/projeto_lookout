@@ -93,11 +93,9 @@ _______________________
 
 === NPCs									
 
-- interagir com NPC					<<<<<<
-- npc individual c/ dialogo				<<<<<<
-	- herdar NpcAudio em subclasse
-	- modelo 3d personalizado?
-- mini quest
+- diálogo			<<<<
+
+- mini quest			<<<<
 
 ________________________
 
