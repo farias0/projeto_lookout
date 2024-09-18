@@ -415,7 +415,7 @@ public partial class Player : CharacterBody3D
 			return;
 		}
 
-		if (type == ArrowType.Hook && !ConsumeStamina(StaminaCostHook))
+		if (type == ArrowType.Hook && Stamina < StaminaCostHook)
 		{
 			// TODO play error sound
 			return;
@@ -460,6 +460,9 @@ public partial class Player : CharacterBody3D
 			return;
 		}
 		_arrowLoadCountdown = -1;
+
+		if ((_pulledBackArrow as Arrow)!.GetType() == ArrowType.Hook)
+			ConsumeStamina(StaminaCostHook);
 
 		Vector3 pos = _pulledBackArrow.GlobalPosition;
 		_pulledBackArrow.Reparent(GetParent());

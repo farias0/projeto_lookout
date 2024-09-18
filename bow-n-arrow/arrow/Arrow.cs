@@ -97,6 +97,11 @@ public partial class Arrow : Node3D
 		_rigidBody.GetNode<MeshInstance3D>("MeshNode/Arrow").MaterialOverride = material;
 	}
 
+	new public ArrowType GetType()
+	{
+		return _type;
+	}
+
 	public void SetType(ArrowType type)
 	{
 		_type = type;
