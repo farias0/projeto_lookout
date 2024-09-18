@@ -198,6 +198,9 @@ public partial class Arrow : Node3D
 		// Collision with selves
 		if (body is Player && _shooter != null) return;
 		else if (body is Enemy && _shooter == null) return;
+		else if (body is Npc && _shooter == null) return;
+		// TODO if everyone that shoots arrow registered as a shooter,
+		// we could allow NPCs and enemies to shoot each other by fixing these checks
 
 
 		_lifeTime = LifeTime;
@@ -211,6 +214,10 @@ public partial class Arrow : Node3D
 			if (body is Enemy enemy)
 			{
 				enemy.TakeDamage(_shooter.GlobalPosition, Damage);
+			}
+			else if (body is Npc npc)
+			{
+				npc.TakeDamage(_shooter.GlobalPosition, Damage);
 			}
 			else if (body is Player player)
 			{

@@ -4,7 +4,7 @@ namespace projeto_lookout.libs
 {
 	public static class Resources
 	{
-		public static CharacterBody3D Player { get; set; }
+		public static Player Player { get; set; }
 		public static HUD HUD { get; set; }
 		public static Camera Camera { get; set; }
 

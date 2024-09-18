@@ -91,9 +91,13 @@ Substituir sons:
 
 _______________________
 
-=== NPCs									<<<<<<<<
+=== NPCs									
 
-- diálogo
+- interagir com NPC					<<<<<<
+- npc individual c/ dialogo				<<<<<<
+	- herdar NpcAudio em subclasse
+	- modelo 3d personalizado?
+- mini quest
 
 ________________________
 
