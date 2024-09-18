@@ -329,6 +329,8 @@ public partial class Player : CharacterBody3D
 
 	private void ToggleCrouch()
 	{
+		if (!IsOnFloor()) return;
+
 		CancelSlide();
 
 		_isCrouching = !_isCrouching;

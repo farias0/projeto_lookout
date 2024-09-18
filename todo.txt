@@ -23,7 +23,11 @@ ________________________
 
 - flechas que são plataformas!!				
 
-- flecha c/ aceleração
+- animação de puxar flecha							<<<<<
+
+- flecha c/ física rigidbody							<<<<<<
+	- aceleração
+	- gravidade
 
 - gancho puxar com aceleração?
 
@@ -46,12 +50,19 @@ ________________________
 
 - em chasing, seguir o jogador reto uma certa distancia depois de perder ele de vista		
 
+- deixar cadáver								<<<<<<<
+	- inimigos entram em alerta ao ver cadáver
+
+- cachorros									<<<<<<<
+	- menos vida, maior distancia de detecção, maior velocidade, maior dano?
+
 ________________________
 
 === ITENS
 
-- equipar diferentes itens
-- inventário
+- sistema de itens								<<<<<<<
+
+- inventário tetris								<<<<<<<
 
 - poção de velocidade
 
@@ -77,6 +88,12 @@ Substituir sons:
 
 - user buses 
 	https://docs.godotengine.org/en/stable/tutorials/audio/audio_buses.html
+
+_______________________
+
+=== NPCs									<<<<<<<<
+
+- diálogo
 
 ________________________
 
