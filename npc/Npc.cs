@@ -26,6 +26,7 @@ public partial class Npc : Area3D
 	[Export]
 	public Array<PatrolPoint> PatrolPoints { get; set; } = new Array<PatrolPoint>();
 
+
 	private readonly float TurnSpeed = 20f;
 
 
@@ -33,6 +34,7 @@ public partial class Npc : Area3D
 
 	public bool SeesPlayer;
 	public Vector3 LastKnownPlayerPos;
+	public Vector3 TurnTarget;
 
 
 	private MeshInstance3D _mesh;
@@ -43,7 +45,6 @@ public partial class Npc : Area3D
 	private float _tookDamageCountdown = -1;
 	private int _patrolIndex = 0;
 	private float _speed;
-	private Vector3 _turnTarget;
 	private float _arrowLoadCountdown = -1;
 	private Node3D _arrow;
 	private float _navMeshStuckCountdown = -1;
@@ -61,6 +62,17 @@ public partial class Npc : Area3D
 		NpcAudio.PlayHey();
 		Debug.Log($"{entity.Name} interacted with NPC {Name}.");
 	}
+
+	/// <summary>
+	/// AI state where an NPC instance can do its own stuff. 
+	/// </summary>
+	/// <param name="delta"></param>
+	public virtual void KeepInteracting(float delta)
+	{
+		Debug.LogError("Generic NPCs shouldn't go into KeepInteracting.");
+		StartPatrolling();
+	}
+
 
 	public override void _Ready()
 	{
@@ -96,7 +108,7 @@ public partial class Npc : Area3D
 				KeepShootingBack((float)delta);
 				break;
 			case State.InInteraction:
-				// KeepInteracting((float)delta);
+				KeepInteracting((float)delta);
 				break;
 		}
 	}
@@ -194,7 +206,7 @@ public partial class Npc : Area3D
 			return;
 		}
 
-		_turnTarget = targetPos;
+		TurnTarget = targetPos;
 
 		pos.Y = 0;
 		targetPos.Y = 0;
@@ -205,7 +217,7 @@ public partial class Npc : Area3D
 	{
 		Vector3 forwardLocalAxis = new(0, 0, -1);
 		Vector3 forwardDir = (GlobalTransform.Basis * forwardLocalAxis).Normalized();
-		Vector3 targetDir = (_turnTarget - GlobalPosition).Normalized();
+		Vector3 targetDir = (TurnTarget - GlobalPosition).Normalized();
 
 		if (Math.Abs(forwardDir.Dot(targetDir)) > 1e-4)
 		{
@@ -300,6 +312,14 @@ public partial class Npc : Area3D
 		_bowAudio.PlayFired();
 	}
 
+	private void CancelArrow()
+	{
+		if (_arrow == null) return;
+
+		_arrow.QueueFree();
+		_arrow = null;
+	}
+
 	/// <returns>The player's position, if the NPC can see him.</returns>
 	private Vector3? CanSeePlayer()
 	{
@@ -342,7 +362,14 @@ public partial class Npc : Area3D
 	 *		AI STUFF
 	 */
 
-	private void StartPatrolling()
+	public void StartInteracting()
+	{
+		_state = State.InInteraction;
+		StopInPlace();
+		CancelArrow();
+	}
+
+	public void StartPatrolling()
 	{
 		SetTarget(PatrolPoints[_patrolIndex].Pos);
 		_speed = SpeedPatrolling;
@@ -368,7 +395,7 @@ public partial class Npc : Area3D
 		PullArrowBack();
 		_arrowLoadCountdown = ArrowLoadTime;
 		_shootBackPos = origin;
-		_turnTarget = _shootBackPos;
+		TurnTarget = _shootBackPos;
 		Debug.Log($"{Name} started shooting back.");
 	}
 
