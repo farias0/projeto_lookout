@@ -58,7 +58,7 @@ skeleton = NodePath("")
 transform = Transform3D(8.36028e-08, 1.91261, -0.584743, 2, -8.74228e-08, 0, -2.55599e-08, -0.584743, -1.91261, 0.087, 2.95, -0.879)
 
 [node name="Cap" parent="MeshNode" instance=ExtResource("5_8pym3")]
-transform = Transform3D(-0.267952, 0.00170492, -0.0812339, -0.00306082, 0.279528, 0.0159629, 0.0811942, 0.016164, -0.267482, 0.00611594, 4.29531, 0.0599779)
+transform = Transform3D(-0.267898, -0.0032359, -0.0813666, -0.00309721, 0.279981, -0.000937211, 0.081372, 3.33914e-06, -0.267916, 0.00139289, 4.25772, 0.0582081)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 

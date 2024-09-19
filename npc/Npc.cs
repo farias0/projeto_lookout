@@ -420,17 +420,14 @@ public partial class Npc : Area3D
 
 	private void ContinueInDialogue(float delta)
 	{
-		if (_activeDialogue != null)
+		// TODO finish dialogue if the player walks away
+
+		TurnTarget = LastKnownPlayerPos;
+		_activeDialogue.Process(delta);
+
+		if (_activeDialogue.IsFinished)
 		{
-			// TODO finish dialogue if the player walks away
-
-			TurnTarget = LastKnownPlayerPos;
-			_activeDialogue.Process(delta);
-
-			if (_activeDialogue.IsFinished)
-			{
-				FinishDialogue();
-			}
+			FinishDialogue();
 		}
 	}
 	

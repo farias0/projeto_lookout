@@ -52,6 +52,7 @@ public partial class Player : CharacterBody3D
 	private const float MinY = -70;
 	private const float HeightCrouched = 0.7f; // In scale
 	private const float HeightSliding = 0.3f;
+	private const float AirCrouchSlideTolerance = 0.15f; // How long before touching the floor the player can crouch to slide
 
 
 	private Vector3 _targetVelocity = Vector3.Zero;
@@ -74,6 +75,8 @@ public partial class Player : CharacterBody3D
 	private int _staminaPotionCount = 0;
 	private float _slideCountdown = 0;
 	private float _arrowLoadCountdown = -1;
+	private float _airCrouchSlideCountdown = -1;
+	private bool _wasOnFloorLastFrame;
 
 	// Debug
 	private bool _staminaEnabled = true;
@@ -104,6 +107,7 @@ public partial class Player : CharacterBody3D
 	{
 		ProcessInvencibilityCounter((float)delta);
 		if (_arrowLoadCountdown > 0) _arrowLoadCountdown -= (float)delta;
+		if (_airCrouchSlideCountdown > 0) _airCrouchSlideCountdown -= (float)delta;
 
 		RegenerateStamina((float)delta);
 
@@ -115,6 +119,8 @@ public partial class Player : CharacterBody3D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		var isOnFloor = IsOnFloor();
+
 		if (_hookedArrow != null)
 		{
 			_pullerAudio!.PlayPullIn();
@@ -177,11 +183,16 @@ public partial class Player : CharacterBody3D
 			_targetVelocity.Z = direction.Z * GetCurrentSpeed();
 		}
 
-
-		if (!IsOnFloor())
+		if (IsOnFloor())
+		{
+			if (!_wasOnFloorLastFrame && _airCrouchSlideCountdown > 0)
+			{
+				Slide();
+			}
+		}
+		else
 		{
 			// Gravity
-
 			_targetVelocity.Y -= FallAcceleration * (float)delta;
 		}
 
@@ -190,6 +201,8 @@ public partial class Player : CharacterBody3D
 		MoveAndSlide();
 
 		SyncHeightWithState();
+
+		_wasOnFloorLastFrame = isOnFloor;
 	}
 
 	public override void _Input(InputEvent e)
@@ -332,14 +345,24 @@ public partial class Player : CharacterBody3D
 
 	private void ToggleCrouch()
 	{
-		if (!IsOnFloor()) return;
+		if (!IsOnFloor())
+		{
+			_airCrouchSlideCountdown = AirCrouchSlideTolerance;
+			return;
+		}
 
 		CancelSlide();
 
 		_isCrouching = !_isCrouching;
 
+		if (_isCrouching)
+			Slide();
+	}
+
+	private void Slide()
+	{
 		var playerVel = new Vector2(_targetVelocity.X, _targetVelocity.Z);
-		if (_isCrouching && IsOnFloor() && playerVel.Length() > 0.8f)
+		if (IsOnFloor() && playerVel.Length() > 0.8f)
 		{
 			// Slide
 			_slideCountdown = SlideDuration;
