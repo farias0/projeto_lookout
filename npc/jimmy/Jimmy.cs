@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using projeto_lookout.libs;
 
 public partial class Jimmy : Npc
 {
@@ -14,9 +13,13 @@ public partial class Jimmy : Npc
 	private const float AlertLength = 3f;
 
 
+	private readonly Dialogue _alertDialogue = new(new string[] {
+		"Ei! O que voce ta fazendo? Esse lugar ta cheio de guardas.",
+		"Venha falar comigo, eu tenho um plano pra tirar a gente daqui."
+	});
+
 	private State _state;
 	private bool _hasGivenAlert = false;
-	private float _alertCountdown = -1;
 
 
 	public override void _Process(double delta)
@@ -29,8 +32,10 @@ public partial class Jimmy : Npc
 
 	public override void InteractWith(Node3D entity)
 	{
-		base.InteractWith(entity);
-		// TODO dialogue
+		if (_state == State.GivingAlert)
+		{
+			_alertDialogue.NextLine();
+		}
 	}
 
 	public override void KeepInteracting(float delta)
@@ -51,19 +56,17 @@ public partial class Jimmy : Npc
 		StartInteracting();
 		_hasGivenAlert = true;
 		_state = State.GivingAlert;
-		_alertCountdown = AlertLength;
 		NpcAudio.PlayHey();
-		Resources.Subtitles.Show("Ei! O que voce ta fazendo? Esse lugar ta cheio de guardas.");
+		_alertDialogue.Start();
 	}
 
 	private void KeepGivingAlert(float delta)
 	{
-		_alertCountdown -= delta;
 		TurnTarget = LastKnownPlayerPos;
+		_alertDialogue.Process(delta);
 
-		if (_alertCountdown <= 0)
+		if (_alertDialogue.IsFinished)
 		{
-			Resources.Subtitles.Stop();
 			StartPatrolling();
 		}
 	}

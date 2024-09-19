@@ -94,10 +94,9 @@ _______________________
 
 === NPCs									
 
-- sistema de diálogo via legenda		<<<<<
-	- c/ timer e opção de passar a legenda sozinha
+- como criar novos diálogos via editor?
 
-- diálogo do jimmy
+- diálogos do jimmy
 
 - scriptar jimmy
 	- ativar novo dialogo quando tiver dinheiro
@@ -106,6 +105,7 @@ _______________________
 		- ele tomar o dinheiro
 		- ele dar uma flechada
 		- ele desaparecer
+		- talvez som de risada?
 
 
 
