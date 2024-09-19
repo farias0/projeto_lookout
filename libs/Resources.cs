@@ -7,6 +7,7 @@ namespace projeto_lookout.libs
 		public static Player Player { get; set; }
 		public static HUD HUD { get; set; }
 		public static Camera Camera { get; set; }
+		public static Subtitles Subtitles { get; set; }
 
 
 		//      Arrow

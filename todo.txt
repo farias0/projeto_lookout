@@ -12,7 +12,7 @@
 
 - escorregar
 	- aceleração na escorregada
-	- usar contador pro movimento pra só escorregar com impulso		<<<<<<
+	- usar contador pro movimento pra só escorregar com impulso		
 	- poder se mover levemente enquanto escorrega				<<<<<<
 
 ________________________
@@ -44,7 +44,7 @@ ________________________
 === INIMIGOS
 
 
-- gritar p/ outros inimigos ao confirmar vista do jogador			<<<<<<<
+- gritar p/ outros inimigos ao confirmar vista do jogador			
 
 - navegar pela lista de nós filhos que são Patrol Points ao invés de receber propriedade pelo inspector		<<<<<<<
 
@@ -62,7 +62,7 @@ ________________________
 
 - sistema de itens								<<<<<<<
 
-- inventário tetris								<<<<<<<
+- inventário tetris								
 
 - poção de velocidade
 
@@ -94,9 +94,8 @@ _______________________
 
 === NPCs									
 
-- NPCs conseguirem falar via legenda		<<<<
-
-- sistema de diálogo via legenda
+- sistema de diálogo via legenda		<<<<<
+	- c/ timer e opção de passar a legenda sozinha
 
 - diálogo do jimmy
 
@@ -108,7 +107,25 @@ _______________________
 		- ele dar uma flechada
 		- ele desaparecer
 
+
+
+"Ei! O que você tá fazendo? Esse lugar tá cheio de guardas"
+"Venha falar comigo, eu tenho um plano pra tirar a gente daqui"
+
+"Você também está fugindo dos guardas, né?"
+"Notei pelo seu jeito de andar"
+
+"Escuta, eu posso tirar a gente daqui. Só preciso de ¥ 700."
+"Se você conseguir esse dinheiro, venha falar comigo, ok?"
+
+"Certo. Agora vira pra lá pra eu poder chamar a carona."
+
+
 ________________________
+
+
+- organizar nós da cena main em grupos
+
 
 - resetar o estado do mundo inteiro quando o jogador morre		
 	- destruir flechas no ar				

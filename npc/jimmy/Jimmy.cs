@@ -53,7 +53,7 @@ public partial class Jimmy : Npc
 		_state = State.GivingAlert;
 		_alertCountdown = AlertLength;
 		NpcAudio.PlayHey();
-		Debug.Log("Hey! You there! Come here!");
+		Resources.Subtitles.Show("Ei! O que voce ta fazendo? Esse lugar ta cheio de guardas.");
 	}
 
 	private void KeepGivingAlert(float delta)
@@ -63,6 +63,7 @@ public partial class Jimmy : Npc
 
 		if (_alertCountdown <= 0)
 		{
+			Resources.Subtitles.Stop();
 			StartPatrolling();
 		}
 	}
