@@ -5,11 +5,11 @@ using System;
 
 public partial class Npc : Area3D
 {
-	private enum State
+	public enum NpcState
 	{
 		Patrolling,
 		ShootingBack,
-		InInteraction
+		InDialogue
 	}
 
 	[Export]
@@ -35,6 +35,7 @@ public partial class Npc : Area3D
 	public bool SeesPlayer;
 	public Vector3 LastKnownPlayerPos;
 	public Vector3 TurnTarget;
+	public NpcState State;
 
 
 	private MeshInstance3D _mesh;
@@ -49,8 +50,8 @@ public partial class Npc : Area3D
 	private Node3D _arrow;
 	private float _navMeshStuckCountdown = -1;
 	private BowAudio _bowAudio;
-	private State _state;
 	private Vector3 _shootBackPos;
+	public Dialogue _activeDialogue;
 
 
 	/// <summary>
@@ -59,20 +60,11 @@ public partial class Npc : Area3D
 	/// <param name="entity">The entity that initiated the interaction</param>
 	public virtual void InteractWith(Node3D entity)
 	{
-		NpcAudio.PlayHey();
-		Debug.Log($"{entity.Name} interacted with NPC {Name}.");
+		if (State == NpcState.InDialogue)
+		{
+			_activeDialogue.NextLine();
+		}
 	}
-
-	/// <summary>
-	/// AI state where an NPC instance can do its own stuff. 
-	/// </summary>
-	/// <param name="delta"></param>
-	public virtual void KeepInteracting(float delta)
-	{
-		Debug.LogError("Generic NPCs shouldn't go into KeepInteracting.");
-		StartPatrolling();
-	}
-
 
 	public override void _Ready()
 	{
@@ -99,16 +91,16 @@ public partial class Npc : Area3D
 		SeesPlayer = seesPlayer != null;
 		if (SeesPlayer) LastKnownPlayerPos = seesPlayer.Value;
 
-		switch (_state)
+		switch (State)
 		{
-			case State.Patrolling:
-				KeepPatrolling();
+			case NpcState.Patrolling:
+				ContinuePatrolling();
 				break;
-			case State.ShootingBack:
-				KeepShootingBack((float)delta);
+			case NpcState.ShootingBack:
+				ContinueShootingBack((float)delta);
 				break;
-			case State.InInteraction:
-				KeepInteracting((float)delta);
+			case NpcState.InDialogue:
+				ContinueInDialogue((float)delta);
 				break;
 		}
 	}
@@ -127,6 +119,11 @@ public partial class Npc : Area3D
 
 		if (Health <= 0)
 			throw new InvalidOperationException($"Dead player {Name} took damage.");
+
+		if (State == NpcState.InDialogue)
+		{
+			FinishDialogue();
+		}
 
 		Health -= damage;
 		_tookDamageCountdown = 2;
@@ -314,6 +311,8 @@ public partial class Npc : Area3D
 
 	private void CancelArrow()
 	{
+		SetBowVisibility(false);
+
 		if (_arrow == null) return;
 
 		_arrow.QueueFree();
@@ -362,22 +361,15 @@ public partial class Npc : Area3D
 	 *		AI STUFF
 	 */
 
-	public void StartInteracting()
-	{
-		_state = State.InInteraction;
-		StopInPlace();
-		CancelArrow();
-	}
-
-	public void StartPatrolling()
+	private void StartPatrolling()
 	{
 		SetTarget(PatrolPoints[_patrolIndex].Pos);
 		_speed = SpeedPatrolling;
-		_state = State.Patrolling;
+		State = NpcState.Patrolling;
 		Debug.Log($"{Name} started patrolling.");
 	}
 
-	private void KeepPatrolling()
+	private void ContinuePatrolling()
 	{
 		var target = PatrolPoints[_patrolIndex].Pos;
 		if (GlobalPosition.DistanceTo(target) < 1.5f)
@@ -391,7 +383,7 @@ public partial class Npc : Area3D
 	{
 		StopInPlace();
 		SetBowVisibility(true);
-		_state = State.ShootingBack;
+		State = NpcState.ShootingBack;
 		PullArrowBack();
 		_arrowLoadCountdown = ArrowLoadTime;
 		_shootBackPos = origin;
@@ -399,7 +391,7 @@ public partial class Npc : Area3D
 		Debug.Log($"{Name} started shooting back.");
 	}
 
-	private void KeepShootingBack(float delta)
+	private void ContinueShootingBack(float delta)
 	{
 		if (_arrowLoadCountdown > 0)
 		{
@@ -414,5 +406,38 @@ public partial class Npc : Area3D
 			SetBowVisibility(false);
 			StartPatrolling();
 		}
+	}
+
+	public void StartDialogue(Dialogue dialogue)
+	{
+		StopInPlace();
+		CancelArrow();
+		TurnTarget = LastKnownPlayerPos;
+		State = NpcState.InDialogue;
+		_activeDialogue = dialogue;
+		_activeDialogue.Start();
+	}
+
+	private void ContinueInDialogue(float delta)
+	{
+		if (_activeDialogue != null)
+		{
+			// TODO finish dialogue if the player walks away
+
+			TurnTarget = LastKnownPlayerPos;
+			_activeDialogue.Process(delta);
+
+			if (_activeDialogue.IsFinished)
+			{
+				FinishDialogue();
+			}
+		}
+	}
+	
+	private void FinishDialogue()
+	{
+		_activeDialogue.Stop();
+		_activeDialogue = null;
+		StartPatrolling();
 	}
 }

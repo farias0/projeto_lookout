@@ -19,6 +19,7 @@ public class Dialogue
 
 	public void Start()
 	{
+		IsFinished = false;
 		currentLine = -1;
 		NextLine();
 	}
@@ -38,12 +39,17 @@ public class Dialogue
 
 		if (currentLine >= _lines.Length)
 		{
-			Resources.Subtitles.Hide();
-			IsFinished = true;
+			Stop();
 			return;
 		}
 
 		_autoSkipCountdown = AutoSkipTime;
 		Resources.Subtitles.Show(_lines[currentLine]);
+	}
+
+	public void Stop()
+	{
+		Resources.Subtitles.Hide();
+		IsFinished = true;
 	}
 }

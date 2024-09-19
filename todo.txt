@@ -96,8 +96,6 @@ _______________________
 
 - como criar novos diálogos via editor?
 
-- diálogos do jimmy
-
 - scriptar jimmy
 	- ativar novo dialogo quando tiver dinheiro
 	- scriptar eventos

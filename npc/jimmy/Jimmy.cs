@@ -3,22 +3,18 @@ using System;
 
 public partial class Jimmy : Npc
 {
-	private enum State
-	{
-		Idle,
-		GivingAlert
-	}
-
-
-	private const float AlertLength = 3f;
-
-
 	private readonly Dialogue _alertDialogue = new(new string[] {
 		"Ei! O que voce ta fazendo? Esse lugar ta cheio de guardas.",
 		"Venha falar comigo, eu tenho um plano pra tirar a gente daqui."
 	});
+	private readonly Dialogue _proposalDialogue = new(new string[] {
+		"Voce tambem esta fugindo dos guardas, ne?",
+		"Notei pelo seu jeito de andar.",
+		"Escuta, eu posso tirar a gente daqui. So preciso de Y 700.",
+		"Se voce conseguir esse dinheiro, venha falar comigo, combinado?"
+	});
 
-	private State _state;
+
 	private bool _hasGivenAlert = false;
 
 
@@ -26,48 +22,34 @@ public partial class Jimmy : Npc
 	{
 		base._Process(delta);
 
-		if (SeesPlayer && !_hasGivenAlert)
+		if (SeesPlayer && State != NpcState.InDialogue && !_hasGivenAlert)
+		{
 			StartGivingAlert();
+		}
 	}
 
 	public override void InteractWith(Node3D entity)
 	{
-		if (_state == State.GivingAlert)
-		{
-			_alertDialogue.NextLine();
-		}
-	}
+		base.InteractWith(entity);
 
-	public override void KeepInteracting(float delta)
-	{
-		switch (_state)
+		if (State != NpcState.InDialogue)
 		{
-			case State.GivingAlert:
-				KeepGivingAlert(delta);
-				break;
-			case State.Idle:
-				StartPatrolling();
-				break;
+			if (!_hasGivenAlert)
+				StartGivingAlert();
+			else
+				StartProposalDialogue();
 		}
 	}
 
 	private void StartGivingAlert()
 	{
-		StartInteracting();
 		_hasGivenAlert = true;
-		_state = State.GivingAlert;
+		StartDialogue(_alertDialogue);
 		NpcAudio.PlayHey();
-		_alertDialogue.Start();
 	}
 
-	private void KeepGivingAlert(float delta)
+	private void StartProposalDialogue()
 	{
-		TurnTarget = LastKnownPlayerPos;
-		_alertDialogue.Process(delta);
-
-		if (_alertDialogue.IsFinished)
-		{
-			StartPatrolling();
-		}
+		StartDialogue(_proposalDialogue);
 	}
 }
