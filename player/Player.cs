@@ -185,7 +185,8 @@ public partial class Player : CharacterBody3D
 
 		if (IsOnFloor())
 		{
-			if (!_wasOnFloorLastFrame && _airCrouchSlideCountdown > 0)
+			var playerVel = new Vector2(_targetVelocity.X, _targetVelocity.Z);
+			if (!_wasOnFloorLastFrame && _airCrouchSlideCountdown > 0 && playerVel.Length() > 10)
 			{
 				Slide();
 			}
@@ -358,6 +359,7 @@ public partial class Player : CharacterBody3D
 	{
 		if (!IsOnFloor())
 		{
+			// Attemps air slide
 			_airCrouchSlideCountdown = AirCrouchSlideTolerance;
 			return;
 		}
@@ -366,39 +368,33 @@ public partial class Player : CharacterBody3D
 
 		_isCrouching = !_isCrouching;
 
-		if (_isCrouching)
+		var playerVel = new Vector2(_targetVelocity.X, _targetVelocity.Z);
+		if (_isCrouching && IsOnFloor() && playerVel.Length() > 10)
+		{
 			Slide();
+		}
 	}
 
 	private void Slide()
 	{
-		var playerVel = new Vector2(_targetVelocity.X, _targetVelocity.Z);
-		if (IsOnFloor() && playerVel.Length() > 0.8f)
-		{
-			// Slide
-			_slideCountdown = SlideDuration;
-		}
+		_slideCountdown = SlideDuration;
 	}
 
 	private void Jump()
 	{
-		CancelSlide();
-		if (_isCrouching) ToggleCrouch();
-
-		_audio!.PlayJump();
-
 		if (_hookedArrow != null)
 		{
 			LeaveHookedArrow();
 			_targetVelocity.Y = JumpHeightHooked;
+			_audio!.PlayJump();
 			return;
 		}
 
+		if (!IsOnFloor()) return;
 
-		if (IsOnFloor())
-		{
-			_targetVelocity.Y = JumpHeight;
-		}
+		CancelSlide();
+		_targetVelocity.Y = JumpHeight;
+		_audio!.PlayJump();
 	}
 
 	private void UseHealthPotion()

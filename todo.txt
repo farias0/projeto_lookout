@@ -79,6 +79,8 @@ Sons de:
 - inimigo morte (spawnar item com timer)
 - desceu do puxador		
 - caindo
+- dinheiro sendo sacado				<<<<<
+	- som de caixa registadora?
 
 Substituir sons:
 - npc						<<<<<
