@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3f7mmxb4bc1p"]
+
+[ext_resource type="Script" path="res://ui/inventory/Inventory.cs" id="1_wxy2m"]
+[ext_resource type="PackedScene" uid="uid://b2x8y388x5rey" path="res://ui/inventory/Item1.tscn" id="2_kklph"]
+
+[node name="Inventory" type="CanvasLayer" node_paths=PackedStringArray("Items")]
+script = ExtResource("1_wxy2m")
+Items = [NodePath("Item1")]
+
+[node name="Item1" parent="." instance=ExtResource("2_kklph")]
