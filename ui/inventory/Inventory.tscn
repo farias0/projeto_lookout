@@ -7,4 +7,11 @@
 script = ExtResource("1_wxy2m")
 Items = [NodePath("Item1")]
 
+[node name="BG" type="ColorRect" parent="."]
+offset_left = 150.0
+offset_top = 100.0
+offset_right = 1450.0
+offset_bottom = 800.0
+color = Color(0.051971, 0.051971, 0.051971, 0.607843)
+
 [node name="Item1" parent="." instance=ExtResource("2_kklph")]

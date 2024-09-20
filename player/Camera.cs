@@ -25,6 +25,10 @@ public partial class Camera : Camera3D
 
 	public override void _Input(InputEvent @event)
 	{
+		if (!Player.IsInputEnabled())
+			return;
+
+
 		if (@event is InputEventMouseMotion eventMouseMotion)
 		{
 
