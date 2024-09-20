@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://20fsv78bqhxr"
-path="res://.godot/imported/stamina_bar.png-68b743b051e0ee15faf9b0b0813bd7ca.ctex"
+path="res://.godot/imported/stamina_bar.png-2600e4579fda7c7b08cffde273735fd2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/stamina_bar.png"
-dest_files=["res://.godot/imported/stamina_bar.png-68b743b051e0ee15faf9b0b0813bd7ca.ctex"]
+source_file="res://ui/hud/stamina_bar.png"
+dest_files=["res://.godot/imported/stamina_bar.png-2600e4579fda7c7b08cffde273735fd2.ctex"]
 
 [params]
 

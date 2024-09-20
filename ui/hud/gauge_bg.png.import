@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ch5wm3o6mga83"
-path="res://.godot/imported/health_potion.png-a36320e6bcdc6719aef6b42f4a38d32a.ctex"
+uid="uid://b5ri4oiebyi5e"
+path="res://.godot/imported/gauge_bg.png-d0021e5c7ea203070ae6367bb2261719.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/health_potion.png"
-dest_files=["res://.godot/imported/health_potion.png-a36320e6bcdc6719aef6b42f4a38d32a.ctex"]
+source_file="res://ui/hud/gauge_bg.png"
+dest_files=["res://.godot/imported/gauge_bg.png-d0021e5c7ea203070ae6367bb2261719.ctex"]
 
 [params]
 
