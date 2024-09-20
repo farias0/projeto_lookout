@@ -30,6 +30,11 @@ public partial class InventoryItem : TextureButton
 	private Vector2 _dragOffset;
 
 
+	public override void _Ready()
+	{
+		PivotOffset = Size / 2;
+	}
+
 	public override void _Input(InputEvent @event)
 	{
 		if (@event is InputEventMouseButton mouseEvent)
@@ -74,6 +79,13 @@ public partial class InventoryItem : TextureButton
 				_isDragging = false;
 			}
 		}
+		else if (mouseEvent.ButtonIndex == MouseButton.Right)
+		{
+			if (mouseEvent.Pressed)
+			{
+				RotateShape();
+			}
+		}
 	}
 
 	private void UpdateShape(string shapeString)
@@ -102,5 +114,11 @@ public partial class InventoryItem : TextureButton
 		}
 
 		_shapeString = shapeString;
+	}
+
+	private void RotateShape()
+	{
+		// TODO Rotate the shape's interal representation
+		RotationDegrees += 90;
 	}
 }

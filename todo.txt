@@ -66,10 +66,6 @@ ________________________
 - inventário tetris								<<<<<<<					
 
 
-- Permitir rotação de item?
-	- Talvez em uma outra iteração
-
-
 - poção de velocidade
 
 
