@@ -34,6 +34,10 @@ public partial class Inventory : CanvasLayer
 
 		_bg = GetNode<ColorRect>("BG");
 
+
+		// TODO correctly position items
+
+
 		Disable();
 	}
 

@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using projeto_lookout.libs;
 
 public partial class InventoryItem : TextureButton
 {
@@ -25,7 +26,55 @@ public partial class InventoryItem : TextureButton
 
 	private string _shapeString;
 	private bool[][] _shape;
+	private bool _isDragging = false;
+	private Vector2 _dragOffset;
 
+
+	public override void _Input(InputEvent @event)
+	{
+		if (@event is InputEventMouseButton mouseEvent)
+		{
+			OnClick(mouseEvent);
+		}
+		else if (@event is InputEventMouseMotion motionEvent && _isDragging)
+		{
+			// Update the position while dragging
+			Position = motionEvent.Position + _dragOffset;
+		}
+	}
+
+	public override void _GuiInput(InputEvent @event)
+	{
+		if (@event is InputEventMouseButton mouseEvent && mouseEvent.ButtonIndex == MouseButton.Left)
+		{
+			if (mouseEvent.Pressed)
+			{
+				Debug.Log($"{Name} clicked.");
+			}
+		}
+	}
+
+	private void OnClick(InputEventMouseButton mouseEvent)
+	{
+		if (mouseEvent.ButtonIndex == MouseButton.Left)
+		{
+			if (mouseEvent.Pressed)
+			{
+				// Check if the click happened within the button's area
+				if (GetRect().HasPoint(mouseEvent.Position))
+				{
+					// Start dragging
+					_isDragging = true;
+					_dragOffset = Position - mouseEvent.Position;
+				}
+			}
+			else
+			{
+				// Left mouse button released, stop dragging
+				_isDragging = false;
+			}
+		}
+	}
 
 	private void UpdateShape(string shapeString)
 	{

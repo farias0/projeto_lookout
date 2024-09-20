@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b2x8y388x5rey"]
-
-[ext_resource type="Script" path="res://ui/inventory/InventoryItem.cs" id="1_uabw6"]
-
-[node name="Item1" type="TextureButton"]
-script = ExtResource("1_uabw6")
-ShapeString = "XOO
-OXO
-OXX"

@@ -52,6 +52,7 @@ ________________________
 
 - deixar cadáver								<<<<<<<
 	- inimigos entram em alerta ao ver cadáver
+	- colocar cadáver como ragdoll
 
 - cachorros									<<<<<<<
 	- menos vida, maior distancia de detecção, maior velocidade, maior dano?
