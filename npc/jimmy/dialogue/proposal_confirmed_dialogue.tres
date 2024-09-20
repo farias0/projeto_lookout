@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bteeie03d7bjg"]
+
+[ext_resource type="Script" path="res://libs/dialogue.gd" id="1_u8dkx"]
+
+[resource]
+script = ExtResource("1_u8dkx")
+auto_skip_time = 1e+14
+lines = PackedStringArray("Certo. Agora vira pra lá pra eu poder chamar a nossa carona.")

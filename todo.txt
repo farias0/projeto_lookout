@@ -23,7 +23,7 @@ ________________________
 
 - flechas que são plataformas!!				
 
-- animação de puxar flecha							<<<<<
+- animação de puxar flecha							
 
 - flecha c/ física rigidbody							<<<<<<
 	- aceleração
@@ -89,34 +89,6 @@ Substituir sons:
 
 - user buses 
 	https://docs.godotengine.org/en/stable/tutorials/audio/audio_buses.html
-
-_______________________
-
-=== NPCs									
-
-
-- scriptar jimmy
-	- ativar novo dialogo quando tiver dinheiro
-	- scriptar eventos
-		- jogador ter que se virar
-		- ele tomar o dinheiro
-		- ele dar uma flechada
-		- ele desaparecer
-		- talvez som de risada?
-
-
-
-"Ei! O que você tá fazendo? Esse lugar tá cheio de guardas"
-"Venha falar comigo, eu tenho um plano pra tirar a gente daqui"
-
-"Você também está fugindo dos guardas, né?"
-"Notei pelo seu jeito de andar"
-
-"Escuta, eu posso tirar a gente daqui. Só preciso de ¥ 700."
-"Se você conseguir esse dinheiro, venha falar comigo, ok?"
-
-"Certo. Agora vira pra lá pra eu poder chamar a carona."
-
 
 ________________________
 

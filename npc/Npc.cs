@@ -36,6 +36,7 @@ public partial class Npc : Area3D
 	public Vector3 LastKnownPlayerPos;
 	public Vector3 TurnTarget;
 	public NpcState State;
+	public Dialogue ActiveDialogue;
 
 
 	private MeshInstance3D _mesh;
@@ -51,7 +52,6 @@ public partial class Npc : Area3D
 	private float _navMeshStuckCountdown = -1;
 	private BowAudio _bowAudio;
 	private Vector3 _shootBackPos;
-	public Dialogue _activeDialogue;
 
 
 	/// <summary>
@@ -62,7 +62,7 @@ public partial class Npc : Area3D
 	{
 		if (State == NpcState.InDialogue)
 		{
-			_activeDialogue.NextLine();
+			ActiveDialogue.NextLine();
 		}
 	}
 
@@ -259,7 +259,7 @@ public partial class Npc : Area3D
 		GlobalPosition = pos;
 	}
 
-	private void PullArrowBack()
+	public void PullArrowBack()
 	{
 		if (_arrow != null)
 		{
@@ -285,7 +285,7 @@ public partial class Npc : Area3D
 		_bowAudio.PlayTensing();
 	}
 
-	private void FireArrowAt(Vector3 target)
+	public void FireArrowAt(Vector3 target)
 	{
 		if (_arrow == null) return;
 
@@ -414,8 +414,8 @@ public partial class Npc : Area3D
 		CancelArrow();
 		TurnTarget = LastKnownPlayerPos;
 		State = NpcState.InDialogue;
-		_activeDialogue = dialogue;
-		_activeDialogue.Start();
+		ActiveDialogue = dialogue;
+		ActiveDialogue.Start();
 	}
 
 	private void ContinueInDialogue(float delta)
@@ -423,9 +423,9 @@ public partial class Npc : Area3D
 		// TODO finish dialogue if the player walks away
 
 		TurnTarget = LastKnownPlayerPos;
-		_activeDialogue.Process(delta);
+		ActiveDialogue.Process(delta);
 
-		if (_activeDialogue.IsFinished)
+		if (ActiveDialogue.IsFinished)
 		{
 			FinishDialogue();
 		}
@@ -433,8 +433,8 @@ public partial class Npc : Area3D
 	
 	private void FinishDialogue()
 	{
-		_activeDialogue.Stop();
-		_activeDialogue = null;
+		ActiveDialogue.Stop();
+		ActiveDialogue = null;
 		StartPatrolling();
 	}
 }

@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://w6h5apqbwpgy" path="res://pickups/stamina_potion/stamina_potion.tscn" id="11_0h31j"]
 [ext_resource type="PackedScene" uid="uid://dtgaspc6h1abb" path="res://pickups/health_potion/health_potion.tscn" id="12_iop02"]
 [ext_resource type="Script" path="res://ui/Subtitles.cs" id="12_jvamm"]
-[ext_resource type="PackedScene" uid="uid://b4kxh4euvvs1j" path="res://npc/npc.tscn" id="15_2ph0y"]
+[ext_resource type="PackedScene" uid="uid://ncvftkyeouxb" path="res://npc/jimmy/jimmy.tscn" id="16_4g7xt"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_ifqyw"]
 diffuse_texture = ExtResource("2_gvvvj")
@@ -196,19 +196,19 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 [node name="Wall" parent="NavigationRegion3D" instance=ExtResource("3_7rrpu")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15.2086, 2, 74.5709)
 
-[node name="NPC" parent="NavigationRegion3D" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("15_2ph0y")]
+[node name="Jimmy" parent="NavigationRegion3D" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("16_4g7xt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.9154, -5.66244e-07, 14.9515)
 PatrolPoints = [NodePath("PatrolPoint"), NodePath("PatrolPoint2"), NodePath("PatrolPoint3"), NodePath("PatrolPoint4")]
 
-[node name="PatrolPoint" parent="NavigationRegion3D/NPC" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint" parent="NavigationRegion3D/Jimmy" instance=ExtResource("6_dr3r0")]
 
-[node name="PatrolPoint2" parent="NavigationRegion3D/NPC" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint2" parent="NavigationRegion3D/Jimmy" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.24068)
 
-[node name="PatrolPoint3" parent="NavigationRegion3D/NPC" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint3" parent="NavigationRegion3D/Jimmy" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.568, 0, -7.24068)
 
-[node name="PatrolPoint4" parent="NavigationRegion3D/NPC" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint4" parent="NavigationRegion3D/Jimmy" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3638, 0, 0)
 
 [node name="Archer1" parent="NavigationRegion3D" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("3_4s0tw")]

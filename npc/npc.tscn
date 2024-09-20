@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=4 uid="uid://b4kxh4euvvs1j"]
+[gd_scene load_steps=8 format=4 uid="uid://b4kxh4euvvs1j"]
 
-[ext_resource type="Script" path="res://npc/jimmy/Jimmy.cs" id="1_fdmoy"]
+[ext_resource type="Script" path="res://npc/Npc.cs" id="1_cp62n"]
 [ext_resource type="Material" uid="uid://blnveymm6kcpr" path="res://npc/npc_material.tres" id="2_7ojwd"]
 [ext_resource type="PackedScene" uid="uid://bvs7d3jx0qvqr" path="res://bow-n-arrow/bow/bow.tscn" id="3_h3l75"]
 [ext_resource type="Script" path="res://npc/NpcAudio.cs" id="4_su0th"]
-[ext_resource type="PackedScene" uid="uid://cfrtm45nht8ff" path="res://npc/jimmy/cap.glb" id="5_8pym3"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ylq8t"]
 _surfaces = [{
@@ -45,7 +44,7 @@ radius = 0.43
 
 [node name="NPC" type="Area3D"]
 collision_mask = 7
-script = ExtResource("1_fdmoy")
+script = ExtResource("1_cp62n")
 
 [node name="MeshNode" type="Node3D" parent="."]
 transform = Transform3D(0.478152, 0, -0.146186, 0, 0.5, 0, 0.146186, 0, 0.478152, 0, 0, 0)
@@ -56,9 +55,6 @@ skeleton = NodePath("")
 
 [node name="Bow" parent="MeshNode" instance=ExtResource("3_h3l75")]
 transform = Transform3D(8.36028e-08, 1.91261, -0.584743, 2, -8.74228e-08, 0, -2.55599e-08, -0.584743, -1.91261, 0.087, 2.95, -0.879)
-
-[node name="Cap" parent="MeshNode" instance=ExtResource("5_8pym3")]
-transform = Transform3D(-0.267898, -0.0032359, -0.0813666, -0.00309721, 0.279981, -0.000937211, 0.081372, 3.33914e-06, -0.267916, 0.00139289, 4.25772, 0.0582081)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 

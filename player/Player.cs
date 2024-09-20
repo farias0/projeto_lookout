@@ -64,7 +64,7 @@ public partial class Player : CharacterBody3D
 	private float _invincibilityCountdown;
 	private Vector3 _startingRot;
 	private Node3D _bow = new();
-	private int _gold = 0;
+	private int _gold;
 	private float _maxStamina;
 	private float _staminaRegenCountdown;
 	private PlayerAudio? _audio;
@@ -280,11 +280,22 @@ public partial class Player : CharacterBody3D
 		}
 	}
 
+	public int GetGoldAmount() => _gold;
+
 	public void PickUpGold(int amount)
 	{
 		_gold += amount;
 		Resources.Instance.HUD.SetGoldAmount(_gold);
 		_effectsAudio!.PlayCollectGold();
+	}
+
+	public bool SubtractGold(int amount)
+	{
+		if (amount < _gold) return false;
+		_gold -= amount;
+		Resources.Instance.HUD.SetGoldAmount(_gold);
+		// _effectsAudio!.PlaySubtractGold();
+		return true;
 	}
 
 	public void PickUpHealthPotion()
@@ -460,7 +471,7 @@ public partial class Player : CharacterBody3D
 			return;
 		}
 
-		if (type == ArrowType.Hook && Stamina < StaminaCostHook)
+		if (type == ArrowType.Hook && Stamina < StaminaCostHook && _staminaEnabled)
 		{
 			// TODO play error sound
 			return;
