@@ -94,7 +94,6 @@ _______________________
 
 === NPCs									
 
-- como criar novos diálogos via editor?
 
 - scriptar jimmy
 	- ativar novo dialogo quando tiver dinheiro

@@ -12,7 +12,7 @@ public partial class Camera : Camera3D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		Resources.Camera = this;
+		Resources.Instance.Camera = this;
 		_startingRotation = Rotation;
         Input.MouseMode = Input.MouseModeEnum.Captured;
 	}

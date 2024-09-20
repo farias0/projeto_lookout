@@ -45,7 +45,7 @@ public partial class Arrow : Node3D
 		_rigidBody.Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
 		_rigidBody.Freeze = true;
 
-		_hookColor = Resources.ArrowHookMaterial.AlbedoColor;
+		_hookColor = Resources.Instance.ArrowHookMaterial.AlbedoColor;
 
 		_audio = GetNode<ArrowAudio>("AudioStreamPlayer3D");
 
@@ -111,10 +111,10 @@ public partial class Arrow : Node3D
 		switch (_type)
 		{
 			case ArrowType.Normal:
-				ChangeMeshMaterial(Resources.ArrowNormalMaterial);
+				ChangeMeshMaterial(Resources.Instance.ArrowNormalMaterial);
 				break;
 			case ArrowType.Hook:
-				ChangeMeshMaterial(Resources.ArrowHookMaterial);
+				ChangeMeshMaterial(Resources.Instance.ArrowHookMaterial);
 				break;
 		}
 	}

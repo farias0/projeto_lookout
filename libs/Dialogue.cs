@@ -4,52 +4,39 @@ using projeto_lookout.libs;
 
 public class Dialogue
 {
-	public bool IsFinished = false;
+	/*
+	 *		This is a wrapper class for the dialogue.gd script.
+	 *		
+	 *		This module was written in GDScript so we could export an array of multiline strings
+	 *	as an Inspector property, which makes it much more convient to write dialogues.
+	 */
 
-	private const float AutoSkipTime = 4f;
+	readonly GodotObject _dialogue;
 
-	private string[] _lines;
-	private int currentLine;
-	private float _autoSkipCountdown = -1;
-
-	public Dialogue(string[] lines) // More like a monologue, am I right?
+	public Dialogue(string path)
 	{
-		_lines = lines;
+		_dialogue = GD.Load<GodotObject>(path);
 	}
 
 	public void Start()
 	{
-		IsFinished = false;
-		currentLine = -1;
-		NextLine();
+		_dialogue.Call("start");
 	}
 
 	public void Process(float delta)
 	{
-		_autoSkipCountdown -= delta;
-		if (_autoSkipCountdown <= 0)
-		{
-			NextLine();
-		}
+		_dialogue.Call("process", delta);
 	}
 
 	public void NextLine()
 	{
-		currentLine++;
-
-		if (currentLine >= _lines.Length)
-		{
-			Stop();
-			return;
-		}
-
-		_autoSkipCountdown = AutoSkipTime;
-		Resources.Subtitles.Show(_lines[currentLine]);
+		_dialogue.Call("next_line");
 	}
 
 	public void Stop()
 	{
-		Resources.Subtitles.Hide();
-		IsFinished = true;
+		_dialogue.Call("stop");
 	}
+
+	public bool IsFinished => (bool)_dialogue.Get("is_finished");
 }

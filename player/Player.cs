@@ -84,15 +84,15 @@ public partial class Player : CharacterBody3D
 
 	public override void _Ready()
 	{
-		Resources.Player = this;
+		Resources.Instance.Player = this;
 
 		_audio = GetNode<PlayerAudio>("AudioStreamPlayer");
 		_effectsAudio = GetNode<EffectsAudio>("EffectsAudioStreamPlayer");
 
-		_bow = Resources.Camera.GetNode<Node3D>("Bow");
+		_bow = Resources.Instance.Camera.GetNode<Node3D>("Bow");
 		_bowAudio = _bow.GetNode<AudioStreamPlayer3D>("AudioStreamPlayer3D")! as BowAudio;
 
-		var puller = Resources.Camera.GetNode<Node3D>("Puller");
+		var puller = Resources.Instance.Camera.GetNode<Node3D>("Puller");
 		_pullerAudio = puller.GetNode<AudioStreamPlayer3D>("AudioStreamPlayer3D")! as PullerAudio;
 
 		_startingPos = GlobalPosition;
@@ -100,7 +100,7 @@ public partial class Player : CharacterBody3D
 		_maxHealth = Health;
 		_maxStamina = Stamina;
 
-		Resources.HUD.SetGoldAmount(_gold);
+		Resources.Instance.HUD.SetGoldAmount(_gold);
 	}
 
 	public override void _Process(double delta)
@@ -260,7 +260,7 @@ public partial class Player : CharacterBody3D
 
 		Stamina -= value;
 		_staminaRegenCountdown = StaminaRegenDelay;
-		Resources.HUD.SetStamina(Stamina / _maxStamina);
+		Resources.Instance.HUD.SetStamina(Stamina / _maxStamina);
 
 		return true;
 	}
@@ -276,27 +276,27 @@ public partial class Player : CharacterBody3D
 		{
 			Stamina += StaminaRegenRate * delta;
 			if (Stamina > _maxStamina) Stamina = _maxStamina;
-			Resources.HUD.SetStamina(Stamina / _maxStamina);
+			Resources.Instance.HUD.SetStamina(Stamina / _maxStamina);
 		}
 	}
 
 	public void PickUpGold(int amount)
 	{
 		_gold += amount;
-		Resources.HUD.SetGoldAmount(_gold);
+		Resources.Instance.HUD.SetGoldAmount(_gold);
 		_effectsAudio!.PlayCollectGold();
 	}
 
 	public void PickUpHealthPotion()
 	{
 		_healthPotionCount++;
-		Resources.HUD.SetHealthPotionAmount(_healthPotionCount);
+		Resources.Instance.HUD.SetHealthPotionAmount(_healthPotionCount);
 		_effectsAudio!.PlayCollectPotion();
 	}
 	public void PickUpStaminaPotion()
 	{
 		_staminaPotionCount++;
-		Resources.HUD.SetStaminaPotionAmount(_staminaPotionCount);
+		Resources.Instance.HUD.SetStaminaPotionAmount(_staminaPotionCount);
 		_effectsAudio!.PlayCollectPotion();
 	}
 
@@ -466,7 +466,7 @@ public partial class Player : CharacterBody3D
 			return;
 		}
 
-		Node node = Resources.Arrow.Instantiate();
+		Node node = Resources.Instance.Arrow.Instantiate();
 		Node3D? node3d = node as Node3D;
 
 		Vector3 spawnPos = node3d!.Basis.X.Normalized() * 0.3f +
@@ -480,7 +480,7 @@ public partial class Player : CharacterBody3D
 		arrow!.SetShooter(this);
 
 
-		Resources.Camera.AddChild(node3d);
+		Resources.Instance.Camera.AddChild(node3d);
 		_pulledBackArrow = node3d;
 
 		_arrowLoadCountdown = ArrowLoadTime;
@@ -531,8 +531,8 @@ public partial class Player : CharacterBody3D
 	{
 		Vector3 targetPoint;
 
-		Vector3 rayOrigin = Resources.Camera.GlobalTransform.Origin;
-		Vector3 rayDirection = Resources.Camera.GlobalTransform.Basis.Z.Normalized() * -1;
+		Vector3 rayOrigin = Resources.Instance.Camera.GlobalTransform.Origin;
+		Vector3 rayDirection = Resources.Instance.Camera.GlobalTransform.Basis.Z.Normalized() * -1;
 		var rayResult = Raycast.CastRayInDirection(GetWorld3D(), rayOrigin, rayDirection, 1000);
 
 		if (rayResult.Count > 0)
@@ -599,9 +599,9 @@ public partial class Player : CharacterBody3D
 		Health = _maxHealth;
 		Stamina = _maxStamina;
 		GlobalRotation = _startingRot;
-		Resources.HUD.SetHealth(1);
-		Resources.HUD.SetStamina(1);
-		Resources.Camera.Reset();
+		Resources.Instance.HUD.SetHealth(1);
+		Resources.Instance.HUD.SetStamina(1);
+		Resources.Instance.Camera.Reset();
 		_bow.Visible = true;
 		_invincibilityCountdown = -1;
 		_staminaRegenCountdown = -1;
@@ -627,27 +627,27 @@ public partial class Player : CharacterBody3D
 
 	private void SyncHealthHUD()
 	{
-		Resources.HUD.SetHealth((float)Health / _maxHealth);
+		Resources.Instance.HUD.SetHealth((float)Health / _maxHealth);
 	}
 
 	private void SyncStaminaHUD()
 	{
-		Resources.HUD.SetStamina((float)Stamina / _maxStamina);
+		Resources.Instance.HUD.SetStamina((float)Stamina / _maxStamina);
 	}
 
 	private void SyncHealthPotionHUD()
 	{
-		Resources.HUD.SetHealthPotionAmount(_healthPotionCount);
+		Resources.Instance.HUD.SetHealthPotionAmount(_healthPotionCount);
 	}
 
 	private void SyncStaminaPotionHUD()
 	{
-		Resources.HUD.SetStaminaPotionAmount(_staminaPotionCount);
+		Resources.Instance.HUD.SetStaminaPotionAmount(_staminaPotionCount);
 	}
 
 	private void ToggleStamina()
 	{
 		_staminaEnabled = !_staminaEnabled;
-		Resources.HUD.SetStaminaBarVisible(_staminaEnabled);
+		Resources.Instance.HUD.SetStaminaBarVisible(_staminaEnabled);
 	}
 }

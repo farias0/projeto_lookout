@@ -20,7 +20,7 @@ public partial class HUD : CanvasLayer
 
 	public override void _Ready()
 	{
-		Resources.HUD = this;
+		Resources.Instance.HUD = this;
 
 		_healthBar = GetNode<TextureRect>("Gauges/Health/Bar");
 		_healthBarSize = _healthBar.Size;

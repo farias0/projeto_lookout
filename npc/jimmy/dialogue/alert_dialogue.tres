@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://yyh4ns6jew1n"]
+
+[ext_resource type="Script" path="res://libs/dialogue.gd" id="1_en4l0"]
+
+[resource]
+script = ExtResource("1_en4l0")
+lines = PackedStringArray("Ei! O que você tá fazendo? Esse lugar tá cheio de guardas.", "Venha falar comigo, eu tenho um plano pra tirar a gente daqui.")

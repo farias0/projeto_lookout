@@ -266,7 +266,7 @@ public partial class Npc : Area3D
 			throw new InvalidOperationException("NPC can't pull arrow back; already has one.");
 		}
 
-		Node node = Resources.Arrow.Instantiate();
+		Node node = Resources.Instance.Arrow.Instantiate();
 		Node3D node3d = node as Node3D;
 
 		Vector3 spawnPos = node3d!.Basis.X.Normalized() * 0.1f +
@@ -295,7 +295,7 @@ public partial class Npc : Area3D
 		_arrow.GlobalPosition = pos;
 
 		// ATENTION: It compensates for the *player*'s height. If the target end up not being the player, wel...
-		var player = Resources.Player;
+		var player = Resources.Instance.Player;
 		var targetCompensated = target + (player.GlobalTransform.Basis.Y * player.GetHeight() * 0.5f);
 		_arrow.LookAt(targetCompensated);
 
@@ -322,7 +322,7 @@ public partial class Npc : Area3D
 	/// <returns>The player's position, if the NPC can see him.</returns>
 	private Vector3? CanSeePlayer()
 	{
-		var player = Resources.Player;
+		var player = Resources.Instance.Player;
 
 		{   // Is within distance
 			float distance = GlobalPosition.DistanceTo(player.GlobalPosition);

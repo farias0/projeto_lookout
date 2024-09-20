@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dsdfwj4tmnqo2"]
+
+[ext_resource type="Script" path="res://libs/dialogue.gd" id="1_4i3pq"]
+
+[resource]
+script = ExtResource("1_4i3pq")
+auto_skip_time = 4.0
+lines = PackedStringArray("Você também está fugindo dos guardas, né?", "Notei pelo seu jeito de andar.", "Escuta, eu posso tirar a gente daqui. Só preciso de ¥400.", "Se você conseguir esse dinheiro, venha falar comigo, combinado?")

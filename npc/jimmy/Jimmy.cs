@@ -3,16 +3,11 @@ using System;
 
 public partial class Jimmy : Npc
 {
-	private readonly Dialogue _alertDialogue = new(new string[] {
-		"Ei! O que voce ta fazendo? Esse lugar ta cheio de guardas.",
-		"Venha falar comigo, eu tenho um plano pra tirar a gente daqui."
-	});
-	private readonly Dialogue _proposalDialogue = new(new string[] {
-		"Voce tambem esta fugindo dos guardas, ne?",
-		"Notei pelo seu jeito de andar.",
-		"Escuta, eu posso tirar a gente daqui. So preciso de Y 700.",
-		"Se voce conseguir esse dinheiro, venha falar comigo, combinado?"
-	});
+	private static readonly Dialogue _alertDialogue =
+		new("res://npc/jimmy/dialogue/alert_dialogue.tres");
+	
+	private static readonly Dialogue _proposalDialogue =
+		new("res://npc/jimmy/dialogue/proposal_dialogue.tres");
 
 
 	private bool _hasGivenAlert = false;

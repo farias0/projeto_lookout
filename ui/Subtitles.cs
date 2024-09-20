@@ -8,7 +8,7 @@ public partial class Subtitles : Control
 
 	public override void _Ready()
 	{
-		Resources.Subtitles = this;
+		Resources.Instance.Subtitles = this;
 
 		_label = GetNode<RichTextLabel>("RichTextLabel");
 

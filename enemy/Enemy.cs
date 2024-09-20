@@ -77,6 +77,12 @@ public partial class Enemy : Area3D
 	public Array<PatrolPoint> PatrolPoints { get; set; } = new Array<PatrolPoint>();
 
 
+	private readonly StandardMaterial3D _meleeMaterial =
+			GD.Load<StandardMaterial3D>("res://enemy/enemy_melee_material.tres");
+
+	private readonly StandardMaterial3D _rangedMaterial =
+		GD.Load<StandardMaterial3D>("res://enemy/enemy_ranged_material.tres");
+
 	private readonly float TurnSpeed = 20f;
 
 	private CharacterBody3D _player;
@@ -108,7 +114,7 @@ public partial class Enemy : Area3D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_player = Resources.Player;
+		_player = Resources.Instance.Player;
 		if (_player == null)
 		{
 			throw new InvalidOperationException("Couldn't find player.");
@@ -241,10 +247,10 @@ public partial class Enemy : Area3D
 		switch (_type)
 		{
 			case EnemyType.Melee:
-				ChangeMeshMaterial(Resources.EnemyMeleeMaterial);
+				ChangeMeshMaterial(_meleeMaterial);
 				break;
 			case EnemyType.Ranged:
-				ChangeMeshMaterial(Resources.EnemyRangedMaterial);
+				ChangeMeshMaterial(_rangedMaterial);
 				break;
 		}
 	}
@@ -405,7 +411,7 @@ public partial class Enemy : Area3D
 			throw new InvalidOperationException("Enemy can't pull arrow back; already has one.");
 		}
 
-		Node node = Resources.Arrow.Instantiate();
+		Node node = Resources.Instance.Arrow.Instantiate();
 		Node3D node3d = node as Node3D;
 
 		Vector3 spawnPos = node3d!.Basis.X.Normalized() * 0.1f +
