@@ -10,6 +10,7 @@ namespace projeto_lookout.libs
 		public HUD HUD { get; set; }
 		public Camera Camera { get; set; }
 		public Subtitles Subtitles { get; set; }
+		public Inventory Inventory { get; set; }
 
 
 		//      Arrow

@@ -52,6 +52,7 @@ ________________________
 
 - deixar cadáver								<<<<<<<
 	- inimigos entram em alerta ao ver cadáver
+	- colocar cadáver como ragdoll
 
 - cachorros									<<<<<<<
 	- menos vida, maior distancia de detecção, maior velocidade, maior dano?
@@ -63,27 +64,6 @@ ________________________
 - sistema de itens								<<<<<<<
 
 - inventário tetris								<<<<<<<					
-
-	- Input do formato do item no inventário via Inspector:
-		- Multiline string no formato:
-			OOX
-			XXX
-			OOX
-		- Parseia p/ representação interna
-			- Validação:
-				- Todas linhas e colunas c/ o mesmo tamanho
-		- Amarrar a string com um setter que atualiza o item em runtime
-
-
-	- Representação interna do item
-		- Matriz de bool: verdadeiro se a célula for preenchida
-
-
-
-
-
-- Permitir rotação de item?
-	- Talvez em uma outra iteração
 
 
 - poção de velocidade

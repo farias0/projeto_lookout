@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2x8y388x5rey"]
+
+[ext_resource type="Texture2D" uid="uid://cofohhx6vf3mw" path="res://ui/inventory/items/health_potion/icon.png" id="1_fsdle"]
+[ext_resource type="Script" path="res://ui/inventory/items/InventoryItem.cs" id="2_ljh5n"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_3rsv8"]
+diffuse_texture = ExtResource("1_fsdle")
+
+[node name="HealthPotion" type="TextureButton"]
+offset_right = 120.0
+offset_bottom = 120.0
+texture_normal = SubResource("CanvasTexture_3rsv8")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("2_ljh5n")
+ShapeString = "XOO
+OXO
+OXX"

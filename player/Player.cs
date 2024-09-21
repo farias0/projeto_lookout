@@ -156,14 +156,17 @@ public partial class Player : CharacterBody3D
 
 			var direction = Vector3.Zero;
 
-			if (Input.IsActionPressed("move_right"))
-				direction.X += 1.0f;
-			if (Input.IsActionPressed("move_left"))
-				direction.X -= 1.0f;
-			if (Input.IsActionPressed("move_up"))
-				direction.Z -= 1.0f;
-			if (Input.IsActionPressed("move_down"))
-				direction.Z += 1.0f;
+			if (IsInputEnabled())
+			{
+				if (Input.IsActionPressed("move_right"))
+					direction.X += 1.0f;
+				if (Input.IsActionPressed("move_left"))
+					direction.X -= 1.0f;
+				if (Input.IsActionPressed("move_up"))
+					direction.Z -= 1.0f;
+				if (Input.IsActionPressed("move_down"))
+					direction.Z += 1.0f;
+			}
 
 			if (direction != Vector3.Zero)
 			{
@@ -208,6 +211,9 @@ public partial class Player : CharacterBody3D
 
 	public override void _Input(InputEvent e)
 	{
+		if (!IsInputEnabled()) return;
+
+
 		if (e is InputEventMouseMotion eventMouseMotion)
 		{
 			Vector2 move = eventMouseMotion.ScreenRelative;
@@ -227,6 +233,11 @@ public partial class Player : CharacterBody3D
 
 		// Debug
 		if (e.IsActionPressed("toggle_stamina"))	ToggleStamina();
+	}
+
+	public static bool IsInputEnabled()
+	{
+		return !Resources.Instance.Inventory.IsEnabled();
 	}
 
 	public void TakeDamage(int damage)
