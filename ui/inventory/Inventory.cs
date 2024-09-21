@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using projeto_lookout.libs;
+using System.Collections.Generic;
 
 public partial class Inventory : Control
 {
@@ -15,6 +16,7 @@ public partial class Inventory : Control
 
 	private ColorRect _panel;
 	private Control _grid;
+	private List<TextureRect> _cells = new();
 
 
 	public bool IsEnabled()
@@ -66,6 +68,44 @@ public partial class Inventory : Control
 		else Enable();
 	}
 
+	/// <summary>
+	/// Attempts to drag an item from the inventory based on its new
+	/// position, and snaps it to the new cells if possible.
+	/// </summary>
+	/// <param name="item">Item that's been dragged</param>
+	/// <returns>If the item was successfully dragged</returns>
+	public bool AttemptItemDrag(InventoryItem item)
+	{
+		// Checks if it's in list
+		bool inList = false;
+		foreach (var i in Items) if (i == item) inList = true;
+		if (!inList) throw new InvalidOperationException("Item not in inventory.");
+
+
+		// Looks for the attempted slots
+		bool foundSlot = false;
+		Vector2 offset = Vector2.Zero;
+		foreach (var itemCell in item.Cells)
+		{
+			foreach (var cell in _cells)
+			{
+				var dist = itemCell.GetGlobalPosition().DistanceTo(cell.GetGlobalPosition());
+				if (dist < cell.Size.X/2)
+				{
+					foundSlot = true;
+					offset = cell.GetGlobalPosition() - itemCell.GetGlobalPosition();
+				}
+			}
+		}
+		if (!foundSlot) return false;
+
+
+		// Snaps to the new position
+		item.Position += offset;
+
+		return true;
+	}
+
 	private void PopulateCells()
 	{
 		for (int i = 0; i < Rows; i++)
@@ -75,6 +115,7 @@ public partial class Inventory : Control
 				TextureRect cell = (TextureRect)CellScene.Instantiate();
 				cell.Position = new Vector2(j * cell.Size.X, i * cell.Size.Y);
 				_grid.AddChild(cell);
+				_cells.Add(cell);
 			}
 		}
 	}

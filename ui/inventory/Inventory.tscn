@@ -7,7 +7,7 @@
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_wxy2m")
-Items = [null]
+Items = [NodePath("HealthPotion")]
 
 [node name="Panel" type="ColorRect" parent="."]
 layout_mode = 0
@@ -25,5 +25,9 @@ offset_top = 53.0
 offset_right = 860.0
 offset_bottom = 353.0
 
-[node name="HealthPotion" parent="Panel" instance=ExtResource("2_kklph")]
+[node name="HealthPotion" parent="." instance=ExtResource("2_kklph")]
 layout_mode = 0
+offset_left = 150.0
+offset_top = 100.0
+offset_right = 270.0
+offset_bottom = 220.0

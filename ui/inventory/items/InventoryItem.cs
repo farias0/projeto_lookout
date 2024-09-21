@@ -29,11 +29,14 @@ public partial class InventoryItem : TextureButton
 	private static readonly PackedScene CellScene = (PackedScene)GD.Load("res://ui/inventory/items/item_cell.tscn");
 
 
+	public List<TextureRect> Cells = new();
+
+
 	private string _shapeString;
 	private bool[][] _shape;
 	private bool _isDragging = false;
+	private Vector2 _preDragPosition;
 	private Vector2 _dragOffset;
-	private List<TextureRect> _cells = new();
 
 
 	public override void _Ready()
@@ -69,25 +72,28 @@ public partial class InventoryItem : TextureButton
 
 	private void OnClick(InputEventMouseButton mouseEvent)
 	{
-		if (!Resources.Instance.Inventory.IsEnabled()) return;
+		var inventory = Resources.Instance.Inventory;
+		if (!inventory.IsEnabled()) return;
 
 
 		if (mouseEvent.ButtonIndex == MouseButton.Left)
 		{
 			if (mouseEvent.Pressed)
 			{
-				// Check if the click happened within the button's area
 				if (GetRotatedRect().HasPoint(mouseEvent.Position))
 				{
-					// Start dragging
 					_isDragging = true;
+					_preDragPosition = Position;
 					_dragOffset = Position - mouseEvent.Position;
 				}
 			}
-			else
+			else // Released mouse button
 			{
-				// Left mouse button released, stop dragging
 				_isDragging = false;
+				if (!inventory.AttemptItemDrag(this))
+				{
+					Position = _preDragPosition;
+				}
 			}
 		}
 		else if (mouseEvent.ButtonIndex == MouseButton.Right)
@@ -101,6 +107,7 @@ public partial class InventoryItem : TextureButton
 			}
 		}
 	}
+
 	private void RotateShape()
 	{
 		RotationDegrees += 90;
@@ -163,11 +170,11 @@ public partial class InventoryItem : TextureButton
 
 	private void UpdateCells()
 	{
-		foreach (var cell in _cells)
+		foreach (var cell in Cells)
 		{
 			cell.QueueFree();
 		}
-		_cells.Clear();
+		Cells.Clear();
 
 		for (int i = 0; i < _shape.Length; i++)
 		{
@@ -178,7 +185,7 @@ public partial class InventoryItem : TextureButton
 					TextureRect cell = (TextureRect)CellScene.Instantiate();
 					cell.Position = new Vector2(j * cell.Size.X, i * cell.Size.Y);
 					AddChild(cell);
-					_cells.Add(cell);
+					Cells.Add(cell);
 				}
 			}
 		}
