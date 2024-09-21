@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bopss048dosja"]
+
+[node name="ColorRect" type="ColorRect"]
+show_behind_parent = true
+offset_right = 60.0
+offset_bottom = 60.0
+color = Color(0.783523, 0.783523, 0.783523, 1)

@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://w6h5apqbwpgy" path="res://pickups/stamina_potion/stamina_potion.tscn" id="11_0h31j"]
 [ext_resource type="PackedScene" uid="uid://dtgaspc6h1abb" path="res://pickups/health_potion/health_potion.tscn" id="12_iop02"]
 [ext_resource type="Script" path="res://ui/hud/Subtitles.cs" id="12_jvamm"]
-[ext_resource type="PackedScene" uid="uid://c3f7mmxb4bc1p" path="res://ui/inventory/Inventory.tscn" id="13_r48r6"]
+[ext_resource type="PackedScene" uid="uid://c3f7mmxb4bc1p" path="res://ui/inventory/inventory.tscn" id="13_r48r6"]
 [ext_resource type="PackedScene" uid="uid://ncvftkyeouxb" path="res://npc/jimmy/jimmy.tscn" id="16_4g7xt"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_ifqyw"]

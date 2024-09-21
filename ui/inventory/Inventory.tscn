@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://c3f7mmxb4bc1p"]
 
 [ext_resource type="Script" path="res://ui/inventory/Inventory.cs" id="1_wxy2m"]
-[ext_resource type="PackedScene" uid="uid://b2x8y388x5rey" path="res://ui/inventory/items/health_potion/HealthPotion.tscn" id="2_kklph"]
+[ext_resource type="PackedScene" uid="uid://b2x8y388x5rey" path="res://ui/inventory/items/health_potion/health_potion.tscn" id="2_kklph"]
 
 [node name="Inventory" type="CanvasLayer" node_paths=PackedStringArray("Items")]
 script = ExtResource("1_wxy2m")
-Items = [NodePath("HealthPotion")]
+Items = [null]
 
 [node name="BG" type="ColorRect" parent="."]
 offset_left = 150.0
@@ -15,5 +15,7 @@ offset_bottom = 800.0
 color = Color(0.051971, 0.051971, 0.051971, 0.607843)
 
 [node name="HealthPotion" parent="." instance=ExtResource("2_kklph")]
-offset_right = 512.0
-offset_bottom = 512.0
+offset_left = 150.0
+offset_top = 100.0
+offset_right = 270.0
+offset_bottom = 220.0

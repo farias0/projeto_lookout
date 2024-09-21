@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using projeto_lookout.libs;
+using System.Collections.Generic;
 
 public partial class InventoryItem : TextureButton
 {
@@ -24,10 +25,15 @@ public partial class InventoryItem : TextureButton
 		set => UpdateShape(value);
 	}
 
+	
+	private static readonly PackedScene CellScene = (PackedScene)GD.Load("res://ui/inventory/items/item_cell.tscn");
+
+
 	private string _shapeString;
 	private bool[][] _shape;
 	private bool _isDragging = false;
 	private Vector2 _dragOffset;
+	private List<ColorRect> _cells = new();
 
 
 	public override void _Ready()
@@ -66,7 +72,7 @@ public partial class InventoryItem : TextureButton
 			if (mouseEvent.Pressed)
 			{
 				// Check if the click happened within the button's area
-				if (GetRect().HasPoint(mouseEvent.Position))
+				if (GetRotatedRect().HasPoint(mouseEvent.Position))
 				{
 					// Start dragging
 					_isDragging = true;
@@ -81,11 +87,44 @@ public partial class InventoryItem : TextureButton
 		}
 		else if (mouseEvent.ButtonIndex == MouseButton.Right)
 		{
+			
+			//					TODO only rotate inside button's area
+			
 			if (mouseEvent.Pressed)
 			{
 				RotateShape();
 			}
 		}
+	}
+	private void RotateShape()
+	{
+		RotationDegrees += 90;
+		if (RotationDegrees == 360)
+			RotationDegrees = 0;
+	}
+
+	/// <summary>
+	/// Like GetRect(), but compensates for the rotation of the item.
+	/// Presumes the rotations are always at 90 degree intervals.
+	/// </summary>
+	private Rect2 GetRotatedRect()
+	{
+		Rect2 rect = new(){
+			Position = GlobalPosition
+		};
+
+		if (RotationDegrees == 0 || RotationDegrees == 180) {
+			rect.Size = Size * Scale;
+		}
+		else if (RotationDegrees == 90 || RotationDegrees == 270)
+		{
+			rect.Size = new Vector2(Size.Y, Size.X) * Scale;
+		}
+		else
+			throw new InvalidOperationException($"Invalid rotation {RotationDegrees}.");
+
+		Debug.Log($"{Name} rect: {rect}");
+		return rect;
 	}
 
 	private void UpdateShape(string shapeString)
@@ -114,11 +153,29 @@ public partial class InventoryItem : TextureButton
 		}
 
 		_shapeString = shapeString;
+		UpdateCells();
 	}
 
-	private void RotateShape()
+	private void UpdateCells()
 	{
-		// TODO Rotate the shape's interal representation
-		RotationDegrees += 90;
+		foreach (var cell in _cells)
+		{
+			cell.QueueFree();
+		}
+		_cells.Clear();
+
+		for (int i = 0; i < _shape.Length; i++)
+		{
+			for (int j = 0; j < _shape[i].Length; j++)
+			{
+				if (_shape[i][j])
+				{
+					ColorRect cell = (ColorRect)CellScene.Instantiate();
+					cell.Position = new Vector2(j * cell.Size.X, i * cell.Size.Y);
+					AddChild(cell);
+					_cells.Add(cell);
+				}
+			}
+		}
 	}
 }
