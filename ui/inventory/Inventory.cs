@@ -13,7 +13,7 @@ public class InventoryCell
 public partial class Inventory : Control
 {
 	[Export]
-	public InventoryItem[] Items { get; set; }
+	public InventoryItem[] Items { get; set; } // TODO setter updates _cells, and updates to _cells updates Items
 
 
 	private static readonly PackedScene CellScene = (PackedScene)GD.Load("res://ui/inventory/items/item_cell.tscn");
@@ -23,7 +23,7 @@ public partial class Inventory : Control
 
 	private ColorRect _panel;
 	private Control _grid;
-	private List<InventoryCell> _cells = new();
+	private readonly List<InventoryCell> _cells = new();
 
 
 	public bool IsEnabled()
@@ -83,6 +83,7 @@ public partial class Inventory : Control
 	/// <returns>If the item was successfully dragged</returns>
 	public bool AttemptItemDrag(InventoryItem item)
 	{
+		// TODO should check if item is in the inventory, not in the list
 		// Checks if it's in list
 		bool inList = false;
 		foreach (var i in Items) if (i == item) inList = true;
@@ -97,29 +98,49 @@ public partial class Inventory : Control
 			foreach (var cell in _cells)
 			{
 				var dist = itemCell.GetGlobalPosition().DistanceTo(cell.Cell.GetGlobalPosition());
-				if (dist < cell.Cell.Size.X / 2)
+				if (dist <= cell.Cell.Size.X / 2)
 				{
 					foundSlot = true;
 					offset = cell.Cell.GetGlobalPosition() - itemCell.GetGlobalPosition();
+					break;
 				}
+				if (foundSlot) break;
 			}
 		}
 		if (!foundSlot) return false;
 
 
-		// Checks if every cell has a slot
+		var desiredCells = new List<InventoryCell>();
+
+		// Checks if every cell has the corresponding slot available
 		foreach (var itemCell in item.Cells)
 		{
 			bool found = false;
 			foreach (var cell in _cells)
 			{
 				var dist = itemCell.GetGlobalPosition().DistanceTo(cell.Cell.GetGlobalPosition());
-				if (dist < cell.Cell.Size.X / 2)
+				if (dist <= cell.Cell.Size.X / 2 && (cell.HeldItem == null || cell.HeldItem == item))
 				{
 					found = true;
+					desiredCells.Add(cell);
 				}
 			}
 			if (!found) return false;
+		}
+
+		// Frees previously occupied cells
+		foreach (var cell in _cells)
+		{
+			if (cell.HeldItem == item)
+			{
+				cell.HeldItem = null;
+			}
+		}
+
+		// Mark cells as occupied
+		foreach (var cell in desiredCells)
+		{
+			cell.HeldItem = item;
 		}
 
 		// Snaps to the new position

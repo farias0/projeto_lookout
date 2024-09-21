@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://db0wegivv1tne"]
+
+[ext_resource type="Texture2D" uid="uid://d3bji7wm2m1yu" path="res://ui/inventory/items/stamina_potion/icon.png" id="1_erwih"]
+[ext_resource type="Script" path="res://ui/inventory/items/InventoryItem.cs" id="2_a2wis"]
+
+[node name="StaminaPotion" type="TextureButton"]
+offset_right = 120.0
+offset_bottom = 120.0
+texture_normal = ExtResource("1_erwih")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("2_a2wis")
+ShapeString = "XO
+XX"

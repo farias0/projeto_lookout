@@ -67,7 +67,14 @@ ________________________
 	- dropar itens p/ o mundo
 
 
-- inventário tetris								<<<<<<<					
+- inventário
+	- fazer posicionamento inicial dos itens no inventário			<<<<<<<<<<
+		- algoritmo que procura slots vazios
+		- mudar checagem inicial do AttemptItemDrag() 
+	- consertar rotação dos itens						<<<<<<<<<<
+	- aceitar mudanças no inventário via inspetor em tempo de execução
+	- não poder arrastar múltiplos itens de uma vez
+	- mostrar melhor na grade quais células pertencem a quais itens			
 
 
 - poção de velocidade
