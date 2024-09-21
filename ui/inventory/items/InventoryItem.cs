@@ -145,8 +145,8 @@ public partial class InventoryItem : TextureButton
 
 		foreach (var line in lines)
 		{
-			if (line.Length != lines.Length)
-				throw new ArgumentException("Non square Item Shape String.");
+			if (line.Length != lines[0].Length)
+				throw new ArgumentException("Non regular Item Shape String.");
 		}
 
 		_shape = new bool[lines.Length][];

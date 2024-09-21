@@ -2,6 +2,7 @@ using Godot;
 using System;
 using projeto_lookout.libs;
 using System.Collections.Generic;
+using System.Linq;
 
 public class InventoryCell
 {
@@ -13,7 +14,10 @@ public class InventoryCell
 public partial class Inventory : Control
 {
 	[Export]
-	public InventoryItem[] Items { get; set; } // TODO setter updates _cells, and updates to _cells updates Items
+	public InventoryItem[] Items { 
+		get => GetItems();
+		set => SetItems(value); 
+	}
 
 
 	private static readonly PackedScene CellScene = (PackedScene)GD.Load("res://ui/inventory/items/item_cell.tscn");
@@ -24,6 +28,11 @@ public partial class Inventory : Control
 	private ColorRect _panel;
 	private Control _grid;
 	private readonly List<InventoryCell> _cells = new();
+
+
+	// Workaround for the setting the cells after they're created
+	private InventoryItem[] _delayedInitializationItems = null;
+
 
 
 	public bool IsEnabled()
@@ -51,7 +60,14 @@ public partial class Inventory : Control
 		_grid = _panel.GetNode<Control>("Grid");
 
 
-		PopulateCells();
+		CreateCells();
+
+
+		if (_delayedInitializationItems != null)
+		{
+			SetItems(_delayedInitializationItems);
+			_delayedInitializationItems = null;
+		}
 
 
 		Disable();
@@ -149,7 +165,7 @@ public partial class Inventory : Control
 		return true;
 	}
 
-	private void PopulateCells()
+	private void CreateCells()
 	{
 		for (int i = 0; i < Rows; i++)
 		{
@@ -164,6 +180,49 @@ public partial class Inventory : Control
 					HeldItem = null
 				});
 			}
+		}
+	}
+
+	private InventoryItem[] GetItems()
+	{
+		if (_delayedInitializationItems != null)
+			return _delayedInitializationItems;
+		else
+			return _cells.Select(cell => cell.HeldItem).ToArray();
+	}
+
+	private void SetItems(InventoryItem[] items)
+	{
+		if (!IsNodeReady())
+		{
+			_delayedInitializationItems = items;
+			return;
+		}
+
+
+		foreach (var item in items)
+		{
+			var success = false;
+
+			// Find an emtpy cell
+			foreach (var cell in _cells)
+			{
+				if (cell.HeldItem != null) continue;
+
+				// Attempt drag
+				var pos = item.GlobalPosition;
+				item.Position = cell.Cell.GetGlobalPosition();
+				
+				if (AttemptItemDrag(item)) // TODO AttemptItemDrag is for mouse! Fix this hack
+				{
+					success = true;
+					break;
+				}
+				else item.Position = pos; // Fail
+			}
+
+			if (!success)
+				throw new InvalidOperationException($"Could not add item {item.Name} to the inventory.");
 		}
 	}
 }
