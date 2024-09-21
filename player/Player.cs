@@ -156,17 +156,14 @@ public partial class Player : CharacterBody3D
 
 			var direction = Vector3.Zero;
 
-			if (IsInputEnabled())
-			{
-				if (Input.IsActionPressed("move_right"))
-					direction.X += 1.0f;
-				if (Input.IsActionPressed("move_left"))
-					direction.X -= 1.0f;
-				if (Input.IsActionPressed("move_up"))
-					direction.Z -= 1.0f;
-				if (Input.IsActionPressed("move_down"))
-					direction.Z += 1.0f;
-			}
+			if (Input.IsActionPressed("move_right"))
+				direction.X += 1.0f;
+			if (Input.IsActionPressed("move_left"))
+				direction.X -= 1.0f;
+			if (Input.IsActionPressed("move_up"))
+				direction.Z -= 1.0f;
+			if (Input.IsActionPressed("move_down"))
+				direction.Z += 1.0f;
 
 			if (direction != Vector3.Zero)
 			{
@@ -211,10 +208,7 @@ public partial class Player : CharacterBody3D
 
 	public override void _Input(InputEvent e)
 	{
-		if (!IsInputEnabled()) return;
-
-
-		if (e is InputEventMouseMotion eventMouseMotion)
+		if (e is InputEventMouseMotion eventMouseMotion && IsMouseInputEnabled())
 		{
 			Vector2 move = eventMouseMotion.ScreenRelative;
 			// Rotates the player left and right
@@ -223,19 +217,22 @@ public partial class Player : CharacterBody3D
 
 		if (e.IsActionPressed("crouch_toggle"))		ToggleCrouch();
 		if (e.IsActionPressed("jump"))				Jump();
-		if (e.IsActionPressed("fire"))				PullArrowBack(ArrowType.Normal);
-		else if (e.IsActionReleased("fire"))		FireArrow();
-		if (e.IsActionPressed("fire_2"))			PullArrowBack(ArrowType.Hook);
-		else if (e.IsActionReleased("fire_2"))		FireArrow();
 		if (e.IsActionPressed("item_1"))			UseHealthPotion();
 		if (e.IsActionPressed("item_2"))			UseStaminaPotion();
 		if (e.IsActionPressed("interact"))			Interact();
+		if (IsMouseInputEnabled())
+		{
+			if (e.IsActionPressed("fire")) PullArrowBack(ArrowType.Normal);
+			else if (e.IsActionReleased("fire")) FireArrow();
+			if (e.IsActionPressed("fire_2")) PullArrowBack(ArrowType.Hook);
+			else if (e.IsActionReleased("fire_2")) FireArrow();
+		}
 
 		// Debug
 		if (e.IsActionPressed("toggle_stamina"))	ToggleStamina();
 	}
 
-	public static bool IsInputEnabled()
+	public static bool IsMouseInputEnabled()
 	{
 		return !Resources.Instance.Inventory.IsEnabled();
 	}

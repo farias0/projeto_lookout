@@ -71,6 +71,7 @@ ________________________
 	- consertar rotação dos itens						<<<<<<<<<<
 	- clique ser baseado na célula, e não no ícone
 		- criar hook em que a célula passa informações do arraste pro item
+	- centralizar ícone
 	- mostrar melhor na grade quais células pertencem a quais itens		
 
 
