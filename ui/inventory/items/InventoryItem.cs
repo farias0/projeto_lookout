@@ -33,7 +33,7 @@ public partial class InventoryItem : TextureButton
 	private bool[][] _shape;
 	private bool _isDragging = false;
 	private Vector2 _dragOffset;
-	private List<ColorRect> _cells = new();
+	private List<TextureRect> _cells = new();
 
 
 	public override void _Ready()
@@ -43,6 +43,8 @@ public partial class InventoryItem : TextureButton
 
 	public override void _Input(InputEvent @event)
 	{
+		if (!Resources.Instance.Inventory.IsEnabled()) return;
+
 		if (@event is InputEventMouseButton mouseEvent)
 		{
 			OnClick(mouseEvent);
@@ -67,6 +69,9 @@ public partial class InventoryItem : TextureButton
 
 	private void OnClick(InputEventMouseButton mouseEvent)
 	{
+		if (!Resources.Instance.Inventory.IsEnabled()) return;
+
+
 		if (mouseEvent.ButtonIndex == MouseButton.Left)
 		{
 			if (mouseEvent.Pressed)
@@ -170,7 +175,7 @@ public partial class InventoryItem : TextureButton
 			{
 				if (_shape[i][j])
 				{
-					ColorRect cell = (ColorRect)CellScene.Instantiate();
+					TextureRect cell = (TextureRect)CellScene.Instantiate();
 					cell.Position = new Vector2(j * cell.Size.X, i * cell.Size.Y);
 					AddChild(cell);
 					_cells.Add(cell);

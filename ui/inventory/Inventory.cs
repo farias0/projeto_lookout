@@ -2,13 +2,19 @@ using Godot;
 using System;
 using projeto_lookout.libs;
 
-public partial class Inventory : CanvasLayer
+public partial class Inventory : Control
 {
 	[Export]
 	public InventoryItem[] Items { get; set; }
 
 
-	private ColorRect _bg;
+	private static readonly PackedScene CellScene = (PackedScene)GD.Load("res://ui/inventory/items/item_cell.tscn");
+	private const int Rows = 5;
+	private const int Columns = 7;
+
+
+	private ColorRect _panel;
+	private Control _grid;
 
 
 	public bool IsEnabled()
@@ -32,10 +38,11 @@ public partial class Inventory : CanvasLayer
 	{
 		Resources.Instance.Inventory = this;
 
-		_bg = GetNode<ColorRect>("BG");
+		_panel = GetNode<ColorRect>("Panel");
+		_grid = _panel.GetNode<Control>("Grid");
 
 
-		// TODO correctly position items
+		PopulateCells();
 
 
 		Disable();
@@ -57,5 +64,18 @@ public partial class Inventory : CanvasLayer
 	{
 		if (IsEnabled()) Disable();
 		else Enable();
+	}
+
+	private void PopulateCells()
+	{
+		for (int i = 0; i < Rows; i++)
+		{
+			for (int j = 0; j < Columns; j++)
+			{
+				TextureRect cell = (TextureRect)CellScene.Instantiate();
+				cell.Position = new Vector2(j * cell.Size.X, i * cell.Size.Y);
+				_grid.AddChild(cell);
+			}
+		}
 	}
 }

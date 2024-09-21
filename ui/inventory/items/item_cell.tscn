@@ -1,7 +1,9 @@
-[gd_scene format=3 uid="uid://bopss048dosja"]
+[gd_scene load_steps=2 format=3 uid="uid://bopss048dosja"]
 
-[node name="ColorRect" type="ColorRect"]
+[ext_resource type="Texture2D" uid="uid://b8s2ifdc3p5v7" path="res://ui/inventory/items/item_cell_bg.png" id="1_i08rj"]
+
+[node name="ItemCell" type="TextureRect"]
 show_behind_parent = true
 offset_right = 60.0
 offset_bottom = 60.0
-color = Color(0.783523, 0.783523, 0.783523, 1)
+texture = ExtResource("1_i08rj")
