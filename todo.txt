@@ -68,9 +68,8 @@ ________________________
 
 
 - inventário
-	- consertar rotação dos itens						<<<<<<<<<<
-	- clique ser baseado na célula, e não no ícone
-		- criar hook em que a célula passa informações do arraste pro item
+	- Excluir classe InventoryCell e usar só um ItemCell no lugar
+	- consertar rotação dos itens							<<<<<<<<<<
 	- centralizar ícone
 	- mostrar melhor na grade quais células pertencem a quais itens		
 

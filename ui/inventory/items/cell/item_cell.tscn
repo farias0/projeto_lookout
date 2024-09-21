@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bopss048dosja"]
+
+[ext_resource type="Texture2D" uid="uid://b8s2ifdc3p5v7" path="res://ui/inventory/items/cell/item_cell_bg.png" id="1_i08rj"]
+[ext_resource type="Script" path="res://ui/inventory/items/cell/ItemCell.cs" id="2_wpsit"]
+
+[node name="ItemCell" type="TextureButton"]
+show_behind_parent = true
+offset_right = 60.0
+offset_bottom = 60.0
+texture_normal = ExtResource("1_i08rj")
+script = ExtResource("2_wpsit")

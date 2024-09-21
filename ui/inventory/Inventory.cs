@@ -6,7 +6,7 @@ using System.Linq;
 
 public class InventoryCell
 {
-	public TextureRect Cell { get; set; }
+	public ItemCell Cell { get; set; }
 	public InventoryItem HeldItem { get; set; }
 
 }
@@ -20,7 +20,7 @@ public partial class Inventory : Control
 	}
 
 
-	private static readonly PackedScene CellScene = (PackedScene)GD.Load("res://ui/inventory/items/item_cell.tscn");
+	private static readonly PackedScene CellScene = (PackedScene)GD.Load("res://ui/inventory/items/cell/item_cell.tscn");
 	private const int Rows = 5;
 	private const int Columns = 7;
 
@@ -171,7 +171,8 @@ public partial class Inventory : Control
 		{
 			for (int j = 0; j < Columns; j++)
 			{
-				TextureRect cell = (TextureRect)CellScene.Instantiate();
+				ItemCell cell = (ItemCell)CellScene.Instantiate();
+				cell.Type = CellType.InventoryCell;
 				cell.Position = new Vector2(j * cell.Size.X, i * cell.Size.Y);
 				_grid.AddChild(cell);
 				_cells.Add(new InventoryCell()

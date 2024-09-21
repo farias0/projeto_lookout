@@ -3,6 +3,7 @@ using System;
 using projeto_lookout.libs;
 using System.Collections.Generic;
 
+
 public partial class InventoryItem : TextureButton
 {
 	/*
@@ -26,10 +27,10 @@ public partial class InventoryItem : TextureButton
 	}
 
 	
-	private static readonly PackedScene CellScene = (PackedScene)GD.Load("res://ui/inventory/items/item_cell.tscn");
+	private static readonly PackedScene CellScene = (PackedScene)GD.Load("res://ui/inventory/items/cell/item_cell.tscn");
 
 
-	public List<TextureRect> Cells = new();
+	public List<ItemCell> Cells = new();
 
 
 	private string _shapeString;
@@ -44,20 +45,10 @@ public partial class InventoryItem : TextureButton
 		PivotOffset = Size / 2;
 	}
 
-	public override void _Input(InputEvent @event)
-	{
-		if (!Resources.Instance.Inventory.IsEnabled()) return;
-
-		if (@event is InputEventMouseButton mouseEvent)
-		{
-			OnClick(mouseEvent);
-		}
-		else if (@event is InputEventMouseMotion motionEvent && _isDragging)
-		{
-			// Update the position while dragging
-			Position = motionEvent.Position + _dragOffset;
-		}
-	}
+	//public override void _Input(InputEvent @event)
+	//{
+	//	if (!Resources.Instance.Inventory.IsEnabled()) return;	
+	//}
 
 	public override void _GuiInput(InputEvent @event)
 	{
@@ -70,22 +61,23 @@ public partial class InventoryItem : TextureButton
 		}
 	}
 
-	private void OnClick(InputEventMouseButton mouseEvent)
+	public void OnMove(InputEventMouseMotion motionEvent)
+	{
+		if (!_isDragging) return;
+		Position = motionEvent.Position + _dragOffset;
+	}
+
+	public void OnClick(InputEventMouseButton mouseEvent)
 	{
 		var inventory = Resources.Instance.Inventory;
-		if (!inventory.IsEnabled()) return;
-
 
 		if (mouseEvent.ButtonIndex == MouseButton.Left)
 		{
 			if (mouseEvent.Pressed)
 			{
-				if (GetRotatedRect().HasPoint(mouseEvent.Position))
-				{
-					_isDragging = true;
-					_preDragPosition = Position;
-					_dragOffset = Position - mouseEvent.Position;
-				}
+				_isDragging = true;
+				_preDragPosition = Position;
+				_dragOffset = Position - mouseEvent.Position;
 			}
 			else // Released mouse button
 			{
@@ -98,9 +90,6 @@ public partial class InventoryItem : TextureButton
 		}
 		else if (mouseEvent.ButtonIndex == MouseButton.Right)
 		{
-			
-			//					TODO only rotate inside button's area
-			
 			if (mouseEvent.Pressed)
 			{
 				RotateShape();
@@ -113,30 +102,6 @@ public partial class InventoryItem : TextureButton
 		RotationDegrees += 90;
 		if (RotationDegrees == 360)
 			RotationDegrees = 0;
-	}
-
-	/// <summary>
-	/// Like GetRect(), but compensates for the rotation of the item.
-	/// Presumes the rotations are always at 90 degree intervals.
-	/// </summary>
-	private Rect2 GetRotatedRect()
-	{
-		Rect2 rect = new(){
-			Position = GlobalPosition
-		};
-
-		if (RotationDegrees == 0 || RotationDegrees == 180) {
-			rect.Size = Size * Scale;
-		}
-		else if (RotationDegrees == 90 || RotationDegrees == 270)
-		{
-			rect.Size = new Vector2(Size.Y, Size.X) * Scale;
-		}
-		else
-			throw new InvalidOperationException($"Invalid rotation {RotationDegrees}.");
-
-		Debug.Log($"{Name} rect: {rect}");
-		return rect;
 	}
 
 	private void UpdateShape(string shapeString)
@@ -182,7 +147,9 @@ public partial class InventoryItem : TextureButton
 			{
 				if (_shape[i][j])
 				{
-					TextureRect cell = (TextureRect)CellScene.Instantiate();
+					ItemCell cell = (ItemCell)CellScene.Instantiate();
+					cell.Type = CellType.ItemCell;
+					cell.Item = this;
 					cell.Position = new Vector2(j * cell.Size.X, i * cell.Size.Y);
 					AddChild(cell);
 					Cells.Add(cell);
