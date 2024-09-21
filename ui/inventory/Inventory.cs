@@ -3,6 +3,13 @@ using System;
 using projeto_lookout.libs;
 using System.Collections.Generic;
 
+public class InventoryCell
+{
+	public TextureRect Cell { get; set; }
+	public InventoryItem HeldItem { get; set; }
+
+}
+
 public partial class Inventory : Control
 {
 	[Export]
@@ -16,7 +23,7 @@ public partial class Inventory : Control
 
 	private ColorRect _panel;
 	private Control _grid;
-	private List<TextureRect> _cells = new();
+	private List<InventoryCell> _cells = new();
 
 
 	public bool IsEnabled()
@@ -89,16 +96,31 @@ public partial class Inventory : Control
 		{
 			foreach (var cell in _cells)
 			{
-				var dist = itemCell.GetGlobalPosition().DistanceTo(cell.GetGlobalPosition());
-				if (dist < cell.Size.X/2)
+				var dist = itemCell.GetGlobalPosition().DistanceTo(cell.Cell.GetGlobalPosition());
+				if (dist < cell.Cell.Size.X / 2)
 				{
 					foundSlot = true;
-					offset = cell.GetGlobalPosition() - itemCell.GetGlobalPosition();
+					offset = cell.Cell.GetGlobalPosition() - itemCell.GetGlobalPosition();
 				}
 			}
 		}
 		if (!foundSlot) return false;
 
+
+		// Checks if every cell has a slot
+		foreach (var itemCell in item.Cells)
+		{
+			bool found = false;
+			foreach (var cell in _cells)
+			{
+				var dist = itemCell.GetGlobalPosition().DistanceTo(cell.Cell.GetGlobalPosition());
+				if (dist < cell.Cell.Size.X / 2)
+				{
+					found = true;
+				}
+			}
+			if (!found) return false;
+		}
 
 		// Snaps to the new position
 		item.Position += offset;
@@ -115,7 +137,11 @@ public partial class Inventory : Control
 				TextureRect cell = (TextureRect)CellScene.Instantiate();
 				cell.Position = new Vector2(j * cell.Size.X, i * cell.Size.Y);
 				_grid.AddChild(cell);
-				_cells.Add(cell);
+				_cells.Add(new InventoryCell()
+				{
+					Cell = cell,
+					HeldItem = null
+				});
 			}
 		}
 	}

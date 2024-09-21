@@ -61,7 +61,11 @@ ________________________
 
 === ITENS
 
-- sistema de itens								<<<<<<<
+- sistema de itens		
+	- itens pegos aparecerem no inventário
+		- como fazer quando o inventário tá cheio?						
+	- dropar itens p/ o mundo
+
 
 - inventário tetris								<<<<<<<					
 
