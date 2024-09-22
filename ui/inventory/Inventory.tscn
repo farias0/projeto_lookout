@@ -4,11 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://b2x8y388x5rey" path="res://ui/inventory/items/health_potion/health_potion.tscn" id="2_kklph"]
 [ext_resource type="PackedScene" uid="uid://db0wegivv1tne" path="res://ui/inventory/items/stamina_potion/stamina_potion.tscn" id="3_brm2b"]
 
-[node name="Control" type="Control" node_paths=PackedStringArray("Items")]
+[node name="Control" type="Control" node_paths=PackedStringArray("HeldItems")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_wxy2m")
-Items = [NodePath("HealthPotion"), NodePath("StaminaPotion")]
+HeldItems = [NodePath("HealthPotion"), NodePath("StaminaPotion")]
 
 [node name="Panel" type="ColorRect" parent="."]
 layout_mode = 0

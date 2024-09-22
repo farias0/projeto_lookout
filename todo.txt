@@ -68,10 +68,11 @@ ________________________
 
 
 - inventário
-	- Excluir classe InventoryCell e usar só um ItemCell no lugar
 	- consertar rotação dos itens							<<<<<<<<<<
 	- centralizar ícone
 	- mostrar melhor na grade quais células pertencem a quais itens		
+	- permitir a modificação de itens do inventário via Inspector em tempo de execução
+		- Godot quebra por não saber serializar InventoryItems
 
 
 - poção de velocidade
