@@ -28,7 +28,7 @@ public partial class ItemCell : TextureButton
 
 		if (@event is InputEventMouseButton mouseEvent)
 		{
-			if (GetRotatedRect().HasPoint(mouseEvent.Position))
+			if (GetCollisionRect().HasPoint(mouseEvent.Position))
 			{
 				Item.OnClick(mouseEvent);
 			}
@@ -40,34 +40,46 @@ public partial class ItemCell : TextureButton
 	}
 
 	/// <summary>
-	/// This cell's collision rectangle, considering the item's rotation.
+	/// This cell's GlobalPosition, considering the item's rotation.
 	/// Presumes the rotations are always at 90 degree intervals.
 	/// </summary>
-	private Rect2 GetRotatedRect()
+	public Vector2 GetPos()
 	{
 		Vector2 pos = GlobalPosition;
-		var rot = Item.RotationDegrees;
+		
+		if (Item != null)
+		{
+			var rot = Item.RotationDegrees;
 
-		if (rot == 0)
-		{
-			//
+			if (rot == 0)
+			{
+				//
+			}
+			else if (rot == 90)
+			{
+				pos.X -= Size.Y * Scale.Y;
+			}
+			else if (rot == 180)
+			{
+				pos.X -= Size.X * Scale.X;
+				pos.Y -= Size.Y * Scale.Y;
+			}
+			else if (rot == 270)
+			{
+				pos.Y -= Size.Y * Scale.Y;
+			}
+			else
+				throw new InvalidOperationException($"Invalid Item rotation {rot}.");
 		}
-		else if (rot == 90)
-		{
-			pos.X -= Size.Y * Scale.Y;
-		}
-		else if (rot == 180)
-		{
-			pos.X -= Size.X * Scale.X;
-			pos.Y -= Size.Y * Scale.Y;
-		}
-		else if (rot == 270)
-		{
-			pos.Y -= Size.Y * Scale.Y;
-		}
-		else
-			throw new InvalidOperationException($"Invalid rotation {rot}.");
 
-		return new Rect2(pos, Size * Scale);
+		return pos;
+	}
+
+	/// <summary>
+	/// This cell's collision rectangle
+	/// </summary>
+	public Rect2 GetCollisionRect()
+	{
+		return new Rect2(GetPos(), Size * Scale);
 	}
 }

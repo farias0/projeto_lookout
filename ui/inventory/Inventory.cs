@@ -203,11 +203,11 @@ public partial class Inventory : Control
 		{
 			foreach (var gridCell in _cells)
 			{
-				var dist = itemCell.GetGlobalPosition().DistanceTo(gridCell.GetGlobalPosition());
+				var dist = itemCell.GetPos().DistanceTo(gridCell.GetPos());
 				if (dist <= gridCell.Size.X / 2)
 				{
 					foundSlot = true;
-					offset = gridCell.GetGlobalPosition() - itemCell.GetGlobalPosition();
+					offset = gridCell.GetPos() - itemCell.GetPos();
 					break;
 				}
 				if (foundSlot) break;
@@ -222,13 +222,14 @@ public partial class Inventory : Control
 		foreach (var itemCell in item.Cells)
 		{
 			bool found = false;
-			foreach (var cell in _cells)
+			foreach (var gridCell in _cells)
 			{
-				var dist = itemCell.GetGlobalPosition().DistanceTo(cell.GetGlobalPosition());
-				if (dist <= cell.Size.X / 2 && (cell.Item == null || cell.Item == item))
+				var dist = itemCell.GetPos().DistanceTo(gridCell.GetPos());
+				if (dist <= gridCell.Size.X / 2 && (gridCell.Item == null || gridCell.Item == item))
 				{
 					found = true;
-					desiredCells.Add(cell);
+					desiredCells.Add(gridCell);
+					break;
 				}
 			}
 			if (!found) return false;
