@@ -1,14 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://c3f7mmxb4bc1p"]
+[gd_scene load_steps=3 format=3 uid="uid://c3f7mmxb4bc1p"]
 
 [ext_resource type="Script" path="res://ui/inventory/Inventory.cs" id="1_wxy2m"]
-[ext_resource type="PackedScene" uid="uid://b2x8y388x5rey" path="res://ui/inventory/items/health_potion/health_potion.tscn" id="2_kklph"]
 [ext_resource type="PackedScene" uid="uid://db0wegivv1tne" path="res://ui/inventory/items/stamina_potion/stamina_potion.tscn" id="3_brm2b"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("HeldItems")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_wxy2m")
-HeldItems = [NodePath("HealthPotion"), NodePath("StaminaPotion")]
+HeldItems = [NodePath("StaminaPotion")]
 
 [node name="Panel" type="ColorRect" parent="."]
 layout_mode = 0
@@ -25,13 +24,6 @@ offset_left = 440.0
 offset_top = 53.0
 offset_right = 860.0
 offset_bottom = 353.0
-
-[node name="HealthPotion" parent="." instance=ExtResource("2_kklph")]
-layout_mode = 0
-offset_left = 150.0
-offset_top = 100.0
-offset_right = 270.0
-offset_bottom = 220.0
 
 [node name="StaminaPotion" parent="." instance=ExtResource("3_brm2b")]
 layout_mode = 0

@@ -92,6 +92,9 @@ Sons de:
 - caindo
 - dinheiro sendo sacado				<<<<<
 	- som de caixa registadora?
+- inventário						<<<<<
+	- selecionar item
+	- mover item
 
 Substituir sons:
 - npc						<<<<<

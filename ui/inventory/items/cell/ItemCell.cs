@@ -40,30 +40,34 @@ public partial class ItemCell : TextureButton
 	}
 
 	/// <summary>
-	/// Like GetRect(), but compensates for the rotation of the item.
+	/// This cell's collision rectangle, considering the item's rotation.
 	/// Presumes the rotations are always at 90 degree intervals.
 	/// </summary>
 	private Rect2 GetRotatedRect()
 	{
-		Rect2 rect = new()
-		{
-			Position = GlobalPosition
-		};
-		var rot = Item.RotationDegrees; // Attention: Uses the Item rotation
+		Vector2 pos = GlobalPosition;
+		var rot = Item.RotationDegrees;
 
-
-		if (rot == 0 || rot == 180)
+		if (rot == 0)
 		{
-			rect.Size = Size * Scale;
+			//
 		}
-		else if (rot == 90 || rot == 270)
+		else if (rot == 90)
 		{
-			rect.Size = new Vector2(Size.Y, Size.X) * Scale;
+			pos.X -= Size.Y * Scale.Y;
+		}
+		else if (rot == 180)
+		{
+			pos.X -= Size.X * Scale.X;
+			pos.Y -= Size.Y * Scale.Y;
+		}
+		else if (rot == 270)
+		{
+			pos.Y -= Size.Y * Scale.Y;
 		}
 		else
 			throw new InvalidOperationException($"Invalid rotation {rot}.");
 
-		Debug.Log($"{Name} rect: {rect}");
-		return rect;
+		return new Rect2(pos, Size * Scale);
 	}
 }
