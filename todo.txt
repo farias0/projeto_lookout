@@ -61,14 +61,14 @@ ________________________
 
 === ITENS
 
-- sistema de itens		
+- sistema de itens												<<<<<<<
 	- itens pegos aparecerem no inventário
 		- como fazer quando o inventário tá cheio?						
 	- dropar itens p/ o mundo
 
 
 - inventário
-	- consertar rotação dos itens							<<<<<<<<<<
+	- consertar colisão errada de cells envolvendo itens rotacionados					<<<<<<<<<<
 	- centralizar ícone
 	- mostrar melhor na grade quais células pertencem a quais itens		
 	- permitir a modificação de itens do inventário via Inspector em tempo de execução

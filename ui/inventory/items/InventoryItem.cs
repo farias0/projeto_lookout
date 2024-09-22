@@ -37,6 +37,7 @@ public partial class InventoryItem : TextureButton
 	private bool[][] _shape;
 	private bool _isDragging = false;
 	private Vector2 _preDragPosition;
+	private float _preDragRotation;
 	private Vector2 _dragOffset;
 
 
@@ -77,6 +78,7 @@ public partial class InventoryItem : TextureButton
 			{
 				_isDragging = true;
 				_preDragPosition = Position;
+				_preDragRotation = RotationDegrees;
 				_dragOffset = Position - mouseEvent.Position;
 			}
 			else // Released mouse button
@@ -85,12 +87,13 @@ public partial class InventoryItem : TextureButton
 				if (!inventory.AttemptItemDrag(this))
 				{
 					Position = _preDragPosition;
+					RotationDegrees = _preDragRotation;
 				}
 			}
 		}
 		else if (mouseEvent.ButtonIndex == MouseButton.Right)
 		{
-			if (mouseEvent.Pressed)
+			if (mouseEvent.Pressed && _isDragging)
 			{
 				RotateShape();
 			}
