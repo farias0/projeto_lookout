@@ -123,7 +123,7 @@ public partial class InventoryItem : TextureButton
 	{
 		RotationDegrees += 90;
 		if (RotationDegrees == 450) // Including 360 degrees allows us to detect a full rotation
-			RotationDegrees = 0;
+			RotationDegrees = 90;
 
 
 		var cellSize = Cells[0].GetSize();
@@ -146,7 +146,7 @@ public partial class InventoryItem : TextureButton
 			throw new InvalidOperationException("Could not find cell to rotate around.");
 
 
-			return RotationDegrees switch
+		return RotationDegrees switch
 		{
 			0 => new Vector2(0, 0),
 			90 => new Vector2((x + y - 1) * cellSize.X, (x - y) * cellSize.X),
