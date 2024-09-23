@@ -2,6 +2,7 @@ using Godot;
 using System;
 using projeto_lookout.libs;
 using System.Collections.Generic;
+using System.Linq;
 
 
 public partial class InventoryItem : TextureButton
@@ -26,15 +27,18 @@ public partial class InventoryItem : TextureButton
 		set => UpdateShape(value);
 	}
 
-	
+
+	public List<ItemCell> Cells
+	{
+		get => GetCells();
+	}
+
+
 	private static readonly PackedScene CellScene = (PackedScene)GD.Load("res://ui/inventory/items/cell/item_cell.tscn");
 
 
-	public List<ItemCell> Cells = new();
-
-
 	private string _shapeString;
-	private bool[][] _shape;
+	private ItemCell[][] _cells = Array.Empty<ItemCell[]>();
 	private bool _isDragging = false;
 	private Vector2 _preDragPosition;
 	private float _preDragRotation;
@@ -68,48 +72,102 @@ public partial class InventoryItem : TextureButton
 		Position = motionEvent.Position + _dragOffset;
 	}
 
-	public void OnClick(InputEventMouseButton mouseEvent)
+	public void OnClick(ItemCell clickedCell, InputEventMouseButton mouseEvent)
 	{
-		var inventory = Resources.Instance.Inventory;
-
 		if (mouseEvent.ButtonIndex == MouseButton.Left)
 		{
 			if (mouseEvent.Pressed)
 			{
-				_isDragging = true;
-				_preDragPosition = Position;
-				_preDragRotation = RotationDegrees;
-				_dragOffset = Position - mouseEvent.Position;
+				BeginDragging(mouseEvent.GlobalPosition);
 			}
 			else // Released mouse button
 			{
-				_isDragging = false;
-				if (!inventory.AttemptItemDrag(this))
-				{
-					Position = _preDragPosition;
-					RotationDegrees = _preDragRotation;
-				}
+				FinishDragging();
 			}
 		}
 		else if (mouseEvent.ButtonIndex == MouseButton.Right)
 		{
 			if (mouseEvent.Pressed && _isDragging)
 			{
-				RotateShape();
+				_dragOffset += RotateAroundCell(clickedCell);
+				Position = mouseEvent.GlobalPosition + _dragOffset;
 			}
 		}
 	}
 
-	private void RotateShape()
+	private void BeginDragging(Vector2 fromPosition)
+	{
+		_isDragging = true;
+		_preDragPosition = Position;
+		_preDragRotation = RotationDegrees;
+		_dragOffset = Position - fromPosition;
+	}
+
+	private void FinishDragging()
+	{
+		var inventory = Resources.Instance.Inventory;
+
+		_isDragging = false;
+		if (!inventory.AttemptItemDrag(this))
+		{
+			Position = _preDragPosition;
+			RotationDegrees = _preDragRotation;
+		}
+	}
+
+	/// <summary>
+	/// Rotates the item 90 degrees clockwise.
+	/// Also returns the 2D offset so to apply so it rotates around the given cell.
+	/// </summary>
+	private Vector2 RotateAroundCell(ItemCell cell) // TODO break this function down
 	{
 		RotationDegrees += 90;
-		if (RotationDegrees == 360)
+		if (RotationDegrees == 450) // Including 360 degrees allows us to detect a full rotation
 			RotationDegrees = 0;
+
+
+		var cellSize = Cells[0].GetSize();
+
+		int x = 0, y = 0;
+		bool foundCell = false;
+		for (x = 0; x < _cells.Length; x++)
+		{
+			for (y = 0; y < _cells[x].Length; y++)
+			{
+				if (_cells[x][y] == cell)
+				{
+					foundCell = true;
+					break;
+				}
+			}
+			if (foundCell) break;
+		}
+		if (!foundCell)
+			throw new InvalidOperationException("Could not find cell to rotate around.");
+
+
+			return RotationDegrees switch
+		{
+			0 => new Vector2(0, 0),
+			90 => new Vector2((x + y - 1) * cellSize.X, (x - y) * cellSize.X),
+			180 => new Vector2((-x + y) * cellSize.X, (x + y - 1) * cellSize.X),
+			270 => new Vector2((-x - y + 1) * cellSize.X, (-x + y) * cellSize.X),
+			360 => new Vector2((x - y) * cellSize.X, (-x - y + 1) * cellSize.X),
+			_ => throw new InvalidOperationException($"Invalid Item rotation {RotationDegrees}."),
+		};
 	}
+
+	///// <returns>The dimensions of this item's shape (based on its cells).</returns>
+	//private Vector2 ShapeDimensions()
+	//{
+	//	var cellSize = Cells[0].GetSize();
+	//	return new Vector2(_shape[0].Length * cellSize.X, _shape.Length * cellSize.Y);
+	//}
 
 	private void UpdateShape(string shapeString)
 	{
 		string[] lines = shapeString.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+		bool[][] shape;
 
 		foreach (var line in lines)
 		{
@@ -117,45 +175,53 @@ public partial class InventoryItem : TextureButton
 				throw new ArgumentException("Non regular Item Shape String.");
 		}
 
-		_shape = new bool[lines.Length][];
+		shape = new bool[lines.Length][];
 		for (int i = 0; i < lines.Length; i++)
 		{
 			string line = lines[i];
 
-			_shape[i] = new bool[line.Length];
+			shape[i] = new bool[line.Length];
 			for (int j = 0; j < line.Length; j++)
 			{
 				if (line[j] != 'X' && line[j] != 'O')
 					throw new ArgumentException($"Invalid character in Item Shape String. Char: {line[j]}, line: {j}.");
 
-				_shape[i][j] = line[j] == 'X';
+				shape[i][j] = line[j] == 'X';
 			}
 		}
 
 		_shapeString = shapeString;
-		UpdateCells();
+		UpdateCells(shape);
 	}
 
-	private void UpdateCells()
+	private List<ItemCell> GetCells()
 	{
-		foreach (var cell in Cells)
+		return _cells.SelectMany(_cellLine => _cellLine).Where(cell => cell != null).ToList();
+	}
+
+	private void UpdateCells(bool[][] shape)
+	{
+		foreach (var cell in GetCells())
 		{
 			cell.QueueFree();
 		}
-		Cells.Clear();
 
-		for (int i = 0; i < _shape.Length; i++)
+		_cells = new ItemCell[shape.Length][];
+
+		for (int i = 0; i < shape.Length; i++)
 		{
-			for (int j = 0; j < _shape[i].Length; j++)
+			_cells[i] = new ItemCell[shape[i].Length];
+
+			for (int j = 0; j < shape[i].Length; j++)
 			{
-				if (_shape[i][j])
+				if (shape[i][j])
 				{
 					ItemCell cell = (ItemCell)CellScene.Instantiate();
 					cell.Type = CellType.ItemCell;
 					cell.Item = this;
 					cell.Position = new Vector2(j * cell.Size.X, i * cell.Size.Y);
 					AddChild(cell);
-					Cells.Add(cell);
+					_cells[i][j] = cell;
 				}
 			}
 		}

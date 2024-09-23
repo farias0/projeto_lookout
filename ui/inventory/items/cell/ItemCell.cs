@@ -25,17 +25,26 @@ public partial class ItemCell : TextureButton
 			return;
 		}
 
+		if (@event is InputEventMouseMotion motionEvent)
+		{
+			Item.OnMove(motionEvent);
+		}
+	}
+
+	public override void _GuiInput(InputEvent @event)
+	{
+		if (!Resources.Instance.Inventory.IsEnabled()) return;
+
+		if (Type == CellType.InventoryCell)
+		{
+			// Inventory cells don't have any interactivity
+			return;
+		}
+
 
 		if (@event is InputEventMouseButton mouseEvent)
 		{
-			if (GetCollisionRect().HasPoint(mouseEvent.Position))
-			{
-				Item.OnClick(mouseEvent);
-			}
-		}
-		else if (@event is InputEventMouseMotion motionEvent)
-		{
-			Item.OnMove(motionEvent);
+			Item.OnClick(this, mouseEvent);
 		}
 	}
 
@@ -51,7 +60,7 @@ public partial class ItemCell : TextureButton
 		{
 			var rot = Item.RotationDegrees;
 
-			if (rot == 0)
+			if (rot == 0 || rot == 360)
 			{
 				//
 			}

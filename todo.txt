@@ -46,8 +46,6 @@ ________________________
 
 - gritar p/ outros inimigos ao confirmar vista do jogador			
 
-- navegar pela lista de nós filhos que são Patrol Points ao invés de receber propriedade pelo inspector		<<<<<<<
-
 - em chasing, seguir o jogador reto uma certa distancia depois de perder ele de vista		
 
 - deixar cadáver								<<<<<<<
@@ -69,6 +67,7 @@ ________________________
 
 - inventário
 	- consertar colisão errada de cells envolvendo itens rotacionados					<<<<<<<<<<
+		- será que desenho ta dessincronizado do meu GetRect() personalizado? e o GetRect() que tá errado?
 	- centralizar ícone
 	- mostrar melhor na grade quais células pertencem a quais itens		
 	- permitir a modificação de itens do inventário via Inspector em tempo de execução
