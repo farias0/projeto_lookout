@@ -101,6 +101,7 @@ public partial class InventoryItem : TextureButton
 		_preDragPosition = Position;
 		_preDragRotation = RotationDegrees;
 		_dragOffset = Position - fromPosition;
+		Resources.Instance.Inventory.StartDraggingItem(this);
 	}
 
 	private void FinishDragging()
@@ -112,6 +113,7 @@ public partial class InventoryItem : TextureButton
 		{
 			Position = _preDragPosition;
 			RotationDegrees = _preDragRotation;
+			Resources.Instance.Inventory.CancelDraggingItem(this);
 		}
 	}
 

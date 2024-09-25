@@ -42,6 +42,7 @@ public partial class Inventory : Control
 	private ItemCell[] _cells = Array.Empty<ItemCell>();
 	private ColorRect _panel;
 	private Control _grid;
+	private List<ItemCell> _draggingItemCells = new(); // Keeps trach of which cells are occupied by an item that's being dragged
 
 
 	// Workaround for only adding the items to the grid after the cells are created
@@ -66,6 +67,39 @@ public partial class Inventory : Control
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
 
+	public void StartDraggingItem(InventoryItem item)
+	{
+		if (_draggingItemCells.Count != 0)
+			throw new InvalidOperationException("Cells for a dragging item present");
+
+		_draggingItemCells.Clear();
+
+		foreach (var cell in _cells)
+		{
+			if (cell.Item == item)
+			{
+				cell.Item = null;
+				_draggingItemCells.Add(cell);
+			}
+		}
+
+		if (_draggingItemCells.Count == 0)
+			throw new InvalidOperationException("Couldn't find item in inventory");
+	}
+
+	public void CancelDraggingItem(InventoryItem item)
+	{
+		foreach (var cell in _draggingItemCells)
+		{
+			if (cell.Item != null)
+				throw new InvalidOperationException($"Cell {cell.Name} already occupied");
+
+			cell.Item = item;
+		}
+
+		_draggingItemCells.Clear();
+	}
+
 	public override void _Ready()
 	{
 		Resources.Instance.Inventory = this;
@@ -79,7 +113,7 @@ public partial class Inventory : Control
 
 		if (_delayedInitializationItems != null)
 		{
-			SetHeldItems(_delayedInitializationItems);
+			HeldItems = _delayedInitializationItems;
 			_delayedInitializationItems = null;
 		}
 
@@ -107,7 +141,7 @@ public partial class Inventory : Control
 
 	private void UpdateGridSize()
 	{
-		InventoryItem[] heldItems = GetHeldItems();
+		InventoryItem[] heldItems = HeldItems;
 
 		if (IsNodeReady())
 		{
@@ -115,7 +149,7 @@ public partial class Inventory : Control
 			CreateCells();
 		}
 
-		SetHeldItems(heldItems);
+		HeldItems = heldItems;
 	}
 
 	private void CreateCells()
@@ -225,7 +259,7 @@ public partial class Inventory : Control
 			foreach (var gridCell in _cells)
 			{
 				var dist = itemCell.GetPos().DistanceTo(gridCell.GetPos());
-				if (dist <= gridCell.Size.X / 2 && (gridCell.Item == null || gridCell.Item == item))
+				if (dist <= gridCell.Size.X / 2 && gridCell.Item == null)
 				{
 					found = true;
 					desiredCells.Add(gridCell);
@@ -238,15 +272,7 @@ public partial class Inventory : Control
 
 		//		Move is successfull!!
 
-
-		// Frees previously occupied cells
-		foreach (var cell in _cells)
-		{
-			if (cell.Item == item)
-			{
-				cell.Item = null;
-			}
-		}
+		_draggingItemCells.Clear();
 
 		// Marks new cells as occupied
 		foreach (var cell in desiredCells)

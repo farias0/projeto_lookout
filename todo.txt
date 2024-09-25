@@ -68,12 +68,11 @@ ________________________
 
 
 - inventário
-	- consertar colisão errada de cells envolvendo itens rotacionados					<<<<<<<<<<
-		- girar item gira também células da grade!!!
 	- centralizar ícone
 	- mostrar melhor na grade quais células pertencem a quais itens		
 	- permitir a modificação de itens do inventário via Inspector em tempo de execução
 		- Godot quebra por não saber serializar InventoryItems
+	- bug com rotação que só aparece no contorno de debug das células, e que aparentemente não quebra nada
 
 
 - poção de velocidade
