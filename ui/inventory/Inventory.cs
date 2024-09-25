@@ -33,6 +33,8 @@ public partial class Inventory : Control
 		set => SetHeldItems(value);
 	}
 
+	public static bool DebugCellSquareEnabled { get; private set; } = false;
+
 
 	private static readonly PackedScene CellScene = (PackedScene)GD.Load("res://ui/inventory/items/cell/item_cell.tscn");
 
@@ -125,6 +127,9 @@ public partial class Inventory : Control
 	{
 		if (e.IsActionPressed("toggle_inventory"))
 			ToggleEnabled();
+
+		if (e.IsActionPressed("debug_toggle_cell_squares"))
+			DebugCellSquareEnabled = !DebugCellSquareEnabled;
 
 
 		if (IsEnabled())

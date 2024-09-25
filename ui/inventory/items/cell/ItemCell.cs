@@ -15,6 +15,9 @@ public partial class ItemCell : TextureButton
 	public InventoryItem Item { get; set; }
 
 
+	private Square _debugSquare;
+
+
 	public override void _Input(InputEvent @event)
 	{
 		if (!Resources.Instance.Inventory.IsEnabled()) return;
@@ -27,9 +30,9 @@ public partial class ItemCell : TextureButton
 
 		if (@event is InputEventMouseMotion motionEvent)
 		{
-			Item.OnMove(motionEvent);
+				Item.OnMove(motionEvent);
+			}
 		}
-	}
 
 	public override void _GuiInput(InputEvent @event)
 	{
@@ -48,6 +51,18 @@ public partial class ItemCell : TextureButton
 		}
 	}
 
+	public override void _Process(double a)
+	{
+		// if (Type != CellType.ItemCell) return; 
+
+		if (Inventory.DebugCellSquareEnabled) UpdateDebugSquare();
+		else
+		{
+			_debugSquare?.QueueFree();
+			_debugSquare = null;
+		}
+	}
+
 	/// <summary>
 	/// This cell's GlobalPosition, considering the item's rotation.
 	/// Presumes the rotations are always at 90 degree intervals.
@@ -55,7 +70,7 @@ public partial class ItemCell : TextureButton
 	public Vector2 GetPos()
 	{
 		Vector2 pos = GlobalPosition;
-		
+
 		if (Item != null)
 		{
 			var rot = Item.RotationDegrees;
@@ -90,5 +105,15 @@ public partial class ItemCell : TextureButton
 	public Rect2 GetCollisionRect()
 	{
 		return new Rect2(GetPos(), Size * Scale);
+	}
+
+	private void UpdateDebugSquare()
+	{
+		if (Resources.Instance.Inventory == null || !Resources.Instance.Inventory.IsNodeReady())
+			return;
+
+		_debugSquare ??= new Square();
+		_debugSquare?.QueueFree();
+		_debugSquare.DrawSquare(Resources.Instance.Inventory, GetCollisionRect());
 	}
 }
