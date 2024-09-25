@@ -149,6 +149,11 @@ public partial class Player : CharacterBody3D
 
 			}
 			_slideCountdown -= (float)delta;
+			if (_slideCountdown <= 0)
+			{
+				// Finish sliding
+				SetCrouching(true);
+			}
 		}
 		else
 		{
@@ -374,13 +379,18 @@ public partial class Player : CharacterBody3D
 
 		CancelSlide();
 
-		_isCrouching = !_isCrouching;
+		SetCrouching(!_isCrouching);
 
 		var playerVel = new Vector2(_targetVelocity.X, _targetVelocity.Z);
 		if (_isCrouching && IsOnFloor() && playerVel.Length() > 10)
 		{
 			Slide();
 		}
+	}
+
+	private void SetCrouching(bool isCrouching)
+	{
+		_isCrouching = isCrouching;
 	}
 
 	private void Slide()
@@ -403,6 +413,7 @@ public partial class Player : CharacterBody3D
 		CancelSlide();
 		_targetVelocity.Y = JumpHeight;
 		_audio!.PlayJump();
+		SetCrouching(false);
 	}
 
 	private void UseHealthPotion()

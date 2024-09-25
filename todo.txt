@@ -10,6 +10,8 @@
 
 - enum PlayerState
 
+- emitir som ao pular
+
 - escorregar
 	- aceleração na escorregada
 	- usar contador pro movimento pra só escorregar com impulso		
@@ -67,7 +69,7 @@ ________________________
 
 - inventário
 	- consertar colisão errada de cells envolvendo itens rotacionados					<<<<<<<<<<
-		- será que desenho ta dessincronizado do meu GetRect() personalizado? e o GetRect() que tá errado?
+		- girar item gira também células da grade!!!
 	- centralizar ícone
 	- mostrar melhor na grade quais células pertencem a quais itens		
 	- permitir a modificação de itens do inventário via Inspector em tempo de execução
