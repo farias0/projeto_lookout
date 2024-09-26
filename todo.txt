@@ -10,8 +10,6 @@
 
 - enum PlayerState
 
-- emitir som ao pular
-
 - escorregar
 	- aceleração na escorregada
 	- usar contador pro movimento pra só escorregar com impulso		
@@ -51,7 +49,7 @@ ________________________
 - em chasing, seguir o jogador reto uma certa distancia depois de perder ele de vista		
 
 
-- inimigos entram em alerta ao ver cadáver   				<<<<<<<
+- inimigos entram em alerta ao ver cadáver   						<<<<<<<
 
 - colocar cadáver como ragdoll
 
@@ -105,9 +103,6 @@ Substituir sons:
 	https://docs.godotengine.org/en/stable/tutorials/audio/audio_buses.html
 
 ________________________
-
-
-- organizar nós da cena main em grupos
 
 
 - resetar o estado do mundo inteiro quando o jogador morre		

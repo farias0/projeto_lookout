@@ -145,12 +145,6 @@ theme = ExtResource("9_tiyw8")
 text = "[2]"
 metadata/_edit_use_anchors_ = true
 
-[node name="Stamina" parent="HUD/StaminaPotions" instance=ExtResource("11_0h31j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.9425, -7.59959e-07, 17.5025)
-
-[node name="Stamina2" parent="HUD/StaminaPotions" instance=ExtResource("11_0h31j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5896, 7.25, 45.421)
-
 [node name="Subtitles" type="Control" parent="HUD"]
 layout_mode = 3
 anchors_preset = 0
@@ -197,73 +191,91 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 [node name="Player" parent="NavigationRegion3D" instance=ExtResource("1_5sf8t")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="Wall" parent="NavigationRegion3D" instance=ExtResource("3_7rrpu")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15.2086, 2, 74.5709)
+[node name="SectionEntry" type="Node3D" parent="NavigationRegion3D"]
 
-[node name="Jimmy" parent="NavigationRegion3D" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("16_4g7xt")]
+[node name="Jimmy" parent="NavigationRegion3D/SectionEntry" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("16_4g7xt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.9154, -5.66244e-07, 14.9515)
 PatrolPoints = [NodePath("PatrolPoint"), NodePath("PatrolPoint2"), NodePath("PatrolPoint3"), NodePath("PatrolPoint4")]
 
-[node name="PatrolPoint" parent="NavigationRegion3D/Jimmy" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint" parent="NavigationRegion3D/SectionEntry/Jimmy" instance=ExtResource("6_dr3r0")]
 
-[node name="PatrolPoint2" parent="NavigationRegion3D/Jimmy" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint2" parent="NavigationRegion3D/SectionEntry/Jimmy" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.24068)
 
-[node name="PatrolPoint3" parent="NavigationRegion3D/Jimmy" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint3" parent="NavigationRegion3D/SectionEntry/Jimmy" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.568, 0, -7.24068)
 
-[node name="PatrolPoint4" parent="NavigationRegion3D/Jimmy" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint4" parent="NavigationRegion3D/SectionEntry/Jimmy" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3638, 0, 0)
 
-[node name="Archer1" parent="NavigationRegion3D" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("3_4s0tw")]
+[node name="Chest" parent="NavigationRegion3D/SectionEntry" instance=ExtResource("10_d7yvc")]
+transform = Transform3D(-0.780856, 0, 0.624711, 0, 1, 0, -0.624711, 0, -0.780856, 39.956, 0.21, 5.66626)
+
+[node name="HealthPotion" parent="NavigationRegion3D/SectionEntry" instance=ExtResource("12_iop02")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.3499, -5.66244e-07, 5.20894)
+
+[node name="Stamina" parent="NavigationRegion3D/SectionEntry" instance=ExtResource("11_0h31j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.9425, -7.59959e-07, 17.5025)
+
+[node name="SectionWall" type="Node3D" parent="NavigationRegion3D"]
+
+[node name="Wall" parent="NavigationRegion3D/SectionWall" instance=ExtResource("3_7rrpu")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15.2086, 2, 74.5709)
+
+[node name="Archer1" parent="NavigationRegion3D/SectionWall" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("3_4s0tw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.427, 0, 71.591)
 Type = 1
 PatrolPoints = [NodePath("PatrolPoint"), NodePath("PatrolPoint2"), NodePath("PatrolPoint3"), NodePath("PatrolPoint4")]
 
-[node name="PatrolPoint" parent="NavigationRegion3D/Archer1" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint" parent="NavigationRegion3D/SectionWall/Archer1" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -17)
 
-[node name="PatrolPoint2" parent="NavigationRegion3D/Archer1" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint2" parent="NavigationRegion3D/SectionWall/Archer1" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, -17)
 
-[node name="PatrolPoint3" parent="NavigationRegion3D/Archer1" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint3" parent="NavigationRegion3D/SectionWall/Archer1" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 22)
 
-[node name="PatrolPoint4" parent="NavigationRegion3D/Archer1" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint4" parent="NavigationRegion3D/SectionWall/Archer1" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 22)
 
-[node name="Archer2" parent="NavigationRegion3D" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("3_4s0tw")]
+[node name="Archer2" parent="NavigationRegion3D/SectionWall" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("3_4s0tw")]
 transform = Transform3D(-0.999978, 0, -0.0066497, 0, 1, 0, 0.0066497, 0, -0.999978, 18.937, 0, 74.7131)
 Type = 1
 PatrolPoints = [NodePath("PatrolPoint"), NodePath("PatrolPoint2"), NodePath("PatrolPoint3"), NodePath("PatrolPoint4")]
 
-[node name="PatrolPoint" parent="NavigationRegion3D/Archer2" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint" parent="NavigationRegion3D/SectionWall/Archer2" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -17)
 
-[node name="PatrolPoint2" parent="NavigationRegion3D/Archer2" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint2" parent="NavigationRegion3D/SectionWall/Archer2" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, -17)
 
-[node name="PatrolPoint3" parent="NavigationRegion3D/Archer2" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint3" parent="NavigationRegion3D/SectionWall/Archer2" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 22)
 
-[node name="PatrolPoint4" parent="NavigationRegion3D/Archer2" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint4" parent="NavigationRegion3D/SectionWall/Archer2" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 22)
 
-[node name="Melee2" parent="NavigationRegion3D" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("3_4s0tw")]
+[node name="SectionOverRamp" type="Node3D" parent="NavigationRegion3D"]
+
+[node name="Melee2" parent="NavigationRegion3D/SectionOverRamp" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("3_4s0tw")]
 transform = Transform3D(-0.999978, 0, -0.0066497, 0, 1, 0, 0.0066497, 0, -0.999978, 38.2566, 7.8025, 83.1505)
 PatrolPoints = [NodePath("PatrolPoint"), NodePath("PatrolPoint2"), NodePath("PatrolPoint3"), NodePath("PatrolPoint4")]
 
-[node name="PatrolPoint" parent="NavigationRegion3D/Melee2" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint" parent="NavigationRegion3D/SectionOverRamp/Melee2" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.02293, 0, -13.5525)
 
-[node name="PatrolPoint2" parent="NavigationRegion3D/Melee2" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint2" parent="NavigationRegion3D/SectionOverRamp/Melee2" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.088, 0, -12.41)
 
-[node name="PatrolPoint3" parent="NavigationRegion3D/Melee2" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint3" parent="NavigationRegion3D/SectionOverRamp/Melee2" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.0885, 0, 21.9806)
 
-[node name="PatrolPoint4" parent="NavigationRegion3D/Melee2" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint4" parent="NavigationRegion3D/SectionOverRamp/Melee2" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 22)
+
+[node name="Chest3" parent="NavigationRegion3D/SectionOverRamp" instance=ExtResource("10_d7yvc")]
+transform = Transform3D(0.753942, 0, 0.656941, 0, 1, 0, -0.656941, 0, 0.753942, 41.4797, 8.39116, 91.7144)
 
 [node name="Melee1" parent="NavigationRegion3D" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("3_4s0tw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.9668, 12.355, 71.591)
@@ -281,24 +293,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.223, 0, 10.759)
 [node name="PatrolPoint4" parent="NavigationRegion3D/Melee1" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31616, 0, 11.7383)
 
-[node name="Chest" parent="NavigationRegion3D" instance=ExtResource("10_d7yvc")]
-transform = Transform3D(-0.780856, 0, 0.624711, 0, 1, 0, -0.624711, 0, -0.780856, 39.956, 0.21, 5.66626)
-
-[node name="Chest2" parent="NavigationRegion3D" instance=ExtResource("10_d7yvc")]
-transform = Transform3D(0.623238, 0, -0.782032, 0, 1, 0, 0.782032, 0, 0.623238, -5.37855, 5.14519, 17.0337)
-
-[node name="Chest3" parent="NavigationRegion3D" instance=ExtResource("10_d7yvc")]
-transform = Transform3D(0.753942, 0, 0.656941, 0, 1, 0, -0.656941, 0, 0.753942, 41.4797, 8.39116, 91.7144)
-
-[node name="Chest4" parent="NavigationRegion3D" instance=ExtResource("10_d7yvc")]
-transform = Transform3D(-0.663861, 0, -0.747856, 0, 1, 0, 0.747856, 0, -0.663861, -67.9159, 15.1249, 77.8301)
-
-[node name="HealthPotion" parent="NavigationRegion3D" instance=ExtResource("12_iop02")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.3499, -5.66244e-07, 5.20894)
-
-[node name="HealthPotion2" parent="NavigationRegion3D" instance=ExtResource("12_iop02")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.06706, 14.7615, 91.9473)
-
 [node name="Hound" parent="NavigationRegion3D" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("22_8mn6n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.7846, 14.7555, 97.3225)
 PatrolPoints = [NodePath("PatrolPoint"), NodePath("PatrolPoint2"), NodePath("PatrolPoint3"), NodePath("PatrolPoint4")]
@@ -314,3 +308,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 8.35185e-23, -4.23516e-22, 8.35184e-23, 1
 
 [node name="PatrolPoint4" parent="NavigationRegion3D/Hound" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 8.35185e-23, -4.23516e-22, 8.35184e-23, 1, 0, 0, 33.943)
+
+[node name="Chest2" parent="NavigationRegion3D" instance=ExtResource("10_d7yvc")]
+transform = Transform3D(0.623238, 0, -0.782032, 0, 1, 0, 0.782032, 0, 0.623238, -5.37855, 5.14519, 17.0337)
+
+[node name="Chest4" parent="NavigationRegion3D" instance=ExtResource("10_d7yvc")]
+transform = Transform3D(-0.663861, 0, -0.747856, 0, 1, 0, 0.747856, 0, -0.663861, -67.9159, 15.1249, 77.8301)
+
+[node name="HealthPotion2" parent="NavigationRegion3D" instance=ExtResource("12_iop02")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.06706, 14.7615, 91.9473)
+
+[node name="Stamina2" parent="NavigationRegion3D" instance=ExtResource("11_0h31j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5896, 7.25, 45.421)
