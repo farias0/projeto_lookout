@@ -10,7 +10,8 @@ public partial class Enemy : Area3D
 		Patrolling,
 		Alert,
 		Searching,
-		Chasing
+		Chasing,
+		Dead
 	}
 
 	public enum EnemyType
@@ -150,6 +151,8 @@ public partial class Enemy : Area3D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		if (_state == State.Dead) return;
+
 		ProcessDamageCountdown((float)delta);
 		ProcessNavMeshStuck((float)delta);
 
@@ -189,6 +192,8 @@ public partial class Enemy : Area3D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (_state == State.Dead) return;
+
 		TurnTowardsTarget((float)delta);
 		MoveTowardsTarget((float)delta);
 		SnapToFloor();
@@ -196,6 +201,9 @@ public partial class Enemy : Area3D
 
 	public void TakeDamage(Vector3 origin, int damage)
 	{
+		if (_state == State.Dead) return;
+
+
 		if (_tookDamageCountdown > 0)
 		{
 			return;
@@ -256,7 +264,7 @@ public partial class Enemy : Area3D
 
 	private void OnBodyEntered(Node body)
 	{
-		if (body is Player player)
+		if (body is Player player && _state != State.Dead)
 		{
 			player.TakeDamage(MeleeDamage);
 		}
@@ -284,9 +292,14 @@ public partial class Enemy : Area3D
 		}
 	}
 
-	private void Die()
+	protected virtual void Die()
 	{
-		QueueFree();
+		_state = State.Dead;
+
+		RotateX(Mathf.DegToRad(90));
+
+		_mesh.Visible = true;
+		DestroyArrow();
 	}
 
 	protected virtual float GetHeight()
@@ -468,7 +481,7 @@ public partial class Enemy : Area3D
 		}
 		_arrow = null;
 
-		_bowAudio.StopSound();
+		_bowAudio?.StopSound();
 	}
 
 

@@ -50,9 +50,10 @@ ________________________
 
 - em chasing, seguir o jogador reto uma certa distancia depois de perder ele de vista		
 
-- deixar cadáver								<<<<<<<
-	- inimigos entram em alerta ao ver cadáver
-	- colocar cadáver como ragdoll
+
+- inimigos entram em alerta ao ver cadáver   				<<<<<<<
+
+- colocar cadáver como ragdoll
 
 ________________________
 

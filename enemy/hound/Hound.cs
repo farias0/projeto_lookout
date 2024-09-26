@@ -40,4 +40,11 @@ public partial class Hound : Enemy
 		// So the Enemy class doesn't override the material
 		// TODO fix this
 	}
+
+	protected override void Die()
+	{
+		base.Die();
+
+		RotateZ(Mathf.DegToRad(90));
+	}
 }
