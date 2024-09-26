@@ -81,10 +81,6 @@ ________________________
 
 
 Sons de:
-- cão						<<<<
-	- alerta: rosnado
-	- perseguindo: latido
-	- levou dano: choro
 - flecha voando
 - flecha acertou				<<<<
 - passos dos inimigos

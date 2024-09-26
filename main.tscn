@@ -299,18 +299,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.3499, -5.66244e-07, 5.2089
 [node name="HealthPotion2" parent="NavigationRegion3D" instance=ExtResource("12_iop02")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.06706, 14.7615, 91.9473)
 
-[node name="Hound" parent="." node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("22_8mn6n")]
+[node name="Hound" parent="NavigationRegion3D" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("22_8mn6n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.7846, 14.7555, 97.3225)
 PatrolPoints = [NodePath("PatrolPoint"), NodePath("PatrolPoint2"), NodePath("PatrolPoint3"), NodePath("PatrolPoint4")]
 
-[node name="PatrolPoint" parent="Hound" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint" parent="NavigationRegion3D/Hound" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 8.35185e-23, -4.23516e-22, 8.35184e-23, 1, 0, 0, 0)
 
-[node name="PatrolPoint2" parent="Hound" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint2" parent="NavigationRegion3D/Hound" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 8.35185e-23, -4.23516e-22, 8.35184e-23, 1, -18.3486, 0, 0)
 
-[node name="PatrolPoint3" parent="Hound" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint3" parent="NavigationRegion3D/Hound" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 8.35185e-23, -4.23516e-22, 8.35184e-23, 1, -18.3486, 0, 33.9428)
 
-[node name="PatrolPoint4" parent="Hound" instance=ExtResource("6_dr3r0")]
+[node name="PatrolPoint4" parent="NavigationRegion3D/Hound" instance=ExtResource("6_dr3r0")]
 transform = Transform3D(1, 0, 0, 0, 1, 8.35185e-23, -4.23516e-22, 8.35184e-23, 1, 0, 0, 33.943)
