@@ -45,6 +45,7 @@ public partial class Inventory : Control
 	private ColorRect _panel;
 	private Control _grid;
 	private List<ItemCell> _draggingItemCells = new(); // Keeps trach of which cells are occupied by an item that's being dragged
+	private ColorRect _dropArea;
 
 
 	// Workaround for only adding the items to the grid after the cells are created
@@ -108,6 +109,7 @@ public partial class Inventory : Control
 
 		_panel = GetNode<ColorRect>("Panel");
 		_grid = _panel.GetNode<Control>("Grid");
+		_dropArea = _panel.GetNode<ColorRect>("DropArea");
 
 
 		CreateCells();
@@ -242,6 +244,15 @@ public partial class Inventory : Control
 		{
 			foreach (var gridCell in _cells)
 			{
+				// Check against drop area
+				if (itemCell.GetCollisionRect().Intersects(_dropArea.GetGlobalRect()))
+				{
+					DropItem(item);
+					_draggingItemCells.Clear();
+					return true;
+				}
+
+				// Check against grid cells
 				var dist = itemCell.GetPos().DistanceTo(gridCell.GetPos());
 				if (dist <= gridCell.Size.X / 2)
 				{
@@ -289,5 +300,12 @@ public partial class Inventory : Control
 		item.Position += offset;
 
 		return true;
+	}
+
+
+	private static void DropItem(InventoryItem item)
+	{
+		Resources.Instance.Player.SpawnItem(item.SpawnsItem);
+		item.QueueFree();
 	}
 }

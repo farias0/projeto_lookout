@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://db0wegivv1tne"]
+[gd_scene load_steps=4 format=3 uid="uid://db0wegivv1tne"]
 
 [ext_resource type="Texture2D" uid="uid://d3bji7wm2m1yu" path="res://ui/inventory/items/stamina_potion/icon.png" id="1_erwih"]
 [ext_resource type="Script" path="res://ui/inventory/items/InventoryItem.cs" id="2_a2wis"]
+[ext_resource type="PackedScene" uid="uid://w6h5apqbwpgy" path="res://pickups/stamina_potion/stamina_potion.tscn" id="3_umo7y"]
 
 [node name="StaminaPotion" type="TextureButton"]
 offset_right = 120.0
@@ -12,3 +13,4 @@ stretch_mode = 0
 script = ExtResource("2_a2wis")
 ShapeString = "XO
 XX"
+SpawnsItem = ExtResource("3_umo7y")

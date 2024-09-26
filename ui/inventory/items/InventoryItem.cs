@@ -26,6 +26,8 @@ public partial class InventoryItem : TextureButton
 		get => _shapeString;
 		set => UpdateShape(value);
 	}
+	[Export]
+	public PackedScene SpawnsItem { get; set; }
 
 
 	public List<ItemCell> Cells

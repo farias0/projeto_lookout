@@ -59,8 +59,8 @@ ________________________
 
 - sistema de itens												<<<<<<<
 	- itens pegos aparecerem no inventário
-		- como fazer quando o inventário tá cheio?						
-	- dropar itens p/ o mundo
+		- como fazer quando o inventário tá cheio?					
+	- contador de poções do jogador ser baseado no inventário	
 
 
 - inventário
@@ -91,6 +91,7 @@ Sons de:
 - inventário						<<<<<
 	- selecionar item
 	- mover item
+	- dropar item
 
 Substituir sons:
 - npc						<<<<<

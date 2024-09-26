@@ -362,6 +362,15 @@ public partial class Player : CharacterBody3D
 		return false;
 	}
 
+	public void SpawnItem(PackedScene itemScene)
+	{
+		if (itemScene == null) return;
+
+		var item = itemScene.Instantiate() as Node3D;
+		item!.GlobalPosition = GlobalPosition + (-Basis.Z * 4);
+		GetParent().AddChild(item);
+	}
+
 	private float GetCurrentSpeed()
 	{
 		return _slideCountdown > 0 ? SpeedSliding :
