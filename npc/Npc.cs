@@ -9,7 +9,8 @@ public partial class Npc : Area3D
 	{
 		Patrolling,
 		ShootingBack,
-		InDialogue
+		InDialogue,
+		Dead
 	}
 
 	[Export]
@@ -85,6 +86,9 @@ public partial class Npc : Area3D
 
 	public override void _Process(double delta)
 	{
+		if (State == NpcState.Dead) return;
+
+
 		ProcessDamageCountdown((float)delta);
 
 		Vector3? seesPlayer = CanSeePlayer();
@@ -107,6 +111,8 @@ public partial class Npc : Area3D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (State == NpcState.Dead) return;
+
 		TurnTowardsTarget((float)delta);
 		MoveTowardsTarget((float)delta);
 		SnapToFloor();
@@ -114,6 +120,9 @@ public partial class Npc : Area3D
 
 	public void TakeDamage(Vector3 origin, int damage)
 	{
+		if (State == NpcState.Dead) return;
+
+
 		if (_tookDamageCountdown > 0)
 			return;
 
@@ -177,8 +186,12 @@ public partial class Npc : Area3D
 
 	private void Die()
 	{
-		Debug.Log($"NPC {Name} died.");
-		QueueFree();
+		State = NpcState.Dead;
+
+		RotateX(Mathf.DegToRad(90));
+
+		_mesh.Visible = true;
+		CancelArrow();
 	}
 
 	private float GetHeight()
