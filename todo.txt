@@ -54,9 +54,6 @@ ________________________
 	- inimigos entram em alerta ao ver cadáver
 	- colocar cadáver como ragdoll
 
-- cachorros									<<<<<<<
-	- menos vida, maior distancia de detecção, maior velocidade, maior dano?
-
 ________________________
 
 === ITENS
@@ -84,6 +81,10 @@ ________________________
 
 
 Sons de:
+- cão						<<<<
+	- alerta: rosnado
+	- perseguindo: latido
+	- levou dano: choro
 - flecha voando
 - flecha acertou				<<<<
 - passos dos inimigos

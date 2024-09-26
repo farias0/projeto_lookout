@@ -28,26 +28,26 @@ public partial class Enemy : Area3D
 		set => ChangeType(value);
 	}
 	[Export]
-	public int Health { get; set; } = 100;
+	public virtual int Health { get; set; } = 100;
 	[Export]
-	public int MeleeDamage { get; set; } = 30;
+	public virtual int MeleeDamage { get; set; } = 30;
 
 	[ExportGroup("Speed")]
 	[Export]
-	public float SpeedPatrolling { get; set; } = 2.8f;
+	public virtual float SpeedPatrolling { get; set; } = 2.8f;
 	[Export]
-	public float SpeedSearching { get; set; } = 4.6f;
+	public virtual float SpeedSearching { get; set; } = 4.6f;
 	[Export]
-	public float SpeedChasing { get; set; } = 7f;
+	public virtual float SpeedChasing { get; set; } = 7f;
 
 	[ExportGroup("Vision")]
 	[Export]
 	public float VisionAngle { get; set; } = 55;
 	[Export]
-	public float VisionDistance { get; set; } = 30;
+	public virtual float VisionDistance { get; set; } = 20;
 	[ExportGroup("")]
 	[Export]
-	public float PlayerConfirmDistance { get; set; } = 18;
+	public virtual float PlayerConfirmDistance { get; set; } = 14;
 
 	[ExportGroup("Timers")]
 	[Export]
@@ -133,11 +133,10 @@ public partial class Enemy : Area3D
 		}
 
 		_bow = FindChild("Bow") as Node3D;
-		if (_bow == null)
+		if (_bow != null)
 		{
-			throw new InvalidOperationException("Couldn't find enemy's bow.");
+			_bowAudio = _bow.GetNode<BowAudio>("AudioStreamPlayer3D");
 		}
-		_bowAudio = _bow.GetNode<BowAudio>("AudioStreamPlayer3D");
 
 		_audio = GetNode<EnemyAudio>("AudioStreamPlayer3D");
 
@@ -230,7 +229,7 @@ public partial class Enemy : Area3D
 		SyncEnemyType();
 	}
 
-	private void ChangeMeshMaterial(StandardMaterial3D material)
+	protected virtual void ChangeMeshMaterial(StandardMaterial3D material)
 	{
 		if (_mesh == null) return;
 		_mesh.MaterialOverride = material;
@@ -239,7 +238,7 @@ public partial class Enemy : Area3D
 	/// <summary>
 	/// Modify the enemy's properties based on its type.
 	/// </summary>
-	private void SyncEnemyType()
+	protected void SyncEnemyType()
 	{
 		if (_bow != null)
 			_bow.Visible = _type == EnemyType.Ranged;
@@ -290,7 +289,7 @@ public partial class Enemy : Area3D
 		QueueFree();
 	}
 
-	private float GetHeight()
+	protected virtual float GetHeight()
 	{
 		CollisionShape3D collisionShape = GetNode<CollisionShape3D>("CollisionShape3D");
 		CylinderShape3D cylinder = collisionShape.Shape as CylinderShape3D;

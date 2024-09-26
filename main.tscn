@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ckkl12kv0h1v2"]
+[gd_scene load_steps=25 format=3 uid="uid://ckkl12kv0h1v2"]
 
 [ext_resource type="Texture2D" uid="uid://dvpfu3c846x0g" path="res://ui/hud/crosshair.png" id="1_4ptm4"]
 [ext_resource type="PackedScene" uid="uid://bv3m1ns1lv7h8" path="res://player/player.tscn" id="1_5sf8t"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" path="res://ui/hud/Subtitles.cs" id="12_jvamm"]
 [ext_resource type="PackedScene" uid="uid://c3f7mmxb4bc1p" path="res://ui/inventory/inventory.tscn" id="13_r48r6"]
 [ext_resource type="PackedScene" uid="uid://ncvftkyeouxb" path="res://npc/jimmy/jimmy.tscn" id="16_4g7xt"]
+[ext_resource type="PackedScene" uid="uid://c4pn7s8fq8e43" path="res://enemy/hound/hound.tscn" id="22_8mn6n"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_ifqyw"]
 diffuse_texture = ExtResource("2_gvvvj")
@@ -297,3 +298,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.3499, -5.66244e-07, 5.2089
 
 [node name="HealthPotion2" parent="NavigationRegion3D" instance=ExtResource("12_iop02")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.06706, 14.7615, 91.9473)
+
+[node name="Hound" parent="." node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("22_8mn6n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.7846, 14.7555, 97.3225)
+PatrolPoints = [NodePath("PatrolPoint"), NodePath("PatrolPoint2"), NodePath("PatrolPoint3"), NodePath("PatrolPoint4")]
+
+[node name="PatrolPoint" parent="Hound" instance=ExtResource("6_dr3r0")]
+transform = Transform3D(1, 0, 0, 0, 1, 8.35185e-23, -4.23516e-22, 8.35184e-23, 1, 0, 0, 0)
+
+[node name="PatrolPoint2" parent="Hound" instance=ExtResource("6_dr3r0")]
+transform = Transform3D(1, 0, 0, 0, 1, 8.35185e-23, -4.23516e-22, 8.35184e-23, 1, -18.3486, 0, 0)
+
+[node name="PatrolPoint3" parent="Hound" instance=ExtResource("6_dr3r0")]
+transform = Transform3D(1, 0, 0, 0, 1, 8.35185e-23, -4.23516e-22, 8.35184e-23, 1, -18.3486, 0, 33.9428)
+
+[node name="PatrolPoint4" parent="Hound" instance=ExtResource("6_dr3r0")]
+transform = Transform3D(1, 0, 0, 0, 1, 8.35185e-23, -4.23516e-22, 8.35184e-23, 1, 0, 0, 33.943)
