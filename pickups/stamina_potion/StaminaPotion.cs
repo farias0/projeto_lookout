@@ -8,6 +8,8 @@ public partial class StaminaPotion : PickUp
 
 	public override void OnPlayerPickup(Player player)
 	{
+		base.OnPlayerPickup(player);
+
 		player.PickUpStaminaPotion();
 	}
 }

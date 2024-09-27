@@ -146,6 +146,39 @@ public partial class Inventory : Control
 		else Enable();
 	}
 
+	public bool AddItem(PackedScene scene)
+	{
+		var item = scene.Instantiate() as InventoryItem;
+		AddChild(item);
+		var success = AddItem(item);
+		if (!success) item.QueueFree();
+		return success;
+	}
+
+	private bool AddItem(InventoryItem item)
+	{
+		var success = false;
+
+		// Find an emtpy cell
+		foreach (var cell in _cells)
+		{
+			if (cell.Item != null) continue;
+
+			// Attempt drag
+			var pos = item.GlobalPosition;
+			item.Position = cell.GetGlobalPosition();
+
+			if (AttemptItemDrag(item)) // TODO AttemptItemDrag is for mouse! Fix this hack
+			{
+				success = true;
+				break;
+			}
+			else item.Position = pos; // Fail
+		}
+
+		return success;
+	}
+
 	private void UpdateGridSize()
 	{
 		InventoryItem[] heldItems = HeldItems;
@@ -204,26 +237,7 @@ public partial class Inventory : Control
 
 		foreach (var item in items)
 		{
-			var success = false;
-
-			// Find an emtpy cell
-			foreach (var cell in _cells)
-			{
-				if (cell.Item != null) continue;
-
-				// Attempt drag
-				var pos = item.GlobalPosition;
-				item.Position = cell.GetGlobalPosition();
-				
-				if (AttemptItemDrag(item)) // TODO AttemptItemDrag is for mouse! Fix this hack
-				{
-					success = true;
-					break;
-				}
-				else item.Position = pos; // Fail
-			}
-
-			if (!success)
+			if (!AddItem(item))
 				throw new InvalidOperationException($"Could not add item {item.Name} to the inventory.");
 		}
 	}

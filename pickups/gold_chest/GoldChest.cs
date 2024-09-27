@@ -8,6 +8,8 @@ public partial class GoldChest : PickUp
 
 	public override void OnPlayerPickup(Player player)
 	{
+		base.OnPlayerPickup(player);
+
 		player.PickUpGold(GoldAmount);
 	}
 }

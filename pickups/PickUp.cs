@@ -1,15 +1,22 @@
 using Godot;
 using System;
+using projeto_lookout.libs;
 
 public abstract partial class PickUp : RigidBody3D
 {
+	[Export(PropertyHint.File)]
+	public string InventoryItem // It's a string to avoid circular dependency
+	{
+		get => _inventoryItem.ResourcePath;
+		set => _inventoryItem = GD.Load<PackedScene>(value);
+	}
+
+
 	private readonly float HookSpeed = 3000;
 
 	private Area3D _pickupArea;
 	private Node3D _hookedArrow;
-
-
-	public abstract void OnPlayerPickup(Player player);
+	private PackedScene _inventoryItem;
 
 
 	public override void _Ready()
@@ -36,6 +43,22 @@ public abstract partial class PickUp : RigidBody3D
 		_hookedArrow = arrow;
 	}
 
+	public virtual void OnPlayerPickup(Player player)
+	{
+		if (_hookedArrow != null)
+			(_hookedArrow as Arrow).DetachPickup();
+
+
+		if (Resources.Instance.Inventory.AddItem(_inventoryItem))
+		{
+			CallDeferred("queue_free");
+		}
+		else
+		{
+			Debug.Log($"Inventory rejected item {Name}.");
+		}
+	}
+
 	private void PulledByHook(PhysicsDirectBodyState3D state) {
 
 		var direction = (_hookedArrow as Arrow).HookGetPullDirection();
@@ -55,11 +78,6 @@ public abstract partial class PickUp : RigidBody3D
 		if (body is Player player)
 		{
 			OnPlayerPickup(player);
-
-			if (_hookedArrow != null)
-					(_hookedArrow as Arrow).DetachPickup();
-
-			CallDeferred("queue_free");
 		}
 	}
 }

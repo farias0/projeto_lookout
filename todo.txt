@@ -58,8 +58,9 @@ ________________________
 === ITENS
 
 - sistema de itens												<<<<<<<
-	- itens pegos aparecerem no inventário
-		- como fazer quando o inventário tá cheio?					
+	- pegar item com inventário cheio:
+		- arrumar onde toca som de pegar a poção; nao tocar se inventário tiver cheio
+		- por algum motivo quando o PickUp dispara o arrow.DetachShooter(), a flecha não morre e HookGetPullDirection() fica sendo chamado				
 	- contador de poções do jogador ser baseado no inventário	
 
 
@@ -121,6 +122,7 @@ Sons de:
 	- selecionar item
 	- mover item
 	- dropar item
+	- nao pôde pegar item -- inventario cheio
 
 Substituir sons:
 - npc						<<<<<
