@@ -2,9 +2,9 @@
 
 - andar com shift
 
-- tolerância no pulo
+- botão cancelar flecha
 
-- magia
+- tolerância no pulo
 
 - buga descendo rampa pelo lado. teleporta para o começo (baixo) dela		<<<<
 
@@ -63,7 +63,7 @@ ________________________
 	- contador de poções do jogador ser baseado no inventário	
 
 
-- inventário
+- grade
 	- centralizar ícone
 	- mostrar melhor na grade quais células pertencem a quais itens		
 	- permitir a modificação de itens do inventário via Inspector em tempo de execução
@@ -71,7 +71,36 @@ ________________________
 	- bug com rotação que só aparece no contorno de debug das células, e que aparentemente não quebra nada
 
 
-- poção de velocidade
+- itens protegidos									<<<<<<<
+
+- item do arco										<<<<<<<
+
+- item da bota
+
+- itens atalho rápido
+	- arco, bota, 4 consumiveis
+
+- poderes										
+	- arco
+		- flecha missel que empurra o jogador					<<<<<<<<
+		- flecha de gelo (em paredes cria viga, em inimigo congela)		<<<<<<<<
+		- separar gancho que puxa o item pra gancho que puxa o jogador
+		- flecha de sono
+		- flecha hipnótica
+		- flecha de fumaça
+		- flecha de reconhecimento
+		- flecha sanguessuga
+		- flecha cumulativa (qual efeito?)
+		- flecha armadilha (qual efeito?)
+		- flecha remota (qual efeito?)
+	- bota
+		- dash (funcionar tbm verticalmente)					<<<<<<<<
+		- invisibilidade temporária (talvez aplicar slowdown?)			<<<<<<<<
+		- poder retroceder p/ ponto marcado
+		- escudo
+		- vida extra (passiva)
+		- área de fumaça
+		- área de stun
 
 
 ________________________
