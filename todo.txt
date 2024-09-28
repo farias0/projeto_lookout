@@ -68,7 +68,9 @@ ________________________
 
 - item do arco										<<<<<<<
 	- gancho ser um item equipável
-	- 
+		- ter um item de mundo pra ele
+	- equipar somente itens de arco no slot de arco
+	- HUD
 
 - item da bota
 

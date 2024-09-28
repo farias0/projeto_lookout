@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://v47qprbvssfm"]
+
+[ext_resource type="Texture2D" uid="uid://ddjgnk87c5qth" path="res://ui/inventory/bow_slot/bow_slot.png" id="1_0in02"]
+[ext_resource type="Script" path="res://ui/inventory/bow_slot/BowSlot.cs" id="2_g22ph"]
+
+[node name="BowSlot" type="TextureButton"]
+offset_right = 100.0
+offset_bottom = 100.0
+texture_normal = ExtResource("1_0in02")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("2_g22ph")
+
+[node name="BG" type="ColorRect" parent="."]
+show_behind_parent = true
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+color = Color(0.623997, 0.582867, 0.524524, 0.611765)

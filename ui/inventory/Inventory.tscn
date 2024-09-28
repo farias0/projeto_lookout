@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bisvx6j7y0l3l"]
+[gd_scene load_steps=7 format=3 uid="uid://bisvx6j7y0l3l"]
 
 [ext_resource type="Script" path="res://ui/inventory/Inventory.cs" id="1_wxy2m"]
 [ext_resource type="PackedScene" uid="uid://b2x8y388x5rey" path="res://ui/inventory/items/health_potion/health_potion.tscn" id="2_4vb2b"]
 [ext_resource type="Texture2D" uid="uid://cchmqsqukna0" path="res://ui/inventory/drop_area.png" id="2_b5av1"]
+[ext_resource type="PackedScene" uid="uid://v47qprbvssfm" path="res://ui/inventory/bow_slot/bow_slot.tscn" id="2_ngnyi"]
 [ext_resource type="PackedScene" uid="uid://db0wegivv1tne" path="res://ui/inventory/items/stamina_potion/stamina_potion.tscn" id="3_vjf0j"]
 [ext_resource type="Script" path="res://ui/inventory/audio/InventoryAudio.cs" id="5_6n7m6"]
 
@@ -21,6 +22,13 @@ offset_top = 100.0
 offset_right = 1450.0
 offset_bottom = 800.0
 color = Color(0.051971, 0.051971, 0.051971, 0.607843)
+
+[node name="BowSlot" parent="Panel" instance=ExtResource("2_ngnyi")]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 487.0
+offset_right = 250.0
+offset_bottom = 587.0
 
 [node name="Grid" type="Control" parent="Panel"]
 layout_mode = 3

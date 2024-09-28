@@ -72,6 +72,7 @@ public partial class Inventory : Control
 	private ColorRect _dropArea;
 	private List<ProtectedSlot> _protectedSlots = new();
 	private Control _protectedSlotsArea;
+	private BowSlot _bowSlot;
 
 
 	// Workaround for only adding the items to the grid after the cells are created
@@ -140,6 +141,7 @@ public partial class Inventory : Control
 		_grid = _panel.GetNode<Control>("Grid");
 		_dropArea = _panel.GetNode<ColorRect>("DropArea");
 		_protectedSlotsArea = _panel.GetNode<Control>("ProtectedSlotsArea");
+		_bowSlot = _panel.GetNode<BowSlot>("BowSlot");
 		Audio = GetNode<InventoryAudio>("AudioStreamPlayer");
 
 
@@ -283,6 +285,7 @@ public partial class Inventory : Control
 		}
 
 		RemoveItemFromProtected(item);
+		if (item == _bowSlot.Item) _bowSlot.Item = null;
 
 		item.QueueFree();
 
@@ -395,6 +398,13 @@ public partial class Inventory : Control
 					StopDraggingItem(item);
 					return true;
 				}
+			}
+			// Check against bow slot
+			if (itemCell.GetCollisionRect().Intersects(_bowSlot.GetGlobalRect()))
+			{
+				_bowSlot.SetItem(item);
+				StopDraggingItem(item);
+				return true;
 			}
 
 			// Check against grid cells
