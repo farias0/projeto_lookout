@@ -67,13 +67,17 @@ ________________________
 
 
 - itens protegidos									<<<<<<<
+	- slots adotarem ícone do item
+	- perder inventario ao morrer
+	- manter slots protegidos
 
 - item do arco										<<<<<<<
+	- gancho ser um item equipável
+	- 
 
 - item da bota
 
-- itens atalho rápido
-	- arco, bota, 4 consumiveis
+- barra de consumíveis
 
 - poderes										
 	- arco

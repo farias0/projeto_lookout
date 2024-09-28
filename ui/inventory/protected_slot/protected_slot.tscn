@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhnqhnj4mwcs2"]
+
+[ext_resource type="Texture2D" uid="uid://dawdoypovpflx" path="res://ui/inventory/protected_slot/protected_slot.png" id="1_xoy6v"]
+[ext_resource type="Script" path="res://ui/inventory/protected_slot/ProtectedSlot.cs" id="2_dvhgt"]
+
+[node name="ProtectedItemSlot" type="TextureButton"]
+offset_right = 100.0
+offset_bottom = 100.0
+texture_normal = ExtResource("1_xoy6v")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("2_dvhgt")
+
+[node name="BG" type="ColorRect" parent="."]
+show_behind_parent = true
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+color = Color(0.514891, 0.621203, 0.536035, 0.611765)

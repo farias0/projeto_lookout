@@ -30,12 +30,22 @@ public partial class Inventory : Control
 		}
 	}
 	[Export]
+	public int ProtectedSlotsCount
+	{
+		get => _protectedSlots.Count;
+		set => SetProtectedSlotsCount(value);
+	}
+	[Export]
 	public ListInventoryItem HeldItems // Sadly, modifying this list via inspector at runtime doesnt work. Something to do with serialization of Inventoryitems. TODO fix this
 	{
 		get => GetHeldItems();
 		set => SetHeldItems(value);
 	}
 
+	public ListInventoryItem ProtectedItems
+	{
+		get => new(_protectedSlots.Select(slot => slot.Item).ToList());
+	}
 	public int HealthPotionCount {
 		get => HeldItems.Count(item => item.ID == "health_potion");
 	}
@@ -46,7 +56,10 @@ public partial class Inventory : Control
 	public static bool DebugCellSquareEnabled { get; private set; } = false;
 
 
-	private static readonly PackedScene CellScene = (PackedScene)GD.Load("res://ui/inventory/items/cell/item_cell.tscn");
+	private static readonly PackedScene CellScene = 
+		(PackedScene)GD.Load("res://ui/inventory/items/cell/item_cell.tscn");
+	private static readonly PackedScene ProtectedSlotScene = 
+		(PackedScene)GD.Load("res://ui/inventory/protected_slot/protected_slot.tscn");
 
 
 	private int _columns = 7;
@@ -56,6 +69,8 @@ public partial class Inventory : Control
 	private Control _grid;
 	private List<ItemCell> _draggingItemCells = new(); // Keeps trach of which cells are occupied by an item that's being dragged
 	private ColorRect _dropArea;
+	private List<ProtectedSlot> _protectedSlots = new();
+	private Control _protectedSlotsArea;
 
 
 	// Workaround for only adding the items to the grid after the cells are created
@@ -120,9 +135,11 @@ public partial class Inventory : Control
 		_panel = GetNode<ColorRect>("Panel");
 		_grid = _panel.GetNode<Control>("Grid");
 		_dropArea = _panel.GetNode<ColorRect>("DropArea");
+		_protectedSlotsArea = _panel.GetNode<Control>("ProtectedSlotsArea");
 
 
 		CreateCells();
+		SetProtectedSlotsCount(ProtectedSlotsCount); // Call it again so it can created the slot Nodes
 
 
 		if (_delayedInitializationItems != null)
@@ -326,17 +343,27 @@ public partial class Inventory : Control
 		Vector2 offset = Vector2.Zero;
 		foreach (var itemCell in item.Cells)
 		{
+			// Check against drop area
+			if (itemCell.GetCollisionRect().Intersects(_dropArea.GetGlobalRect()))
+			{
+				DropItem(item);
+				_draggingItemCells.Clear();
+				return true;
+			}
+
+			// Check against protected item slots
+			foreach (var slot in _protectedSlots)
+			{
+				if (itemCell.GetCollisionRect().Intersects(slot.GetGlobalRect()))
+				{
+					slot.SetItem(item);
+					return false;
+				}
+			}
+
+			// Check against grid cells
 			foreach (var gridCell in _cells)
 			{
-				// Check against drop area
-				if (itemCell.GetCollisionRect().Intersects(_dropArea.GetGlobalRect()))
-				{
-					DropItem(item);
-					_draggingItemCells.Clear();
-					return true;
-				}
-
-				// Check against grid cells
 				var dist = itemCell.GetPos().DistanceTo(gridCell.GetPos());
 				if (dist <= gridCell.Size.X / 2)
 				{
@@ -392,6 +419,22 @@ public partial class Inventory : Control
 		Resources.Instance.Player.SpawnItem(item.SpawnsItem);
 		RemoveItem(item);
 		RefreshHUD();
+	}
+
+	/// <summary>
+	/// Recreates the protected slots
+	/// </summary>
+	/// <param name="count">The number of slots</param>
+	private void SetProtectedSlotsCount(int count)
+	{
+		_protectedSlots = new();
+		for (int i = 0; i < count; i++)
+		{
+			ProtectedSlot slot = (ProtectedSlot)ProtectedSlotScene.Instantiate();
+			slot.Position = new Vector2(0, i * (slot.GetRect().Size.Y + 40));
+			_protectedSlotsArea?.AddChild(slot);
+			_protectedSlots.Add(slot);
+		}
 	}
 
 	private void RefreshHUD() {

@@ -3,10 +3,11 @@
 [ext_resource type="Script" path="res://ui/inventory/Inventory.cs" id="1_wxy2m"]
 [ext_resource type="Texture2D" uid="uid://cchmqsqukna0" path="res://ui/inventory/drop_area.png" id="2_b5av1"]
 
-[node name="Control" type="Control" node_paths=PackedStringArray("HeldItems")]
+[node name="Inventory" type="Control" node_paths=PackedStringArray("HeldItems")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_wxy2m")
+ProtectedSlotsCount = 3
 HeldItems = []
 
 [node name="Panel" type="ColorRect" parent="."]
@@ -40,3 +41,10 @@ offset_top = 15.0
 offset_right = 75.0
 offset_bottom = 75.0
 texture = ExtResource("2_b5av1")
+
+[node name="ProtectedSlotsArea" type="Control" parent="Panel"]
+anchors_preset = 0
+offset_left = 1031.0
+offset_top = 100.0
+offset_right = 1281.0
+offset_bottom = 600.0
