@@ -114,6 +114,8 @@ public partial class Inventory : Control
 
 		if (_draggingItemCells.Count == 0)
 			throw new InvalidOperationException("Couldn't find item in inventory");
+
+		Audio.PlayItemSelected();
 	}
 
 	public void CancelDraggingItem(InventoryItem item)

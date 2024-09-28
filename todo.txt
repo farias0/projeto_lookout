@@ -112,8 +112,6 @@ Sons de:
 - dinheiro sendo sacado				<<<<<
 	- som de caixa registadora?
 - inventário						<<<<<
-	- selecionar item
-	- mover item
 	- dropar item
 	- nao pôde pegar item -- inventario cheio	<<<<<
 

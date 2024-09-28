@@ -52,6 +52,11 @@ offset_top = 100.0
 offset_right = 1281.0
 offset_bottom = 600.0
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+script = ExtResource("5_6n7m6")
+ItemSelected = 5.272
+ItemRotated = 5.272
+
 [node name="HealthPotion" parent="." instance=ExtResource("2_4vb2b")]
 layout_mode = 0
 offset_left = 590.0
@@ -65,7 +70,3 @@ offset_left = 590.0
 offset_top = 153.0
 offset_right = 710.0
 offset_bottom = 273.0
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-script = ExtResource("5_6n7m6")
-ItemRotated = 5.272
