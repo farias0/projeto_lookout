@@ -113,12 +113,15 @@ Sons de:
 	- som de caixa registadora?
 - inventário						<<<<<
 	- dropar item
+	- colocar item no slot de segurança
+	- abrir e fechar inventário
 
 Substituir sons:
 - npc						<<<<<
 - flecha disparada
 - beber poção de vida
 - beber poção de energia
+- rodar item no inventário
 
 
 - user buses 

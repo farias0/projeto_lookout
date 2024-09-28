@@ -55,7 +55,8 @@ offset_bottom = 600.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 script = ExtResource("5_6n7m6")
-ItemRotated = 1.438
+ItemSelected = -0.959
+ItemRotated = 0.959
 ItemSetInPlace = 0.958
 InventoryFull = -3.355
 

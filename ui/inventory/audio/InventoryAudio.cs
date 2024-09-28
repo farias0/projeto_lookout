@@ -4,12 +4,12 @@ using System;
 public partial class InventoryAudio : SoundPlayer
 {
 	[ExportGroup("Mixer")]
-	//[Export(PropertyHint.Range, "-80, 24")]
-	//private float ItemSelected
-	//{
-	//	get => _itemSelected.Volume;
-	//	set => SetSoundVolume(_itemSelected, value);
-	//}
+	[Export(PropertyHint.Range, "-80, 24")]
+	private float ItemSelected
+	{
+		get => _itemSelected.Volume;
+		set => SetSoundVolume(_itemSelected, value);
+	}
 	[Export(PropertyHint.Range, "-80, 24")]
 	private float ItemRotated
 	{
@@ -36,7 +36,7 @@ public partial class InventoryAudio : SoundPlayer
 	}
 
 	//private readonly Sound _inventoryOpened = new();
-	//private readonly Sound _itemSelected = new();
+	private readonly Sound _itemSelected = new();
 	private readonly Sound _itemRotated = new();
 	private readonly Sound _itemSetInPlace = new();
 	//private readonly Sound _itemDropped = new();
@@ -45,7 +45,7 @@ public partial class InventoryAudio : SoundPlayer
 
 	public override void _Ready()
 	{
-		//_itemSelected.LoadStream("res://ui/inventory/audio/item_selected.wav");
+		_itemSelected.LoadStream("res://ui/inventory/audio/item_selected.wav");
 
 		_itemRotated.LoadStream("res://ui/inventory/audio/item_rotated.wav");
 
@@ -60,7 +60,7 @@ public partial class InventoryAudio : SoundPlayer
 
 	public void PlayItemSelected()
 	{
-		//PlaySound(_itemSelected);
+		PlaySound(_itemSelected);
 	}
 
 	public void PlayItemRotated()
