@@ -97,6 +97,7 @@ public partial class InventoryItem : TextureButton
 			{
 				_dragOffset += RotateAroundCell(clickedCell);
 				Position = mouseEvent.GlobalPosition + _dragOffset;
+				Resources.Instance.Inventory.Audio.PlayItemRotated();
 			}
 		}
 	}

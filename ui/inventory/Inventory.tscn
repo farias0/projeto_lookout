@@ -68,4 +68,4 @@ offset_bottom = 273.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 script = ExtResource("5_6n7m6")
-OperationCancelled = 2.396
+ItemRotated = 5.272
