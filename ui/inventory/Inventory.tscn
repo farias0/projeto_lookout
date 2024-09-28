@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://c3f7mmxb4bc1p"]
+[gd_scene load_steps=3 format=3 uid="uid://bisvx6j7y0l3l"]
 
 [ext_resource type="Script" path="res://ui/inventory/Inventory.cs" id="1_wxy2m"]
 [ext_resource type="Texture2D" uid="uid://cchmqsqukna0" path="res://ui/inventory/drop_area.png" id="2_b5av1"]
@@ -7,8 +7,6 @@
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_wxy2m")
-Columns = 2
-Rows = 2
 HeldItems = []
 
 [node name="Panel" type="ColorRect" parent="."]

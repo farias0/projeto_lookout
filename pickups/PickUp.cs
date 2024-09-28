@@ -45,7 +45,7 @@ public abstract partial class PickUp : RigidBody3D
 
 	public virtual void OnPlayerPickup(Player player)
 	{
-		_hookedArrow.QueueFree();
+		_hookedArrow?.QueueFree();
 
 
 		if (_inventoryItem == null)

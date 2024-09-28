@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 
+// To be able to export it to Godot's Inspector
+using ListInventoryItem = Godot.Collections.Array<InventoryItem>;
+
 public partial class Inventory : Control
 {
 	[Export]
@@ -27,12 +30,19 @@ public partial class Inventory : Control
 		}
 	}
 	[Export]
-	public InventoryItem[] HeldItems // Sadly, modifying this list via inspector at runtime doesnt work. Something to do with serialization of Inventoryitems. TODO fix this
+	public ListInventoryItem HeldItems // Sadly, modifying this list via inspector at runtime doesnt work. Something to do with serialization of Inventoryitems. TODO fix this
 	{
 		get => GetHeldItems();
 		set => SetHeldItems(value);
 	}
 
+	public int HealthPotionCount {
+		get => HeldItems.Count(item => item.ID == "health_potion");
+	}
+	public int StaminaPotionCount
+	{
+		get => HeldItems.Count(item => item.ID == "stamina_potion");
+	}
 	public static bool DebugCellSquareEnabled { get; private set; } = false;
 
 
@@ -49,7 +59,7 @@ public partial class Inventory : Control
 
 
 	// Workaround for only adding the items to the grid after the cells are created
-	private InventoryItem[] _delayedInitializationItems = null;
+	private ListInventoryItem _delayedInitializationItems = null;
 
 
 
@@ -151,8 +161,55 @@ public partial class Inventory : Control
 		var item = scene.Instantiate() as InventoryItem;
 		AddChild(item);
 		var success = AddItem(item);
-		if (!success) item.QueueFree();
+
+		if (success)
+		{
+			HeldItems.Add(item);
+
+			var player = Resources.Instance.Player;
+			if (item.ID == "health_potion")
+			{
+				player.PickUpHealthPotion();
+				Resources.Instance.HUD.SetHealthPotionAmount(HealthPotionCount);
+			}
+			else if (item.ID == "stamina_potion")
+			{
+				player.PickUpStaminaPotion();
+				Resources.Instance.HUD.SetStaminaPotionAmount(StaminaPotionCount);
+			}
+		}
+		else
+		{
+			item.QueueFree();
+		}
+
 		return success;
+	}
+
+	/// <summary>
+	/// Use a Health Potion from the inventory
+	/// </summary>
+	/// <returns>If it there was a potion to be used</returns>
+	public bool SpendHealthPotion()
+	{
+		var item = HeldItems.Where(item => item.ID == "health_potion").FirstOrDefault();
+		if (item == null) return false;
+		RemoveItem(item);
+		Resources.Instance.HUD.SetHealthPotionAmount(HealthPotionCount);
+		return true;
+	}
+
+	/// <summary>
+	/// Use a Stamina Potion from the inventory
+	/// </summary>
+	/// <returns>If it there was a potion to be used</returns>
+	public bool SpendStaminaPotion()
+	{
+		var item = HeldItems.Where(item => item.ID == "stamina_potion").FirstOrDefault();
+		if (item == null) return false;
+		RemoveItem(item);
+		Resources.Instance.HUD.SetStaminaPotionAmount(StaminaPotionCount);
+		return true;
 	}
 
 	private bool AddItem(InventoryItem item)
@@ -179,9 +236,21 @@ public partial class Inventory : Control
 		return success;
 	}
 
+	private void RemoveItem(InventoryItem item)
+	{
+		foreach (var cell in _cells)
+		{
+			if (cell.Item == item) cell.Item = null;
+		}
+
+		item.QueueFree();
+
+		return;
+	}
+
 	private void UpdateGridSize()
 	{
-		InventoryItem[] heldItems = HeldItems;
+		ListInventoryItem heldItems = HeldItems;
 
 		if (IsNodeReady())
 		{
@@ -218,15 +287,16 @@ public partial class Inventory : Control
 		_cells = Array.Empty<ItemCell>();
 	}
 
-	private InventoryItem[] GetHeldItems()
+	private ListInventoryItem GetHeldItems()
 	{
 		if (_delayedInitializationItems != null)
 			return _delayedInitializationItems;
 		else
-			return _cells.Select(cell => cell.Item).Distinct().Where(item => item != null).ToArray();
+			return new ListInventoryItem( 
+				_cells.Select(cell => cell.Item).Distinct().Where(item => item != null).ToList());
 	}
 
-	private void SetHeldItems(InventoryItem[] items)
+	private void SetHeldItems(ListInventoryItem items)
 	{
 		if (!IsNodeReady())
 		{
@@ -317,9 +387,15 @@ public partial class Inventory : Control
 	}
 
 
-	private static void DropItem(InventoryItem item)
+	private void DropItem(InventoryItem item)
 	{
 		Resources.Instance.Player.SpawnItem(item.SpawnsItem);
-		item.QueueFree();
+		RemoveItem(item);
+		RefreshHUD();
+	}
+
+	private void RefreshHUD() {
+		Resources.Instance.HUD.SetHealthPotionAmount(HealthPotionCount);
+		Resources.Instance.HUD.SetStaminaPotionAmount(StaminaPotionCount);
 	}
 }

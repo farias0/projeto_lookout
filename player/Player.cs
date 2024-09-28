@@ -71,8 +71,6 @@ public partial class Player : CharacterBody3D
 	private EffectsAudio? _effectsAudio;
 	private BowAudio? _bowAudio;
 	private PullerAudio? _pullerAudio;
-	private int _healthPotionCount = 0;
-	private int _staminaPotionCount = 0;
 	private float _slideCountdown = 0;
 	private float _arrowLoadCountdown = -1;
 	private float _airCrouchSlideCountdown = -1;
@@ -314,14 +312,10 @@ public partial class Player : CharacterBody3D
 
 	public void PickUpHealthPotion()
 	{
-		_healthPotionCount++;
-		Resources.Instance.HUD.SetHealthPotionAmount(_healthPotionCount);
 		_effectsAudio!.PlayCollectPotion();
 	}
 	public void PickUpStaminaPotion()
 	{
-		_staminaPotionCount++;
-		Resources.Instance.HUD.SetStaminaPotionAmount(_staminaPotionCount);
 		_effectsAudio!.PlayCollectPotion();
 	}
 
@@ -427,17 +421,15 @@ public partial class Player : CharacterBody3D
 
 	private void UseHealthPotion()
 	{
-		if (_healthPotionCount < 1)
-		{
-			return;
-		}
 		if (Health == _maxHealth)
 		{
 			return;
 		}
 
-		_healthPotionCount--;
-		SyncHealthPotionHUD();
+		if (!Resources.Instance.Inventory.SpendHealthPotion())
+		{
+			return;
+		}
 
 		Health += HealthPotion.HealAmount;
 		if (Health > _maxHealth) Health = _maxHealth;
@@ -448,17 +440,15 @@ public partial class Player : CharacterBody3D
 
 	private void UseStaminaPotion()
 	{
-		if (_staminaPotionCount < 1)
-		{
-			return;
-		}
 		if (Stamina == _maxStamina)
 		{
 			return;
 		}
 
-		_staminaPotionCount--;
-		SyncStaminaPotionHUD();
+		if (!Resources.Instance.Inventory.SpendStaminaPotion())
+		{
+			return;
+		}
 
 		Stamina += StaminaPotion.FillAmount;
 		if (Stamina > _maxStamina) Stamina = _maxStamina;
@@ -668,16 +658,6 @@ public partial class Player : CharacterBody3D
 	private void SyncStaminaHUD()
 	{
 		Resources.Instance.HUD.SetStamina((float)Stamina / _maxStamina);
-	}
-
-	private void SyncHealthPotionHUD()
-	{
-		Resources.Instance.HUD.SetHealthPotionAmount(_healthPotionCount);
-	}
-
-	private void SyncStaminaPotionHUD()
-	{
-		Resources.Instance.HUD.SetStaminaPotionAmount(_staminaPotionCount);
 	}
 
 	private void ToggleStamina()

@@ -20,6 +20,10 @@ public partial class InventoryItem : TextureButton
 	 *	TODO: Consider checking against shapes with empty columns or rows in their edges.
 	 */
 
+	[Export]
+	public string ID { get; set; }
+	[Export]
+	public string Label {  get; set; }
 	[Export(PropertyHint.MultilineText)]
 	public string ShapeString
 	{
