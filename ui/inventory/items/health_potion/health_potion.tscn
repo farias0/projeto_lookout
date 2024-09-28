@@ -14,6 +14,8 @@ texture_normal = SubResource("CanvasTexture_3rsv8")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("2_ljh5n")
+ID = "health_potion"
+Label = "Poção de Cura"
 ShapeString = "XOO
 OXO
 OXX"

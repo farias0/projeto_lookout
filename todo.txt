@@ -55,12 +55,7 @@ ________________________
 
 ________________________
 
-=== ITENS
-
-- sistema de itens												<<<<<<<
-	- pegar item com inventário cheio:
-		- arrumar onde toca som de pegar a poção; nao tocar se inventário tiver cheio			
-	- contador de poções do jogador ser baseado no inventário	
+=== ITENS	
 
 
 - grade
