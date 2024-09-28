@@ -383,13 +383,13 @@ public partial class Inventory : Control
 			}
 
 			// Check against protected item slots
-			foreach (var slot in _protectedSlots)
+			foreach (var pSlot in _protectedSlots)
 			{
-				if (itemCell.GetCollisionRect().Intersects(slot.GetGlobalRect()))
+				if (itemCell.GetCollisionRect().Intersects(pSlot.GetGlobalRect()))
 				{
 					RemoveItemFromProtected(item);
-					slot.SetItem(item);
-					item.ResetDraggingPosition();
+					pSlot.SetItem(item);
+					StopDraggingItem(item);
 					return true;
 				}
 			}
@@ -468,6 +468,23 @@ public partial class Inventory : Control
 			_protectedSlotsArea?.AddChild(slot);
 			_protectedSlots.Add(slot);
 		}
+	}
+
+	private void StopDraggingItem(InventoryItem item)
+	{
+		if (_draggingItemCells.Count == 0)
+			throw new InvalidOperationException("Not dragging item.");
+
+		_draggingItemCells.ForEach(cell =>
+		{
+			if (cell.Item != null)
+				throw new InvalidOperationException("Cell already occupied");
+
+			cell.Item = item;
+		});
+		_draggingItemCells.Clear();
+
+		item.ResetDraggingPosition();
 	}
 
 	private void RefreshHUD() {
