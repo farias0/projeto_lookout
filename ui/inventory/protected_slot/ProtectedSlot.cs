@@ -52,6 +52,7 @@ public partial class ProtectedSlot : TextureButton
 		{
 			RemoveChild(_itemIcon);
 			_itemIcon = null;
+			Resources.Instance.Inventory.Audio.PlayOperationCancelled();
 		}
 
 		_item = null;

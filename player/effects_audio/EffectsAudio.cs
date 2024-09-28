@@ -16,7 +16,6 @@ public partial class EffectsAudio : SoundPlayer
 		get => _fillStamina.Volume;
 		set => SetSoundVolume(_fillStamina, value);
 	}
-	[ExportGroup("Mixer")]
 	[Export(PropertyHint.Range, "-80, 24")]
 	private float Slide
 	{

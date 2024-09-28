@@ -101,6 +101,12 @@ public partial class InventoryItem : TextureButton
 		}
 	}
 
+	public void ResetDraggingPosition()
+	{
+		Position = _preDragPosition;
+		RotationDegrees = _preDragRotation;
+	}
+
 	private void BeginDragging(Vector2 fromPosition)
 	{
 		_isDragging = true;
@@ -117,8 +123,7 @@ public partial class InventoryItem : TextureButton
 		_isDragging = false;
 		if (!inventory.AttemptItemDrag(this))
 		{
-			Position = _preDragPosition;
-			RotationDegrees = _preDragRotation;
+			ResetDraggingPosition();
 			Resources.Instance.Inventory.CancelDraggingItem(this);
 		}
 	}

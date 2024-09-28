@@ -54,6 +54,7 @@ public partial class Inventory : Control
 		get => HeldItems.Count(item => item.ID == "stamina_potion");
 	}
 	public static bool DebugCellSquareEnabled { get; private set; } = false;
+	public InventoryAudio Audio;
 
 
 	private static readonly PackedScene CellScene = 
@@ -126,6 +127,7 @@ public partial class Inventory : Control
 		}
 
 		_draggingItemCells.Clear();
+		Audio.PlayOperationCancelled();
 	}
 
 	public override void _Ready()
@@ -136,6 +138,7 @@ public partial class Inventory : Control
 		_grid = _panel.GetNode<Control>("Grid");
 		_dropArea = _panel.GetNode<ColorRect>("DropArea");
 		_protectedSlotsArea = _panel.GetNode<Control>("ProtectedSlotsArea");
+		Audio = GetNode<InventoryAudio>("AudioStreamPlayer");
 
 
 		CreateCells();
@@ -386,7 +389,8 @@ public partial class Inventory : Control
 				{
 					RemoveItemFromProtected(item);
 					slot.SetItem(item);
-					return false;
+					item.ResetDraggingPosition();
+					return true;
 				}
 			}
 
