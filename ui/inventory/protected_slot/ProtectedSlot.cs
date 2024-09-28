@@ -29,6 +29,7 @@ public partial class ProtectedSlot : TextureButton
 				Size = Size
 			};
 			AddChild(_itemIcon);
+			Resources.Instance.Inventory.Audio.PlayItemSetInPlace();
 		}
 	}
 

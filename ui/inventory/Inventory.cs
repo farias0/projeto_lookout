@@ -445,6 +445,9 @@ public partial class Inventory : Control
 		// Snaps to the new position
 		item.Position += offset;
 
+		if (IsEnabled())
+			Audio.PlayItemSetInPlace();
+
 		return true;
 	}
 

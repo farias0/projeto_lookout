@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://ui/inventory/audio/InventoryAudio.cs" id="5_6n7m6"]
 
 [node name="Inventory" type="Control" node_paths=PackedStringArray("HeldItems")]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_wxy2m")
@@ -54,7 +55,6 @@ offset_bottom = 600.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 script = ExtResource("5_6n7m6")
-ItemSelected = 5.272
 ItemRotated = 5.272
 
 [node name="HealthPotion" parent="." instance=ExtResource("2_4vb2b")]
