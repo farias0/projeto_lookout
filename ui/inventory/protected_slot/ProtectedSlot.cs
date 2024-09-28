@@ -11,21 +11,27 @@ public partial class ProtectedSlot : TextureButton
 	}
 
 	private InventoryItem _item;
+	private TextureRect _itemIcon;
 
 
 	public void SetItem(InventoryItem item)
 	{
 		_item = item;
 
-		if (_item == null)
+		if (_itemIcon != null)
 		{
-			// TODO clear image
-		}
-		else
-		{
-			// TODO add item image
+			RemoveChild(_itemIcon);
 		}
 
-		Debug.Log($"Setting item {item.Name} to protected.");
+		if (_item != null)
+		{
+			_itemIcon = new()
+			{
+				Texture = _item.TextureNormal,
+				ExpandMode = TextureRect.ExpandModeEnum.FitWidthProportional,
+				Size = Size
+			};
+			AddChild(_itemIcon);
+		}
 	}
 }
