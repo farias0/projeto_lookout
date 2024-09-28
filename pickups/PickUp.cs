@@ -54,7 +54,7 @@ public abstract partial class PickUp : RigidBody3D
 		}
 		else
 		{
-			if (Resources.Instance.Inventory.AddItem(_inventoryItem))
+			if (Resources.Instance.Inventory.AddNewItem(_inventoryItem))
 			{
 				CallDeferred("queue_free");
 			}

@@ -173,11 +173,11 @@ public partial class Inventory : Control
 		else Enable();
 	}
 
-	public bool AddItem(PackedScene scene)
+	public bool AddNewItem(PackedScene scene)
 	{
 		var item = scene.Instantiate() as InventoryItem;
 		AddChild(item);
-		var success = AddItem(item);
+		var success = AddItemToGrid(item);
 
 		if (success)
 		{
@@ -245,11 +245,11 @@ public partial class Inventory : Control
 		RefreshHUD();
 	}
 
-	private bool AddItem(InventoryItem item)
+	private bool AddItemToGrid(InventoryItem item)
 	{
 		var success = false;
 
-		// Find an emtpy cell
+		// Find an empty cell
 		foreach (var cell in _cells)
 		{
 			if (cell.Item != null) continue;
@@ -350,9 +350,11 @@ public partial class Inventory : Control
 
 		foreach (var item in items)
 		{
-			if (!AddItem(item))
+			if (!AddItemToGrid(item))
 				throw new InvalidOperationException($"Could not add item {item.Name} to the inventory.");
 		}
+
+		RefreshHUD();
 	}
 
 	/// <summary>
