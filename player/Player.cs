@@ -600,7 +600,7 @@ public partial class Player : CharacterBody3D
 
 	private void LeaveHookedArrow()
 	{
-		(_hookedArrow as Arrow)!.DetachShooter();
+		_hookedArrow!.QueueFree();
 		_hookedArrow = null;
 		Velocity = Vector3.Zero;
 		_targetVelocity = Vector3.Zero;

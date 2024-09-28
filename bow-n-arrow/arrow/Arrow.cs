@@ -138,27 +138,6 @@ public partial class Arrow : Node3D
 	}
 
 	/// <summary>
-	/// It was hooked, but who fired it doesn't want it anymore.
-	/// </summary>
-	public void DetachShooter()
-	{
-		if (_shooter == null)
-			throw new InvalidOperationException("Can't detach shooter if there isn't one.");
-
-		_shooter = null;
-		QueueFree();
-	}
-
-	/// <summary>
-	/// It was hooked to a pickup, but the pickup deatached from it.
-	/// </summary>
-	public void DetachPickup()
-	{
-		_hookedPickup = null;
-		QueueFree();
-	}
-
-	/// <summary>
 	/// Only applies to Hook arrows that are hooked to something
 	/// </summary>
 	/// <returns>If the player is being pulled towards something, instead of pulling something towards them</returns>
