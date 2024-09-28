@@ -229,6 +229,22 @@ public partial class Inventory : Control
 		return true;
 	}
 
+	/// <summary>
+	/// Removes all unprotected items from the inventory
+	/// </summary>
+	public void LoseAllUnprotectedItems()
+	{
+		var pItems = ProtectedItems;
+
+		foreach (var item in HeldItems)
+		{
+			if (!pItems.Contains(item))
+				RemoveItem(item);
+		}
+
+		RefreshHUD();
+	}
+
 	private bool AddItem(InventoryItem item)
 	{
 		var success = false;

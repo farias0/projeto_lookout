@@ -66,10 +66,9 @@ ________________________
 	- bug com rotação que só aparece no contorno de debug das células, e que aparentemente não quebra nada
 
 
-- itens protegidos									<<<<<<<
+- itens protegidos									
 	- item só poder ser adicionado a um slot por vez
-	- perder inventario ao morrer
-	- manter slots protegidos
+
 
 - item do arco										<<<<<<<
 	- gancho ser um item equipável

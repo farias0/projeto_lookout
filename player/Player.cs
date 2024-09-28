@@ -111,7 +111,7 @@ public partial class Player : CharacterBody3D
 
 		if (GlobalPosition.Y < MinY)
 		{
-			Reset();
+			DieAndReset();
 		}
 	}
 
@@ -248,7 +248,7 @@ public partial class Player : CharacterBody3D
 
 		if (Health <= 0)
 		{
-			Reset();
+			DieAndReset();
 		}
 		else
 		{
@@ -618,7 +618,7 @@ public partial class Player : CharacterBody3D
 		}
 	}
 
-	private void Reset()
+	private void DieAndReset()
 	{
 		GlobalPosition = _startingPos;
 		Health = _maxHealth;
@@ -627,6 +627,7 @@ public partial class Player : CharacterBody3D
 		Resources.Instance.HUD.SetHealth(1);
 		Resources.Instance.HUD.SetStamina(1);
 		Resources.Instance.Camera.Reset();
+		Resources.Instance.Inventory.LoseAllUnprotectedItems();
 		_bow.Visible = true;
 		_invincibilityCountdown = -1;
 		_staminaRegenCountdown = -1;
