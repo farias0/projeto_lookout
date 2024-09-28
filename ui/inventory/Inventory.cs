@@ -202,6 +202,7 @@ public partial class Inventory : Control
 		}
 		else
 		{
+			Audio.PlayInventoryFull();
 			item.QueueFree();
 		}
 

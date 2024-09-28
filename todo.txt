@@ -113,7 +113,6 @@ Sons de:
 	- som de caixa registadora?
 - inventário						<<<<<
 	- dropar item
-	- nao pôde pegar item -- inventario cheio	<<<<<
 
 Substituir sons:
 - npc						<<<<<

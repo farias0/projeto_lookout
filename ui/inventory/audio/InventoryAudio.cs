@@ -28,6 +28,12 @@ public partial class InventoryAudio : SoundPlayer
 	//	get => _operationCancelled.Volume;
 	//	set => SetSoundVolume(_operationCancelled, value);
 	//}
+	[Export(PropertyHint.Range, "-80, 24")]
+	private float InventoryFull
+	{
+		get => _inventoryFull.Volume;
+		set => SetSoundVolume(_inventoryFull, value);
+	}
 
 	//private readonly Sound _inventoryOpened = new();
 	//private readonly Sound _itemSelected = new();
@@ -35,7 +41,7 @@ public partial class InventoryAudio : SoundPlayer
 	private readonly Sound _itemSetInPlace = new();
 	//private readonly Sound _itemDropped = new();
 	// private readonly Sound _operationCancelled = new();
-	//private readonly Sound _inventoryFull = new();
+	private readonly Sound _inventoryFull = new();
 
 	public override void _Ready()
 	{
@@ -49,7 +55,7 @@ public partial class InventoryAudio : SoundPlayer
 
 		// _operationCancelled.LoadStream("res://ui/inventory/audio/operation_cancelled.wav");
 
-		//_inventoryFull.LoadStream("res://ui/inventory/audio/inventory_full.wav");
+		_inventoryFull.LoadStream("res://ui/inventory/audio/inventory_full.wav");
 	}
 
 	public void PlayItemSelected()
@@ -70,5 +76,10 @@ public partial class InventoryAudio : SoundPlayer
 	public void PlayOperationCancelled()
 	{
 		//PlaySound(_operationCancelled);
+	}
+
+	public void PlayInventoryFull()
+	{
+		PlaySound(_inventoryFull);
 	}
 }

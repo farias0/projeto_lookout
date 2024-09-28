@@ -55,7 +55,9 @@ offset_bottom = 600.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 script = ExtResource("5_6n7m6")
-ItemRotated = 5.272
+ItemRotated = 1.438
+ItemSetInPlace = 0.958
+InventoryFull = -3.355
 
 [node name="HealthPotion" parent="." instance=ExtResource("2_4vb2b")]
 layout_mode = 0
