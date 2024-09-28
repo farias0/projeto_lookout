@@ -260,6 +260,11 @@ public partial class Inventory : Control
 			if (cell.Item == item) cell.Item = null;
 		}
 
+		foreach (var slot in _protectedSlots)
+		{
+			if (slot.Item == item) slot.Item = null;
+		}
+
 		item.QueueFree();
 
 		return;
@@ -346,7 +351,7 @@ public partial class Inventory : Control
 			// Check against drop area
 			if (itemCell.GetCollisionRect().Intersects(_dropArea.GetGlobalRect()))
 			{
-				DropItem(item);
+				DropItemToWorld(item);
 				_draggingItemCells.Clear();
 				return true;
 			}
@@ -414,7 +419,7 @@ public partial class Inventory : Control
 	}
 
 
-	private void DropItem(InventoryItem item)
+	private void DropItemToWorld(InventoryItem item)
 	{
 		Resources.Instance.Player.SpawnItem(item.SpawnsItem);
 		RemoveItem(item);

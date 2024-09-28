@@ -67,7 +67,6 @@ ________________________
 
 
 - itens protegidos									<<<<<<<
-	- remover item do inventário remove ele dos protegidos
 	- item só poder ser adicionado a um slot por vez
 	- perder inventario ao morrer
 	- manter slots protegidos
