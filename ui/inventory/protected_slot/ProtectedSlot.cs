@@ -16,12 +16,9 @@ public partial class ProtectedSlot : TextureButton
 
 	public void SetItem(InventoryItem item)
 	{
-		_item = item;
+		ClearItem();
 
-		if (_itemIcon != null)
-		{
-			RemoveChild(_itemIcon);
-		}
+		_item = item;
 
 		if (_item != null)
 		{
@@ -33,5 +30,30 @@ public partial class ProtectedSlot : TextureButton
 			};
 			AddChild(_itemIcon);
 		}
+	}
+
+	public override void _GuiInput(InputEvent @event)
+	{
+		if (!Resources.Instance.Inventory.IsEnabled()) return;
+
+
+		if (@event is InputEventMouseButton mouseEvent)
+		{
+			if (mouseEvent.ButtonIndex == MouseButton.Left && mouseEvent.Pressed)
+			{
+				ClearItem();
+			}
+		}
+	}
+
+	private void ClearItem()
+	{
+		if (_itemIcon != null)
+		{
+			RemoveChild(_itemIcon);
+			_itemIcon = null;
+		}
+
+		_item = null;
 	}
 }
