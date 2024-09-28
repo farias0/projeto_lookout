@@ -58,7 +58,6 @@ ________________________
 === ITENS
 
 - sistema de itens												<<<<<<<
-	- não tá pegando baú de ouro
 	- pegar item com inventário cheio:
 		- arrumar onde toca som de pegar a poção; nao tocar se inventário tiver cheio			
 	- contador de poções do jogador ser baseado no inventário	

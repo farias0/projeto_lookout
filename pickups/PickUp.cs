@@ -48,13 +48,21 @@ public abstract partial class PickUp : RigidBody3D
 		_hookedArrow.QueueFree();
 
 
-		if (Resources.Instance.Inventory.AddItem(_inventoryItem))
+		if (_inventoryItem == null)
 		{
 			CallDeferred("queue_free");
 		}
 		else
 		{
-			Debug.Log($"Inventory rejected item {Name}.");
+			if (Resources.Instance.Inventory.AddItem(_inventoryItem))
+			{
+				CallDeferred("queue_free");
+			}
+			else
+			{
+				Debug.Log($"Inventory rejected item {Name}.");
+				// Keep existing
+			}
 		}
 	}
 
