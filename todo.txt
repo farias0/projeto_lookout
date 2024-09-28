@@ -66,10 +66,6 @@ ________________________
 	- bug com rotação que só aparece no contorno de debug das células, e que aparentemente não quebra nada
 
 
-- itens protegidos									
-	- item só poder ser adicionado a um slot por vez
-
-
 - item do arco										<<<<<<<
 	- gancho ser um item equipável
 	- 

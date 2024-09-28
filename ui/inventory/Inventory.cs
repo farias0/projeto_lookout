@@ -276,14 +276,19 @@ public partial class Inventory : Control
 			if (cell.Item == item) cell.Item = null;
 		}
 
-		foreach (var slot in _protectedSlots)
-		{
-			if (slot.Item == item) slot.Item = null;
-		}
+		RemoveItemFromProtected(item);
 
 		item.QueueFree();
 
 		return;
+	}
+
+	private void RemoveItemFromProtected(InventoryItem item)
+	{
+		foreach (var slot in _protectedSlots)
+		{
+			if (slot.Item == item) slot.Item = null;
+		}
 	}
 
 	private void UpdateGridSize()
@@ -377,6 +382,7 @@ public partial class Inventory : Control
 			{
 				if (itemCell.GetCollisionRect().Intersects(slot.GetGlobalRect()))
 				{
+					RemoveItemFromProtected(item);
 					slot.SetItem(item);
 					return false;
 				}
