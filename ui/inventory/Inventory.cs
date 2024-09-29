@@ -160,6 +160,7 @@ public partial class Inventory : Control
 		}
 
 
+		EquipFirstBowItem();
 		Disable();
 	}
 
@@ -498,6 +499,17 @@ public partial class Inventory : Control
 		_draggingItemCells.Clear();
 
 		item.ResetDraggingPosition();
+	}
+
+	/// <summary>
+	/// For use during development. Equips the first bow item found in the inventory.
+	/// </summary>
+	private void EquipFirstBowItem()
+	{
+		if (_bowSlot.Item != null)
+			Debug.Log("Bow Item already equipped, skippping EquipFirstBowItem()...");
+		_bowSlot.Item = HeldItems.Where(item => item.IsBowItem).FirstOrDefault();
+		RefreshHUD();
 	}
 
 	private void RefreshHUD() {
