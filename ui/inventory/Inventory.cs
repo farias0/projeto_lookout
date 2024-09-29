@@ -506,9 +506,22 @@ public partial class Inventory : Control
 	/// </summary>
 	private void EquipFirstBowItem()
 	{
+		Debug.Log("Equipping first found Bow Item.");
 		if (_bowSlot.Item != null)
 			Debug.Log("Bow Item already equipped, skippping EquipFirstBowItem()...");
 		_bowSlot.Item = HeldItems.Where(item => item.IsBowItem).FirstOrDefault();
+		if (_bowSlot.Item != null)
+		{
+			foreach (var pSlot in _protectedSlots)
+			{
+				if (pSlot.Item == null)
+				{
+					pSlot.Item = _bowSlot.Item;
+					Debug.Log("Setting first found Bow Item to a protected slot.");
+					break;
+				}
+			}
+		}
 		RefreshHUD();
 	}
 

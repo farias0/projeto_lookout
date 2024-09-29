@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=4 uid="uid://bvs7d3jx0qvqr"]
 
-[ext_resource type="Material" uid="uid://bh1jd62emund7" path="res://bow-n-arrow/arrow/arrow_normal_material.tres" id="1_te2xb"]
+[ext_resource type="Material" uid="uid://bh1jd62emund7" path="res://bow-n-arrow/arrow/materials/wood.tres" id="1_te2xb"]
 [ext_resource type="Texture2D" uid="uid://b066in2n6a1nb" path="res://bow-n-arrow/bow/bow_Image.png" id="2_dcyos"]
 [ext_resource type="Script" path="res://bow-n-arrow/bow/audio/BowAudio.cs" id="3_noylk"]
 

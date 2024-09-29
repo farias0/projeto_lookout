@@ -39,8 +39,6 @@ ________________________
 
 - flecha saindo de lado quando segura A ou D					<<<<<<<
 
-- arrumar materiais flecha
-
 ________________________
 
 === INIMIGOS

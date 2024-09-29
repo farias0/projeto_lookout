@@ -1,10 +1,12 @@
-[gd_scene load_steps=10 format=4 uid="uid://cmpuot84q17ho"]
+[gd_scene load_steps=12 format=4 uid="uid://cmpuot84q17ho"]
 
 [ext_resource type="Script" path="res://bow-n-arrow/arrow/Arrow.cs" id="2_5gm8k"]
-[ext_resource type="Material" uid="uid://bh1jd62emund7" path="res://bow-n-arrow/arrow/arrow_normal_material.tres" id="2_cuggv"]
+[ext_resource type="Material" uid="uid://bh1jd62emund7" path="res://bow-n-arrow/arrow/materials/wood.tres" id="2_cuggv"]
 [ext_resource type="PackedScene" uid="uid://cge8rffeioay0" path="res://pickups/arrow_hook/mesh.glb" id="3_d18o2"]
 [ext_resource type="Script" path="res://bow-n-arrow/arrow/audio/ArrowAudio.cs" id="3_nhuh8"]
-[ext_resource type="Material" uid="uid://b25b80n712tcd" path="res://bow-n-arrow/arrow/arrow_hook_material.tres" id="3_nu5xb"]
+[ext_resource type="Material" uid="uid://b25b80n712tcd" path="res://bow-n-arrow/arrow/materials/metal.tres" id="3_nu5xb"]
+[ext_resource type="Material" uid="uid://cglnvakc8s4r5" path="res://bow-n-arrow/arrow/materials/leather.tres" id="3_rov3i"]
+[ext_resource type="Material" uid="uid://cgw2nlxq8x8es" path="res://bow-n-arrow/arrow/materials/feather.tres" id="5_kcy8g"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p52ox"]
 size = Vector3(0.030385, 0.0271837, 0.5213)
@@ -78,7 +80,7 @@ _surfaces = [{
 "index_count": 288,
 "index_data": PackedByteArray("RgAaACIARgA1ABoANQAbABoANQA3ABsANwAcABsANwA5ABwAOQAdABwAOQA7AB0APAAfAB4APAA/AB8APwAgAB8APwBBACAAQQAhACAAQQBDACEAQwAiACEAQwBGACIAMQASABkAMQA0ABIALwAZABgALwAxABkALQAYABcALQAvABgAKgAXABYAKgAtABcAJwAWABUAJwApABYAJQAVABQAJQAnABUAIwAUABMAIwAlABQANAATABIANAAjABMACQAkADMACQAKACQAMwAjADQAMwAkACMACgAmACQACgALACYAJAAlACMAJAAmACUACwAoACYACwAMACgAJgAnACUAJgAoACcADAArACgADAANACsAKAApACcAKAArACkADgAuACwADgAPAC4ALAAtACoALAAuAC0ADwAwAC4ADwAQADAALgAvAC0ALgAwAC8AEAAyADAAEAARADIAMAAxAC8AMAAyADEAEQAzADIAEQAJADMAMgA0ADEAMgAzADQACABFAEQACAAAAEUARABGAEMARABFAEYABwBEAEIABwAIAEQAQgBDAEEAQgBEAEMABgBCAEAABgAHAEIAQABBAD8AQABCAEEABQBAAD4ABQAGAEAAPgA/ADwAPgBAAD8AAwA9ADoAAwAEAD0AOgA7ADkAOgA9ADsAAgA6ADgAAgADADoAOAA5ADcAOAA6ADkAAQA4ADYAAQACADgANgA3ADUANgA4ADcAAAA2AEUAAAABADYARQA1AEYARQA2ADUA"),
 "lods": [0.00189785, PackedByteArray("HAA7AB0AAwA7ABwAAwAEADsAAgADABwAAgAcABsAAQACABsAAQAbABoAAAABABoAAAAaACIACAAAACIACAAiACEABwAIACEABwAhACAABgAHACAABgAgAB8ABQAGAB8ABQAfADwAPAAfAB4AGQAJABIACQATABIAEQAJABkACQAKABMAEAARABkACgAUABMAEAAZABgACgALABQADwAQABgACwAVABQADwAYABcADgAPABcADgAXACoAKgAXABYACwAMABUAFQApABYADAApABUADAANACkA")],
-"material": ExtResource("3_nu5xb"),
+"material": ExtResource("3_rov3i"),
 "name": "LeatherBrown",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -103,7 +105,7 @@ _surfaces = [{
 "format": 34896613399,
 "index_count": 108,
 "index_data": PackedByteArray("BAADAA0ABAACAAMAAAAJAAEAAAAIAAkACAAKAAkACAAHAAoABwALAAoABwAGAAsABgAMAAsABgAFAAwABQANAAwABQAEAA0AEgARAB0AEgAQABEADgAYAA8ADgAWABgAFwAaABkAFwAVABoAFQAbABoAFQAUABsAFAAcABsAFAATABwAEwAdABwAEwASAB0AIgAhAC0AIgAgACEAHgAoAB8AHgAmACgAJwAqACkAJwAlACoAJQArACoAJQAkACsAJAAsACsAJAAjACwAIwAtACwAIwAiAC0A"),
-"material": ExtResource("3_nu5xb"),
+"material": ExtResource("5_kcy8g"),
 "name": "Feather",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
