@@ -404,6 +404,7 @@ public partial class Inventory : Control
 			{
 				_bowSlot.SetItem(item);
 				StopDraggingItem(item);
+				RefreshHUD();
 				return true;
 			}
 
@@ -506,5 +507,6 @@ public partial class Inventory : Control
 	private void RefreshHUD() {
 		Resources.Instance.HUD.SetHealthPotionAmount(HealthPotionCount);
 		Resources.Instance.HUD.SetStaminaPotionAmount(StaminaPotionCount);
+		Resources.Instance.HUD.SetBowItemIcon(_bowSlot.Item?.TextureNormal);
 	}
 }

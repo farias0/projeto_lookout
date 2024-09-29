@@ -10,12 +10,14 @@ public partial class HUD : CanvasLayer
 	private TextureRect _staminaBar;
 	private Vector2 _staminaBarSize;
 
+	private TextureRect _bowItemIcon;
+
 	private Label _healthPotionAmoutLabel;
 
 	private Label _staminaPotionAmonutLabel;
 
 	private Label _goldLabel;
-	private String _goldLabelPrefix; // The yene symbol is unicode and Godot doesn't like it
+	private string _goldLabelPrefix; // The yene symbol is unicode and Godot doesn't like it
 
 
 	public override void _Ready()
@@ -28,12 +30,14 @@ public partial class HUD : CanvasLayer
 		_staminaBar = GetNode<TextureRect>("Gauges/Stamina/Bar");
 		_staminaBarSize = _staminaBar.Size;
 
+		_bowItemIcon = GetNode<TextureRect>("Items/BowItem/Icon");
+
 		_goldLabel = GetNode<Label>("GoldLabel");
 		_goldLabelPrefix = _goldLabel.Text;
 
-		_healthPotionAmoutLabel = GetNode<Label>("HealthPotions/Amount");
+		_healthPotionAmoutLabel = GetNode<Label>("Items/HealthPotions/Amount");
 
-		_staminaPotionAmonutLabel = GetNode<Label>("StaminaPotions/Amount");
+		_staminaPotionAmonutLabel = GetNode<Label>("Items/StaminaPotions/Amount");
 	}
 
 	/// <param name="pct">Between 0 and 1</param>
@@ -76,5 +80,10 @@ public partial class HUD : CanvasLayer
 	public void SetStaminaPotionAmount(int amount)
 	{
 		_staminaPotionAmonutLabel.Text = amount.ToString();
+	}
+
+	public void SetBowItemIcon(Texture2D texture)
+	{
+		_bowItemIcon.Texture = texture;
 	}
 }

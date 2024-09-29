@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://5er8g2v4ilch"]
+[gd_scene load_steps=14 format=3 uid="uid://5er8g2v4ilch"]
 
 [ext_resource type="Script" path="res://ui/hud/HUD.cs" id="1_5chqj"]
 [ext_resource type="Texture2D" uid="uid://dvpfu3c846x0g" path="res://ui/hud/crosshair.png" id="2_mbq0h"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://duga5stvg545a" path="res://ui/hud/gauges/health_bar.png" id="4_ihgwy"]
 [ext_resource type="Texture2D" uid="uid://20fsv78bqhxr" path="res://ui/hud/gauges/stamina_bar.png" id="5_3spoi"]
 [ext_resource type="Theme" uid="uid://bm2f0kwe2o4ow" path="res://ui/hud/font_gold.tres" id="6_xbiaa"]
+[ext_resource type="Texture2D" uid="uid://lmxajhgnibil" path="res://ui/hud/items/right_click.png" id="7_jp2vr"]
 [ext_resource type="Texture2D" uid="uid://ch5wm3o6mga83" path="res://ui/hud/items/health_potion.png" id="7_l4g8a"]
 [ext_resource type="Theme" uid="uid://c8n5hhdbdljlw" path="res://ui/hud/items/font_items_amount.tres" id="8_2upsc"]
 [ext_resource type="Theme" uid="uid://uanrkn6g6c4s" path="res://ui/hud/items/font_items_hint.tres" id="9_wwo6e"]
@@ -77,52 +78,88 @@ theme = ExtResource("6_xbiaa")
 theme_type_variation = &"GraphFrameTitleLabel"
 text = "¥ "
 
-[node name="HealthPotions" type="CanvasLayer" parent="."]
+[node name="Items" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 83.0
+offset_top = 758.0
+offset_right = 123.0
+offset_bottom = 798.0
 
-[node name="Icon" type="Sprite2D" parent="HealthPotions"]
-position = Vector2(215, 794)
+[node name="BowItem" type="Control" parent="Items"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Icon" type="TextureRect" parent="Items/BowItem"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 5.0
+offset_right = 60.0
+offset_bottom = 55.0
+expand_mode = 2
+
+[node name="Hint" type="TextureRect" parent="Items/BowItem"]
+layout_mode = 0
+offset_left = 20.16
+offset_top = 62.1602
+offset_right = 532.16
+offset_bottom = 574.16
+scale = Vector2(0.0667502, 0.0618326)
+texture = ExtResource("7_jp2vr")
+
+[node name="HealthPotions" type="Control" parent="Items"]
+anchors_preset = 0
+offset_left = 100.0
+offset_right = 100.0
+
+[node name="Icon" type="Sprite2D" parent="Items/HealthPotions"]
+position = Vector2(39.16, 27.16)
 scale = Vector2(0.11, 0.11)
 texture = ExtResource("7_l4g8a")
 
-[node name="Amount" type="Label" parent="HealthPotions"]
-offset_left = 229.0
-offset_top = 804.0
-offset_right = 269.0
-offset_bottom = 843.0
+[node name="Amount" type="Label" parent="Items/HealthPotions"]
+offset_left = 53.16
+offset_top = 37.16
+offset_right = 93.16
+offset_bottom = 76.16
 theme = ExtResource("8_2upsc")
 text = "0
 "
 
-[node name="Hint" type="Label" parent="HealthPotions"]
-offset_left = 196.0
-offset_top = 824.0
-offset_right = 236.0
-offset_bottom = 863.0
+[node name="Hint" type="Label" parent="Items/HealthPotions"]
+offset_left = 20.16
+offset_top = 57.16
+offset_right = 60.16
+offset_bottom = 96.16
 theme = ExtResource("9_wwo6e")
 text = "[1]"
 
-[node name="StaminaPotions" type="CanvasLayer" parent="."]
+[node name="StaminaPotions" type="Control" parent="Items"]
+anchors_preset = 0
+offset_left = 200.0
+offset_right = 200.0
 
-[node name="Icon" type="Sprite2D" parent="StaminaPotions"]
-position = Vector2(304, 794)
+[node name="Icon" type="Sprite2D" parent="Items/StaminaPotions"]
+position = Vector2(39.16, 27.16)
 scale = Vector2(0.11, 0.11)
 texture = ExtResource("10_lbshb")
 
-[node name="Amount" type="Label" parent="StaminaPotions"]
-offset_left = 318.0
-offset_top = 804.0
-offset_right = 358.0
-offset_bottom = 843.0
+[node name="Amount" type="Label" parent="Items/StaminaPotions"]
+offset_left = 53.16
+offset_top = 37.16
+offset_right = 93.16
+offset_bottom = 76.16
 theme = ExtResource("8_2upsc")
 text = "0
 "
 metadata/_edit_use_anchors_ = true
 
-[node name="Hint" type="Label" parent="StaminaPotions"]
-offset_left = 285.0
-offset_top = 824.0
-offset_right = 325.0
-offset_bottom = 863.0
+[node name="Hint" type="Label" parent="Items/StaminaPotions"]
+offset_left = 20.16
+offset_top = 57.16
+offset_right = 60.16
+offset_bottom = 96.16
 theme = ExtResource("9_wwo6e")
 text = "[2]"
 metadata/_edit_use_anchors_ = true
