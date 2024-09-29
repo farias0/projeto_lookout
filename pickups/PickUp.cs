@@ -2,7 +2,7 @@ using Godot;
 using System;
 using projeto_lookout.libs;
 
-public abstract partial class PickUp : RigidBody3D
+public partial class PickUp : RigidBody3D
 {
 	[Export(PropertyHint.File)]
 	public string InventoryItem // It's a string to avoid circular dependency

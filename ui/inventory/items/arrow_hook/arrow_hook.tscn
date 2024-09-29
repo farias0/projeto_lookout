@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b5ibk0vn0nk5d" path="res://ui/inventory/items/arrow_hook/icon.png" id="1_13og0"]
 [ext_resource type="Script" path="res://ui/inventory/items/InventoryItem.cs" id="2_2hseu"]
-[ext_resource type="PackedScene" uid="uid://dtgaspc6h1abb" path="res://pickups/health_potion/health_potion.tscn" id="3_b7x3c"]
+[ext_resource type="PackedScene" uid="uid://cdcr17uo8p6cw" path="res://pickups/arrow_hook/arrow_hook.tscn" id="3_xdcdn"]
 
 [node name="ArrowHook" type="TextureButton"]
 offset_right = 120.0
@@ -17,4 +17,4 @@ IsBowItem = true
 ShapeString = "OXOO
 XXXX
 OXOO"
-SpawnsItem = ExtResource("3_b7x3c")
+SpawnsItem = ExtResource("3_xdcdn")

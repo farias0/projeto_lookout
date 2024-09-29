@@ -67,9 +67,9 @@ ________________________
 
 
 - item do arco										<<<<<<<
-	- gancho ser um item equipável
-	- ter um item de mundo pra ele
+	- funcionamento depender de estar equipado
 	- HUD
+	- talvez o modelo da flecha ser o gancho?
 
 - item da bota
 
@@ -117,6 +117,7 @@ Sons de:
 	- dropar item
 	- colocar item no slot de segurança
 	- abrir e fechar inventário
+	- coletar item (faltantes)
 
 Substituir sons:
 - npc						<<<<<
