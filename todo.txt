@@ -39,6 +39,8 @@ ________________________
 
 - flecha saindo de lado quando segura A ou D					<<<<<<<
 
+- arrumar materiais flecha
+
 ________________________
 
 === INIMIGOS
@@ -68,7 +70,7 @@ ________________________
 	- bug com rotação que só aparece no contorno de debug das células, e que aparentemente não quebra nada
 
 - flecha-gancho										
-	- talvez usar mesh de gancho no lugar da flecha
+	- criar linha até durante arremesso
 	- achar imagem 2D melhor
 
 

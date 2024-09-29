@@ -13,17 +13,8 @@ namespace projeto_lookout.libs
 		public Inventory Inventory { get; set; }
 
 
-		//      Arrow
-
 		public readonly PackedScene Arrow =
 			GD.Load<PackedScene>("res://bow-n-arrow/arrow/arrow.tscn");
-
-		public readonly StandardMaterial3D ArrowNormalMaterial =
-			GD.Load<StandardMaterial3D>("res://bow-n-arrow/arrow/arrow_normal_material.tres");
-
-		public readonly StandardMaterial3D ArrowHookMaterial =
-			GD.Load<StandardMaterial3D>("res://bow-n-arrow/arrow/arrow_hook_material.tres");
-
 
 
 		public override void _Ready()

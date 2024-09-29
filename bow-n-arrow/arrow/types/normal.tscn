@@ -1,10 +1,7 @@
-[gd_scene load_steps=10 format=4 uid="uid://cmpuot84q17ho"]
+[gd_scene load_steps=6 format=4 uid="uid://csaqnlx7ohvr4"]
 
-[ext_resource type="Script" path="res://bow-n-arrow/arrow/Arrow.cs" id="2_5gm8k"]
-[ext_resource type="Material" uid="uid://bh1jd62emund7" path="res://bow-n-arrow/arrow/arrow_normal_material.tres" id="2_cuggv"]
-[ext_resource type="PackedScene" uid="uid://cge8rffeioay0" path="res://pickups/arrow_hook/mesh.glb" id="3_d18o2"]
-[ext_resource type="Script" path="res://bow-n-arrow/arrow/audio/ArrowAudio.cs" id="3_nhuh8"]
-[ext_resource type="Material" uid="uid://b25b80n712tcd" path="res://bow-n-arrow/arrow/arrow_hook_material.tres" id="3_nu5xb"]
+[ext_resource type="Material" uid="uid://bh1jd62emund7" path="res://bow-n-arrow/arrow/arrow_normal_material.tres" id="1_ac4lt"]
+[ext_resource type="Material" uid="uid://b25b80n712tcd" path="res://bow-n-arrow/arrow/arrow_hook_material.tres" id="2_1naew"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p52ox"]
 size = Vector3(0.030385, 0.0271837, 0.5213)
@@ -65,7 +62,7 @@ _surfaces = [{
 "index_count": 144,
 "index_data": PackedByteArray("KwAAAAgAKwAsAAAAKgAIAAcAKgArAAgAKQAHAAYAKQAqAAcAKAAGAAUAKAApAAYAJgAEAAMAJgAnAAQAJQADAAIAJQAmAAMAJAACAAEAJAAlAAIALAABAAAALAAkAAEAIwAJABEAIwAbAAkAIgARABAAIgAjABEAIQAQAA8AIQAiABAAIAAPAA4AIAAhAA8AHgANAAwAHgAfAA0AHQAMAAsAHQAeAAwAHAALAAoAHAAdAAsAGwAKAAkAGwAcAAoAGgAcABsAGgASABwAEgAdABwAEgATAB0AEwAeAB0AEwAUAB4AFAAfAB4AFAAVAB8AFgAhACAAFgAXACEAFwAiACEAFwAYACIAGAAjACIAGAAZACMAGQAbACMAGQAaABsA"),
 "lods": [2.95032e-06, PackedByteArray("KwAAAAgAKwAsAAAAKgArAAgALAABAAAAKgAIAAcALAAkAAEAKQAqAAcAJAACAAEAKQAHAAYAKAApAAYAKAAGAAUAJAAlAAIAJQADAAIAJQAmAAMAJgAEAAMAJgAnAAQAIAAPAA4AFgAPACAAFgAXAA8AFwAQAA8AFwAYABAAGAARABAAGAAZABEAGQAJABEAGQAaAAkAGgAKAAkAGgASAAoAEgALAAoAEgATAAsAEwAMAAsAEwAUAAwAFAAfAAwADAAfAA0AFAAVAB8A")],
-"material": ExtResource("2_cuggv"),
+"material": ExtResource("1_ac4lt"),
 "name": "WoodBow",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -78,7 +75,7 @@ _surfaces = [{
 "index_count": 288,
 "index_data": PackedByteArray("RgAaACIARgA1ABoANQAbABoANQA3ABsANwAcABsANwA5ABwAOQAdABwAOQA7AB0APAAfAB4APAA/AB8APwAgAB8APwBBACAAQQAhACAAQQBDACEAQwAiACEAQwBGACIAMQASABkAMQA0ABIALwAZABgALwAxABkALQAYABcALQAvABgAKgAXABYAKgAtABcAJwAWABUAJwApABYAJQAVABQAJQAnABUAIwAUABMAIwAlABQANAATABIANAAjABMACQAkADMACQAKACQAMwAjADQAMwAkACMACgAmACQACgALACYAJAAlACMAJAAmACUACwAoACYACwAMACgAJgAnACUAJgAoACcADAArACgADAANACsAKAApACcAKAArACkADgAuACwADgAPAC4ALAAtACoALAAuAC0ADwAwAC4ADwAQADAALgAvAC0ALgAwAC8AEAAyADAAEAARADIAMAAxAC8AMAAyADEAEQAzADIAEQAJADMAMgA0ADEAMgAzADQACABFAEQACAAAAEUARABGAEMARABFAEYABwBEAEIABwAIAEQAQgBDAEEAQgBEAEMABgBCAEAABgAHAEIAQABBAD8AQABCAEEABQBAAD4ABQAGAEAAPgA/ADwAPgBAAD8AAwA9ADoAAwAEAD0AOgA7ADkAOgA9ADsAAgA6ADgAAgADADoAOAA5ADcAOAA6ADkAAQA4ADYAAQACADgANgA3ADUANgA4ADcAAAA2AEUAAAABADYARQA1AEYARQA2ADUA"),
 "lods": [0.00189785, PackedByteArray("HAA7AB0AAwA7ABwAAwAEADsAAgADABwAAgAcABsAAQACABsAAQAbABoAAAABABoAAAAaACIACAAAACIACAAiACEABwAIACEABwAhACAABgAHACAABgAgAB8ABQAGAB8ABQAfADwAPAAfAB4AGQAJABIACQATABIAEQAJABkACQAKABMAEAARABkACgAUABMAEAAZABgACgALABQADwAQABgACwAVABQADwAYABcADgAPABcADgAXACoAKgAXABYACwAMABUAFQApABYADAApABUADAANACkA")],
-"material": ExtResource("3_nu5xb"),
+"material": ExtResource("2_1naew"),
 "name": "LeatherBrown",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -91,7 +88,7 @@ _surfaces = [{
 "index_count": 282,
 "index_data": PackedByteArray("HQADAAEAHQAeAAMAHgAFAAMAHgAfAAUAHwAHAAUAHwAgAAcAGQAMAAoAGQAaAAwAGgAOAAwAGgAbAA4AGwAQAA4AGwAcABAANAAlAEAANAA2ACUAHQAHACAAHQABAAcAAwAHAAEAAwAFAAcADAAQAAoADAAOABAAGQAQABwAGQAKABAAGAAUABUAGAARABQAFQAcABgAFQAZABwAFwAcABsAFwAYABwAFgAbABoAFgAXABsAFQAaABkAFQAWABoAEQAgABQAEQAdACAAEwAgAB8AEwAUACAAEgAfAB4AEgATAB8AEQAeAB0AEQASAB4AAAAkAAIAAAAiACQAPAAmADcAPAAuACYAPgAnADkAPgBBACcAQgA4ACkAQgA9ADgAIQA1ACoAIQA7ADUAIgA/ACQAIgAzAD8AJAA9AEIAJAA/AD0AIwA7ACEAIwAtADsAKQAxACwAKQA4ADEAKgAzACIAKgA1ADMAKwAtACMAKwAwAC0AAgBCAAQAAgAkAEIACwAhAA0ACwAjACEABgAsAAkABgApACwADwAiAAAADwAqACIACAAjAAsACAArACMADQAqAA8ADQAhACoABAApAAYABABCACkAOgAvADIAOgAoAC8AAABDAEsAAAACAEMAAgBEAEMAAgAEAEQABABFAEQABAAGAEUABgBHAEUABgAJAEcACABIAEYACAALAEgACwBJAEgACwANAEkADQBKAEkADQAPAEoADwBLAEoADwAAAEsA"),
 "lods": [0.00226885, PackedByteArray("HQAeAAMAAwAHAB0AEQAeAB0AEQASAB4AHgAfAAMAEgAfAB4AAwAfAAcAEgATAB8AEQAdACAAHQAHACAAHwAgAAcAEwAgAB8AEQAgABQAEwAUACAAGQAaAAwADAAQABkAFQAaABkAFQAWABoAGgAbAAwAFgAbABoADAAbABAAFgAXABsAFQAZABwAGQAQABwAGwAcABAAFwAcABsAFQAcABgAFwAYABwANAAlAEAANAA2ACUAZABhAGMAZQBgAGIASwA/AEMAQwA/AD0AQwA9AEQASwAzAD8ARAA9ADgARAA4AEUARQA4ACwAOAAxACwARQAsAAkARQAJAEcADwAzAEsADwA1ADMADwBLAEoADQA1AA8ADQAPAEoADQA7ADUADQBKAEkACwA7AA0ACwANAEkACwAtADsACwBJAEgACAALAEgACAAtAAsACABIAEYACAArAC0AKwAwAC0APAAmADcAPAAuACYAPgAnADkAPgBBACcAOgAvADIAOgAoAC8A"), 0.0038559, PackedByteArray("TwBQAEwAWABZAFUANAAlAEAANAA2ACUATQBRAFIAVgBaAFsAXABTAFcAXQBOAFQASwA/AEMAQwA/AD0ASwAzAD8AQwA9AEQASgAzAEsARAA9ADgASgA1ADMASQA1AEoASQA7ADUASAA7AEkARAA4AEUASAAtADsARQA4AAkAOAAxAAkARQAJAEcACAAtAEgACAAwAC0ACABIAEYAPAAmADcAPAAuACYAPgAnADkAPgBBACcAXwBeADIAOgAoAC8A")],
-"material": ExtResource("3_nu5xb"),
+"material": ExtResource("2_1naew"),
 "name": "Metal",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -103,7 +100,7 @@ _surfaces = [{
 "format": 34896613399,
 "index_count": 108,
 "index_data": PackedByteArray("BAADAA0ABAACAAMAAAAJAAEAAAAIAAkACAAKAAkACAAHAAoABwALAAoABwAGAAsABgAMAAsABgAFAAwABQANAAwABQAEAA0AEgARAB0AEgAQABEADgAYAA8ADgAWABgAFwAaABkAFwAVABoAFQAbABoAFQAUABsAFAAcABsAFAATABwAEwAdABwAEwASAB0AIgAhAC0AIgAgACEAHgAoAB8AHgAmACgAJwAqACkAJwAlACoAJQArACoAJQAkACsAJAAsACsAJAAjACwAIwAtACwAIwAiAC0A"),
-"material": ExtResource("3_nu5xb"),
+"material": ExtResource("2_1naew"),
 "name": "Feather",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -113,38 +110,19 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ukym3")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_4o7xi"]
-size = Vector3(0.0809707, 0.0754517, 0.463254)
-
-[node name="Node3D" type="Node3D"]
-script = ExtResource("2_5gm8k")
-
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
+[node name="RigidBody3D" type="RigidBody3D"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 collision_layer = 4
 collision_mask = 7
 gravity_scale = 0.0
 
-[node name="Normal_CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0687008, 0.00106992, 0.000432496)
 shape = SubResource("BoxShape3D_p52ox")
 
-[node name="Normal_MeshNode" type="Node3D" parent="RigidBody3D"]
+[node name="MeshNode" type="Node3D" parent="."]
 
-[node name="Arrow" type="MeshInstance3D" parent="RigidBody3D/Normal_MeshNode"]
+[node name="Arrow" type="MeshInstance3D" parent="MeshNode"]
 transform = Transform3D(4.37114e-08, -1, -8.74228e-08, -1, -4.37114e-08, 0, -3.82137e-15, 8.74228e-08, -1, 0.101111, 0, 8.79767e-09)
 mesh = SubResource("ArrayMesh_3xsrh")
 skeleton = NodePath("")
-
-[node name="Hook_CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0669023, -0.000592039, 0.000942387)
-visible = false
-shape = SubResource("BoxShape3D_4o7xi")
-disabled = true
-
-[node name="Hook_MeshNode" parent="RigidBody3D" instance=ExtResource("3_d18o2")]
-transform = Transform3D(-4.37114e-11, 0, 0.001, 0, 0.001, 0, -0.001, 0, -4.37114e-11, 0, 0, 0)
-visible = false
-
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-script = ExtResource("3_nhuh8")

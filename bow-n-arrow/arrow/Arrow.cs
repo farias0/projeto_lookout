@@ -24,6 +24,8 @@ public partial class Arrow : Node3D
 	public int Damage { get; set; } = 40;
 
 	private const float LifeTime = 5;
+	private readonly PackedScene RB_Normal = GD.Load<PackedScene>("res://bow-n-arrow/arrow/types/normal.tscn");
+	private readonly PackedScene RB_Hook = GD.Load<PackedScene>("res://bow-n-arrow/arrow/types/hook.tscn");
 
 	private float _lifeTime = LifeTime;
 	private RigidBody3D _rigidBody;
@@ -31,7 +33,6 @@ public partial class Arrow : Node3D
 	private ArrowType _type = ArrowType.Normal;
 	private Player _shooter = null;
 	private Node3D _hookLine;
-	private Color _hookColor;
 	private PickUp _hookedPickup = null;
 	private ArrowAudio _audio;
 
@@ -44,8 +45,6 @@ public partial class Arrow : Node3D
 		_rigidBody.MaxContactsReported = 1;
 		_rigidBody.Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
 		_rigidBody.Freeze = true;
-
-		_hookColor = Resources.Instance.ArrowHookMaterial.AlbedoColor;
 
 		_audio = GetNode<ArrowAudio>("AudioStreamPlayer3D");
 
@@ -92,11 +91,6 @@ public partial class Arrow : Node3D
 		}
 	}
 
-	private void ChangeMeshMaterial(StandardMaterial3D material)
-	{
-		_rigidBody.GetNode<MeshInstance3D>("MeshNode/Arrow").MaterialOverride = material;
-	}
-
 	new public ArrowType GetType()
 	{
 		return _type;
@@ -111,10 +105,16 @@ public partial class Arrow : Node3D
 		switch (_type)
 		{
 			case ArrowType.Normal:
-				ChangeMeshMaterial(Resources.Instance.ArrowNormalMaterial);
+				_rigidBody.GetNode<CollisionShape3D>("Normal_CollisionShape3D").Disabled = false;
+				_rigidBody.GetNode<Node3D>("Normal_MeshNode").Visible = true;
+				_rigidBody.GetNode<CollisionShape3D>("Hook_CollisionShape3D").Disabled = true;
+				_rigidBody.GetNode<Node3D>("Hook_MeshNode").Visible = false;
 				break;
 			case ArrowType.Hook:
-				ChangeMeshMaterial(Resources.Instance.ArrowHookMaterial);
+				_rigidBody.GetNode<CollisionShape3D>("Normal_CollisionShape3D").Disabled = true;
+				_rigidBody.GetNode<Node3D>("Normal_MeshNode").Visible = false;
+				_rigidBody.GetNode<CollisionShape3D>("Hook_CollisionShape3D").Disabled = false;
+				_rigidBody.GetNode<Node3D>("Hook_MeshNode").Visible = true;
 				break;
 		}
 	}
@@ -234,7 +234,7 @@ public partial class Arrow : Node3D
 		_hookLine?.QueueFree();
 
 		var _shooterPos = _shooter.GlobalPosition + (_shooter.Basis.Y * _shooter.GetHeight() * 0.5f);
-		_hookLine = Draw.Line3D(_shooter.GetParent(), GlobalPosition, _shooterPos, _hookColor);
+		_hookLine = Draw.Line3D(_shooter.GetParent(), GlobalPosition, _shooterPos, new(0,0,0));
 	}
 
 	public void ClearForDestruction()
