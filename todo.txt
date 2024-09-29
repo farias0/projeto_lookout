@@ -70,7 +70,6 @@ ________________________
 	- bug com rotação que só aparece no contorno de debug das células, e que aparentemente não quebra nada
 
 - flecha-gancho										
-	- criar linha até durante arremesso
 	- achar imagem 2D melhor
 
 

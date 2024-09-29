@@ -54,6 +54,11 @@ public partial class Arrow : Node3D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		if (_type == ArrowType.Hook)
+		{
+			DrawHookLine();
+		}
+
 		if (_state == State.Flying || _state == State.Hit)
 		{
 			_lifeTime -= (float)delta;
@@ -70,8 +75,6 @@ public partial class Arrow : Node3D
 				QueueFree();
 				return;
 			}
-
-			DrawHookLine();
 		}
 	}
 
