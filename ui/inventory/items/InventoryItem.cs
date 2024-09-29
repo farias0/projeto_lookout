@@ -129,7 +129,7 @@ public partial class InventoryItem : TextureButton
 		var inventory = Resources.Instance.Inventory;
 
 		_isDragging = false;
-		if (!inventory.AttemptItemDrag(this))
+		if (!inventory.AttemptItemDrag(this, false))
 		{
 			ResetDraggingPosition();
 			Resources.Instance.Inventory.CancelDraggingItem(this);

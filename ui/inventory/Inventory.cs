@@ -281,7 +281,7 @@ public partial class Inventory : Control
 			var pos = item.GlobalPosition;
 			item.Position = cell.GetGlobalPosition();
 
-			if (AttemptItemDrag(item)) // TODO AttemptItemDrag is for mouse! Fix this hack
+			if (AttemptItemDrag(item, true)) // TODO AttemptItemDrag is for mouse! Fix this hack
 			{
 				success = true;
 				break;
@@ -386,8 +386,9 @@ public partial class Inventory : Control
 	/// position, and snaps it to the grid if successful.
 	/// </summary>
 	/// <param name="item">Item that's been dragged</param>
+	/// <param name="gridOnly">If it should only look for slots in the grid</param>
 	/// <returns>If the item was successfully dragged</returns>
-	public bool AttemptItemDrag(InventoryItem item)
+	public bool AttemptItemDrag(InventoryItem item, bool gridOnly)
 	{
 
 		// Looks for the attempted slots
@@ -395,32 +396,35 @@ public partial class Inventory : Control
 		Vector2 offset = Vector2.Zero;
 		foreach (var itemCell in item.Cells)
 		{
-			// Check against drop area
-			if (itemCell.GetCollisionRect().Intersects(_dropArea.GetGlobalRect()))
+			if (!gridOnly)
 			{
-				DropItemToWorld(item);
-				_draggingItemCells.Clear();
-				return true;
-			}
-
-			// Check against protected item slots
-			foreach (var pSlot in _protectedSlots)
-			{
-				if (itemCell.GetCollisionRect().Intersects(pSlot.GetGlobalRect()))
+				// Check against drop area
+				if (itemCell.GetCollisionRect().Intersects(_dropArea.GetGlobalRect()))
 				{
-					RemoveItemFromProtected(item);
-					pSlot.SetItem(item);
-					StopDraggingItem(item);
+					DropItemToWorld(item);
+					_draggingItemCells.Clear();
 					return true;
 				}
-			}
-			// Check against bow slot
-			if (item.IsBowItem && itemCell.GetCollisionRect().Intersects(_bowSlot.GetGlobalRect()))
-			{
-				_bowSlot.SetItem(item);
-				StopDraggingItem(item);
-				RefreshHUD();
-				return true;
+
+				// Check against protected item slots
+				foreach (var pSlot in _protectedSlots)
+				{
+					if (itemCell.GetCollisionRect().Intersects(pSlot.GetGlobalRect()))
+					{
+						RemoveItemFromProtected(item);
+						pSlot.SetItem(item);
+						StopDraggingItem(item);
+						return true;
+					}
+				}
+				// Check against bow slot
+				if (item.IsBowItem && itemCell.GetCollisionRect().Intersects(_bowSlot.GetGlobalRect()))
+				{
+					_bowSlot.SetItem(item);
+					StopDraggingItem(item);
+					RefreshHUD();
+					return true;
+				}
 			}
 
 			// Check against grid cells

@@ -61,11 +61,11 @@ ________________________
 	- adicionar impulso ao jogador						<<<<<
 
 - flecha-foguete								<<<<<<<<<<
-	- consumir HP
-	- explosão?
-	- maior dano no inimigo
+	- explosão
 	- impulso no jogador
 	- botão que só ativa com foguete
+	- parede que quebra
+	- consumir HP
 
 
 - item da bota
@@ -127,6 +127,8 @@ Substituir sons:
 	https://docs.godotengine.org/en/stable/tutorials/audio/audio_buses.html
 
 ________________________
+
+- no clip
 
 - exceptions ao instanciar novos itens e setar GlobalPosition
 
