@@ -5,6 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 
 
+public enum BowItemType
+{
+	None,
+	Hook
+}
+
 public partial class InventoryItem : TextureButton
 {
 	/*
@@ -25,7 +31,7 @@ public partial class InventoryItem : TextureButton
 	[Export]
 	public string Label {  get; set; }
 	[Export]
-	public bool IsBowItem { get; set; }
+	public BowItemType BowItem { get; set; }
 	[Export(PropertyHint.MultilineText)]
 	public string ShapeString
 	{
@@ -36,10 +42,8 @@ public partial class InventoryItem : TextureButton
 	public PackedScene SpawnsItem { get; set; }
 
 
-	public List<ItemCell> Cells
-	{
-		get => GetCells();
-	}
+	public List<ItemCell> Cells { get => GetCells(); }
+	public bool IsBowItem { get => BowItem != BowItemType.None; }
 
 
 	private static readonly PackedScene CellScene = (PackedScene)GD.Load("res://ui/inventory/items/cell/item_cell.tscn");

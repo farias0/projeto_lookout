@@ -55,6 +55,10 @@ public partial class Inventory : Control
 	}
 	public static bool DebugCellSquareEnabled { get; private set; } = false;
 	public InventoryAudio Audio;
+	public BowItemType BowItemEquipped
+	{
+		get => _bowSlot.Item?.BowItem ?? BowItemType.None;
+	}
 
 
 	private static readonly PackedScene CellScene = 

@@ -2,6 +2,7 @@
 
 using Godot;
 using projeto_lookout.libs;
+using System.Diagnostics;
 
 public partial class Player : CharacterBody3D
 {
@@ -211,6 +212,9 @@ public partial class Player : CharacterBody3D
 
 	public override void _Input(InputEvent e)
 	{
+		var inventory = Resources.Instance.Inventory;
+
+
 		if (e is InputEventMouseMotion eventMouseMotion && IsMouseInputEnabled())
 		{
 			Vector2 move = eventMouseMotion.ScreenRelative;
@@ -227,7 +231,15 @@ public partial class Player : CharacterBody3D
 		{
 			if (e.IsActionPressed("fire")) PullArrowBack(ArrowType.Normal);
 			else if (e.IsActionReleased("fire")) FireArrow();
-			if (e.IsActionPressed("fire_2")) PullArrowBack(ArrowType.Hook);
+			if (e.IsActionPressed("fire_2") && inventory.BowItemEquipped != BowItemType.None)
+			{
+				// Use Bow Item
+				PullArrowBack(inventory.BowItemEquipped switch
+				{
+					BowItemType.Hook => ArrowType.Hook,
+					_ => throw new System.NotImplementedException()
+				});
+			}
 			else if (e.IsActionReleased("fire_2")) FireArrow();
 		}
 

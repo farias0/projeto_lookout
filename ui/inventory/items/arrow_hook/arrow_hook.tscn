@@ -13,7 +13,7 @@ stretch_mode = 0
 script = ExtResource("2_2hseu")
 ID = "arrow_hook"
 Label = "Flecha-Gancho"
-IsBowItem = true
+BowItem = 1
 ShapeString = "OXOO
 XXXX
 OXOO"

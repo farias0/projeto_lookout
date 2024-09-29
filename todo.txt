@@ -44,7 +44,9 @@ ________________________
 === INIMIGOS
 
 
-- gritar p/ outros inimigos ao confirmar vista do jogador			
+- inimigos ouvirem o alerta do outro
+- cachorro latir alto pra alertar inimigos						<<<<<<<<
+
 
 - em chasing, seguir o jogador reto uma certa distancia depois de perder ele de vista		
 
@@ -59,14 +61,13 @@ ________________________
 
 
 - grade
-	- centralizar ícone
+	- centralizar ícone								<<<<<<<<
 	- mostrar melhor na grade quais células pertencem a quais itens		
 	- permitir a modificação de itens do inventário via Inspector em tempo de execução
 		- Godot quebra por não saber serializar InventoryItems
 	- bug com rotação que só aparece no contorno de debug das células, e que aparentemente não quebra nada
 
 - flecha-gancho										
-	- funcionamento depender de estar equipado					<<<<<<<
 	- talvez usar mesh de gancho no lugar da flecha
 	- achar imagem 2D melhor
 
