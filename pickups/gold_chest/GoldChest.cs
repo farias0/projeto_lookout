@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using projeto_lookout.libs;
 
 public partial class GoldChest : PickUp
 {
@@ -10,6 +11,6 @@ public partial class GoldChest : PickUp
 	{
 		base.OnPlayerPickup(player);
 
-		player.PickUpGold(GoldAmount);
+		Resources.Instance.Inventory.PickUpGold(GoldAmount);
 	}
 }

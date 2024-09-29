@@ -28,17 +28,12 @@ public partial class EffectsAudio : SoundPlayer
 		get => _heal.Volume;
 		set => SetSoundVolume(_heal, value);
 	}
-	[Export(PropertyHint.Range, "-80, 24, or_less")]
-	private float CollectGold
-	{
-		get => _collectGold.Volume;
-		set => SetSoundVolume(_collectGold, value);
-	}
+
 
 	private readonly Sound _heal = new();
 	private readonly Sound _slide = new();
 	private readonly Sound _fillStamina = new();
-	private readonly Sound _collectGold = new();
+
 
 	public override void _Ready()
 	{
@@ -47,8 +42,6 @@ public partial class EffectsAudio : SoundPlayer
 		_slide.LoadStream("res://player/effects_audio/slide.wav");
 
 		_fillStamina.LoadStream("res://player/effects_audio/fill_stamina.wav");
-
-		_collectGold.LoadStream("res://player/effects_audio/collect_gold.wav");
 	}
 
 	public void PlayHeal()
@@ -70,10 +63,5 @@ public partial class EffectsAudio : SoundPlayer
 	public void PlayFillStamina()
 	{
 		PlaySound(_fillStamina);
-	}
-
-	public void PlayCollectGold()
-	{
-		PlaySound(_collectGold);
 	}
 }

@@ -59,6 +59,7 @@ public partial class Inventory : Control
 	{
 		get => _bowSlot.Item?.BowItem ?? BowItemType.None;
 	}
+	public int Gold { get => _gold; }
 
 
 	private static readonly PackedScene CellScene = 
@@ -77,6 +78,7 @@ public partial class Inventory : Control
 	private List<ProtectedSlot> _protectedSlots = new();
 	private Control _protectedSlotsArea;
 	private BowSlot _bowSlot;
+	private int _gold;
 
 
 	// Workaround for only adding the items to the grid after the cells are created
@@ -231,6 +233,22 @@ public partial class Inventory : Control
 		if (item == null) return false;
 		RemoveItem(item);
 		Resources.Instance.HUD.SetStaminaPotionAmount(StaminaPotionCount);
+		return true;
+	}
+
+	public void PickUpGold(int amount)
+	{
+		_gold += amount;
+		RefreshHUD();
+		Audio.PlayCollectGold();
+	}
+
+	public bool SubtractGold(int amount)
+	{
+		if (amount < _gold) return false;
+		_gold -= amount;
+		RefreshHUD();
+		// Audio.PlaySubtractGold();
 		return true;
 	}
 
@@ -529,5 +547,6 @@ public partial class Inventory : Control
 		Resources.Instance.HUD.SetHealthPotionAmount(HealthPotionCount);
 		Resources.Instance.HUD.SetStaminaPotionAmount(StaminaPotionCount);
 		Resources.Instance.HUD.SetBowItemIcon(_bowSlot.Item?.TextureNormal);
+		Resources.Instance.HUD.SetGoldAmount(_gold);
 	}
 }

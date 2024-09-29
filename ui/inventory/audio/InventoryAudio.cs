@@ -40,6 +40,12 @@ public partial class InventoryAudio : SoundPlayer
 		get => _collectPotion.Volume;
 		set => SetSoundVolume(_collectPotion, value);
 	}
+	[Export(PropertyHint.Range, "-80, 24, or_less")]
+	private float CollectGold
+	{
+		get => _collectGold.Volume;
+		set => SetSoundVolume(_collectGold, value);
+	}
 
 
 	//private readonly Sound _inventoryOpened = new();
@@ -50,6 +56,8 @@ public partial class InventoryAudio : SoundPlayer
 	// private readonly Sound _operationCancelled = new();
 	private readonly Sound _inventoryFull = new();
 	private readonly Sound _collectPotion = new();
+	private readonly Sound _collectGold = new();
+
 
 	public override void _Ready()
 	{
@@ -66,6 +74,8 @@ public partial class InventoryAudio : SoundPlayer
 		_inventoryFull.LoadStream("res://ui/inventory/audio/inventory_full.wav");
 
 		_collectPotion.LoadStream("res://ui/inventory/audio/collect_potion.wav");
+
+		_collectGold.LoadStream("res://ui/inventory/audio/collect_gold.wav");
 	}
 
 	public void PlayItemSelected()
@@ -96,5 +106,10 @@ public partial class InventoryAudio : SoundPlayer
 	public void PlayCollectPotion()
 	{
 		PlaySound(_collectPotion);
+	}
+
+	public void PlayCollectGold()
+	{
+		PlaySound(_collectGold);
 	}
 }

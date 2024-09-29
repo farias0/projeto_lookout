@@ -8,8 +8,8 @@ public partial class PickUp : RigidBody3D
 	public string InventoryItem // It's a string to avoid circular dependency
 	{
 		get => _inventoryItem.ResourcePath;
-		set => _inventoryItem = GD.Load<PackedScene>(value);
-	}
+		set { if (value != "") _inventoryItem = GD.Load<PackedScene>(value); }
+	}	
 
 
 	private readonly float HookSpeed = 3000;

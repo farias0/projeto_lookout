@@ -65,7 +65,6 @@ public partial class Player : CharacterBody3D
 	private float _invincibilityCountdown;
 	private Vector3 _startingRot;
 	private Node3D _bow = new();
-	private int _gold;
 	private float _maxStamina;
 	private float _staminaRegenCountdown;
 	private PlayerAudio? _audio;
@@ -98,8 +97,6 @@ public partial class Player : CharacterBody3D
 		_startingRot = GlobalRotation;
 		_maxHealth = Health;
 		_maxStamina = Stamina;
-
-		Resources.Instance.HUD.SetGoldAmount(_gold);
 	}
 
 	public override void _Process(double delta)
@@ -252,6 +249,8 @@ public partial class Player : CharacterBody3D
 		return !Resources.Instance.Inventory.IsEnabled();
 	}
 
+	public static int GetGoldAmount() => Resources.Instance.Inventory.Gold;
+
 	public void TakeDamage(int damage)
 	{
 		if (_invincibilityCountdown > 0) return;
@@ -304,22 +303,9 @@ public partial class Player : CharacterBody3D
 		}
 	}
 
-	public int GetGoldAmount() => _gold;
-
-	public void PickUpGold(int amount)
-	{
-		_gold += amount;
-		Resources.Instance.HUD.SetGoldAmount(_gold);
-		_effectsAudio!.PlayCollectGold();
-	}
-
 	public bool SubtractGold(int amount)
 	{
-		if (amount < _gold) return false;
-		_gold -= amount;
-		Resources.Instance.HUD.SetGoldAmount(_gold);
-		// _effectsAudio!.PlaySubtractGold();
-		return true;
+		return Resources.Instance.Inventory.SubtractGold(amount);
 	}
 
 	public void ArrowHooked(Node3D arrow)

@@ -83,7 +83,7 @@ public partial class Jimmy : Npc
 
 	private void AcceptProposal()
 	{
-		if (Resources.Instance.Player.GetGoldAmount() >= GoldAsked)
+		if (Player.GetGoldAmount() >= GoldAsked)
 		{
 			_hasAcceptedProposal = true;
 			StartDialogue(_proposalConfirmationDialogue);
@@ -94,7 +94,7 @@ public partial class Jimmy : Npc
 
 	private void StartPlan()
 	{
-		if (Resources.Instance.Player.GetGoldAmount() >= GoldAsked)
+		if (Player.GetGoldAmount() >= GoldAsked)
 		{
 			StartDialogue(_proposalConfirmedDialogue);
 			_isExecutingPlan = true;
@@ -117,7 +117,7 @@ public partial class Jimmy : Npc
 
 		if (playerTurnedAway)
 		{
-			player.SubtractGold(player.GetGoldAmount());
+			player.SubtractGold(Player.GetGoldAmount());
 
 			PullArrowBack();
 			FireArrowAt(LastKnownPlayerPos);

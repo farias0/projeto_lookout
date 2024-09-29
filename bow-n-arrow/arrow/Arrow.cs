@@ -24,8 +24,6 @@ public partial class Arrow : Node3D
 	public int Damage { get; set; } = 40;
 
 	private const float LifeTime = 5;
-	private readonly PackedScene RB_Normal = GD.Load<PackedScene>("res://bow-n-arrow/arrow/types/normal.tscn");
-	private readonly PackedScene RB_Hook = GD.Load<PackedScene>("res://bow-n-arrow/arrow/types/hook.tscn");
 
 	private float _lifeTime = LifeTime;
 	private RigidBody3D _rigidBody;
