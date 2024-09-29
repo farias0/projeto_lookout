@@ -1,7 +1,5 @@
 === JOGADOR
 
-- andar com shift
-
 - botão cancelar flecha
 
 - tolerância no pulo
@@ -19,23 +17,13 @@ ________________________
 
 === ARCO E FLECHA
 
-- adicionar distancia máxima p/ flecha		
-
-- flechas que são plataformas!!				
-
-- animação de puxar flecha							
-
-- flecha c/ física rigidbody							<<<<<<
+- adicionar distancia máxima p/ flecha			<<<<<<	
+- flechas mais rápidas?					<<<<<<
+- rigidbody?
 	- aceleração
 	- gravidade
 
-- gancho puxar com aceleração?
-
-- gancho adicionar impulso ao jogador						<<<<<
-
-- flecha explosiva?
-
-- arrumar exception de quando seta a GlobalPosition ao spawnar flecha		
+- animação de puxar flecha							
 
 - flecha saindo de lado quando segura A ou D					<<<<<<<
 
@@ -57,7 +45,7 @@ ________________________
 
 ________________________
 
-=== ITENS	
+=== ITENS, POWERUPS, INVENTARIO
 
 
 - grade
@@ -69,6 +57,16 @@ ________________________
 
 - flecha-gancho										
 	- achar imagem 2D melhor
+	- aceleração no puxar
+	- adicionar impulso ao jogador						<<<<<
+
+- flecha-foguete								<<<<<<<<<<
+	- item de inventario
+	- tipo de flecha
+	- explosão?
+	- maior dano no inimigo
+	- impulso no jogador
+	- botão que só ativa com foguete
 
 
 - item da bota
@@ -77,8 +75,6 @@ ________________________
 
 - poderes										
 	- arco
-		- flecha missel que empurra o jogador					<<<<<<<<
-			- botão gigante que só ativa com missel
 		- flecha de gelo (em paredes cria viga, em inimigo congela)		<<<<<<<<
 		- separar gancho que puxa o item pra gancho que puxa o jogador
 		- flecha de sono
@@ -132,6 +128,7 @@ Substituir sons:
 
 ________________________
 
+- exceptions ao instanciar novos itens e setar GlobalPosition
 
 - resetar o estado do mundo inteiro quando o jogador morre		
 	- destruir flechas no ar				

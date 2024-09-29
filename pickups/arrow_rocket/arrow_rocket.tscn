@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://c82gmnjwnntki"]
+
+[ext_resource type="Script" path="res://pickups/PickUp.cs" id="1_b1041"]
+[ext_resource type="PackedScene" uid="uid://df7mk8fglogvv" path="res://pickups/arrow_rocket/mesh.tscn" id="1_ddr4d"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8o30x"]
+size = Vector3(0.16777, 0.233154, 1.52539)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tk8u3"]
+size = Vector3(0.308716, 0.376221, 1.70044)
+
+[node name="ArrowRocket" type="RigidBody3D"]
+script = ExtResource("1_b1041")
+InventoryItem = "res://ui/inventory/items/arrow_hook/arrow_hook.tscn"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00153351, 0.0819092, 0.0166016)
+shape = SubResource("BoxShape3D_8o30x")
+
+[node name="MeshNode" parent="." instance=ExtResource("1_ddr4d")]
+transform = Transform3D(-0.05, 7.54979e-09, 3.30012e-16, 0, -2.18557e-09, 0.05, 7.54979e-09, 0.05, 2.18557e-09, 0, 0.0882373, 0)
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00408936, 0.069458, 0.00695801)
+shape = SubResource("BoxShape3D_tk8u3")

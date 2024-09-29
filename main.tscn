@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ckkl12kv0h1v2"]
+[gd_scene load_steps=15 format=3 uid="uid://ckkl12kv0h1v2"]
 
 [ext_resource type="PackedScene" uid="uid://bv3m1ns1lv7h8" path="res://player/player.tscn" id="1_5sf8t"]
 [ext_resource type="PackedScene" uid="uid://5er8g2v4ilch" path="res://ui/hud/hud.tscn" id="1_l4t0p"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://w6h5apqbwpgy" path="res://pickups/stamina_potion/stamina_potion.tscn" id="11_0h31j"]
 [ext_resource type="PackedScene" uid="uid://dtgaspc6h1abb" path="res://pickups/health_potion/health_potion.tscn" id="12_iop02"]
 [ext_resource type="PackedScene" uid="uid://bisvx6j7y0l3l" path="res://ui/inventory/inventory.tscn" id="13_r48r6"]
+[ext_resource type="PackedScene" uid="uid://c82gmnjwnntki" path="res://pickups/arrow_rocket/arrow_rocket.tscn" id="13_vvdci"]
 [ext_resource type="PackedScene" uid="uid://ncvftkyeouxb" path="res://npc/jimmy/jimmy.tscn" id="16_4g7xt"]
 [ext_resource type="PackedScene" uid="uid://c4pn7s8fq8e43" path="res://enemy/hound/hound.tscn" id="22_8mn6n"]
 
@@ -166,3 +167,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.06706, 14.7615, 91.9473)
 
 [node name="Stamina2" parent="NavigationRegion3D" instance=ExtResource("11_0h31j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5896, 7.25, 45.421)
+
+[node name="ArrowRocket" parent="." instance=ExtResource("13_vvdci")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.4995, -1.49012e-07, 8.99901)
