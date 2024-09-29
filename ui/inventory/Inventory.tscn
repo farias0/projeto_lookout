@@ -68,6 +68,7 @@ ItemSelected = -0.959
 ItemRotated = -4.313
 ItemSetInPlace = 0.958
 InventoryFull = -3.355
+CollectPotion = -8.627
 
 [node name="ArrowHook" parent="." instance=ExtResource("5_q8eld")]
 layout_mode = 0

@@ -194,17 +194,9 @@ public partial class Inventory : Control
 		{
 			HeldItems.Add(item);
 
-			var player = Resources.Instance.Player;
-			if (item.ID == "health_potion")
-			{
-				player.PickUpHealthPotion();
-				Resources.Instance.HUD.SetHealthPotionAmount(HealthPotionCount);
-			}
-			else if (item.ID == "stamina_potion")
-			{
-				player.PickUpStaminaPotion();
-				Resources.Instance.HUD.SetStaminaPotionAmount(StaminaPotionCount);
-			}
+			if (item.ID == "health_potion" || item.ID == "stamina_potion")
+				Audio.PlayCollectPotion();
+			RefreshHUD();
 		}
 		else
 		{

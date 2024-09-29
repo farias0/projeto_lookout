@@ -34,18 +34,11 @@ public partial class EffectsAudio : SoundPlayer
 		get => _collectGold.Volume;
 		set => SetSoundVolume(_collectGold, value);
 	}
-	[Export(PropertyHint.Range, "-80, 24")]
-	private float CollectPotion
-	{
-		get => _collectPotion.Volume;
-		set => SetSoundVolume(_collectPotion, value);
-	}
 
 	private readonly Sound _heal = new();
 	private readonly Sound _slide = new();
 	private readonly Sound _fillStamina = new();
 	private readonly Sound _collectGold = new();
-	private readonly Sound _collectPotion = new();
 
 	public override void _Ready()
 	{
@@ -56,8 +49,6 @@ public partial class EffectsAudio : SoundPlayer
 		_fillStamina.LoadStream("res://player/effects_audio/fill_stamina.wav");
 
 		_collectGold.LoadStream("res://player/effects_audio/collect_gold.wav");
-
-		_collectPotion.LoadStream("res://player/effects_audio/collect_potion.wav");
 	}
 
 	public void PlayHeal()
@@ -84,10 +75,5 @@ public partial class EffectsAudio : SoundPlayer
 	public void PlayCollectGold()
 	{
 		PlaySound(_collectGold);
-	}
-
-	public void PlayCollectPotion()
-	{
-		PlaySound(_collectPotion);
 	}
 }

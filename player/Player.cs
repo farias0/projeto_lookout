@@ -322,15 +322,6 @@ public partial class Player : CharacterBody3D
 		return true;
 	}
 
-	public void PickUpHealthPotion()
-	{
-		_effectsAudio!.PlayCollectPotion();
-	}
-	public void PickUpStaminaPotion()
-	{
-		_effectsAudio!.PlayCollectPotion();
-	}
-
 	public void ArrowHooked(Node3D arrow)
 	{
 		if (_hookedArrow != null)
