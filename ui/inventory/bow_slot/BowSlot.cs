@@ -16,6 +16,9 @@ public partial class BowSlot : TextureButton
 
 	public void SetItem(InventoryItem item)
 	{
+		if (item != null && !item.IsBowItem)
+			throw new InvalidOperationException("Only bow items can be set in the bow slot.");
+
 		ClearItem();
 
 		_item = item;

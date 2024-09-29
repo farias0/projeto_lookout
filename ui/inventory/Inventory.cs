@@ -400,7 +400,7 @@ public partial class Inventory : Control
 				}
 			}
 			// Check against bow slot
-			if (itemCell.GetCollisionRect().Intersects(_bowSlot.GetGlobalRect()))
+			if (item.IsBowItem && itemCell.GetCollisionRect().Intersects(_bowSlot.GetGlobalRect()))
 			{
 				_bowSlot.SetItem(item);
 				StopDraggingItem(item);

@@ -24,6 +24,8 @@ public partial class InventoryItem : TextureButton
 	public string ID { get; set; }
 	[Export]
 	public string Label {  get; set; }
+	[Export]
+	public bool IsBowItem { get; set; }
 	[Export(PropertyHint.MultilineText)]
 	public string ShapeString
 	{

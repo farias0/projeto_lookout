@@ -68,8 +68,7 @@ ________________________
 
 - item do arco										<<<<<<<
 	- gancho ser um item equipável
-		- ter um item de mundo pra ele
-	- equipar somente itens de arco no slot de arco
+	- ter um item de mundo pra ele
 	- HUD
 
 - item da bota
@@ -79,6 +78,7 @@ ________________________
 - poderes										
 	- arco
 		- flecha missel que empurra o jogador					<<<<<<<<
+			- botão gigante que só ativa com missel
 		- flecha de gelo (em paredes cria viga, em inimigo congela)		<<<<<<<<
 		- separar gancho que puxa o item pra gancho que puxa o jogador
 		- flecha de sono

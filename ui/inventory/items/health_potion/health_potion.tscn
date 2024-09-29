@@ -16,7 +16,6 @@ stretch_mode = 0
 script = ExtResource("2_ljh5n")
 ID = "health_potion"
 Label = "Poção de Cura"
-ShapeString = "XOO
-OXO
-OXX"
+ShapeString = "XXX
+XXX"
 SpawnsItem = ExtResource("3_pka7x")
