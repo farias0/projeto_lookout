@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0s371s11t5yh"
-path="res://.godot/imported/stamina_potion.png-273f5ce6345aafcd7c1e97ba16cb530b.ctex"
+uid="uid://b5ri4oiebyi5e"
+path="res://.godot/imported/gauge_bg.png-e077ac1de7032fdcb7bef4ad615222b7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/hud/stamina_potion.png"
-dest_files=["res://.godot/imported/stamina_potion.png-273f5ce6345aafcd7c1e97ba16cb530b.ctex"]
+source_file="res://ui/hud/gauges/gauge_bg.png"
+dest_files=["res://.godot/imported/gauge_bg.png-e077ac1de7032fdcb7bef4ad615222b7.ctex"]
 
 [params]
 

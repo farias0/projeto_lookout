@@ -1,30 +1,17 @@
-[gd_scene load_steps=25 format=3 uid="uid://ckkl12kv0h1v2"]
+[gd_scene load_steps=14 format=3 uid="uid://ckkl12kv0h1v2"]
 
-[ext_resource type="Texture2D" uid="uid://dvpfu3c846x0g" path="res://ui/hud/crosshair.png" id="1_4ptm4"]
 [ext_resource type="PackedScene" uid="uid://bv3m1ns1lv7h8" path="res://player/player.tscn" id="1_5sf8t"]
-[ext_resource type="Script" path="res://ui/hud/HUD.cs" id="1_skqm2"]
-[ext_resource type="Texture2D" uid="uid://duga5stvg545a" path="res://ui/hud/health_bar.png" id="2_gvvvj"]
-[ext_resource type="Texture2D" uid="uid://b5ri4oiebyi5e" path="res://ui/hud/gauge_bg.png" id="3_1q12o"]
+[ext_resource type="PackedScene" uid="uid://5er8g2v4ilch" path="res://ui/hud/hud.tscn" id="1_l4t0p"]
 [ext_resource type="PackedScene" uid="uid://6wvc47yciarc" path="res://enemy/enemy.tscn" id="3_4s0tw"]
 [ext_resource type="PackedScene" uid="uid://bc5wkuw0yd2j" path="res://wall/wall.tscn" id="3_7rrpu"]
-[ext_resource type="Texture2D" uid="uid://20fsv78bqhxr" path="res://ui/hud/stamina_bar.png" id="5_kju81"]
 [ext_resource type="PackedScene" uid="uid://b1nyddu8383px" path="res://greybox/greybox.tscn" id="6_03q6w"]
 [ext_resource type="PackedScene" uid="uid://cgvq1xkwkjs5s" path="res://patrol_point/PatrolPoint.tscn" id="6_dr3r0"]
-[ext_resource type="Theme" uid="uid://bm2f0kwe2o4ow" path="res://ui/hud/font_gold.tres" id="6_oxab0"]
-[ext_resource type="Texture2D" uid="uid://ch5wm3o6mga83" path="res://ui/hud/health_potion.png" id="6_rdjc8"]
-[ext_resource type="Theme" uid="uid://c8n5hhdbdljlw" path="res://ui/hud/font_items_amount.tres" id="8_espg2"]
-[ext_resource type="Theme" uid="uid://uanrkn6g6c4s" path="res://ui/hud/font_items_hint.tres" id="9_tiyw8"]
 [ext_resource type="PackedScene" uid="uid://dk1yqkeui32ew" path="res://pickups/gold_chest/chest.tscn" id="10_d7yvc"]
-[ext_resource type="Texture2D" uid="uid://d0s371s11t5yh" path="res://ui/hud/stamina_potion.png" id="10_g82on"]
 [ext_resource type="PackedScene" uid="uid://w6h5apqbwpgy" path="res://pickups/stamina_potion/stamina_potion.tscn" id="11_0h31j"]
 [ext_resource type="PackedScene" uid="uid://dtgaspc6h1abb" path="res://pickups/health_potion/health_potion.tscn" id="12_iop02"]
-[ext_resource type="Script" path="res://ui/hud/Subtitles.cs" id="12_jvamm"]
 [ext_resource type="PackedScene" uid="uid://bisvx6j7y0l3l" path="res://ui/inventory/inventory.tscn" id="13_r48r6"]
 [ext_resource type="PackedScene" uid="uid://ncvftkyeouxb" path="res://npc/jimmy/jimmy.tscn" id="16_4g7xt"]
 [ext_resource type="PackedScene" uid="uid://c4pn7s8fq8e43" path="res://enemy/hound/hound.tscn" id="22_8mn6n"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_ifqyw"]
-diffuse_texture = ExtResource("2_gvvvj")
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ltjk3"]
 vertices = PackedVector3Array(12.15, 0.499993, 15.5, 12.15, 0.499993, 9.25, 10.4, 0.499993, 9.25, 10.4, 0.499993, 15.5, -1.35, 0.499993, 4.75, 9.65, 0.499993, 8.5, 1.4, 0.499993, 4.75, -0.599998, 0.499993, 4, 9.65, 0.499993, 16.25, 0.650002, 0.499993, 4, 0.650002, 0.499993, -3, -0.599998, 0.499993, -3, -3.35, 0.499993, 19, 9.65, 0.499993, 19, 9.65, 0.499993, 4.75, -3.6, 0.499993, 4.75, 35.4, 0.499993, 23.25, 37.4, 0.499993, 23.25, 37.4, 0.499993, 21.25, 35.4, 0.499993, 19, 34.65, 0.499993, 18.25, 37.9, 0.499993, 20.75, 42.65, 0.499993, 19.25, 42.65, 0.499993, 4, 26.4, 0.499993, 4, 26.4, 0.499993, 8.5, 43.15, 0.999993, 22.5, 43.15, 0.499993, 19.5, 39.4, 0.749993, 21.25, 39.4, 1.24999, 22.75, 25.65, 0.499993, 9.25, 25.65, 0.499993, 15.5, 26.4, 0.499993, 16.25, 26.4, 0.499993, 18.25, 23.9, 0.499993, 9.25, 23.9, 0.499993, 15.5, -42.1, 5.24999, 18.75, -5.35, 5.24999, 19, -5.35, 5.24999, 16.75, -42.1, 5.24999, 16.75, -41.6, 7.74999, 20.75, -41.6, 7.74999, 58.5, -31.35, 7.74999, 58.5, -31.35, 7.74999, 20.75, 39.4, 8.24999, 57.75, 43.15, 8.24999, 58, 35.4, 0.499993, 57.25, 37.4, 0.499993, 57.25, 13.9, 0.499993, 59.25, 15.15, 0.499993, 58.5, 15.15, 0.499993, 52, 2.4, 0.499993, 52, 2.4, 0.499993, 61.25, 13.9, 0.499993, 61.25, 15.9, 0.499993, 58.5, 16.65, 0.499993, 59.5, 24.65, 0.499993, 59.25, 24.65, 0.499993, 52, 35.4, 0.499993, 59.25, 37.4, 0.499993, 59.5, 16.65, 0.499993, 90, 15.4, 0.499993, 98.25, 42.65, 0.499993, 98.25, 42.65, 0.499993, 60.25, 38.15, 0.499993, 60.25, 34.65, 0.499993, 60, 25.4, 0.499993, 60, 15.4, 0.499993, 90.75, 39.4, 8.49999, 59.25, 38.65, 8.49999, 60, 43.15, 8.49999, 86.5, 26.9, 8.49999, 86.25, 26.9, 8.49999, 60, -41.6, 12.75, 70.25, -40.1, 12.75, 71.5, -31.35, 12.75, 71.5, -31.35, 12.75, 60.5, -41.6, 12.75, 60.5, 9.4, 0.499993, 70.5, 10.15, 0.499993, 71.75, 13.9, 0.499993, 71.75, 2.4, 0.499993, 71.75, 6.65, 0.499993, 71.75, 7.9, 0.499993, 70.25, -41.1, 12.75, 73, -41.6, 12.75, 86.5, -31.35, 12.75, 86.5, -41.6, 12.75, 73, 9.4, 0.499993, 73, 13.9, 0.499993, 88, 7.65, 0.499993, 73, 2.4, 0.499993, 88, -68.6, 15.25, 85.75, -58.6, 15.25, 85.75, -58.6, 15.25, 76.5, -68.6, 15.25, 76.5, -55.6, 15.25, 94.75, -55.35, 15.25, 88.5, -57.85, 15.25, 88.5, -58.6, 15.25, 87.75, -68.6, 15.25, 94.75, 24.4, 8.99999, 88.5, 24.4, 8.99999, 94.75, 26.15, 8.49999, 94.75, 26.15, 8.49999, 88.5, 26.9, 8.49999, 87.75, 26.9, 8.49999, 95.5, 43.15, 8.49999, 98.25, 26.9, 8.49999, 98.25, 2.4, 0.499993, 100.25, 9.65, 0.499993, 100.5, 9.65, 0.499993, 99, 14.65, 0.499993, 90.75, 10.4, 0.499993, 98.25, 13.9, 0.499993, 90, -30.35, 15.25, 94.75, -28.85, 15.25, 94.75, -29.1, 15.25, 88.5, -54.1, 15.25, 94.75, -53.35, 15.25, 161.5, -46.35, 15.25, 161.5, -46.35, 15.25, 159.5, -38.1, 15.25, 159.5, -38.1, 15.25, 161.5, -31.1, 15.25, 161.5, -53.35, 15.25, 95.5, -31.1, 15.25, 95.5, -45.6, 15.25, 158.75, -38.85, 15.25, 158.75, -4.6, 15.25, 94.75, -4.6, 15.25, 88.5, 9.9, 13, 88.5, 9.9, 13, 94.75, 23.3853, 8.99999, 93.5107, 2.4, 0.499993, 138, 9.65, 0.499993, 137.75, 2.4, 1.24999, 148.25, 5.9, 1.24999, 148.25, 5.9, 0.749993, 146.25, 6.65, 0.749993, 145.5, 9.65, 0.499993, 139.25, 2.4, 0.499993, 143.857, 7.4, 0.499993, 145.5, 8.15, 0.499993, 146.5, 10.65, 0.499993, 140, 27.65, 0.499993, 140, 8.15, 0.499993, 162.25, 27.65, 0.499993, 162.25, 2.4, 7.49999, 182, 5.9, 7.49999, 182, 2.65, 0.499993, 154.5, 2.65, 0.499993, 162.25, 5.9, 0.499993, 162.25, 5.9, 0.499993, 154.5, -44.35, 20.25, 160.75, -44.35, 20.25, 190.75, -40.1, 20.25, 190.75, -40.1, 20.25, 160.75, -44.1, 15.25, 161, -44.1, 15.25, 166.75, -40.35, 15.25, 166.75, -40.35, 15.25, 161, -53.35, 15.25, 166.75, -46.35, 15.25, 166.75, -38.1, 15.25, 166.75, -31.1, 15.25, 166.75, 5.9, 7.74999, 184, 6.65, 7.49999, 184.75, 2.65, 7.49999, 215.75, 9.65, 7.49999, 215, 9.65, 7.49999, 184.75, -62.35, 25.25, 192.75, -62.35, 25.25, 215, -40.1, 25.25, 215, -40.1, 25.25, 192.75, 38.9, 7.49999, 216.75, 38.9, 7.49999, 223, 40.65, 7.49999, 223, 40.65, 7.49999, 216.75, 41.4, 7.49999, 223.75, 41.4, 7.49999, 238.25, 69.4, 7.49999, 238.25, 41.4, 7.49999, 216, 69.4, 7.49999, 200, 41.4, 7.49999, 200, 11.65, 7.49999, 223, 11.9, 7.49999, 216.75, 10.4, 7.49999, 216.75, 9.65, 7.49999, 216, 2.65, 7.49999, 223, -45.6, 20, 217, -45.6, 20, 223, -23.35, 20, 223, -23.35, 20, 216.75, -21.35, 15, 216.75, -21.35, 15, 223, 0.650002, 15, 223, 0.650002, 15, 216.75)
@@ -33,148 +20,7 @@ agent_radius = 1.0
 
 [node name="Main" type="Node3D"]
 
-[node name="HUD" type="CanvasLayer" parent="."]
-script = ExtResource("1_skqm2")
-
-[node name="Crosshair" type="TextureRect" parent="HUD"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("1_4ptm4")
-
-[node name="Gauges" type="CanvasLayer" parent="HUD"]
-
-[node name="Health" type="CanvasLayer" parent="HUD/Gauges"]
-
-[node name="BG" type="TextureRect" parent="HUD/Gauges/Health"]
-offset_left = 96.0
-offset_top = 59.0
-offset_right = 314.0
-offset_bottom = 82.0
-texture = ExtResource("3_1q12o")
-
-[node name="Bar" type="TextureRect" parent="HUD/Gauges/Health"]
-offset_left = 96.0
-offset_top = 59.0
-offset_right = 314.0
-offset_bottom = 82.0
-texture = SubResource("CanvasTexture_ifqyw")
-
-[node name="Stamina" type="CanvasLayer" parent="HUD/Gauges"]
-
-[node name="BG" type="TextureRect" parent="HUD/Gauges/Stamina"]
-offset_left = 96.0
-offset_top = 90.0
-offset_right = 314.0
-offset_bottom = 113.0
-texture = ExtResource("3_1q12o")
-metadata/_edit_use_anchors_ = true
-
-[node name="Bar" type="TextureRect" parent="HUD/Gauges/Stamina"]
-offset_left = 96.0
-offset_top = 90.0
-offset_right = 314.0
-offset_bottom = 113.0
-texture = ExtResource("5_kju81")
-metadata/_edit_use_anchors_ = true
-
-[node name="GoldLabel" type="Label" parent="HUD"]
-offset_left = 1440.0
-offset_top = 808.0
-offset_right = 1511.0
-offset_bottom = 847.0
-theme = ExtResource("6_oxab0")
-theme_type_variation = &"GraphFrameTitleLabel"
-text = "¥ "
-
-[node name="HealthPotions" type="CanvasLayer" parent="HUD"]
-
-[node name="Icon" type="Sprite2D" parent="HUD/HealthPotions"]
-position = Vector2(215, 794)
-scale = Vector2(0.11, 0.11)
-texture = ExtResource("6_rdjc8")
-
-[node name="Amount" type="Label" parent="HUD/HealthPotions"]
-offset_left = 229.0
-offset_top = 804.0
-offset_right = 269.0
-offset_bottom = 843.0
-theme = ExtResource("8_espg2")
-text = "0
-"
-
-[node name="Hint" type="Label" parent="HUD/HealthPotions"]
-offset_left = 196.0
-offset_top = 824.0
-offset_right = 236.0
-offset_bottom = 863.0
-theme = ExtResource("9_tiyw8")
-text = "[1]"
-
-[node name="StaminaPotions" type="CanvasLayer" parent="HUD"]
-
-[node name="Icon" type="Sprite2D" parent="HUD/StaminaPotions"]
-position = Vector2(304, 794)
-scale = Vector2(0.11, 0.11)
-texture = ExtResource("10_g82on")
-
-[node name="Amount" type="Label" parent="HUD/StaminaPotions"]
-offset_left = 318.0
-offset_top = 804.0
-offset_right = 358.0
-offset_bottom = 843.0
-theme = ExtResource("8_espg2")
-text = "0
-"
-metadata/_edit_use_anchors_ = true
-
-[node name="Hint" type="Label" parent="HUD/StaminaPotions"]
-offset_left = 285.0
-offset_top = 824.0
-offset_right = 325.0
-offset_bottom = 863.0
-theme = ExtResource("9_tiyw8")
-text = "[2]"
-metadata/_edit_use_anchors_ = true
-
-[node name="Subtitles" type="Control" parent="HUD"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("12_jvamm")
-
-[node name="ColorRect" type="ColorRect" parent="HUD/Subtitles"]
-layout_mode = 0
-offset_left = 515.0
-offset_top = 740.0
-offset_right = 555.0
-offset_bottom = 780.0
-scale = Vector2(14.76, 2.96)
-color = Color(0.415686, 0.415686, 0.415686, 0.72549)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="HUD/Subtitles"]
-layout_mode = 0
-offset_left = 550.0
-offset_top = 760.0
-offset_right = 1050.0
-offset_bottom = 840.0
-theme_override_colors/default_color = Color(0.912289, 0.912289, 0.912289, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0.176419, 0.176419, 0.176419, 1)
-theme_override_font_sizes/normal_font_size = 20
-bbcode_enabled = true
-text = "[center]Venha falar comigo, eu tenho um plano pra tirar a gente daqui.[/center]"
-fit_content = true
-scroll_active = false
+[node name="HUD" parent="." instance=ExtResource("1_l4t0p")]
 
 [node name="Inventory" parent="." instance=ExtResource("13_r48r6")]
 

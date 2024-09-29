@@ -1,0 +1,159 @@
+[gd_scene load_steps=13 format=3 uid="uid://5er8g2v4ilch"]
+
+[ext_resource type="Script" path="res://ui/hud/HUD.cs" id="1_5chqj"]
+[ext_resource type="Texture2D" uid="uid://dvpfu3c846x0g" path="res://ui/hud/crosshair.png" id="2_mbq0h"]
+[ext_resource type="Texture2D" uid="uid://b5ri4oiebyi5e" path="res://ui/hud/gauges/gauge_bg.png" id="3_c78s7"]
+[ext_resource type="Texture2D" uid="uid://duga5stvg545a" path="res://ui/hud/gauges/health_bar.png" id="4_ihgwy"]
+[ext_resource type="Texture2D" uid="uid://20fsv78bqhxr" path="res://ui/hud/gauges/stamina_bar.png" id="5_3spoi"]
+[ext_resource type="Theme" uid="uid://bm2f0kwe2o4ow" path="res://ui/hud/font_gold.tres" id="6_xbiaa"]
+[ext_resource type="Texture2D" uid="uid://ch5wm3o6mga83" path="res://ui/hud/items/health_potion.png" id="7_l4g8a"]
+[ext_resource type="Theme" uid="uid://c8n5hhdbdljlw" path="res://ui/hud/items/font_items_amount.tres" id="8_2upsc"]
+[ext_resource type="Theme" uid="uid://uanrkn6g6c4s" path="res://ui/hud/items/font_items_hint.tres" id="9_wwo6e"]
+[ext_resource type="Texture2D" uid="uid://d0s371s11t5yh" path="res://ui/hud/items/stamina_potion.png" id="10_lbshb"]
+[ext_resource type="Script" path="res://ui/hud/Subtitles.cs" id="11_a8v2h"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_ifqyw"]
+diffuse_texture = ExtResource("4_ihgwy")
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_5chqj")
+
+[node name="Crosshair" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_mbq0h")
+
+[node name="Gauges" type="CanvasLayer" parent="."]
+
+[node name="Health" type="CanvasLayer" parent="Gauges"]
+
+[node name="BG" type="TextureRect" parent="Gauges/Health"]
+offset_left = 96.0
+offset_top = 59.0
+offset_right = 314.0
+offset_bottom = 82.0
+texture = ExtResource("3_c78s7")
+
+[node name="Bar" type="TextureRect" parent="Gauges/Health"]
+offset_left = 96.0
+offset_top = 59.0
+offset_right = 314.0
+offset_bottom = 82.0
+texture = SubResource("CanvasTexture_ifqyw")
+
+[node name="Stamina" type="CanvasLayer" parent="Gauges"]
+
+[node name="BG" type="TextureRect" parent="Gauges/Stamina"]
+offset_left = 96.0
+offset_top = 90.0
+offset_right = 314.0
+offset_bottom = 113.0
+texture = ExtResource("3_c78s7")
+metadata/_edit_use_anchors_ = true
+
+[node name="Bar" type="TextureRect" parent="Gauges/Stamina"]
+offset_left = 96.0
+offset_top = 90.0
+offset_right = 314.0
+offset_bottom = 113.0
+texture = ExtResource("5_3spoi")
+metadata/_edit_use_anchors_ = true
+
+[node name="GoldLabel" type="Label" parent="."]
+offset_left = 1440.0
+offset_top = 808.0
+offset_right = 1511.0
+offset_bottom = 847.0
+theme = ExtResource("6_xbiaa")
+theme_type_variation = &"GraphFrameTitleLabel"
+text = "¥ "
+
+[node name="HealthPotions" type="CanvasLayer" parent="."]
+
+[node name="Icon" type="Sprite2D" parent="HealthPotions"]
+position = Vector2(215, 794)
+scale = Vector2(0.11, 0.11)
+texture = ExtResource("7_l4g8a")
+
+[node name="Amount" type="Label" parent="HealthPotions"]
+offset_left = 229.0
+offset_top = 804.0
+offset_right = 269.0
+offset_bottom = 843.0
+theme = ExtResource("8_2upsc")
+text = "0
+"
+
+[node name="Hint" type="Label" parent="HealthPotions"]
+offset_left = 196.0
+offset_top = 824.0
+offset_right = 236.0
+offset_bottom = 863.0
+theme = ExtResource("9_wwo6e")
+text = "[1]"
+
+[node name="StaminaPotions" type="CanvasLayer" parent="."]
+
+[node name="Icon" type="Sprite2D" parent="StaminaPotions"]
+position = Vector2(304, 794)
+scale = Vector2(0.11, 0.11)
+texture = ExtResource("10_lbshb")
+
+[node name="Amount" type="Label" parent="StaminaPotions"]
+offset_left = 318.0
+offset_top = 804.0
+offset_right = 358.0
+offset_bottom = 843.0
+theme = ExtResource("8_2upsc")
+text = "0
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="Hint" type="Label" parent="StaminaPotions"]
+offset_left = 285.0
+offset_top = 824.0
+offset_right = 325.0
+offset_bottom = 863.0
+theme = ExtResource("9_wwo6e")
+text = "[2]"
+metadata/_edit_use_anchors_ = true
+
+[node name="Subtitles" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("11_a8v2h")
+
+[node name="ColorRect" type="ColorRect" parent="Subtitles"]
+layout_mode = 0
+offset_left = 515.0
+offset_top = 740.0
+offset_right = 555.0
+offset_bottom = 780.0
+scale = Vector2(14.76, 2.96)
+color = Color(0.415686, 0.415686, 0.415686, 0.72549)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Subtitles"]
+layout_mode = 0
+offset_left = 550.0
+offset_top = 760.0
+offset_right = 1050.0
+offset_bottom = 840.0
+theme_override_colors/default_color = Color(0.912289, 0.912289, 0.912289, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.176419, 0.176419, 0.176419, 1)
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "[center]Venha falar comigo, eu tenho um plano pra tirar a gente daqui.[/center]"
+fit_content = true
+scroll_active = false

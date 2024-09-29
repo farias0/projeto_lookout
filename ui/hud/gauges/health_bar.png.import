@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5ri4oiebyi5e"
-path="res://.godot/imported/gauge_bg.png-d0021e5c7ea203070ae6367bb2261719.ctex"
+uid="uid://duga5stvg545a"
+path="res://.godot/imported/health_bar.png-984b039b242fab99eb1b17b9029e9b9b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/hud/gauge_bg.png"
-dest_files=["res://.godot/imported/gauge_bg.png-d0021e5c7ea203070ae6367bb2261719.ctex"]
+source_file="res://ui/hud/gauges/health_bar.png"
+dest_files=["res://.godot/imported/health_bar.png-984b039b242fab99eb1b17b9029e9b9b.ctex"]
 
 [params]
 
