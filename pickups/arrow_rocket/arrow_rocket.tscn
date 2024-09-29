@@ -11,7 +11,7 @@ size = Vector3(0.308716, 0.376221, 1.70044)
 
 [node name="ArrowRocket" type="RigidBody3D"]
 script = ExtResource("1_b1041")
-InventoryItem = "res://ui/inventory/items/arrow_hook/arrow_hook.tscn"
+InventoryItem = "res://ui/inventory/items/arrow_rocket/arrow_rocket.tscn"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00153351, 0.0819092, 0.0166016)

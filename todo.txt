@@ -61,7 +61,6 @@ ________________________
 	- adicionar impulso ao jogador						<<<<<
 
 - flecha-foguete								<<<<<<<<<<
-	- item de inventario
 	- tipo de flecha
 	- explosão?
 	- maior dano no inimigo
