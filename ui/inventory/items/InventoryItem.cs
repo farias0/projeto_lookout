@@ -8,7 +8,8 @@ using System.Linq;
 public enum BowItemType
 {
 	None,
-	Hook
+	Hook,
+	Rocket
 }
 
 public partial class InventoryItem : TextureButton

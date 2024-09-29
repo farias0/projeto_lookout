@@ -234,6 +234,7 @@ public partial class Player : CharacterBody3D
 				PullArrowBack(inventory.BowItemEquipped switch
 				{
 					BowItemType.Hook => ArrowType.Hook,
+					BowItemType.Rocket => ArrowType.Rocket,
 					_ => throw new System.NotImplementedException()
 				});
 			}
@@ -479,6 +480,7 @@ public partial class Player : CharacterBody3D
 			// TODO play error sound
 			return;
 		}
+		// TODO rocket check
 
 		Node node = Resources.Instance.Arrow.Instantiate();
 		Node3D? node3d = node as Node3D;
@@ -522,6 +524,9 @@ public partial class Player : CharacterBody3D
 
 		if ((_pulledBackArrow as Arrow)!.GetType() == ArrowType.Hook)
 			ConsumeStamina(StaminaCostHook);
+		// TODO
+		//else if ((_pulledBackArrow as Arrow)!.GetType() == ArrowType.Rocket)
+		//	Resources.Instance.Inventory.SpendRocket();
 
 		Vector3 pos = _pulledBackArrow.GlobalPosition;
 		_pulledBackArrow.Reparent(GetParent());

@@ -13,7 +13,7 @@ stretch_mode = 5
 script = ExtResource("2_jh5cv")
 ID = "arrow_rocket"
 Label = "Flecha-Foguete"
-BowItem = 1
+BowItem = 2
 ShapeString = "XXOO
 XXXX
 XXOO"

@@ -5,7 +5,8 @@ using projeto_lookout.libs;
 public enum ArrowType
 {
 	Normal,
-	Hook
+	Hook,
+	Rocket
 }
 
 public partial class Arrow : Node3D
@@ -106,18 +107,39 @@ public partial class Arrow : Node3D
 		switch (_type)
 		{
 			case ArrowType.Normal:
-				_rigidBody.GetNode<CollisionShape3D>("Normal_CollisionShape3D").Disabled = false;
-				_rigidBody.GetNode<Node3D>("Normal_MeshNode").Visible = true;
-				_rigidBody.GetNode<CollisionShape3D>("Hook_CollisionShape3D").Disabled = true;
-				_rigidBody.GetNode<Node3D>("Hook_MeshNode").Visible = false;
+				SetMeshAndCollisionShape("Normal_MeshNode", "Normal_CollisionShape3D");
 				break;
 			case ArrowType.Hook:
-				_rigidBody.GetNode<CollisionShape3D>("Normal_CollisionShape3D").Disabled = true;
-				_rigidBody.GetNode<Node3D>("Normal_MeshNode").Visible = false;
-				_rigidBody.GetNode<CollisionShape3D>("Hook_CollisionShape3D").Disabled = false;
-				_rigidBody.GetNode<Node3D>("Hook_MeshNode").Visible = true;
+				SetMeshAndCollisionShape("Hook_MeshNode", "Hook_CollisionShape3D");
+				break;
+			case ArrowType.Rocket:
+				SetMeshAndCollisionShape("Rocket_MeshNode", "Rocket_CollisionShape3D");
 				break;
 		}
+	}
+
+	/// <summary>
+	/// Chooses which mesh and collision shape to show based on the arrow type.
+	/// All others will be disabled/set to invisible.
+	/// </summary>
+	/// <param name="mesh"></param>
+	/// <param name="collisionShape"></param>
+	private void SetMeshAndCollisionShape(string mesh, string collisionShape)
+	{
+		foreach (var node in _rigidBody.GetChildren())
+		{
+			if (node is Node3D node3D)
+			{
+				node3D.Visible = false;
+			}
+			if (node is CollisionShape3D collision)
+			{
+				collision.Disabled = true;
+			}
+		}
+
+		_rigidBody.GetNode<Node3D>(mesh).Visible = true;
+		_rigidBody.GetNode<CollisionShape3D>(collisionShape).Disabled = false;
 	}
 
 	public void SetShooter(Player shooter)
@@ -188,7 +210,7 @@ public partial class Arrow : Node3D
 		CallDeferred("reparent", body);
 
 
-		if (_type == ArrowType.Normal)
+		if (_type == ArrowType.Normal || _type == ArrowType.Rocket)
 		{
 			_state = State.Hit;
 			if (body is Enemy enemy)
@@ -214,7 +236,7 @@ public partial class Arrow : Node3D
 
 	private void HookTo(Node3D body)
 	{
-		if (_type == ArrowType.Normal)
+		if (_type != ArrowType.Hook)
 				throw new InvalidOperationException("Only hook arrows can hook to something.");
 
 

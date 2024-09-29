@@ -61,7 +61,7 @@ ________________________
 	- adicionar impulso ao jogador						<<<<<
 
 - flecha-foguete								<<<<<<<<<<
-	- tipo de flecha
+	- consumir HP
 	- explosão?
 	- maior dano no inimigo
 	- impulso no jogador
@@ -113,6 +113,7 @@ Sons de:
 	- colocar item no slot de segurança
 	- abrir e fechar inventário
 	- coletar item (faltantes)
+- foguete					<<<<<<<
 
 Substituir sons:
 - npc						<<<<<

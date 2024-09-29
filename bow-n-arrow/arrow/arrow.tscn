@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://cmpuot84q17ho"]
+[gd_scene load_steps=14 format=4 uid="uid://cmpuot84q17ho"]
 
 [ext_resource type="Script" path="res://bow-n-arrow/arrow/Arrow.cs" id="2_5gm8k"]
 [ext_resource type="Material" uid="uid://bh1jd62emund7" path="res://bow-n-arrow/arrow/materials/wood.tres" id="2_cuggv"]
@@ -7,6 +7,7 @@
 [ext_resource type="Material" uid="uid://b25b80n712tcd" path="res://bow-n-arrow/arrow/materials/metal.tres" id="3_nu5xb"]
 [ext_resource type="Material" uid="uid://cglnvakc8s4r5" path="res://bow-n-arrow/arrow/materials/leather.tres" id="3_rov3i"]
 [ext_resource type="Material" uid="uid://cgw2nlxq8x8es" path="res://bow-n-arrow/arrow/materials/feather.tres" id="5_kcy8g"]
+[ext_resource type="PackedScene" uid="uid://df7mk8fglogvv" path="res://pickups/arrow_rocket/mesh.tscn" id="7_s10nk"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p52ox"]
 size = Vector3(0.030385, 0.0271837, 0.5213)
@@ -118,6 +119,9 @@ shadow_mesh = SubResource("ArrayMesh_ukym3")
 [sub_resource type="BoxShape3D" id="BoxShape3D_4o7xi"]
 size = Vector3(0.0809707, 0.0754517, 0.463254)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ceexl"]
+size = Vector3(0.0919127, 0.112083, 0.537109)
+
 [node name="Node3D" type="Node3D"]
 script = ExtResource("2_5gm8k")
 
@@ -147,6 +151,16 @@ disabled = true
 [node name="Hook_MeshNode" parent="RigidBody3D" instance=ExtResource("3_d18o2")]
 transform = Transform3D(-4.37114e-11, 0, 0.001, 0, 0.001, 0, -0.001, 0, -4.37114e-11, 0, 0, 0)
 visible = false
+
+[node name="Rocket_MeshNode" parent="RigidBody3D" instance=ExtResource("7_s10nk")]
+transform = Transform3D(-6.55671e-10, 0.015, 6.55671e-10, 0, -6.55671e-10, 0.015, 0.015, 6.55671e-10, 2.86603e-17, 0.187962, 0, 8.2161e-09)
+visible = false
+
+[node name="Rocket_CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.172512, -0.00622933, -0.00210202)
+visible = false
+shape = SubResource("BoxShape3D_ceexl")
+disabled = true
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 script = ExtResource("3_nhuh8")
