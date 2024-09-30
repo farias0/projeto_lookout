@@ -43,6 +43,8 @@ ________________________
 
 - colocar cadáver como ragdoll
 
+- testar Node tipo Path3D, ver se substitui PatrolPoints				<<<<<<<<
+
 ________________________
 
 === ITENS, POWERUPS, INVENTARIO
@@ -62,6 +64,8 @@ ________________________
 
 - flecha-foguete								<<<<<<<<<<
 	- explosão
+		- 2 explosões quando o foguete acerta exatamente no inimigo  	<<<<<<
+		- particulas
 	- impulso no jogador
 	- botão que só ativa com foguete
 	- parede que quebra

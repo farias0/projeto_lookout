@@ -16,6 +16,9 @@ namespace projeto_lookout.libs
 		public readonly PackedScene Arrow =
 			GD.Load<PackedScene>("res://bow-n-arrow/arrow/arrow.tscn");
 
+		public readonly PackedScene Explosion =
+			GD.Load<PackedScene>("res://explosion/explosion.tscn");
+
 
 		public override void _Ready()
 		{

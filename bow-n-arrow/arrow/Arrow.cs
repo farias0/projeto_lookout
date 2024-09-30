@@ -210,7 +210,7 @@ public partial class Arrow : Node3D
 		CallDeferred("reparent", body);
 
 
-		if (_type == ArrowType.Normal || _type == ArrowType.Rocket)
+		if (_type == ArrowType.Normal)
 		{
 			_state = State.Hit;
 			if (body is Enemy enemy)
@@ -229,6 +229,13 @@ public partial class Arrow : Node3D
 		else if (_type == ArrowType.Hook)
 		{
 			HookTo((Node3D)body);
+		}
+		else if (_type == ArrowType.Rocket)
+		{
+			var explosion = Resources.Instance.Explosion.Instantiate() as Explosion;
+			explosion.GlobalPosition = GlobalPosition;
+			GetParent().AddChild(explosion);
+			QueueFree();
 		}
 
 		_audio.PlayHit();

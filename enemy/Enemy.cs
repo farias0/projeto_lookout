@@ -309,6 +309,11 @@ public partial class Enemy : Area3D
 		return cylinder.Height;
 	}
 
+	public Vector3 GetCentralPoint()
+	{
+		return GlobalPosition + (GetHeight() * Basis.Y);
+	}
+
 	private void SetTarget(Vector3 pos)
 	{
 		_navAgent.TargetPosition = pos;
