@@ -65,12 +65,11 @@ ________________________
 	- adicionar impulso ao jogador						<<<<<
 
 - flecha-foguete								<<<<<<<<<<
-	- explosão
-		- particulas
 	- impulso no jogador
 	- botão que só ativa com foguete
 	- parede que quebra
 	- consumir HP
+	- sfx com particulas
 
 
 - item da bota
