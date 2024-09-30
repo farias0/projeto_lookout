@@ -232,10 +232,10 @@ public partial class Arrow : Node3D
 		}
 		else if (_type == ArrowType.Rocket)
 		{
+			_state = State.Hit;
 			var explosion = Resources.Instance.Explosion.Instantiate() as Explosion;
 			explosion.GlobalPosition = GlobalPosition;
 			GetParent().AddChild(explosion);
-			QueueFree();
 		}
 
 		_audio.PlayHit();

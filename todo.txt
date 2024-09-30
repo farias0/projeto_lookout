@@ -45,6 +45,8 @@ ________________________
 
 - testar Node tipo Path3D, ver se substitui PatrolPoints				<<<<<<<<
 
+- evitar explosões									<<<<<<<<
+
 ________________________
 
 === ITENS, POWERUPS, INVENTARIO
@@ -64,7 +66,6 @@ ________________________
 
 - flecha-foguete								<<<<<<<<<<
 	- explosão
-		- 2 explosões quando o foguete acerta exatamente no inimigo  	<<<<<<
 		- particulas
 	- impulso no jogador
 	- botão que só ativa com foguete
@@ -131,6 +132,8 @@ Substituir sons:
 	https://docs.godotengine.org/en/stable/tutorials/audio/audio_buses.html
 
 ________________________
+
+- fogo					<<<<<<<<<<<<<<<
 
 - no clip
 
