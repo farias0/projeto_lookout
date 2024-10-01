@@ -10,21 +10,21 @@
 
 - escorregar
 	- aceleração na escorregada	
-	- poder se mover levemente enquanto escorrega				<<<<<<
+	- poder se mover levemente enquanto escorrega				
 
 ________________________
 
 === ARCO E FLECHA
 
-- adicionar distancia máxima p/ flecha			<<<<<<	
-- flechas mais rápidas?					<<<<<<
+- adicionar distancia máxima p/ flecha			<<<<<<					
 - rigidbody?
-	- aceleração
+	- aceleração					<<<<<<
 	- gravidade
 
 - animação de puxar flecha							
 
-- flecha saindo de lado quando segura A ou D					<<<<<<<
+- flecha saindo de lado quando segura A ou D					
+	- talvez resolva ao aplicar o rigidbody
 
 ________________________
 
@@ -52,7 +52,7 @@ ________________________
 
 
 - grade
-	- centralizar ícone								<<<<<<<<
+	- centralizar ícone								
 	- mostrar melhor na grade quais células pertencem a quais itens		
 	- permitir a modificação de itens do inventário via Inspector em tempo de execução
 		- Godot quebra por não saber serializar InventoryItems
@@ -67,7 +67,8 @@ ________________________
 	- consumir HP
 	- sfx com particulas
 
-- plataforma que desliza com botão						<<<<<<<<<
+- ponte retrátil
+	- colisão ao tentar sair dela
 
 - item da bota
 
@@ -102,22 +103,26 @@ ________________________
 
 Sons de:
 - flecha voando
-- flecha acertou				<<<<
-- passos dos inimigos
-- inimigo morte (spawnar item com timer)
+- flecha acertou				
+- passos dos inimigos				<<<<<<
+- inimigo morte
 - desceu do puxador		
 - caindo
-- dinheiro sendo sacado				<<<<<
+- dinheiro sendo sacado				
 	- som de caixa registadora?
-- inventário						<<<<<
+- inventário						
 	- dropar item
 	- colocar item no slot de segurança
 	- abrir e fechar inventário
-	- coletar item (faltantes)
+	- coletar item (faltantes)		<<<<<<
+
 - foguete voando				<<<<<<<
 - explosão					<<<<<<<
 - parede quebrável				<<<<<<<
 - botão deslizante				<<<<<<<
+- ativando ponte				<<<<<<<
+
+- andando pela ponte				
 
 Substituir sons:
 - npc						<<<<<

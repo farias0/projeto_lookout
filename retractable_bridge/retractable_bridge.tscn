@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://xseelhjo33w"]
+
+[ext_resource type="Script" path="res://retractable_bridge/RetractableBridge.cs" id="1_s2lgb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_f1h25"]
+size = Vector3(2.2, 0.4, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dicb0"]
+albedo_color = Color(0.359069, 0.359069, 0.359069, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kqcfw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_slbml"]
+transparency = 1
+albedo_color = Color(0.356863, 0.462745, 0.784314, 0.631373)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6u2jy"]
+size = Vector3(2, 0.2, 1)
+
+[node name="RetractableBridge" type="Node3D"]
+script = ExtResource("1_s2lgb")
+
+[node name="Frame" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Frame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4)
+mesh = SubResource("BoxMesh_f1h25")
+surface_material_override/0 = SubResource("StandardMaterial3D_dicb0")
+
+[node name="BridgeMesh" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.174, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BridgeMesh"]
+transform = Transform3D(2, 0, 0, 0, 0.05, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_kqcfw")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_slbml")
+
+[node name="BridgeCollider" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BridgeCollider"]
+shape = SubResource("BoxShape3D_6u2jy")

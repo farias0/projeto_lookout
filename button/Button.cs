@@ -2,15 +2,36 @@ using Godot;
 using System;
 using projeto_lookout.libs;
 
+
+public interface IButtonActionable
+{
+	void ButtonActivate();
+}
+
 public partial class Button : Area3D
 {
 	[Export]
 	public float ButtonFinalZ { get; set; } = -0.35f;
 	[Export]
 	public float ButtonSlideSpeed { get; set; } = 0.1f;
+	[Export]
+	public Node3D ActivatesEntity
+	{
+		get => _activatesEntity as Node3D;
+		set
+		{
+			if (value is not IButtonActionable)
+				throw new Exception("Entity must implement IButtonActionable");
+
+			_activatesEntity = value as IButtonActionable;
+		}
+	}
+
 
 	private Node3D _button;
 	private bool _isSliding = false;
+	private IButtonActionable _activatesEntity;
+
 
 	public override void _Ready()
 	{
@@ -25,7 +46,7 @@ public partial class Button : Area3D
 	public void Press()
 	{
 		_isSliding = true;
-		Debug.Log("Button pressed.");
+		_activatesEntity?.ButtonActivate();
 	}
 
 	private void ProcessSlide(float delta)
