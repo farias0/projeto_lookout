@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://wall/breakable_wall/BreakableWall.cs" id="2_8f7r4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ueamt"]
-size = Vector3(3.48182, 9.16788, 15.9878)
+size = Vector3(3.48182, 9.16788, 16.8154)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jwato"]
 size = Vector3(1.80365, 3.56628, 5.8972)
@@ -295,7 +295,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_qvyyr")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dlh8a"]
-size = Vector3(1.69147, 3.25482, 3.4082)
+size = Vector3(1.69147, 3.25482, 3.03271)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_3ccs2"]
 _surfaces = [{
@@ -442,7 +442,7 @@ transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 1.6, 0)
 script = ExtResource("2_8f7r4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0828743, 0.00983286, 0.0583496)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0828743, 0.00983286, -0.067627)
 shape = SubResource("BoxShape3D_ueamt")
 
 [node name="Chunk" type="RigidBody3D" parent="."]
@@ -534,7 +534,7 @@ mesh = SubResource("ArrayMesh_cxaso")
 skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Chunk8"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0117493, 2.3168, 6.4869)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0117493, 2.3168, 6.29916)
 shape = SubResource("BoxShape3D_dlh8a")
 
 [node name="Chunk9" type="RigidBody3D" parent="."]

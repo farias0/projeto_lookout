@@ -60,7 +60,7 @@ public partial class Explosion : Node3D
 		}
 		else if (body is BreakableWall wall && LineOfSight(wall, wall.GetCentralPoint()))
 		{
-			wall.Break();
+			wall.Break(GlobalPosition);
 		}
 		// TODO buttons
 	}

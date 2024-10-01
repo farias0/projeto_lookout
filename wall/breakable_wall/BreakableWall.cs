@@ -5,9 +5,13 @@ public partial class BreakableWall : Area3D
 {
 	[Export]
 	public int DurationAfterExplosion { get; set; } = 5;
+	[Export]
+	public float ChunkExplosionForce { get; set; } = 20;
+
 
 	private float _durationCountdown = -1;
 	private BoxShape3D _collisionShape;
+
 
 	public override void _Ready()
 	{
@@ -33,11 +37,11 @@ public partial class BreakableWall : Area3D
 		return GlobalPosition + (Basis.Y * _collisionShape.Size.Y * Scale.Y * 0.5f);
 	}
 
-	public void Break()
+	public void Break(Vector3 explosionSource)
 	{
 		_durationCountdown = DurationAfterExplosion;
 		SetChunksEnabled(true);
-		ExplodeChunks();
+		ExplodeChunks((GlobalPosition - explosionSource).Normalized());
 		// TODO play sound
 	}
 
@@ -52,13 +56,13 @@ public partial class BreakableWall : Area3D
 		}
 	}
 
-	private void ExplodeChunks()
+	private void ExplodeChunks(Vector3 direction)
 	{
 		foreach (var child in GetChildren())
 		{
 			if (child is RigidBody3D rb)
 			{
-				rb.ApplyImpulse(-Basis.X * 20);
+				rb.ApplyImpulse(direction * ChunkExplosionForce);
 			}
 		}
 	}

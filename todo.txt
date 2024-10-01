@@ -61,7 +61,7 @@ ________________________
 - flecha-gancho										
 	- achar imagem 2D melhor
 	- aceleração no puxar
-	- adicionar impulso ao jogador						<<<<<
+	- adicionar impulso ao jogador						<<<<<<<<<
 
 - flecha-foguete								
 	- botão que só ativa com foguete					<<<<<<<<<
