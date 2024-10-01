@@ -71,6 +71,7 @@ public partial class Explosion : Node3D
 		var origin = GlobalPosition + (Basis.Y * 0.3f);
 
 		var result = Raycast.CastRay(GetWorld3D(), origin, point);
-		return result.ContainsKey("collider") && (Node)result["collider"] == entity;
+		var collider = (Node3D)result["collider"];
+		return result.ContainsKey("collider") && (collider == entity || collider.GetParent() == entity);
 	}
 }
