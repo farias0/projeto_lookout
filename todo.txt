@@ -9,8 +9,7 @@
 - enum PlayerState
 
 - escorregar
-	- aceleração na escorregada
-	- só escorregar a partir de certa velocidade				<<<<<<		
+	- aceleração na escorregada	
 	- poder se mover levemente enquanto escorrega				<<<<<<
 
 ________________________

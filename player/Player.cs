@@ -13,6 +13,8 @@ public partial class Player : CharacterBody3D
 	public int SpeedCrouched { get; set; } = 6;
 	[Export]
 	public int SpeedSliding { get; set; } = 17;
+	[Export]
+	public int SpeedSlideMin { get; set; } = 10;
 	[ExportGroup("Movement")]
 	[Export]
 	public float Acceleration = 60.0f;
@@ -399,6 +401,9 @@ public partial class Player : CharacterBody3D
 
 	private void Slide()
 	{
+		var playerVel = new Vector2(_targetVelocity.X, _targetVelocity.Z);
+		if (playerVel.Length() < SpeedSlideMin) return;
+
 		_slideCountdown = SlideDuration;
 	}
 
