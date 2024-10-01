@@ -122,7 +122,7 @@ size = Vector3(0.0809707, 0.0754517, 0.463254)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ceexl"]
 size = Vector3(0.0919127, 0.112083, 0.537109)
 
-[node name="Node3D" type="Node3D"]
+[node name="Arrow" type="Node3D"]
 script = ExtResource("2_5gm8k")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]

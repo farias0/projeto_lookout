@@ -64,10 +64,10 @@ ________________________
 	- adicionar impulso ao jogador						<<<<<<<<<
 
 - flecha-foguete								
-	- botão que só ativa com foguete					<<<<<<<<<
 	- consumir HP
 	- sfx com particulas
 
+- plataforma que desliza com botão						<<<<<<<<<
 
 - item da bota
 
@@ -117,6 +117,7 @@ Sons de:
 - foguete voando				<<<<<<<
 - explosão					<<<<<<<
 - parede quebrável				<<<<<<<
+- botão deslizante				<<<<<<<
 
 Substituir sons:
 - npc						<<<<<

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ckkl12kv0h1v2"]
+[gd_scene load_steps=17 format=3 uid="uid://ckkl12kv0h1v2"]
 
 [ext_resource type="PackedScene" uid="uid://bv3m1ns1lv7h8" path="res://player/player.tscn" id="1_5sf8t"]
 [ext_resource type="PackedScene" uid="uid://5er8g2v4ilch" path="res://ui/hud/hud.tscn" id="1_l4t0p"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bisvx6j7y0l3l" path="res://ui/inventory/inventory.tscn" id="13_r48r6"]
 [ext_resource type="PackedScene" uid="uid://c82gmnjwnntki" path="res://pickups/arrow_rocket/arrow_rocket.tscn" id="13_vvdci"]
 [ext_resource type="PackedScene" uid="uid://dal5xp31g5654" path="res://wall/breakable_wall/breakable_wall.tscn" id="14_nxf1l"]
+[ext_resource type="PackedScene" uid="uid://c4xm0ef63nt8q" path="res://button/button.tscn" id="15_ckb0k"]
 [ext_resource type="PackedScene" uid="uid://ncvftkyeouxb" path="res://npc/jimmy/jimmy.tscn" id="16_4g7xt"]
 [ext_resource type="PackedScene" uid="uid://c4pn7s8fq8e43" path="res://enemy/hound/hound.tscn" id="22_8mn6n"]
 
@@ -174,3 +175,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.4995, -1.49012e-07, 8.99901
 
 [node name="BreakableWall" parent="NavigationRegion3D" instance=ExtResource("14_nxf1l")]
 transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 38.5689, 2, 21.8844)
+
+[node name="Button" parent="NavigationRegion3D" instance=ExtResource("15_ckb0k")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.60843, 2.54235, 18.0521)

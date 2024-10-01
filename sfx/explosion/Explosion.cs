@@ -8,8 +8,8 @@ public partial class Explosion : Node3D
 	public float Radius = 5;
 	[Export]
 	public float Duration = 2.5f;
-	[Export]
-	public int PlayerDamage = 0;
+	//[Export]
+	//public int PlayerDamage = 0;
 	[Export]
 	public int EnemyDamage = 100;
 
@@ -48,7 +48,7 @@ public partial class Explosion : Node3D
 	{
 		if (body is Player player && LineOfSight(player, player.GlobalPosition))
 		{
-			player.TakeDamage(PlayerDamage);
+			//player.TakeDamage(PlayerDamage);
 		}
 		else if (body is Enemy enemy && LineOfSight(enemy, enemy.GetCentralPoint()))
 		{
@@ -62,7 +62,10 @@ public partial class Explosion : Node3D
 		{
 			wall.Break(GlobalPosition);
 		}
-		// TODO buttons
+		else if (body is Button button && LineOfSight(button, button.GlobalPosition))
+		{
+			button.Press();
+		}
 	}
 
 	private bool LineOfSight(Node3D entity, Vector3 point)
@@ -71,7 +74,7 @@ public partial class Explosion : Node3D
 		var origin = GlobalPosition + (Basis.Y * 0.3f);
 
 		var result = Raycast.CastRay(GetWorld3D(), origin, point);
-		var collider = (Node3D)result["collider"];
-		return result.ContainsKey("collider") && (collider == entity || collider.GetParent() == entity);
+		var collider = result.ContainsKey("collider") ? (Node3D)result["collider"] : null;
+		return collider != null && (collider == entity || collider.GetParent() == entity);
 	}
 }
