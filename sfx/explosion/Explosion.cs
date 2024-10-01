@@ -9,7 +9,7 @@ public partial class Explosion : Node3D
 	[Export]
 	public float Duration = 2.5f;
 	[Export]
-	public int PlayerDamage = 60;
+	public int PlayerDamage = 0;
 	[Export]
 	public int EnemyDamage = 100;
 

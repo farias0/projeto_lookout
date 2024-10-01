@@ -63,9 +63,8 @@ ________________________
 	- aceleração no puxar
 	- adicionar impulso ao jogador						<<<<<
 
-- flecha-foguete								<<<<<<<<<<
-	- impulso no jogador
-	- botão que só ativa com foguete
+- flecha-foguete								
+	- botão que só ativa com foguete					<<<<<<<<<
 	- consumir HP
 	- sfx com particulas
 

@@ -28,6 +28,8 @@ public partial class Player : CharacterBody3D
 	public int JumpHeightHooked { get; set; } = 19;
 	[Export]
 	public float SlideDuration { get; set; } = 0.7f;
+	[Export]
+	public float RocketPushback { get; set; } = 30;
 	[ExportGroup("")]
 	[Export]
 	public float HookSpeed { get; set; } = 3000;
@@ -540,9 +542,10 @@ public partial class Player : CharacterBody3D
 
 		if ((_pulledBackArrow as Arrow)!.GetType() == ArrowType.Hook)
 			ConsumeStamina(StaminaCostHook);
-		// TODO
-		//else if ((_pulledBackArrow as Arrow)!.GetType() == ArrowType.Rocket)
-		//	Resources.Instance.Inventory.SpendRocket();
+		else if ((_pulledBackArrow as Arrow)!.GetType() == ArrowType.Rocket)
+		{
+			ApplyRocketPushback();
+		}
 
 		Vector3 pos = _pulledBackArrow.GlobalPosition;
 		_pulledBackArrow.Reparent(GetParent());
@@ -613,6 +616,13 @@ public partial class Player : CharacterBody3D
 			_slideCountdown = -1;
 			_effectsAudio!.CancelSlide();
 		}
+	}
+
+	private void ApplyRocketPushback()
+	{
+		float cameraRot = Resources.Instance.Camera.Rotation.X;
+		Vector3 direction = Basis.Z.Normalized().Rotated(Basis.X.Normalized(), cameraRot);
+		_targetVelocity += direction * RocketPushback;
 	}
 
 	// TODO get rid of this workaround
