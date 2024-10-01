@@ -540,9 +540,11 @@ public partial class Player : CharacterBody3D
 		}
 		_arrowLoadCountdown = -1;
 
-		if ((_pulledBackArrow as Arrow)!.GetType() == ArrowType.Hook)
+		var arrow = _pulledBackArrow as Arrow;
+
+		if (arrow!.GetType() == ArrowType.Hook)
 			ConsumeStamina(StaminaCostHook);
-		else if ((_pulledBackArrow as Arrow)!.GetType() == ArrowType.Rocket)
+		else if (arrow!.GetType() == ArrowType.Rocket)
 		{
 			ApplyRocketPushback();
 		}
@@ -554,14 +556,15 @@ public partial class Player : CharacterBody3D
 		Vector3 target = AimingAt();
 		_pulledBackArrow.LookAt(target);
 
-		{
-			Arrow? a = _pulledBackArrow as Arrow;
-			a!.Fire();
-		}
+		arrow!.Fire();
+
+		if (arrow!.GetType() == ArrowType.Rocket)
+			_bowAudio!.PlayFiredRocket();
+		else
+			_bowAudio!.PlayFired();
+
 
 		_pulledBackArrow = null;
-
-		_bowAudio!.PlayFired();
 	}
 
 	/// <returns>The point in the world the player's aiming at</returns>

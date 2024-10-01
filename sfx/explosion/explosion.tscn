@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cvaltiw78uslk"]
+[gd_scene load_steps=5 format=3 uid="uid://cvaltiw78uslk"]
 
 [ext_resource type="Script" path="res://sfx/explosion/Explosion.cs" id="1_yy51k"]
+[ext_resource type="Script" path="res://sfx/explosion/audio/ExplosionAudio.cs" id="2_wo3fw"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3u1jj"]
 radius = 5.0
@@ -19,3 +20,7 @@ shape = SubResource("SphereShape3D_3u1jj")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 mesh = SubResource("SphereMesh_j0fni")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+script = ExtResource("2_wo3fw")
+Explosion = 7.585

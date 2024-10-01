@@ -15,6 +15,7 @@ public partial class Explosion : Node3D
 
 
 	private Area3D _area;
+	private ExplosionAudio _audio;
 	private float _durationCountdown = -1;
 
 	public override void _Ready()
@@ -27,8 +28,10 @@ public partial class Explosion : Node3D
 		_area.Monitoring = true;
 		(_area.GetNode<CollisionShape3D>("CollisionShape3D").Shape as SphereShape3D).Radius = Radius;
 
+		_audio = GetNode<ExplosionAudio>("AudioStreamPlayer3D");
+		_audio.PlayExplosion();
+
 		// Particles
-		// Play sound effect
 		// Screen shake?
 	}
 

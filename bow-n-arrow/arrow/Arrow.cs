@@ -157,7 +157,11 @@ public partial class Arrow : Node3D
 		_state = State.Flying;
 		_rigidBody.Freeze = false;
 
-		_audio.PlayFlying();
+
+		if (_type == ArrowType.Rocket)
+			_audio.PlayFlyingRocket();
+		else
+			_audio.PlayFlying();
 	}
 
 	/// <summary>

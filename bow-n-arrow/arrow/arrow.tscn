@@ -164,3 +164,4 @@ disabled = true
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 script = ExtResource("3_nhuh8")
+FlyingRocket = 10.544
