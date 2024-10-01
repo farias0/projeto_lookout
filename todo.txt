@@ -67,7 +67,6 @@ ________________________
 - flecha-foguete								<<<<<<<<<<
 	- impulso no jogador
 	- botão que só ativa com foguete
-	- parede que quebra
 	- consumir HP
 	- sfx com particulas
 
@@ -117,7 +116,9 @@ Sons de:
 	- colocar item no slot de segurança
 	- abrir e fechar inventário
 	- coletar item (faltantes)
-- foguete					<<<<<<<
+- foguete voando				<<<<<<<
+- explosão					<<<<<<<
+- parede quebrável				<<<<<<<
 
 Substituir sons:
 - npc						<<<<<

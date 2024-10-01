@@ -58,13 +58,19 @@ public partial class Explosion : Node3D
 		{
 			npc.TakeDamage(GlobalPosition, EnemyDamage);
 		}
+		else if (body is BreakableWall wall && LineOfSight(wall, wall.GetCentralPoint()))
+		{
+			wall.Break();
+		}
 		// TODO buttons
-		// TODO walls
 	}
 
 	private bool LineOfSight(Node3D entity, Vector3 point)
 	{
-		var result = Raycast.CastRay(GetWorld3D(), GlobalPosition, point);
+		// Offset it a little off the ground
+		var origin = GlobalPosition + (Basis.Y * 0.3f);
+
+		var result = Raycast.CastRay(GetWorld3D(), origin, point);
 		return result.ContainsKey("collider") && (Node)result["collider"] == entity;
 	}
 }
