@@ -10,7 +10,7 @@
 
 - escorregar
 	- aceleração na escorregada
-	- usar contador pro movimento pra só escorregar com impulso		
+	- só escorregar a partir de certa velocidade				<<<<<<		
 	- poder se mover levemente enquanto escorrega				<<<<<<
 
 ________________________

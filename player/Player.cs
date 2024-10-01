@@ -13,7 +13,11 @@ public partial class Player : CharacterBody3D
 	public int SpeedCrouched { get; set; } = 6;
 	[Export]
 	public int SpeedSliding { get; set; } = 17;
-	[ExportGroup("")]
+	[ExportGroup("Movement")]
+	[Export]
+	public float Acceleration = 60.0f;
+	[Export]
+	public float Deceleration = 40.0f;
 	[Export]
 	public int FallAcceleration { get; set; } = 40;
 	[Export]
@@ -21,11 +25,12 @@ public partial class Player : CharacterBody3D
 	[Export]
 	public int JumpHeightHooked { get; set; } = 19;
 	[Export]
+	public float SlideDuration { get; set; } = 0.7f;
+	[ExportGroup("")]
+	[Export]
 	public float HookSpeed { get; set; } = 3000;
 	[Export]
 	public int Health { get; set; } = 100;
-	[Export]
-	public float SlideDuration { get; set; } = 0.7f;
 	[ExportGroup("Stamina")]
 	[Export]
 	public float Stamina { get; set; } = 100;
@@ -169,7 +174,18 @@ public partial class Player : CharacterBody3D
 			if (direction != Vector3.Zero)
 			{
 				direction = direction.Normalized();
+				direction = direction.Rotated(Vector3.Up, Rotation.Y);
+
+				_targetVelocity.X = Mathf.MoveToward(_targetVelocity.X, direction.X * GetCurrentSpeed(), Acceleration * (float)delta);
+				_targetVelocity.Z = Mathf.MoveToward(_targetVelocity.Z, direction.Z * GetCurrentSpeed(), Acceleration * (float)delta);
+
 				GetNode<Node3D>("Pivot").Basis = Basis.LookingAt(direction);
+			}
+			else
+			{
+				// Deaccelerate
+				_targetVelocity.X = Mathf.MoveToward(_targetVelocity.X, 0, Deceleration * (float)delta);
+				_targetVelocity.Z = Mathf.MoveToward(_targetVelocity.Z, 0, Deceleration * (float)delta);
 			}
 
 			if (direction != Vector3.Zero && GetCurrentSpeed() == SpeedCrouched && IsOnFloor())
@@ -177,11 +193,6 @@ public partial class Player : CharacterBody3D
 			else if (direction != Vector3.Zero && GetCurrentSpeed() == SpeedWalking && IsOnFloor())
 				_audio!.PlayWalk();
 			else _audio!.StopMoving();
-
-			direction = direction.Rotated(Vector3.Up, Rotation.Y);
-
-			_targetVelocity.X = direction.X * GetCurrentSpeed();
-			_targetVelocity.Z = direction.Z * GetCurrentSpeed();
 		}
 
 		if (IsOnFloor())
