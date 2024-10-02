@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=4 uid="uid://c4xm0ef63nt8q"]
+[gd_scene load_steps=11 format=4 uid="uid://c4xm0ef63nt8q"]
 
 [ext_resource type="Material" uid="uid://clqgvh3eteehi" path="res://button/material_button.tres" id="1_ajk0i"]
 [ext_resource type="Script" path="res://button/Button.cs" id="1_wopk3"]
 [ext_resource type="Material" uid="uid://bmm3xhrhyuttt" path="res://button/material_frame.tres" id="2_k4nqs"]
+[ext_resource type="Script" path="res://button/audio/ButtonAudio.cs" id="4_sy8kw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5i87b"]
 size = Vector3(1.88736, 1.89877, 0.998505)
@@ -76,6 +77,7 @@ size = Vector3(2.43176, 2.44275, 1.41705)
 
 [node name="Button" type="Area3D"]
 script = ExtResource("1_wopk3")
+ButtonSlideSpeed = 0.3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0372162, 0.00108337, -0.000747681)
@@ -100,3 +102,7 @@ skeleton = NodePath("")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0246773, 0.000549316, -0.0688171)
 shape = SubResource("BoxShape3D_2ewrb")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+script = ExtResource("4_sy8kw")
+Pressed = 13.898

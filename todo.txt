@@ -51,6 +51,8 @@ ________________________
 === ITENS, POWERUPS, INVENTARIO
 
 
+- fechar o inventário arrastando item quebra ele				<<<<<<<<<<<
+
 - grade
 	- centralizar ícone								
 	- mostrar melhor na grade quais células pertencem a quais itens		
@@ -116,7 +118,6 @@ Sons de:
 	- abrir e fechar inventário
 	- coletar item (faltantes)		<<<<<<
 
-- botão deslizante				<<<<<<<
 - ativando ponte				<<<<<<<
 
 - andando pela ponte				

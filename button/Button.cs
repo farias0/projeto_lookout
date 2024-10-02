@@ -29,6 +29,7 @@ public partial class Button : Area3D
 
 
 	private Node3D _button;
+	private ButtonAudio _audio;
 	private bool _isSliding = false;
 	private IButtonActionable _activatesEntity;
 
@@ -36,6 +37,7 @@ public partial class Button : Area3D
 	public override void _Ready()
 	{
 		_button = GetNode<Node3D>("Button");
+		_audio = GetNode<ButtonAudio>("AudioStreamPlayer3D");
 	}
 
 	public override void _Process(double delta)
@@ -47,6 +49,7 @@ public partial class Button : Area3D
 	{
 		_isSliding = true;
 		_activatesEntity?.ButtonActivate();
+		_audio.PlayPressed();
 	}
 
 	private void ProcessSlide(float delta)
