@@ -116,7 +116,6 @@ Sons de:
 	- abrir e fechar inventário
 	- coletar item (faltantes)		<<<<<<
 
-- parede quebrável				<<<<<<<
 - botão deslizante				<<<<<<<
 - ativando ponte				<<<<<<<
 

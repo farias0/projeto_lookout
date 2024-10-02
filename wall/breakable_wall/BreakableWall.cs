@@ -11,11 +11,14 @@ public partial class BreakableWall : Area3D
 
 	private float _durationCountdown = -1;
 	private BoxShape3D _collisionShape;
+	private BreakableWallAudio _audio;
 
 
 	public override void _Ready()
 	{
 		_collisionShape = GetNode<CollisionShape3D>("CollisionShape3D").Shape as BoxShape3D;
+
+		_audio = GetNode<BreakableWallAudio>("AudioStreamPlayer3D");
 
 		SetChunksEnabled(false);
 	}
@@ -42,7 +45,7 @@ public partial class BreakableWall : Area3D
 		_durationCountdown = DurationAfterExplosion;
 		SetChunksEnabled(true);
 		ExplodeChunks((GlobalPosition - explosionSource).Normalized());
-		// TODO play sound
+		_audio.PlayExploded();
 	}
 
 	private void SetChunksEnabled(bool enabled)

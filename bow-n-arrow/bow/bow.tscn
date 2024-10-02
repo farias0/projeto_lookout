@@ -115,4 +115,4 @@ skeleton = NodePath("")
 script = ExtResource("3_noylk")
 Tensing = -1.438
 Fired = -23.005
-FiredRocket = -6.23
+FiredRocket = -22.046

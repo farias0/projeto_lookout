@@ -33,7 +33,7 @@ transform = Transform3D(4.37114e-08, 1, -8.74228e-08, 1, -4.37114e-08, 0, -3.821
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Camera3D/Puller"]
 script = ExtResource("4_abpc3")
-PullIn = -101.4
+PullIn = -100.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamWAV_qnb5q")

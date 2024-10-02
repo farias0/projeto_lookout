@@ -1,6 +1,7 @@
-[gd_scene load_steps=41 format=4 uid="uid://dal5xp31g5654"]
+[gd_scene load_steps=42 format=4 uid="uid://dal5xp31g5654"]
 
 [ext_resource type="Script" path="res://wall/breakable_wall/BreakableWall.cs" id="2_8f7r4"]
+[ext_resource type="Script" path="res://wall/breakable_wall/audio/BreakableWallAudio.cs" id="2_sibkj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ueamt"]
 size = Vector3(3.48182, 9.16788, 16.8154)
@@ -580,3 +581,7 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Chunk12"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.67176, -5.618)
 shape = SubResource("BoxShape3D_vtmg0")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+script = ExtResource("2_sibkj")
+Exploded = 0.479
