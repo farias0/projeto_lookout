@@ -122,6 +122,11 @@ public partial class InventoryItem : TextureButton
 		_preDragRotation = RotationDegrees;
 		_dragOffset = Position - fromPosition;
 		Resources.Instance.Inventory.StartDraggingItem(this);
+
+		// TODO: This signal should be connected during initialization, but with the
+		// current solution we need the Inventory Ready() before. Fix this.
+		Resources.Instance.Inventory.ClosingInventory -= InventoryClosed;
+		Resources.Instance.Inventory.ClosingInventory += InventoryClosed; 
 	}
 
 	private void FinishDragging()
@@ -131,8 +136,22 @@ public partial class InventoryItem : TextureButton
 		_isDragging = false;
 		if (!inventory.AttemptItemDrag(this, false))
 		{
-			ResetDraggingPosition();
-			Resources.Instance.Inventory.CancelDraggingItem(this);
+			CancelDragging();
+		}
+	}
+
+	private void CancelDragging()
+	{
+		ResetDraggingPosition();
+		Resources.Instance.Inventory.CancelDraggingItem(this);
+	}
+
+	private void InventoryClosed()
+	{
+		if (_isDragging)
+		{
+			_isDragging = false;
+			CancelDragging();
 		}
 	}
 

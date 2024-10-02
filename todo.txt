@@ -51,8 +51,6 @@ ________________________
 === ITENS, POWERUPS, INVENTARIO
 
 
-- fechar o inventário arrastando item quebra ele				<<<<<<<<<<<
-
 - grade
 	- centralizar ícone								
 	- mostrar melhor na grade quais células pertencem a quais itens		
@@ -71,6 +69,8 @@ ________________________
 
 - ponte retrátil
 	- colisão ao tentar sair dela
+
+- npc vendedor									<<<<<<<<<<<<<<<<<<<<
 
 - item da bota
 

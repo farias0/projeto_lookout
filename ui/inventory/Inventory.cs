@@ -61,6 +61,9 @@ public partial class Inventory : Control
 	}
 	public int Gold { get => _gold; }
 
+	[Signal]
+	public delegate void ClosingInventoryEventHandler();
+
 
 	private static readonly PackedScene CellScene = 
 		(PackedScene)GD.Load("res://ui/inventory/items/cell/item_cell.tscn");
@@ -73,7 +76,7 @@ public partial class Inventory : Control
 	private ItemCell[] _cells = Array.Empty<ItemCell>();
 	private ColorRect _panel;
 	private Control _grid;
-	private List<ItemCell> _draggingItemCells = new(); // Keeps trach of which cells are occupied by an item that's being dragged
+	private readonly List<ItemCell> _draggingItemCells = new(); // Keeps trach of which cells are occupied by an item that's being dragged.
 	private ColorRect _dropArea;
 	private List<ProtectedSlot> _protectedSlots = new();
 	private Control _protectedSlotsArea;
@@ -101,6 +104,7 @@ public partial class Inventory : Control
 	{
 		Visible = false;
 		Input.MouseMode = Input.MouseModeEnum.Captured;
+		EmitSignal(nameof(ClosingInventory));
 	}
 
 	public void StartDraggingItem(InventoryItem item)
