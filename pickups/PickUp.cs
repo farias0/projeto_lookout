@@ -41,6 +41,7 @@ public partial class PickUp : RigidBody3D
 
 	public void ArrowHooked(Node3D arrow)
 	{
+		Sleeping = false;
 		_hookedArrow = arrow;
 	}
 
