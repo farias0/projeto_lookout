@@ -33,7 +33,7 @@ public partial class RetractableBridge : Node3D, IButtonActionable
 		if (_isExtending)
 		{
 			SetSize(GetSize() + (Speed * (float)delta));
-			if (GetSize() >= _extendedSize)
+			if (IsExtended())
 			{
 				SetSize(_extendedSize);
 				_isExtending = false;
@@ -44,8 +44,16 @@ public partial class RetractableBridge : Node3D, IButtonActionable
 
 	public void ButtonActivate()
 	{
-		_isExtending = true;
-		_audio.PlayActivate();
+		if (!IsExtended())
+		{
+			_isExtending = true;
+			_audio.PlayActivate();
+		}
+	}
+
+	private bool IsExtended()
+	{
+		return GetSize() >= _extendedSize;
 	}
 
 	private float GetSize()

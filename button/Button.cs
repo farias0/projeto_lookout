@@ -47,9 +47,17 @@ public partial class Button : Area3D
 
 	public void Press()
 	{
-		_isSliding = true;
-		_activatesEntity?.ButtonActivate();
-		_audio.PlayPressed();
+		if (!IsPressed())
+		{
+			_isSliding = true;
+			_activatesEntity?.ButtonActivate();
+			_audio.PlayPressed();
+		}
+	}
+
+	private bool IsPressed()
+	{
+		return _button.Position.Z <= ButtonFinalZ;
 	}
 
 	private void ProcessSlide(float delta)
@@ -58,7 +66,7 @@ public partial class Button : Area3D
 
 		_button.Position -= new Vector3(0, 0, ButtonSlideSpeed * delta);
 
-		if (_button.Position.Z <= ButtonFinalZ)
+		if (IsPressed())
 			_isSliding = false;
 	}
 }
