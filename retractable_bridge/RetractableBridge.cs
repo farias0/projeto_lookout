@@ -11,6 +11,7 @@ public partial class RetractableBridge : Node3D, IButtonActionable
 	private MeshInstance3D _mesh;
 	private StaticBody3D _collider;
 	private BoxShape3D _collisionShape;
+	private RetractableBridgeAudio _audio;
 	private float _extendedSize;
 	private bool _isExtending = false;
 
@@ -21,6 +22,7 @@ public partial class RetractableBridge : Node3D, IButtonActionable
 		_mesh = _meshNode.GetNode<MeshInstance3D>("MeshInstance3D");
 		_collider = GetNode<StaticBody3D>("BridgeCollider");
 		_collisionShape = _collider.GetNode<CollisionShape3D>("CollisionShape3D").Shape as BoxShape3D;
+		_audio = GetNode<RetractableBridgeAudio>("AudioStreamPlayer3D");
 
 		_extendedSize = GetSize();
 		SetSize(0);
@@ -35,6 +37,7 @@ public partial class RetractableBridge : Node3D, IButtonActionable
 			{
 				SetSize(_extendedSize);
 				_isExtending = false;
+				_audio.StopActivate();
 			}
 		}
 	}
@@ -42,6 +45,7 @@ public partial class RetractableBridge : Node3D, IButtonActionable
 	public void ButtonActivate()
 	{
 		_isExtending = true;
+		_audio.PlayActivate();
 	}
 
 	private float GetSize()

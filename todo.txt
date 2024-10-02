@@ -117,9 +117,6 @@ Sons de:
 	- colocar item no slot de segurança
 	- abrir e fechar inventário
 	- coletar item (faltantes)		<<<<<<
-
-- ativando ponte				<<<<<<<
-
 - andando pela ponte				
 
 Substituir sons:
