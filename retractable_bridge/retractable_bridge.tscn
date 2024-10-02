@@ -44,4 +44,4 @@ shape = SubResource("BoxShape3D_6u2jy")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 script = ExtResource("2_g4ju6")
-Activate = -2.876
+Activate = 24.0

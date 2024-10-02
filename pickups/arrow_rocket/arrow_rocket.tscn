@@ -10,6 +10,7 @@ size = Vector3(0.16777, 0.233154, 1.52539)
 size = Vector3(0.308716, 0.376221, 1.70044)
 
 [node name="ArrowRocket" type="RigidBody3D"]
+mass = 17.0
 script = ExtResource("1_b1041")
 InventoryItem = "res://ui/inventory/items/arrow_rocket/arrow_rocket.tscn"
 

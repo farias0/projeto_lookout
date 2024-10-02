@@ -24,6 +24,8 @@ public partial class PickUp : RigidBody3D
 		ContactMonitor = true;
 		MaxContactsReported = 1;
 
+		Sleeping = false;
+
 		_pickupArea = GetNode<Area3D>("Area3D");
 		_pickupArea.Monitoring = true;
 		_pickupArea.Connect("body_entered", new Callable(this, nameof(OnAreaEntered)));
@@ -39,7 +41,6 @@ public partial class PickUp : RigidBody3D
 
 	public void ArrowHooked(Node3D arrow)
 	{
-		Sleeping = false;
 		_hookedArrow = arrow;
 	}
 

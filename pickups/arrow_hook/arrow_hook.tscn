@@ -49,6 +49,7 @@ size = Vector3(1.1, 1.4, 1.1)
 size = Vector3(1.3, 1.6, 1.3)
 
 [node name="ArrowHook" type="RigidBody3D"]
+mass = 20.0
 script = ExtResource("1_xg6f7")
 InventoryItem = "res://ui/inventory/items/arrow_hook/arrow_hook.tscn"
 

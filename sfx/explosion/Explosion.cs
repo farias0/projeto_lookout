@@ -7,6 +7,8 @@ public partial class Explosion : Node3D
 	[Export]
 	public float Radius = 5;
 	[Export]
+	public float Force = 200;
+	[Export]
 	public float Duration = 2.5f;
 	//[Export]
 	//public int PlayerDamage = 0;
@@ -68,6 +70,10 @@ public partial class Explosion : Node3D
 		else if (body is Button button && LineOfSight(button, button.GlobalPosition))
 		{
 			button.Press();
+		}
+		else if (body is RigidBody3D rb && LineOfSight(rb, rb.GlobalPosition))
+		{
+			rb.ApplyImpulse((rb.GlobalPosition - GlobalPosition).Normalized() * Force);
 		}
 	}
 
