@@ -59,6 +59,10 @@ ________________________
 	- ativa o alerta de longe -- talvez a audição esteja muito aguçada
 	- o som do rosnar tá indo longe demais talvez
 
+
+- câmeras
+	- item de EMP
+
 ________________________
 
 === ITENS, POWERUPS, INVENTARIO
