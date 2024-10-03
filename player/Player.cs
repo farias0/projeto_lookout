@@ -664,7 +664,7 @@ public partial class Player : CharacterBody3D
 			var direction = new Vector3(direction2D.X, 0, direction2D.Y);
 			_targetVelocity = direction * DashImpulse;
 
-			// _effectsAudio!.PlayDash();
+			_effectsAudio!.PlayDash();
 		}
 		else {
 			// TODO play error sound

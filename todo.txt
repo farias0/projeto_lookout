@@ -131,7 +131,6 @@ Sons de:
 - compra					<<<<<<
 	- compra confirmada
 	- sem dinheiro
-- impulso					<<<<<<<<<<
 
 Substituir sons:
 - npc						<<<<<

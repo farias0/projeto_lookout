@@ -23,6 +23,12 @@ public partial class EffectsAudio : SoundPlayer
 		set => SetSoundVolume(_slide, value);
 	}
 	[Export(PropertyHint.Range, "-80, 24")]
+	private float Dash
+	{
+		get => _dash.Volume;
+		set => SetSoundVolume(_dash, value);
+	}
+	[Export(PropertyHint.Range, "-80, 24")]
 	private float FillStamina
 	{
 		get => _heal.Volume;
@@ -32,6 +38,7 @@ public partial class EffectsAudio : SoundPlayer
 
 	private readonly Sound _heal = new();
 	private readonly Sound _slide = new();
+	private readonly Sound _dash = new();
 	private readonly Sound _fillStamina = new();
 
 
@@ -40,6 +47,8 @@ public partial class EffectsAudio : SoundPlayer
 		_heal.LoadStream("res://player/effects_audio/heal.wav");
 
 		_slide.LoadStream("res://player/effects_audio/slide.wav");
+
+		_dash.LoadStream("res://player/effects_audio/dash.wav");
 
 		_fillStamina.LoadStream("res://player/effects_audio/fill_stamina.wav");
 	}
@@ -58,6 +67,11 @@ public partial class EffectsAudio : SoundPlayer
 	{
 		if (CurrentSound == _slide)
 			StopSound();
+	}
+
+	public void PlayDash()
+	{
+		PlaySound(_dash);
 	}
 
 	public void PlayFillStamina()
