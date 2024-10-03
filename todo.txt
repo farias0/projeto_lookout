@@ -85,7 +85,10 @@ ________________________
 - vendas
 	- permitir itens limitados por quantidade
 
-- item da bota
+- item da bota										<<<<<<<<
+	- item de inventario do dash
+	- HUD de equipado
+	- funcionalidade do dash quando equipado
 
 - barra de consumíveis
 
@@ -102,7 +105,6 @@ ________________________
 		- flecha armadilha (qual efeito?)
 		- flecha remota (qual efeito?)
 	- bota
-		- dash (funcionar tbm verticalmente)					<<<<<<<<
 		- invisibilidade temporária (talvez aplicar slowdown?)			<<<<<<<<
 		- poder retroceder p/ ponto marcado
 		- escudo
