@@ -76,7 +76,6 @@ ________________________
 	- colisão ao tentar sair dela
 
 - vendas
-	- npc comerciante							<<<<<<<<<<
 	- permitir itens limitados por quantidade
 
 - item da bota

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://my6p6jfcp2eg"]
+
+[ext_resource type="Script" path="res://npc/dialogue/dialogue.gd" id="1_6qxp6"]
+
+[resource]
+script = ExtResource("1_6qxp6")
+auto_skip_time = 4.0
+lines = PackedStringArray("Ei você aí! Tá precisando de uma mãozinha? Hihi")

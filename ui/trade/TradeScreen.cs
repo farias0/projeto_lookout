@@ -39,12 +39,18 @@ public partial class TradeScreen : Control
 
 	private void StartTrade()
 	{
+		if (Resources.Instance.OngroingTrade != null)
+		{
+			Debug.LogError("There is already a trade ongoing");
+			Resources.Instance.OngroingTrade.FinishTrade();
+		}
+
 		Resources.Instance.OngroingTrade = this;
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 		Resources.Instance.HUD.SetCrosshairEnabled(false);
 	}
 
-	private void FinishTrade()
+	public void FinishTrade()
 	{
 		Resources.Instance.OngroingTrade = null;
 		Input.MouseMode = Input.MouseModeEnum.Captured;

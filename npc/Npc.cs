@@ -132,6 +132,7 @@ public partial class Npc : Area3D
 		if (State == NpcState.InDialogue)
 		{
 			FinishDialogue();
+			FinishTrade();
 		}
 
 		Health -= damage;
@@ -454,5 +455,14 @@ public partial class Npc : Area3D
 		ActiveDialogue.Stop();
 		ActiveDialogue = null;
 		StartPatrolling();
+	}
+
+	private void FinishTrade()
+	{
+		var trade = Resources.Instance.OngroingTrade;
+		if (trade != null)
+		{
+			trade.FinishTrade();
+		}
 	}
 }

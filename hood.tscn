@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://152xm6hr4tuj"]
+
+[ext_resource type="ArrayMesh" uid="uid://cabk2evrn3vi2" path="res://npc/merchant/hood.obj" id="1_givc1"]
+
+[node name="HoodMesh" type="MeshInstance3D"]
+transform = Transform3D(-2.48639, 0, -0.760168, 0, 2.6, 0, 0.760168, 0, -2.48639, 0.253717, 0.270998, 0.681529)
+mesh = ExtResource("1_givc1")
+skeleton = NodePath("../..")
