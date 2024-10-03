@@ -175,6 +175,7 @@ public partial class Inventory : Control
 
 
 		EquipFirstBowItem();
+		EquipFirstBootsItem();
 		Disable();
 	}
 
@@ -571,6 +572,30 @@ public partial class Inventory : Control
 				{
 					pSlot.Item = _bowSlot.Item;
 					Debug.Log("Setting first found Bow Item to a protected slot.");
+					break;
+				}
+			}
+		}
+		RefreshHUD();
+	}
+
+	/// <summary>
+	/// For use during development. Equips the first boots item found in the inventory.
+	/// </summary>
+	private void EquipFirstBootsItem()
+	{
+		Debug.Log("Equipping first found Boots Item.");
+		if (_bootsSlot.Item != null)
+			Debug.Log("Boots Item already equipped, skippping EquipFirstBootsItem()...");
+		_bootsSlot.Item = HeldItems.Where(item => item.IsBootsItem).FirstOrDefault();
+		if (_bootsSlot.Item != null)
+		{
+			foreach (var pSlot in _protectedSlots)
+			{
+				if (pSlot.Item == null)
+				{
+					pSlot.Item = _bootsSlot.Item;
+					Debug.Log("Setting first found Boots Item to a protected slot.");
 					break;
 				}
 			}

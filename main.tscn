@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://ckkl12kv0h1v2"]
+[gd_scene load_steps=19 format=3 uid="uid://ckkl12kv0h1v2"]
 
 [ext_resource type="PackedScene" uid="uid://bv3m1ns1lv7h8" path="res://player/player.tscn" id="1_5sf8t"]
 [ext_resource type="PackedScene" uid="uid://5er8g2v4ilch" path="res://ui/hud/hud.tscn" id="1_l4t0p"]
@@ -9,12 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://dk1yqkeui32ew" path="res://pickups/gold_chest/chest.tscn" id="10_d7yvc"]
 [ext_resource type="PackedScene" uid="uid://w6h5apqbwpgy" path="res://pickups/stamina_potion/stamina_potion.tscn" id="11_0h31j"]
 [ext_resource type="PackedScene" uid="uid://dtgaspc6h1abb" path="res://pickups/health_potion/health_potion.tscn" id="12_iop02"]
-[ext_resource type="PackedScene" uid="uid://bisvx6j7y0l3l" path="res://ui/inventory/inventory.tscn" id="13_r48r6"]
+[ext_resource type="PackedScene" uid="uid://bisvx6j7y0l3l" path="res://ui/inventory/Inventory.tscn" id="13_r48r6"]
 [ext_resource type="PackedScene" uid="uid://c82gmnjwnntki" path="res://pickups/arrow_rocket/arrow_rocket.tscn" id="13_vvdci"]
 [ext_resource type="PackedScene" uid="uid://dal5xp31g5654" path="res://wall/breakable_wall/breakable_wall.tscn" id="14_nxf1l"]
 [ext_resource type="PackedScene" uid="uid://c4xm0ef63nt8q" path="res://button/button.tscn" id="15_ckb0k"]
 [ext_resource type="PackedScene" uid="uid://xseelhjo33w" path="res://retractable_bridge/retractable_bridge.tscn" id="15_u3f2s"]
-[ext_resource type="PackedScene" uid="uid://b6yo8ien053t2" path="res://pickups/boots_dash/boots_dash.tscn" id="16_2e6ap"]
 [ext_resource type="PackedScene" uid="uid://ncvftkyeouxb" path="res://npc/jimmy/jimmy.tscn" id="16_4g7xt"]
 [ext_resource type="PackedScene" uid="uid://dlkx44npsjfx6" path="res://npc/merchant/merchant.tscn" id="17_nipa5"]
 [ext_resource type="PackedScene" uid="uid://c4pn7s8fq8e43" path="res://enemy/hound/hound.tscn" id="22_8mn6n"]
@@ -184,9 +183,6 @@ transform = Transform3D(2, 0, 0, 0, 0.05, 0, 0, 0, 30.8261, 0, 0, 14.952)
 
 [node name="BreakableWall" parent="NavigationRegion3D" instance=ExtResource("14_nxf1l")]
 transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 38.5689, 2, 21.8844)
-
-[node name="BootsDash" parent="NavigationRegion3D" instance=ExtResource("16_2e6ap")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -37.2442, 7.2355, 36.303)
 
 [node name="Merchant" parent="NavigationRegion3D" node_paths=PackedStringArray("PatrolPoints") instance=ExtResource("17_nipa5")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -39.2286, 4.75, 18.1459)

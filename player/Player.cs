@@ -30,6 +30,8 @@ public partial class Player : CharacterBody3D
 	public float SlideDuration { get; set; } = 0.7f;
 	[Export]
 	public float RocketPushback { get; set; } = 30;
+	[Export]
+	public float DashImpulse { get; set; } = 55;
 	[ExportGroup("")]
 	[Export]
 	public float HookSpeed { get; set; } = 3000;
@@ -44,6 +46,8 @@ public partial class Player : CharacterBody3D
 	public float StaminaRegenDelay { get; set; } = 2.0f;
 	[Export]
 	public float StaminaCostHook { get; set; } = 40;
+	[Export]
+	public float StaminaCostDash { get; set; } = 20;
 	[ExportGroup("")]
 	[Export]
 	public float InvincibilityTime { get; set; } = 2.0f;
@@ -238,6 +242,7 @@ public partial class Player : CharacterBody3D
 		if (e.IsActionPressed("jump"))				Jump();
 		if (e.IsActionPressed("item_1"))			UseHealthPotion();
 		if (e.IsActionPressed("item_2"))			UseStaminaPotion();
+		if (e.IsActionPressed("activate_boot"))		ActivateBoot();			
 		if (e.IsActionPressed("interact"))			Interact();
 		if (IsMouseInputEnabled())
 		{
@@ -626,6 +631,35 @@ public partial class Player : CharacterBody3D
 		float cameraRot = Resources.Instance.Camera.Rotation.X;
 		Vector3 direction = Basis.Z.Normalized().Rotated(Basis.X.Normalized(), cameraRot);
 		_targetVelocity += direction * RocketPushback;
+	}
+
+	private void ActivateBoot()
+	{
+		var item = Resources.Instance.Inventory.BootsItemEquipped;
+
+		switch (item)
+		{
+			case BootsItemType.None:
+				// TODO play error sound
+				return;
+			case BootsItemType.Dash:
+				Dash();
+				return;
+			default:
+				throw new System.NotImplementedException();
+		}
+	}
+
+	private void Dash()
+	{
+		if (ConsumeStamina(StaminaCostDash))
+		{
+			_targetVelocity = Velocity.Normalized() * DashImpulse;
+			// _effectsAudio!.PlayDash();
+		}
+		else {
+			// TODO play error sound
+		}
 	}
 
 	// TODO get rid of this workaround

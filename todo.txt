@@ -85,9 +85,6 @@ ________________________
 - vendas
 	- permitir itens limitados por quantidade
 
-- item da bota										
-	- funcionalidade do dash quando equipado					<<<<<<<<
-
 - barra de consumíveis
 
 - poderes										
@@ -129,11 +126,12 @@ Sons de:
 	- dropar item
 	- colocar item no slot de segurança
 	- abrir e fechar inventário
-	- coletar item (faltantes)		<<<<<<
+	- coletar equipamentos			<<<<<
 - andando pela ponte				
 - compra					<<<<<<
 	- compra confirmada
 	- sem dinheiro
+- impulso					<<<<<<<<<<
 
 Substituir sons:
 - npc						<<<<<
