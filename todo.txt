@@ -51,6 +51,11 @@ ________________________
 
 - inimigo hitscan
 
+- itens
+	- roubar deles (apertar e)
+	- droparem itens
+
+
 ________________________
 
 === ITENS, POWERUPS, INVENTARIO
@@ -66,7 +71,6 @@ ________________________
 - flecha-gancho										
 	- achar imagem 2D melhor
 	- aceleração no puxar
-	- adicionar impulso ao jogador						<<<<<<<<<
 
 - flecha-foguete								
 	- consumir HP

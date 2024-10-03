@@ -236,10 +236,7 @@ public partial class Arrow : Node3D
 		}
 		else if (_type == ArrowType.Rocket)
 		{
-			_state = State.Hit;
-			var explosion = Resources.Instance.Explosion.Instantiate() as Explosion;
-			explosion.GlobalPosition = GlobalPosition;
-			GetParent().AddChild(explosion);
+			Explode();
 		}
 
 		_audio.PlayHit();
@@ -269,6 +266,18 @@ public partial class Arrow : Node3D
 
 		var _shooterPos = _shooter.GlobalPosition + (_shooter.Basis.Y * _shooter.GetHeight() * 0.5f);
 		_hookLine = Draw.Line3D(_shooter.GetParent(), GlobalPosition, _shooterPos, new(0,0,0));
+	}
+
+	private void Explode()
+	{
+		if (_type != ArrowType.Rocket)
+			throw new InvalidOperationException("Only Rocket arrows can explode.");
+
+		_state = State.Hit;
+
+		var explosion = Resources.Instance.Explosion.Instantiate() as Explosion;
+		explosion.GlobalPosition = GlobalPosition;
+		GetParent().AddChild(explosion);
 	}
 
 	public void ClearForDestruction()

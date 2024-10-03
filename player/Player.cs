@@ -609,8 +609,7 @@ public partial class Player : CharacterBody3D
 	{
 		_hookedArrow!.QueueFree();
 		_hookedArrow = null;
-		Velocity = Vector3.Zero;
-		_targetVelocity = Vector3.Zero;
+		_targetVelocity = Velocity;
 	}
 
 	private void CancelSlide()
