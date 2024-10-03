@@ -654,6 +654,8 @@ public partial class Player : CharacterBody3D
 	{
 		if (ConsumeStamina(StaminaCostDash))
 		{
+			if (_hookedArrow != null) LeaveHookedArrow();
+
 			_targetVelocity = Velocity.Normalized() * DashImpulse;
 			// _effectsAudio!.PlayDash();
 		}
