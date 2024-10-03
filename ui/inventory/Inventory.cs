@@ -59,6 +59,10 @@ public partial class Inventory : Control
 	{
 		get => _bowSlot.Item?.BowItem ?? BowItemType.None;
 	}
+	public BootsItemType BootsItemEquipped
+	{
+		get => _bootsSlot.Item?.BootsItem ?? BootsItemType.None;
+	}
 	public int Gold { get => _gold; }
 
 	[Signal]
@@ -81,6 +85,7 @@ public partial class Inventory : Control
 	private List<ProtectedSlot> _protectedSlots = new();
 	private Control _protectedSlotsArea;
 	private BowSlot _bowSlot;
+	private BootsSlot _bootsSlot;
 	private int _gold;
 
 
@@ -154,6 +159,7 @@ public partial class Inventory : Control
 		_dropArea = _panel.GetNode<ColorRect>("DropArea");
 		_protectedSlotsArea = _panel.GetNode<Control>("ProtectedSlotsArea");
 		_bowSlot = _panel.GetNode<BowSlot>("BowSlot");
+		_bootsSlot = _panel.GetNode<BootsSlot>("BootsSlot");
 		Audio = GetNode<InventoryAudio>("AudioStreamPlayer");
 
 
@@ -317,6 +323,7 @@ public partial class Inventory : Control
 
 		RemoveItemFromProtected(item);
 		if (item == _bowSlot.Item) _bowSlot.Item = null;
+		if (item == _bootsSlot.Item) _bootsSlot.Item = null;
 
 		item.QueueFree();
 
@@ -437,6 +444,14 @@ public partial class Inventory : Control
 				if (item.IsBowItem && itemCell.GetCollisionRect().Intersects(_bowSlot.GetGlobalRect()))
 				{
 					_bowSlot.SetItem(item);
+					StopDraggingItem(item);
+					RefreshHUD();
+					return true;
+				}
+				// Check against boots slot
+				if (item.IsBootsItem && itemCell.GetCollisionRect().Intersects(_bootsSlot.GetGlobalRect()))
+				{
+					_bootsSlot.SetItem(item);
 					StopDraggingItem(item);
 					RefreshHUD();
 					return true;

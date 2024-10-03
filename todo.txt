@@ -55,6 +55,9 @@ ________________________
 	- roubar deles (apertar e)
 	- droparem itens
 
+- cachorros rosnando de longe
+	- ativa o alerta de longe -- talvez a audição esteja muito aguçada
+	- o som do rosnar tá indo longe demais talvez
 
 ________________________
 
@@ -145,7 +148,7 @@ Substituir sons:
 
 ________________________
 
-- fogo					<<<<<<<<<<<<<<<
+- fogo								<<<<<<<<<<<
 
 - no clip
 

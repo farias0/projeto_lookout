@@ -14,6 +14,7 @@ public partial class HUD : CanvasLayer
 	private Vector2 _staminaBarSize;
 
 	private TextureRect _bowItemIcon;
+	private TextureRect _bootsItemIcon;
 
 	private Label _healthPotionAmoutLabel;
 
@@ -34,6 +35,7 @@ public partial class HUD : CanvasLayer
 		_staminaBarSize = _staminaBar.Size;
 
 		_bowItemIcon = GetNode<TextureRect>("Items/BowItem/Icon");
+		_bootsItemIcon = GetNode<TextureRect>("Items/BootsItem/Icon");
 
 		_goldLabel = GetNode<Label>("GoldLabel");
 		GoldLabelPrefix = _goldLabel.Text;
@@ -95,5 +97,10 @@ public partial class HUD : CanvasLayer
 	public void SetBowItemIcon(Texture2D texture)
 	{
 		_bowItemIcon.Texture = texture;
+	}
+
+	public void SetBootsItemIcon(Texture2D texture)
+	{
+		_bootsItemIcon.Texture = texture;
 	}
 }

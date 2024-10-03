@@ -12,6 +12,13 @@ public enum BowItemType
 	Rocket
 }
 
+public enum BootsItemType
+{
+	None,
+	Dash,
+	Invisibility
+}
+
 public partial class InventoryItem : TextureButton
 {
 	/*
@@ -33,6 +40,8 @@ public partial class InventoryItem : TextureButton
 	public string Label {  get; set; }
 	[Export]
 	public BowItemType BowItem { get; set; }
+	[Export]
+	public BootsItemType BootsItem { get; set; }
 	[Export(PropertyHint.MultilineText)]
 	public string ShapeString
 	{
@@ -45,6 +54,7 @@ public partial class InventoryItem : TextureButton
 
 	public List<ItemCell> Cells { get => GetCells(); }
 	public bool IsBowItem { get => BowItem != BowItemType.None; }
+	public bool IsBootsItem { get => BootsItem != BootsItemType.None; }
 
 
 	private static readonly PackedScene CellScene = (PackedScene)GD.Load("res://ui/inventory/items/cell/item_cell.tscn");

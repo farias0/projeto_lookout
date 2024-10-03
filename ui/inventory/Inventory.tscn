@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bisvx6j7y0l3l"]
+[gd_scene load_steps=9 format=3 uid="uid://bisvx6j7y0l3l"]
 
 [ext_resource type="Script" path="res://ui/inventory/Inventory.cs" id="1_wxy2m"]
 [ext_resource type="PackedScene" uid="uid://b2x8y388x5rey" path="res://ui/inventory/items/health_potion/health_potion.tscn" id="2_4vb2b"]
 [ext_resource type="Texture2D" uid="uid://cchmqsqukna0" path="res://ui/inventory/drop_area.png" id="2_b5av1"]
 [ext_resource type="PackedScene" uid="uid://v47qprbvssfm" path="res://ui/inventory/bow_slot/bow_slot.tscn" id="2_ngnyi"]
+[ext_resource type="PackedScene" uid="uid://cq0v6jm4sl74n" path="res://ui/inventory/boots_slot/boots_slot.tscn" id="3_fuhwb"]
 [ext_resource type="PackedScene" uid="uid://db0wegivv1tne" path="res://ui/inventory/items/stamina_potion/stamina_potion.tscn" id="3_vjf0j"]
 [ext_resource type="Script" path="res://ui/inventory/audio/InventoryAudio.cs" id="5_6n7m6"]
 [ext_resource type="PackedScene" uid="uid://cq1et6a6bq72c" path="res://ui/inventory/items/arrow_hook/arrow_hook.tscn" id="5_q8eld"]
@@ -29,6 +30,13 @@ layout_mode = 0
 offset_left = 150.0
 offset_top = 487.0
 offset_right = 250.0
+offset_bottom = 587.0
+
+[node name="BootsSlot" parent="Panel" instance=ExtResource("3_fuhwb")]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 487.0
+offset_right = 400.0
 offset_bottom = 587.0
 
 [node name="Grid" type="Control" parent="Panel"]
@@ -61,6 +69,11 @@ offset_left = 1031.0
 offset_top = 100.0
 offset_right = 1281.0
 offset_bottom = 600.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 script = ExtResource("5_6n7m6")
