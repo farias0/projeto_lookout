@@ -652,6 +652,8 @@ public partial class Player : CharacterBody3D
 
 	private void Dash()
 	{
+		if (Velocity == Vector3.Zero) return;
+
 		if (ConsumeStamina(StaminaCostDash))
 		{
 			if (_hookedArrow != null) LeaveHookedArrow();
@@ -664,7 +666,7 @@ public partial class Player : CharacterBody3D
 			var direction = new Vector3(direction2D.X, 0, direction2D.Y);
 			_targetVelocity = direction * DashImpulse;
 
-			_effectsAudio!.PlayDash();
+				_effectsAudio!.PlayDash();
 		}
 		else {
 			// TODO play error sound
