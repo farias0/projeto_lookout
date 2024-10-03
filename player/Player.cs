@@ -656,7 +656,14 @@ public partial class Player : CharacterBody3D
 		{
 			if (_hookedArrow != null) LeaveHookedArrow();
 
-			_targetVelocity = Velocity.Normalized() * DashImpulse;
+			// Omnidirectional (OP)
+			// _targetVelocity = Velocity.Normalized() * DashImpulse;
+
+			// Horizontal only (nerfed)
+			var direction2D = (new Vector2(Velocity.X, Velocity.Z)).Normalized();
+			var direction = new Vector3(direction2D.X, 0, direction2D.Y);
+			_targetVelocity = direction * DashImpulse;
+
 			// _effectsAudio!.PlayDash();
 		}
 		else {
