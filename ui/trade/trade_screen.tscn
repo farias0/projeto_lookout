@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5h61astfe68v"]
+
+[ext_resource type="Script" path="res://ui/trade/TradeScreen.cs" id="1_6yhug"]
+
+[node name="Trade" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_6yhug")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 100.0
+offset_right = 1450.0
+offset_bottom = 800.0
+color = Color(0.051971, 0.051971, 0.051971, 0.607843)
+
+[node name="Panel" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 100.0
+offset_right = 1450.0
+offset_bottom = 800.0
+
+[node name="Frame" type="FlowContainer" parent="Panel"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_constants/h_separation = 24
+theme_override_constants/v_separation = 24

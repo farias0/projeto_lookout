@@ -258,11 +258,17 @@ public partial class Player : CharacterBody3D
 
 		// Debug
 		if (e.IsActionPressed("toggle_stamina"))	ToggleStamina();
+
+		if (e.IsActionPressed("buy") && Resources.Instance.OngroingTrade == null)
+		{
+			GD.Load<Trade>("res://npc/merchant/trade.tres").StartTrade(this);
+		}
 	}
 
 	public static bool IsMouseInputEnabled()
 	{
-		return !Resources.Instance.Inventory.IsEnabled();
+		return !Resources.Instance.Inventory.IsEnabled() &&
+				Resources.Instance.OngroingTrade == null;
 	}
 
 	public static int GetGoldAmount() => Resources.Instance.Inventory.Gold;

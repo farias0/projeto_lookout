@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cb2dy1uxcfqff"]
+
+[ext_resource type="Texture2D" uid="uid://b5ibk0vn0nk5d" path="res://ui/inventory/items/arrow_hook/icon.png" id="1_r6rpi"]
+[ext_resource type="Script" path="res://npc/trade/Sell.cs" id="2_gmkks"]
+
+[resource]
+script = ExtResource("2_gmkks")
+InventoryItem = "res://ui/inventory/items/arrow_hook/arrow_hook.tscn"
+Icon = ExtResource("1_r6rpi")
+ItemName = "Gancho"
+Price = 250

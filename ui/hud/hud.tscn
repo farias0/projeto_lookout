@@ -119,6 +119,7 @@ scale = Vector2(0.11, 0.11)
 texture = ExtResource("7_l4g8a")
 
 [node name="Amount" type="Label" parent="Items/HealthPotions"]
+layout_mode = 0
 offset_left = 53.16
 offset_top = 37.16
 offset_right = 93.16
@@ -128,6 +129,7 @@ text = "0
 "
 
 [node name="Hint" type="Label" parent="Items/HealthPotions"]
+layout_mode = 0
 offset_left = 20.16
 offset_top = 57.16
 offset_right = 60.16
@@ -146,6 +148,7 @@ scale = Vector2(0.11, 0.11)
 texture = ExtResource("10_lbshb")
 
 [node name="Amount" type="Label" parent="Items/StaminaPotions"]
+layout_mode = 0
 offset_left = 53.16
 offset_top = 37.16
 offset_right = 93.16
@@ -156,6 +159,7 @@ text = "0
 metadata/_edit_use_anchors_ = true
 
 [node name="Hint" type="Label" parent="Items/StaminaPotions"]
+layout_mode = 0
 offset_left = 20.16
 offset_top = 57.16
 offset_right = 60.16

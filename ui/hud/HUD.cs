@@ -4,6 +4,9 @@ using projeto_lookout.libs;
 
 public partial class HUD : CanvasLayer
 {
+	public static string GoldLabelPrefix; // The yene symbol is unicode and Godot doesn't like it
+
+
 	private TextureRect _healthBar;
 	private Vector2 _healthBarSize;
 
@@ -17,8 +20,8 @@ public partial class HUD : CanvasLayer
 	private Label _staminaPotionAmonutLabel;
 
 	private Label _goldLabel;
-	private string _goldLabelPrefix; // The yene symbol is unicode and Godot doesn't like it
 
+	private TextureRect _crosshair;
 
 	public override void _Ready()
 	{
@@ -33,11 +36,18 @@ public partial class HUD : CanvasLayer
 		_bowItemIcon = GetNode<TextureRect>("Items/BowItem/Icon");
 
 		_goldLabel = GetNode<Label>("GoldLabel");
-		_goldLabelPrefix = _goldLabel.Text;
+		GoldLabelPrefix = _goldLabel.Text;
 
 		_healthPotionAmoutLabel = GetNode<Label>("Items/HealthPotions/Amount");
 
 		_staminaPotionAmonutLabel = GetNode<Label>("Items/StaminaPotions/Amount");
+
+		_crosshair = GetNode<TextureRect>("Crosshair");
+	}
+
+	public void SetCrosshairEnabled(bool enabled)
+	{
+		_crosshair.Visible = enabled;
 	}
 
 	/// <param name="pct">Between 0 and 1</param>
@@ -69,7 +79,7 @@ public partial class HUD : CanvasLayer
 
 	public void SetGoldAmount(int amount)
 	{
-		_goldLabel.Text = _goldLabelPrefix + amount;
+		_goldLabel.Text = GoldLabelPrefix + amount;
 	}
 
 	public void SetHealthPotionAmount(int amount)

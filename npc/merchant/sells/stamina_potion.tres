@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://com80s8bxm30l"]
+
+[ext_resource type="Texture2D" uid="uid://d3bji7wm2m1yu" path="res://ui/inventory/items/stamina_potion/icon.png" id="1_4fwlt"]
+[ext_resource type="Script" path="res://npc/trade/Sell.cs" id="1_d7j6i"]
+
+[resource]
+script = ExtResource("1_d7j6i")
+InventoryItem = "res://ui/inventory/items/stamina_potion/stamina_potion.tscn"
+Icon = ExtResource("1_4fwlt")
+ItemName = "Poção de Energia"
+Price = 50

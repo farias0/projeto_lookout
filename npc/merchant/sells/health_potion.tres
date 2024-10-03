@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://jjp8al1d4xep"]
+
+[ext_resource type="Script" path="res://npc/trade/Sell.cs" id="1_22wdr"]
+[ext_resource type="Texture2D" uid="uid://cofohhx6vf3mw" path="res://ui/inventory/items/health_potion/icon.png" id="1_ggnuv"]
+
+[resource]
+script = ExtResource("1_22wdr")
+InventoryItem = "res://ui/inventory/items/health_potion/health_potion.tscn"
+Icon = ExtResource("1_ggnuv")
+ItemName = "Poção de Vida"
+Price = 150

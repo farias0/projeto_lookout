@@ -11,6 +11,7 @@ namespace projeto_lookout.libs
 		public Camera Camera { get; set; }
 		public Subtitles Subtitles { get; set; }
 		public Inventory Inventory { get; set; }
+		public TradeScreen OngroingTrade { get; set; }
 
 
 		public readonly PackedScene Arrow =
@@ -18,6 +19,9 @@ namespace projeto_lookout.libs
 
 		public readonly PackedScene Explosion =
 			GD.Load<PackedScene>("res://sfx/explosion/explosion.tscn");
+
+		public readonly PackedScene TradeScreen =
+			GD.Load<PackedScene>("res://ui/trade/trade_screen.tscn");
 
 
 		public override void _Ready()

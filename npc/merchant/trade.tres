@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://cwcuuc01fd2a5"]
+
+[ext_resource type="Script" path="res://npc/trade/Trade.cs" id="1_pbe0q"]
+[ext_resource type="Resource" uid="uid://jjp8al1d4xep" path="res://npc/merchant/sells/health_potion.tres" id="1_wisir"]
+[ext_resource type="Resource" uid="uid://com80s8bxm30l" path="res://npc/merchant/sells/stamina_potion.tres" id="2_jrv7g"]
+[ext_resource type="Resource" uid="uid://cb2dy1uxcfqff" path="res://npc/merchant/sells/arrow_hook.tres" id="3_vplr7"]
+[ext_resource type="Resource" uid="uid://bs0yhpyjaxits" path="res://npc/merchant/sells/arrow_rocket.tres" id="4_a6t3e"]
+
+[resource]
+script = ExtResource("1_pbe0q")
+Sells = Array[Resource]([ExtResource("1_wisir"), ExtResource("2_jrv7g"), ExtResource("3_vplr7"), ExtResource("4_a6t3e")])

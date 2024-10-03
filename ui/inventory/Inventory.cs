@@ -98,6 +98,7 @@ public partial class Inventory : Control
 	{
 		Visible = true;
 		Input.MouseMode = Input.MouseModeEnum.Visible;
+		Resources.Instance.HUD.SetCrosshairEnabled(false);
 	}
 
 	public void Disable()
@@ -105,6 +106,7 @@ public partial class Inventory : Control
 		Visible = false;
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		EmitSignal(nameof(ClosingInventory));
+		Resources.Instance.HUD.SetCrosshairEnabled(true);
 	}
 
 	public void StartDraggingItem(InventoryItem item)
@@ -172,8 +174,13 @@ public partial class Inventory : Control
 
 	public override void _Input(InputEvent e)
 	{
+		if (!IsMouseInputEnabled()) return;
+
 		if (e.IsActionPressed("toggle_inventory"))
 			ToggleEnabled();
+
+		if (e.IsActionPressed("back"))
+			Disable();
 
 		if (e.IsActionPressed("debug_toggle_cell_squares"))
 			DebugCellSquareEnabled = !DebugCellSquareEnabled;
@@ -183,6 +190,11 @@ public partial class Inventory : Control
 		{
 			//
 		}
+	}
+
+	public static bool IsMouseInputEnabled()
+	{
+		return Resources.Instance.OngroingTrade == null;
 	}
 
 	public void ToggleEnabled()
@@ -249,7 +261,7 @@ public partial class Inventory : Control
 
 	public bool SubtractGold(int amount)
 	{
-		if (amount < _gold) return false;
+		if (amount > _gold) return false;
 		_gold -= amount;
 		RefreshHUD();
 		// Audio.PlaySubtractGold();

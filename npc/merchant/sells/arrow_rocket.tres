@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bs0yhpyjaxits"]
+
+[ext_resource type="Texture2D" uid="uid://nlmnt6wrmlc0" path="res://ui/inventory/items/arrow_rocket/icon.png" id="1_6funu"]
+[ext_resource type="Script" path="res://npc/trade/Sell.cs" id="1_rg6pj"]
+
+[resource]
+script = ExtResource("1_rg6pj")
+InventoryItem = "res://ui/inventory/items/arrow_rocket/arrow_rocket.tscn"
+Icon = ExtResource("1_6funu")
+ItemName = "Míssil"
+Price = 400

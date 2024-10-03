@@ -32,6 +32,9 @@ ________________________
 
 
 - inimigos ouvirem o alerta do outro
+
+	- spawnar mais inimigos?							<<<<<<<<
+
 - cachorro latir alto pra alertar inimigos						<<<<<<<<
 
 
@@ -45,6 +48,8 @@ ________________________
 - testar Node tipo Path3D, ver se substitui PatrolPoints				<<<<<<<<
 
 - evitar explosões									<<<<<<<<
+
+- inimigo hitscan
 
 ________________________
 
@@ -70,7 +75,9 @@ ________________________
 - ponte retrátil
 	- colisão ao tentar sair dela
 
-- npc vendedor									<<<<<<<<<<<<<<<<<<<<
+- vendas
+	- npc comerciante							<<<<<<<<<<
+	- permitir itens limitados por quantidade
 
 - item da bota
 
@@ -118,6 +125,9 @@ Sons de:
 	- abrir e fechar inventário
 	- coletar item (faltantes)		<<<<<<
 - andando pela ponte				
+- compra					<<<<<<
+	- compra confirmada
+	- sem dinheiro
 
 Substituir sons:
 - npc						<<<<<
