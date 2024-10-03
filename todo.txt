@@ -85,10 +85,8 @@ ________________________
 - vendas
 	- permitir itens limitados por quantidade
 
-- item da bota										<<<<<<<<
-	- item de inventario do dash
-	- HUD de equipado
-	- funcionalidade do dash quando equipado
+- item da bota										
+	- funcionalidade do dash quando equipado					<<<<<<<<
 
 - barra de consumíveis
 

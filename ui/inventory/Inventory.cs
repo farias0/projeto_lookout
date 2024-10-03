@@ -582,6 +582,7 @@ public partial class Inventory : Control
 		Resources.Instance.HUD.SetHealthPotionAmount(HealthPotionCount);
 		Resources.Instance.HUD.SetStaminaPotionAmount(StaminaPotionCount);
 		Resources.Instance.HUD.SetBowItemIcon(_bowSlot.Item?.TextureNormal);
+		Resources.Instance.HUD.SetBootsItemIcon(_bootsSlot.Item?.TextureNormal);
 		Resources.Instance.HUD.SetGoldAmount(_gold);
 	}
 }

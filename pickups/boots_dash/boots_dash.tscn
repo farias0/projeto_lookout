@@ -357,6 +357,7 @@ size = Vector3(1.4, 1.4, 1.4)
 
 [node name="BootsDash" type="RigidBody3D"]
 script = ExtResource("1_5ghha")
+InventoryItem = "res://ui/inventory/items/boots_dash/boots_dash.tscn"
 
 [node name="MeshNode" type="Node3D" parent="."]
 transform = Transform3D(0.18, 0, 0, 0, 0.18, 0, 0, 0, 0.18, 0, 0.214127, 0)

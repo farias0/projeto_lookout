@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://5er8g2v4ilch"]
+[gd_scene load_steps=15 format=3 uid="uid://5er8g2v4ilch"]
 
 [ext_resource type="Script" path="res://ui/hud/HUD.cs" id="1_5chqj"]
 [ext_resource type="Texture2D" uid="uid://dvpfu3c846x0g" path="res://ui/hud/crosshair.png" id="2_mbq0h"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://lmxajhgnibil" path="res://ui/hud/items/right_click.png" id="7_jp2vr"]
 [ext_resource type="Texture2D" uid="uid://ch5wm3o6mga83" path="res://ui/hud/items/health_potion.png" id="7_l4g8a"]
 [ext_resource type="Theme" uid="uid://c8n5hhdbdljlw" path="res://ui/hud/items/font_items_amount.tres" id="8_2upsc"]
+[ext_resource type="Texture2D" uid="uid://dfp123rkheweh" path="res://ui/hud/items/shift.png" id="8_asq1w"]
 [ext_resource type="Theme" uid="uid://uanrkn6g6c4s" path="res://ui/hud/items/font_items_hint.tres" id="9_wwo6e"]
 [ext_resource type="Texture2D" uid="uid://d0s371s11t5yh" path="res://ui/hud/items/stamina_potion.png" id="10_lbshb"]
 [ext_resource type="Script" path="res://ui/hud/Subtitles.cs" id="11_a8v2h"]
@@ -82,9 +83,9 @@ text = "¥ "
 layout_mode = 3
 anchors_preset = 0
 offset_left = 83.0
-offset_top = 758.0
+offset_top = 638.0
 offset_right = 123.0
-offset_bottom = 798.0
+offset_bottom = 678.0
 
 [node name="BowItem" type="Control" parent="Items"]
 anchors_preset = 0
@@ -108,10 +109,33 @@ offset_bottom = 574.16
 scale = Vector2(0.0667502, 0.0618326)
 texture = ExtResource("7_jp2vr")
 
-[node name="HealthPotions" type="Control" parent="Items"]
+[node name="BootsItem" type="Control" parent="Items"]
 anchors_preset = 0
 offset_left = 100.0
-offset_right = 100.0
+offset_right = 140.0
+offset_bottom = 40.0
+
+[node name="Icon" type="TextureRect" parent="Items/BootsItem"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 5.0
+offset_right = 60.0
+offset_bottom = 55.0
+expand_mode = 2
+
+[node name="Hint" type="TextureRect" parent="Items/BootsItem"]
+layout_mode = 0
+offset_left = 20.16
+offset_top = 62.1602
+offset_right = 532.16
+offset_bottom = 574.16
+scale = Vector2(0.0667502, 0.0618326)
+texture = ExtResource("8_asq1w")
+
+[node name="HealthPotions" type="Control" parent="Items"]
+anchors_preset = 0
+offset_top = 120.0
+offset_bottom = 120.0
 
 [node name="Icon" type="Sprite2D" parent="Items/HealthPotions"]
 position = Vector2(39.16, 27.16)
@@ -139,8 +163,10 @@ text = "[1]"
 
 [node name="StaminaPotions" type="Control" parent="Items"]
 anchors_preset = 0
-offset_left = 200.0
-offset_right = 200.0
+offset_left = 100.0
+offset_top = 120.0
+offset_right = 100.0
+offset_bottom = 120.0
 
 [node name="Icon" type="Sprite2D" parent="Items/StaminaPotions"]
 position = Vector2(39.16, 27.16)
