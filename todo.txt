@@ -87,6 +87,10 @@ ________________________
 
 - barra de consumíveis
 
+- carregar caixas
+
+- derrubar rochas
+
 - poderes										
 	- arco
 		- flecha de gelo (em paredes cria viga, em inimigo congela)		<<<<<<<<
